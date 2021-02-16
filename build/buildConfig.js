@@ -187,31 +187,31 @@ module.exports = (bundles, themeEntries, paths, plugins = [], prod, publicPath, 
         publicPath: "/" + publicPath,
         proxy: proxy || {
             '/rest': {
-                target: "https://dev.mapstore.geo-solutions.it/mapstore",
+                target: "http://localhost:8080/mapstore",
                 secure: false,
                 headers: {
-                    host: "dev.mapstore.geo-solutions.it"
+                    host: "localhost:8080"
                 }
             },
             '/pdf': {
-                target: "https://dev.mapstore.geo-solutions.it/mapstore",
+                target: "http://localhost:8080/mapstore",
                 secure: false,
                 headers: {
-                    host: "dev.mapstore.geo-solutions.it"
+                    host: "localhost:8080"
                 }
             },
             '/mapstore/pdf': {
-                target: "https://dev.mapstore.geo-solutions.it",
+                target: "http://localhost:8080",
                 secure: false,
                 headers: {
-                    host: "dev.mapstore.geo-solutions.it"
+                    host: "localhost:8080"
                 }
             },
             '/proxy': {
-                target: "https://dev.mapstore.geo-solutions.it/mapstore",
+                target: "http://localhost:8080/mapstore",
                 secure: false,
                 headers: {
-                    host: "dev.mapstore.geo-solutions.it"
+                    host: "localhost:8080"
                 }
             },
             '/docs': {
