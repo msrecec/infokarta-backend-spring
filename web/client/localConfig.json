@@ -278,7 +278,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details",
+        "desktop": ["Details", "Grobovi",
           {
             "name": "Map",
             "cfg": {

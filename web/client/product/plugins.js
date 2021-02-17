@@ -12,6 +12,7 @@
 export default {
     plugins: {
         // product plugins
+        GroboviPlugin: require('../plugins/Grobovi').default,
         AboutPlugin: require('./plugins/About').default,
         AttributionPlugin: require('./plugins/Attribution').default,
         ExamplesPlugin: require('./plugins/Examples').default,
