@@ -17,6 +17,7 @@ const style = {
 // const Component = () => <div style={style}>Hello</div>;
 const Component = () => {
     const [pokojnici, setPokojnici] = useState("Ovo su pokojnici");
+    const [mock, setMock] = useState("Mock");
     const getPokojnici = () => {
         const url = 'http://localhost:8080/mapstore/rest/config/pokojnici';
         axios.get(url).then(function(response) {
@@ -27,6 +28,16 @@ const Component = () => {
             setPokojnici(error)
         })
     }
+    const getMock = () => {
+        const url = 'http://localhost:3000/posts/';
+        axios.get(url).then(function(response) {
+        console.log(response.data)
+        setMock(`${response.data[0].author} ${response.data[0].id} ${response.data[0].title}`)
+        }).catch(function(error) {
+            console.log(error)
+            setMock(error)
+        })
+    }
     useEffect(() => {
         // getPokojnici();
     });
@@ -34,6 +45,8 @@ const Component = () => {
         <div style={style}>
             <div>{pokojnici}</div>
             <button onClick={getPokojnici}>Dohvati pokojnike</button>
+            <div>{mock}</div>
+            <button onClick={getMock}>Dohvati mock</button>
         </div>
     );
 }
