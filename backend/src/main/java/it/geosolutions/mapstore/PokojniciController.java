@@ -2,9 +2,8 @@ package it.geosolutions.mapstore;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.geosolutions.mapstore.api.Pokojnik;
-import it.geosolutions.mapstore.config.PokojniciJDBCConfig;
-import org.springframework.jdbc.core.JdbcTemplate;
+import it.geosolutions.mapstore.DAO.PokojniciJDBCTemplate;
+import it.geosolutions.mapstore.pojo.Pokojnik;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.sql.DataSource;
-import java.io.FileReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
@@ -22,16 +21,32 @@ import java.util.Properties;
 @Controller
 public class PokojniciController {
 
-//    @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
-//    public @ResponseBody String pokojnici() {
-//        PokojniciJDBCConfig pokojniciConfig = new PokojniciJDBCConfig();
-//        DataSource dataSource = pokojniciConfig.postgresqlDataSource();
-//        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-//        Pokojnik pokojnik = jdbcTemplate.query("SELECT *  FROM geostore.pokojnici limit 1", Pokojnik.class);
-//
-//        return pokojnik.toString();
-//
-//    }
+    @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
+    public @ResponseBody String pokojnici() {
+        PokojniciJDBCTemplate pokojniciJDBCTemplate = new PokojniciJDBCTemplate();
+
+        List<Pokojnik> pokojnici = pokojniciJDBCTemplate.listPokojnici();
+
+        // writes a list to json array
+
+        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+        final ObjectMapper mapper = new ObjectMapper();
+        String json = "";
+        try {
+            mapper.writeValue(out, pokojnici);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        final byte[] data = out.toByteArray();
+
+        String stringData = new String(data);
+
+        return stringData;
+
+    }
 
     public static Connection connectToDatabase() throws SQLException, IOException {
         Properties svojstva = new Properties();
@@ -49,7 +64,7 @@ public class PokojniciController {
         veza.close();
     }
     @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
+    @RequestMapping(value = "/pokojnici2", method = RequestMethod.GET)
     public @ResponseBody String pokojnici2() throws IOException, SQLException {
         Connection veza = connectToDatabase();
         Statement stmt = veza.createStatement();

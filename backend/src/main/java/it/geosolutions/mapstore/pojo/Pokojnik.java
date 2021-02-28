@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.api;
+package it.geosolutions.mapstore.pojo;
 
 public class Pokojnik {
     private Integer ogc_fid;

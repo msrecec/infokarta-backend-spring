@@ -1,6 +1,6 @@
 package it.geosolutions.mapstore.DAO;
 
-import it.geosolutions.mapstore.api.Pokojnik;
+import it.geosolutions.mapstore.pojo.Pokojnik;
 
 import javax.sql.DataSource;
 import java.util.List;
