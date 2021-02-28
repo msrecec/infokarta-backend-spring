@@ -11,4 +11,6 @@ public interface PokojniciDAO {
 
     public List<Pokojnik> listPokojnici();
 
+    public Pokojnik getPokojnik(Integer id);
+
 }

@@ -8,11 +8,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 import java.util.List;
 
-public class PokojniciJDBCTemplate implements PokojniciDAO {
+public class PokojniciDAOImpl implements PokojniciDAO {
 
     private JdbcTemplate jdbcTemplateObject;
 
-    public PokojniciJDBCTemplate() {
+    public PokojniciDAOImpl() {
         JDBCConfig jdbcConfig = new JDBCConfig();
         this.jdbcTemplateObject = new JdbcTemplate(jdbcConfig.postgresqlDataSource());
     }
@@ -24,9 +24,17 @@ public class PokojniciJDBCTemplate implements PokojniciDAO {
 
     @Override
     public List<Pokojnik> listPokojnici() {
-        String sql = "select * from geostore.pokojnici";
+        String sql = "SELECT * FROM geostore.pokojnici";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List <Pokojnik> pokojnici = jdbcTemplateObject.query(sql, pokojnikMapper);
         return pokojnici;
+    }
+
+    @Override
+    public Pokojnik getPokojnik(Integer id) {
+        String sql = "SELECT * FROM geostore.pokojnici WHERE fid = ?";
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
+        Pokojnik pokojnik = (Pokojnik) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, pokojnikMapper);
+        return pokojnik;
     }
 }

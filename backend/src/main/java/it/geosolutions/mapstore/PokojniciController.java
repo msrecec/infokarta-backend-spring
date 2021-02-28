@@ -2,15 +2,17 @@ package it.geosolutions.mapstore;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.geosolutions.mapstore.DAO.PokojniciJDBCTemplate;
+import it.geosolutions.mapstore.DAO.PokojniciDAO;
+import it.geosolutions.mapstore.DAO.PokojniciDAOImpl;
 import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.*;
@@ -22,30 +24,26 @@ import java.util.Properties;
 public class PokojniciController {
 
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
-    public @ResponseBody String pokojnici() {
-        PokojniciJDBCTemplate pokojniciJDBCTemplate = new PokojniciJDBCTemplate();
+    public @ResponseBody String getPokojnici() {
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
-        List<Pokojnik> pokojnici = pokojniciJDBCTemplate.listPokojnici();
+        List<Pokojnik> pokojnici = pokojniciDAO.listPokojnici();
 
-        // writes a list to json array
-
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final ObjectMapper mapper = new ObjectMapper();
-        String json = "";
-        try {
-            mapper.writeValue(out, pokojnici);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        final byte[] data = out.toByteArray();
-
-        String stringData = new String(data);
+        String stringData = JSONUtils.fromListToJSON(pokojnici);
 
         return stringData;
 
+    }
+
+    @RequestMapping(value = "/pokojnici/{id}", method = RequestMethod.GET)
+    public @ResponseBody String getPokojnik(@PathVariable Integer id) {
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        Pokojnik pokojnik = pokojniciDAO.getPokojnik(id);
+
+        String json = JSONUtils.fromPOJOToJSON(pokojnik);
+
+        return json;
     }
 
     public static Connection connectToDatabase() throws SQLException, IOException {
@@ -160,17 +158,7 @@ public class PokojniciController {
             pokojnik.setDatum_usluge(rs.getString(28));
         }
 
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        String json = "";
-        try {
-            json = mapper.writeValueAsString(pokojnik);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-
+        String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
         closeConnectionToDatabase(veza);
 
