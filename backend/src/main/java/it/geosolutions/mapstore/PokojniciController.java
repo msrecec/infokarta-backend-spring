@@ -24,9 +24,9 @@ public class PokojniciController {
 
         List<Pokojnik> pokojnici = pokojniciDAO.listPokojnici();
 
-        String stringData = JSONUtils.fromListToJSON(pokojnici);
+        String jsonArray = JSONUtils.fromListToJSON(pokojnici);
 
-        return stringData;
+        return jsonArray;
 
     }
 

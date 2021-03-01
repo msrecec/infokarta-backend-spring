@@ -24,7 +24,7 @@ public class PokojniciDAOImpl implements PokojniciDAO {
 
     @Override
     public List<Pokojnik> listPokojnici() {
-        String sql = "SELECT * FROM geostore.pokojnici";
+        String sql = "SELECT * FROM public.\"Pokojnici\"";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List <Pokojnik> pokojnici = jdbcTemplateObject.query(sql, pokojnikMapper);
         return pokojnici;
@@ -32,7 +32,7 @@ public class PokojniciDAOImpl implements PokojniciDAO {
 
     @Override
     public Pokojnik getPokojnik(Integer id) {
-        String sql = "SELECT * FROM geostore.pokojnici WHERE fid = ?";
+        String sql = "SELECT * FROM public.\"Pokojnici\" WHERE fid = ?";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         Pokojnik pokojnik = (Pokojnik) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, pokojnikMapper);
         return pokojnik;
