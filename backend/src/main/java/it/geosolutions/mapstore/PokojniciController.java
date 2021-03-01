@@ -6,12 +6,10 @@ import it.geosolutions.mapstore.pojo.Pokojnik;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -51,6 +49,23 @@ public class PokojniciController {
         List<String> columns = pokojniciDAO.listColumns();
 
         String json = JSONUtils.fromListToJSON(columns);
+
+        return json;
+    }
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici/page/{pageNum}", method = RequestMethod.GET)
+    public @ResponseBody String getPage(@PathVariable Integer pageNum) {
+        String json = "";
+
+        if(pageNum > 0) {
+
+            PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+            List<Pokojnik> columns = pokojniciDAO.listPage(pageNum);
+
+            json = JSONUtils.fromListToJSON(columns);
+        }
+
 
         return json;
     }

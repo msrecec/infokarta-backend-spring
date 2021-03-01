@@ -40,7 +40,6 @@ public class PokojniciDAOImpl implements PokojniciDAO {
                 ResultSetMetaData rsmd = rs.getMetaData();
                 for(int i = 0; i < rsmd.getColumnCount(); ++i) {
                     columnNames.add(rsmd.getColumnName(i+1));
-                    System.out.println(rsmd.getColumnName(i+1));
                 }
 
             }
@@ -58,6 +57,17 @@ public class PokojniciDAOImpl implements PokojniciDAO {
             throwables.printStackTrace();
         }
         return columnNames;
+    }
+
+    @Override
+    public List<Pokojnik> listPage(Integer pageNum) {
+        Integer offset, limit;
+        limit = 10;
+        offset = (pageNum-1) * limit;
+        String sql = "SELECT * FROM public.\"Pokojnici\" LIMIT ? OFFSET ?";
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
+        List <Pokojnik> pokojnici = jdbcTemplateObject.query(sql, new Object[]{limit, offset} ,pokojnikMapper);
+        return pokojnici;
     }
 
     @Override

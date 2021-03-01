@@ -15,4 +15,6 @@ public interface PokojniciDAO {
 
     public List<String> listColumns();
 
+    public List<Pokojnik> listPage(Integer pageNum);
+
 }
