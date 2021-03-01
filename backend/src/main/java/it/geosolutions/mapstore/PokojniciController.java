@@ -41,4 +41,17 @@ public class PokojniciController {
 
         return json;
     }
+
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici/columns", method = RequestMethod.GET)
+    public @ResponseBody String getColumns() {
+
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        List<String> columns = pokojniciDAO.listColumns();
+
+        String json = JSONUtils.fromListToJSON(columns);
+
+        return json;
+    }
 }

@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PokojniciDAOImpl implements PokojniciDAO {
@@ -20,6 +22,42 @@ public class PokojniciDAOImpl implements PokojniciDAO {
     @Override
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+    }
+
+    @Override
+    public List<String> listColumns() {
+        JDBCConfig jdbcConfig = new JDBCConfig();
+        DataSource dataSource = jdbcConfig.postgresqlDataSource();
+        Connection conn = null;
+        Statement stmt;
+        ArrayList<String> columnNames = new ArrayList<>();
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Pokojnici\" LIMIT 1");
+
+            if(rs != null) {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                for(int i = 0; i < rsmd.getColumnCount(); ++i) {
+                    columnNames.add(rsmd.getColumnName(i+1));
+                    System.out.println(rsmd.getColumnName(i+1));
+                }
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            conn.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return columnNames;
     }
 
     @Override
