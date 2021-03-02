@@ -62,7 +62,7 @@ public class PokojniciDAOImpl implements PokojniciDAO {
     @Override
     public List<Pokojnik> listPage(Integer pageNum) {
         Integer offset, limit;
-        limit = 10;
+        limit = 30;
         offset = (pageNum-1) * limit;
         String sql = "SELECT * FROM public.\"Pokojnici\" LIMIT ? OFFSET ?";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
