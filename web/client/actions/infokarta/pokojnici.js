@@ -1,22 +1,11 @@
-const DECEASED_LOADED = 'DECEASED_LOADED';
+export const DECEASED_LOADED = 'DECEASED_LOADED';
+export const LOAD_DECEASED = 'LOAD_DECEASED';
 
-function deceasedLoaded(deceased) {
-    console.log('action');
-    return {
-        type: DECEASED_LOADED,
-        deceased
-    };
-}
+export const deceasedLoaded = (deceased) => ({
+    type: DECEASED_LOADED,
+    deceased
+});
 
-function loadDeceased(data) {
-    return (dispatch) => {
-        console.log('dispatch');
-        dispatch(deceasedLoaded(data));
-    };
-}
-
-module.exports = {
-    DECEASED_LOADED,
-    deceasedLoaded,
-    loadDeceased
-};
+export const loadDeceased = () => ({
+    type: LOAD_DECEASED
+});

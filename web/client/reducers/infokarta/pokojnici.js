@@ -1,21 +1,22 @@
-const {
+import {
     DECEASED_LOADED
-} = require('../../actions/infokarta/pokojnici');
+} from '../../actions/infokarta/pokojnici';
 
-function pokojnici(state = {
+const pokojnici = (state = {
     deceased: []
-}, action) {
+}, action) => {
     switch (action.type) {
     case DECEASED_LOADED: {
-        console.log('reducer1');
+        // console.log('reducer1');
         return {
+            ...state,
             deceased: action.deceased
         };
     }
     default:
-        console.log('reducer2');
+        // console.log('reducer2');
         return state;
     }
-}
+};
 
-module.exports = pokojnici;
+export default pokojnici;

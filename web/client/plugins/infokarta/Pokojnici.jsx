@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { get } from "lodash";
+
+import {
+    loadDeceased
+} from "../../actions/infokarta/pokojnici";
+
 import { createPlugin } from '../../utils/PluginsUtils';
-import axios from '../../libs/ajax';
+
+import pokojnici from '../../reducers/infokarta/pokojnici';
+import * as epics from '../../epics/infokarta/pokojnici';
 
 import TableComponent from '../../components/infokarta/Table';
-import PaginationComponent from '../../components/infokarta/Pagination';
-
-import { loadDeceased } from '../../actions/infokarta/pokojnici';
-import { get } from 'lodash';
-
-// import Api from '../api/Pokojnici'
-import { connect } from 'react-redux';
+// import PaginationComponent from '../../components/infokarta/Pagination';
 
 const style = {
     position: "absolute",
@@ -20,39 +23,29 @@ const style = {
     padding: 10
 };
 
-// TODO pocisti ovo i popravi dispatch
-const Component = () => {
-    // const [pokojnici, setPokojnici] = useState("Ovo su pokojnici");
+const PokojniciPlugin = ({
+    data,
+    loadData = () => {}
+}) => {
+    const table = (<TableComponent
+        items={data ? data : []} />);
 
-    const getPokojnici = () => {
-        const url = 'http://localhost:8080/mapstore/rest/config/pokojnici';
-        axios.get(url).then(function(response) {
-            loadDeceased(response.data);
-            console.log(response);
-        }).catch(function(error) {
-            console.log(error);
-        });
-    };
-
-    // const table = <TableComponent items={pokojnici} />;
-    // const pagination = <PaginationComponent numberOfPages={pokojnici.length/30} />;
     return (
         <div style={style}>
-            <button onClick={getPokojnici}>Dohvati pokojnike</button>
-            {/* <div>{table}</div>
-            <div>{pagination}</div> */}
+            <button onClick={loadData}>Dohvati pokojnike</button>
+            {table}
         </div>
     );
 };
 
-const ConnectedComponent = connect((state) => {
-    return {
-        pokojnici: get(state, 'pokojnici.deceased')
-    };
-}, {
-    // onGetGraves: getGraves
-})(Component);
-
-export default createPlugin('Grobovi', {
-    component: ConnectedComponent
+export default createPlugin('Pokojnici', {
+    component: connect((state) => ({
+        data: get(state, "pokojnici.deceased")
+    }), {
+        loadData: loadDeceased
+    })(PokojniciPlugin),
+    epics,
+    reducers: {
+        pokojnici
+    }
 });

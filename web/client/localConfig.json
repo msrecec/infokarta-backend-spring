@@ -279,7 +279,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "Grobovi",
+        "desktop": ["Details", "Pokojnici",
           {
             "name": "Map",
             "cfg": {
