@@ -13,4 +13,8 @@ public interface PokojniciDAO {
 
     public Pokojnik getPokojnik(Integer id);
 
+    public List<String> listColumns();
+
+    public List<Pokojnik> listPage(Integer pageNum);
+
 }

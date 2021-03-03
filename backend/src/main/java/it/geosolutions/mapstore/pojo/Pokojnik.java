@@ -1,7 +1,6 @@
 package it.geosolutions.mapstore.pojo;
 
 public class Pokojnik {
-    private Integer ogc_fid;
     private Integer fid;
     private Integer fk;
     private String ime_i_prezime;
@@ -33,7 +32,6 @@ public class Pokojnik {
     @Override
     public String toString() {
         return "Pokojnik{" +
-            "ogc_fid=" + ogc_fid +
             ", fid=" + fid +
             ", fk=" + fk +
             ", ime_i_prezime='" + ime_i_prezime + '\'' +
@@ -62,14 +60,6 @@ public class Pokojnik {
             ", racun=" + racun +
             ", datum_usluge='" + datum_usluge + '\'' +
             '}';
-    }
-
-    public Integer getOgc_fid() {
-        return ogc_fid;
-    }
-
-    public void setOgc_fid(Integer ogc_fid) {
-        this.ogc_fid = ogc_fid;
     }
 
     public Integer getFid() {
