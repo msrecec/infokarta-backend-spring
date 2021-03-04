@@ -8,6 +8,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,32 +18,35 @@ public class PokojniciController {
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
-    public @ResponseBody String getPokojnici() {
+    @ResponseBody
+    public byte[] getPokojnici() throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         List<Pokojnik> pokojnici = pokojniciDAO.listPokojnici();
 
         String jsonArray = JSONUtils.fromListToJSON(pokojnici);
 
-        return jsonArray;
+        return jsonArray.getBytes("UTF-8");
 
     }
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/{id}", method = RequestMethod.GET)
-    public @ResponseBody String getPokojnik(@PathVariable Integer id) {
+    @ResponseBody
+    public byte[] getPokojnik(@PathVariable Integer id) throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         Pokojnik pokojnik = pokojniciDAO.getPokojnik(id);
 
         String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
-        return json;
+        return json.getBytes("UTF-8");
     }
 
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/columns", method = RequestMethod.GET)
-    public @ResponseBody String getColumns() {
+    @ResponseBody
+    public byte[] getColumns() throws UnsupportedEncodingException {
 
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
@@ -50,11 +54,12 @@ public class PokojniciController {
 
         String json = JSONUtils.fromListToJSON(columns);
 
-        return json;
+        return json.getBytes("UTF-8");
     }
     @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/page/{pageNum}", method = RequestMethod.GET)
-    public @ResponseBody String getPage(@PathVariable Integer pageNum) {
+    @ResponseBody
+    public byte[] getPage(@PathVariable Integer pageNum) throws UnsupportedEncodingException {
         String json = "";
 
         if(pageNum > 0) {
@@ -66,7 +71,6 @@ public class PokojniciController {
             json = JSONUtils.fromListToJSON(columns);
         }
 
-
-        return json;
+        return json.getBytes("UTF-8");
     }
 }
