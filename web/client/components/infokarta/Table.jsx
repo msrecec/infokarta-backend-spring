@@ -1,42 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Button, Modal, Form} from 'react-bootstrap';
+import {Table, Button} from 'react-bootstrap';
 
 const style = {
-    overflow: "scroll",
-    maxHeight: "500px"
+    overflow: "auto",
+    maxHeight: "500px",
+    maxWidth: "1400px"
 };
 
-// let itemToEdit = null;
-
-// funkcija za uljepsat headere pomoću regexa, mijenja underscore sa razmakon i uvecava prvo slovo
+// funkcija za uljepsat headere, mijenja underscore sa razmakon i povecava prvo slovo
 const beautifyHeader = (header) => {
     const regex = /([_])/g;
     const capitalisedHeader = header.charAt(0).toUpperCase() + header.slice(1);
     return capitalisedHeader.replaceAll(regex, ' ');
 };
 
-// TODO poslat item za edit u state > dodat kontrolu za modal u state > ucitat item u modal i upalit ga
-// https://stackoverflow.com/a/35641680
-
-// const loadModalData = (item) => {
-// showModal();
-// console.log(item);
-// itemToEdit = item;
-// };
-
 class TableComponent extends React.Component {
   static propTypes = {
-      items: PropTypes.array
+      items: PropTypes.array,
+      sendData: PropTypes.func
   };
 
   render() {
       return (
           <div style={style}>
-              <Table striped bordered hover size="sm">
+              <Table striped bordered hover size="sm" responsive="sm">
                   <thead>
                       <tr>
-                          <th key="#">#</th> {/* koristi se tako da edit botun ne pomakne sve udesno za jedno misto */}
+                          <th key="#">#</th>
+                          {/* koristi se tako da edit botun ne pomakne sve udesno za jedno misto */}
                           {this.props.items[0] ?
                               Object.keys(this.props.items[0]).map((header) =>
                                   <th key={header}>{beautifyHeader(header)}</th>
@@ -46,42 +38,19 @@ class TableComponent extends React.Component {
                   <tbody>
                       {this.props.items.map((item) =>
                           <tr key={item.fid}>
-                              <td><Button variant="Primary">Uredi</Button></td>
+                              <td><Button variant="Primary" onClick={() => this.props.sendData(item)}>Uredi</Button></td>
+                              {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.values(item).map((field) =>
-                                  <td>{field}</td> // TODO nac neki smisleni key za postavit ovde, ispitat jel potrebno uopce
+                                  <td>{field}</td>
+                                  // TODO nac neki smisleni key za postavit ovde, ispitat jel potrebno uopce
                               )}
                           </tr>
                       )}
                   </tbody>
               </Table>
-              {/* <ModalComponent /> */}
           </div>
       );
   }
 }
-
-// const ModalComponent = () => {
-//     const [show, setShow] = useState(false);
-
-//     const closeModal = () => setShow(false);
-//     const showModal = () => setShow(true);
-
-//     return (
-//         <Modal show={show} onHide={closeModal}>
-//             <Modal.Header closeButton>
-//                 <Modal.Title>Uređivanje stavke</Modal.Title>
-//             </Modal.Header>
-//             <Modal.Body>{itemToEdit.ime_i_prezime}</Modal.Body>
-//             <Modal.Footer>
-//                 <Button variant="secondary" onClick={closeModal}>
-//                   Zatvori
-//                 </Button>
-//                 <Button variant="primary" onClick={closeModal}> {/* dodat edit funkciju */}
-//                   Spremi promjene
-//                 </Button>
-//             </Modal.Footer>
-//         </Modal>
-//     );
-// };
 
 export default TableComponent;

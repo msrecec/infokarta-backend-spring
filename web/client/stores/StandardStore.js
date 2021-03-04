@@ -40,6 +40,7 @@ const appStore = (
         locales: () => null,
         browser,
         pokojnici: require('../reducers/infokarta/pokojnici'),
+        dynamicModalControl: require('../reducers/infokarta/dynamicModalControl'),
         // TODO: missing locale default reducer
         ...(!storeOpts.noRouter && { router: connectRouter(history) })
     });
