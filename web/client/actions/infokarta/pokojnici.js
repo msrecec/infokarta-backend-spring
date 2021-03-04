@@ -1,11 +1,22 @@
-export const DECEASED_LOADED = 'DECEASED_LOADED';
-export const LOAD_DECEASED = 'LOAD_DECEASED';
+export const DECEASED_LOADED = "DECEASED_LOADED";
+export const LOAD_DECEASED = "LOAD_DECEASED";
+export const DECEASED_LOADED_BY_PAGE = "DECEASED_LOADED_BY_PAGE";
+export const LOAD_DECEASED_BY_PAGE = "LOAD_DECEASED_BY_PAGE";
 
 export const deceasedLoaded = (deceased) => ({
     type: DECEASED_LOADED,
-    deceased
+    deceased,
 });
 
 export const loadDeceased = () => ({
-    type: LOAD_DECEASED
+    type: LOAD_DECEASED,
+});
+
+export const deceasedLoadedByPage = (pageNumber) => ({
+    type: DECEASED_LOADED_BY_PAGE,
+    pageNumber,
+});
+
+export const loadDeceasedByPage = () => ({
+    type: LOAD_DECEASED_BY_PAGE,
 });
