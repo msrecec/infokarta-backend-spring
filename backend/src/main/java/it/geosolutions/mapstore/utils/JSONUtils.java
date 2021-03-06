@@ -11,9 +11,9 @@ public interface JSONUtils {
     static <T> String fromListToJSON(List<T> list) {
 
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-        final ObjectMapper mapper = new ObjectMapper();
+        final ObjectMapper objectMapper = new ObjectMapper();
         try {
-            mapper.writeValue(out, list);
+            objectMapper.writeValue(out, list);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -27,13 +27,21 @@ public interface JSONUtils {
 
     static <P> String fromPOJOToJSON(P pojo) {
 
-        ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         String json = "";
         try {
-            json = mapper.writeValueAsString(pojo);
+            json = objectMapper.writeValueAsString(pojo);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return json;
+    }
+
+    static <P> P fromJSONtoPOJO(String json, Class<P> typeParameterClass ) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Class<P> typeClass = typeParameterClass;
+        P p = objectMapper.readValue(json, typeClass);
+
+        return p;
     }
 }

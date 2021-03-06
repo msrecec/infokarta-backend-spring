@@ -85,4 +85,10 @@ public class PokojniciDAOImpl implements PokojniciDAO {
         Pokojnik pokojnik = (Pokojnik) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, pokojnikMapper);
         return pokojnik;
     }
+
+    @Override
+    public boolean addPokojnik(Pokojnik pokojnik) {
+        String sql = "";
+        return false;
+    }
 }

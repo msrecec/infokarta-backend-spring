@@ -17,4 +17,6 @@ public interface PokojniciDAO {
 
     public List<Pokojnik> listPage(Integer pageNum);
 
+    public boolean addPokojnik(Pokojnik pokojnik);
+
 }

@@ -16,7 +16,7 @@ import java.util.Optional;
 @Controller
 public class PokojniciController {
 
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPokojnici() throws UnsupportedEncodingException {
@@ -30,7 +30,7 @@ public class PokojniciController {
 
     }
 
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPokojnik(@PathVariable Integer id) throws UnsupportedEncodingException {
@@ -43,7 +43,7 @@ public class PokojniciController {
         return json.getBytes("UTF-8");
     }
 
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/columns", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getColumns() throws UnsupportedEncodingException {
@@ -56,7 +56,7 @@ public class PokojniciController {
 
         return json.getBytes("UTF-8");
     }
-    @Secured({"ROLE_ADMIN"})
+//    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/page/{pageNum}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getPage(@PathVariable Integer pageNum) throws UnsupportedEncodingException {
@@ -73,4 +73,10 @@ public class PokojniciController {
 
         return json.getBytes("UTF-8");
     }
+/*
+    @RequestMapping(value = "/pokojnici/", method = RequestMethod.POST) {
+        @ResponseBody
+            public byte[] addPokojnik(@PathVariable)
+    }
+*/
 }
