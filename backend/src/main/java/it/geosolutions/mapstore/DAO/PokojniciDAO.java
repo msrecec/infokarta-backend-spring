@@ -4,6 +4,7 @@ import it.geosolutions.mapstore.pojo.Pokojnik;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
 
 public interface PokojniciDAO {
 
@@ -11,11 +12,11 @@ public interface PokojniciDAO {
 
     public List<Pokojnik> listPokojnici();
 
-    public Pokojnik getPokojnik(Integer id);
+    public Pokojnik getPokojnikById(Optional<Integer> id);
+
+    public List<Pokojnik> getPokojnikByImeOrPrezimeOrPage(Optional<String> ime, Optional<String> prezime, Optional<String> imeOca, Optional<Integer> oPage);
 
     public List<String> listColumns();
-
-    public List<Pokojnik> listPage(Integer pageNum);
 
     public boolean addPokojnik(Pokojnik pokojnik);
 

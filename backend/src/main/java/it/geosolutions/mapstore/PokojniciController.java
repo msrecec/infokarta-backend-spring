@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +20,29 @@ public class PokojniciController {
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getPokojnici() throws UnsupportedEncodingException {
+    public byte[] getPokojnici(
+        @RequestParam(value = "ime", required = false) String ime,
+        @RequestParam(value = "prezime", required = false) String prezime,
+        @RequestParam(value = "imeoca", required = false) String imeoca,
+        @RequestParam(value = "page", required = false) Integer page)
+        throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+        List<Pokojnik> pokojnici = new ArrayList<>();
+        Pokojnik pokojnik;
+        String jsonArray;
+        Optional<String> oIme = Optional.ofNullable(ime);
+        Optional<String> oPrezime = Optional.ofNullable(prezime);
+        Optional<String> oImeOca = Optional.ofNullable(imeoca);
+        Optional<Integer> oPage = Optional.ofNullable(page);
 
-        List<Pokojnik> pokojnici = pokojniciDAO.listPokojnici();
+        if(!oIme.isPresent() && !oPrezime.isPresent() && !oPage.isPresent()) {
+            pokojnici.addAll(pokojniciDAO.listPokojnici());
+        }
+        else {
+            pokojnici.addAll(pokojniciDAO.getPokojnikByImeOrPrezimeOrPage(oIme, oPrezime, oImeOca, oPage));
+        }
 
-        String jsonArray = JSONUtils.fromListToJSON(pokojnici);
+        jsonArray = JSONUtils.fromListToJSON(pokojnici);
 
         return jsonArray.getBytes("UTF-8");
 
@@ -35,8 +53,9 @@ public class PokojniciController {
     @ResponseBody
     public byte[] getPokojnik(@PathVariable Integer id) throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+        Optional<Integer> oId = Optional.ofNullable(id);
 
-        Pokojnik pokojnik = pokojniciDAO.getPokojnik(id);
+        Pokojnik pokojnik = pokojniciDAO.getPokojnikById(oId);
 
         String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
@@ -56,27 +75,4 @@ public class PokojniciController {
 
         return json.getBytes("UTF-8");
     }
-//    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici/page/{pageNum}", method = RequestMethod.GET)
-    @ResponseBody
-    public byte[] getPage(@PathVariable Integer pageNum) throws UnsupportedEncodingException {
-        String json = "";
-
-        if(pageNum > 0) {
-
-            PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-
-            List<Pokojnik> columns = pokojniciDAO.listPage(pageNum);
-
-            json = JSONUtils.fromListToJSON(columns);
-        }
-
-        return json.getBytes("UTF-8");
-    }
-/*
-    @RequestMapping(value = "/pokojnici/", method = RequestMethod.POST) {
-        @ResponseBody
-            public byte[] addPokojnik(@PathVariable)
-    }
-*/
 }
