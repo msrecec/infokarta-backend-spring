@@ -24,14 +24,14 @@ const style = {
     padding: 10
 };
 
-const PokojniciPlugin = ({ data, loadData = () => {} }) => {
+const PokojniciPlugin = ({ data, loadDataByPage = () => {} }) => {
     const table = <TableComponent items={data ? data : []} />;
-    const pagination = <PaginationComponent numberOfPages={21} sendData={loadDeceasedByPage} />;
+    const pagination = <PaginationComponent numberOfPages={21} sendData={loadDataByPage} />;
     // console.log(loadDataByPage, "daa");
 
     return (
         <div style={style}>
-            <button onClick={loadData}>Dohvati pokojnike</button>
+            <button onClick={loadDataByPage(1)}>Dohvati pokojnike</button>
             {table}
             {pagination}
         </div>
@@ -42,7 +42,6 @@ export default createPlugin("Pokojnici", {
     component: connect(
         (state) => ({
             data: get(state, "pokojnici.deceased")
-            // data: get(state, "pokojnici.pageNumber"),
         }),
         {
             loadData: loadDeceased,

@@ -15,23 +15,14 @@ class PaginationComponent extends React.Component {
         let items = [];
         for (let number = 1; number <= this.props.numberOfPages; number++) {
             items.push(
-                <Pagination.Item key={number} active={number === active} /* onclick=sendData(number)*/>
+                <Pagination.Item key={number} active={number === active} onClick={() => this.props.sendData(number)}>
                     {number}
                 </Pagination.Item>
             );
         }
-        console.log(this.props.numberOfPages, "da");
-        console.log(items, "daa");
-        const pagina = (
-            <div>
-                <Pagination>{items}</Pagination>
-                <br />
-            </div>
-        );
         return (
             <div>
-                {/* <Pagination>{this.items}</Pagination> */}
-                {pagina}
+                <Pagination>{items}</Pagination>
             </div>
         );
     }
