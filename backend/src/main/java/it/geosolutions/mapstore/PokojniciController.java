@@ -4,7 +4,6 @@ import it.geosolutions.mapstore.DAO.PokojniciDAO;
 import it.geosolutions.mapstore.DAO.PokojniciDAOImpl;
 import it.geosolutions.mapstore.pojo.Pokojnik;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +34,7 @@ public class PokojniciController {
         Optional<String> oImeOca = Optional.ofNullable(imeoca);
         Optional<Integer> oPage = Optional.ofNullable(page);
 
-        if(!oIme.isPresent() && !oPrezime.isPresent() && !oPage.isPresent()) {
+        if(!oIme.isPresent() && !oPrezime.isPresent() && !oImeOca.isPresent() && !oPage.isPresent()) {
             pokojnici.addAll(pokojniciDAO.listPokojnici());
         }
         else {

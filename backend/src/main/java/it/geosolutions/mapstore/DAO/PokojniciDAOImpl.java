@@ -104,7 +104,11 @@ public class PokojniciDAOImpl implements PokojniciDAO {
 
         if(!oImeOca.isPresent()) {
             if(!oPage.isPresent()) {
-                if(oIme.isPresent() && !oPrezime.isPresent()) {
+                if(!oIme.isPresent() && !oPrezime.isPresent()) {
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" ORDER BY fid";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime}, pokojnikMapper);
+                }
+                else if(oIme.isPresent() && !oPrezime.isPresent()) {
                     String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? ORDER BY fid";
                     pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime}, pokojnikMapper);
                 } else if(!oIme.isPresent() && oPrezime.isPresent()) {
@@ -132,7 +136,12 @@ public class PokojniciDAOImpl implements PokojniciDAO {
             }
         } else {
             if(!oPage.isPresent()) {
-                if(oIme.isPresent() && !oPrezime.isPresent()) {
+                if(!oIme.isPresent() && !oPrezime.isPresent()) {
+                    System.out.println("Samo ime oca");
+                    String sql = "SELECT * FROM public.\"Pokojnici\" WHERE \"IME OCA\" ILIKE ? ORDER BY fid";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{imeOca} ,pokojnikMapper);
+                }
+                else if(oIme.isPresent() && !oPrezime.isPresent()) {
                     String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid";
                     pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, imeOca}, pokojnikMapper);
                 } else if(!oIme.isPresent() && oPrezime.isPresent()) {
