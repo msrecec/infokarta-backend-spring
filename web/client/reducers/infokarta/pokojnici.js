@@ -10,7 +10,9 @@ const pokojnici = (state = {
         // console.log('reducer1');
         return {
             ...state,
-            deceased: action.deceased
+            deceased: action.deceased,
+            fieldsToExclude: action.exclude,
+            readOnlyFields: action.readonly
         };
     }
     default:

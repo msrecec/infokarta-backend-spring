@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {Button, Modal, Form} from 'react-bootstrap';
+import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
 import { get } from "lodash";
 
 import {
@@ -16,12 +16,7 @@ const beautifyHeader = (header) => {
     return capitalisedHeader.replaceAll(regex, ' ');
 };
 
-const style = {
-    display: "flex",
-    justifyContent: "space-between"
-};
-
-const modalStyle = {
+const formStyle = {
     overflow: "auto",
     maxHeight: "500px"
 };
@@ -29,6 +24,8 @@ const modalStyle = {
 class BaseModalComponent extends React.Component {
   static propTypes = {
       itemToEdit: PropTypes.object,
+      fieldsToExclude: PropTypes.array,
+      readOnlyFields: PropTypes.array,
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool
@@ -45,24 +42,21 @@ class BaseModalComponent extends React.Component {
               <Modal.Header closeButton>
                   <Modal.Title>Uređivanje stavke</Modal.Title>
               </Modal.Header>
-              <Modal.Body style={modalStyle}>
-                  {/* <Form> */}
-                  {/* {this.props.itemToEdit ? Object.entries(this.props.itemToEdit).map((entries) =>
-                          <Form.Group controlId={entries[0]}>
-                              <Form.Label>{beautifyHeader(entries[0])}</Form.Label>
-                              <Form.Control as="input" value={typeof entries[1] === undefined ? '' : entries[1]} />
-                          </Form.Group>
-                      ) : null} */}
-                  <form>
-                      {this.props.itemToEdit ? Object.entries(this.props.itemToEdit).map((entries) =>
-                          <div style={style}>
-                              <label>{beautifyHeader(entries[0])}</label>
-                              <input type="text" value={typeof entries[1] === undefined ? "" : entries[1]} />
-                          </div>
+              <Modal.Body style={formStyle}>
+                  <Form>
+                      {this.props.itemToEdit ? Object.entries(this.props.itemToEdit).map((entries) => {
+                          if (!this.props.fieldsToExclude.includes(entries[0])) {
+                              return (
+                                  <FormGroup controlId={entries[0]} key={entries[0]}>
+                                      <ControlLabel>{beautifyHeader(entries[0])}</ControlLabel>
+                                      <FormControl as="input" defaultValue={typeof entries[1] === undefined ? '' : entries[1]} readOnly = {this.props.readOnlyFields.includes(entries[0])} />
+                                  </FormGroup>
+                              );
+                          }
+                          return null;
+                      }
                       ) : null}
-
-                  </form>
-                  {/* </Form> */}
+                  </Form>
               </Modal.Body>
               <Modal.Footer>
                   <Button variant="secondary" onClick={this.props.hideModal}>

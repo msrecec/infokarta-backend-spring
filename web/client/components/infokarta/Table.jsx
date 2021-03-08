@@ -18,6 +18,7 @@ const beautifyHeader = (header) => {
 class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
+      fieldsToExclude: PropTypes.array,
       sendData: PropTypes.func
   };
 
@@ -30,8 +31,14 @@ class TableComponent extends React.Component {
                           <th key="#">#</th>
                           {/* koristi se tako da edit botun ne pomakne sve udesno za jedno misto */}
                           {this.props.items[0] ?
-                              Object.keys(this.props.items[0]).map((header) =>
-                                  <th key={header}>{beautifyHeader(header)}</th>
+                              Object.keys(this.props.items[0]).map((header) => {
+                                  if (!this.props.fieldsToExclude.includes(header)) {
+                                      return (
+                                          <th key={header}>{beautifyHeader(header)}</th>
+                                      );
+                                  }
+                                  return null;
+                              }
                               ) : null}
                       </tr>
                   </thead>
@@ -40,9 +47,15 @@ class TableComponent extends React.Component {
                           <tr key={item.fid}>
                               <td><Button variant="Primary" onClick={() => this.props.sendData(item)}>Uredi</Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
-                              {Object.values(item).map((field) =>
-                                  <td>{field}</td>
-                                  // TODO nac neki smisleni key za postavit ovde, ispitat jel potrebno uopce
+                              {Object.entries(item).map((field) => {
+                                  if (!this.props.fieldsToExclude.includes(field[0])) {
+                                      return (
+                                          <td>{field[1]}</td>
+                                          // TODO nac neki smisleni key za postavit ovde, ispitat jel potrebno uopce
+                                      );
+                                  }
+                                  return null;
+                              }
                               )}
                           </tr>
                       )}

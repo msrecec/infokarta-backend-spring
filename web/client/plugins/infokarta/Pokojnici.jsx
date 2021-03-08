@@ -31,15 +31,17 @@ const style = {
 
 const PokojniciPlugin = ({
     data,
+    fieldsToExclude,
+    readOnlyFields,
     loadData = () => {},
     callbackGet = () => {}
     // callback funkcija: dohvacanje podataka iz child komponente
     // njoj se pripiše akcija showDynamicModal
 }) => {
     const table = (<TableComponent
-        items={data ? data : []} sendData={callbackGet} />);
+        items={data ? data : []} fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} sendData={callbackGet} />);
 
-    const editModal = (<ModalComponent />);
+    const editModal = (<ModalComponent fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} readOnlyFields={readOnlyFields ? readOnlyFields : []} />);
 
     return (
         <div style={style}>
@@ -52,7 +54,9 @@ const PokojniciPlugin = ({
 
 export default createPlugin('Pokojnici', {
     component: connect((state) => ({
-        data: get(state, "pokojnici.deceased")
+        data: get(state, "pokojnici.deceased"),
+        fieldsToExclude: get(state, "pokojnici.fieldsToExclude"),
+        readOnlyFields: get(state, "pokojnici.readOnlyFields")
     }), {
         loadData: loadDeceased,
         callbackGet: showDynamicModal

@@ -7,6 +7,9 @@ import {
 
 import pokojniciApi from '../../api/infokarta/pokojniciApi';
 
+const fieldsToExclude = ["ogc_fid", "field_10"];
+const readOnlyFields = ["fid", "fk"];
+
 export const fetchDataForTable = (action$ /* , store*/) =>
     action$.ofType(LOAD_DECEASED)
         .switchMap(() => {
@@ -15,7 +18,7 @@ export const fetchDataForTable = (action$ /* , store*/) =>
                 .then(data => data))
                 .switchMap((deceased) => {
                     return Rx.Observable.of(
-                        deceasedLoaded(deceased)
+                        deceasedLoaded(deceased, fieldsToExclude, readOnlyFields)
                     );
                 })
                 .catch(() => {
