@@ -5,6 +5,7 @@ import { Pagination, PageItem } from "react-bootstrap";
 class PaginationComponent extends React.Component {
     static propTypes = {
         numberOfPages: PropTypes.number,
+        sendData: PropTypes.func
     };
 
     static defaultProps = {};
@@ -14,7 +15,7 @@ class PaginationComponent extends React.Component {
         let items = [];
         for (let number = 1; number <= this.props.numberOfPages; number++) {
             items.push(
-                <Pagination.Item key={number} active={number === active}>
+                <Pagination.Item key={number} active={number === active} /* onclick=sendData(number)*/>
                     {number}
                 </Pagination.Item>
             );

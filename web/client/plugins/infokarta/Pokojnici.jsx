@@ -4,7 +4,7 @@ import { get } from "lodash";
 
 import {
     loadDeceased,
-    loadDeceasedByPage,
+    loadDeceasedByPage
 } from "../../actions/infokarta/pokojnici";
 
 import { createPlugin } from "../../utils/PluginsUtils";
@@ -21,13 +21,13 @@ const style = {
     zIndex: 1000,
     top: 50,
     left: 50,
-    padding: 10,
+    padding: 10
 };
 
 const PokojniciPlugin = ({ data, loadData = () => {} }) => {
     const table = <TableComponent items={data ? data : []} />;
-    const pagination = <PaginationComponent numberOfPages={21} />;
-    //console.log(loadDataByPage, "daa");
+    const pagination = <PaginationComponent numberOfPages={21} sendData={loadDeceasedByPage} />;
+    // console.log(loadDataByPage, "daa");
 
     return (
         <div style={style}>
@@ -41,16 +41,16 @@ const PokojniciPlugin = ({ data, loadData = () => {} }) => {
 export default createPlugin("Pokojnici", {
     component: connect(
         (state) => ({
-            data: get(state, "pokojnici.deceased"),
-            //data: get(state, "pokojnici.pageNumber"),
+            data: get(state, "pokojnici.deceased")
+            // data: get(state, "pokojnici.pageNumber"),
         }),
         {
             loadData: loadDeceased,
-            loadDataByPage: loadDeceasedByPage,
+            loadDataByPage: loadDeceasedByPage
         }
     )(PokojniciPlugin),
     epics,
     reducers: {
-        pokojnici,
-    },
+        pokojnici
+    }
 });

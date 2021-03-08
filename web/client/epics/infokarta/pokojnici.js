@@ -28,13 +28,13 @@ export const fetchDataForTable = (action$ /* , store*/) =>
     });
 
 export const fetchDataForTableByPage = (action$ /* , store*/) =>
-    action$.ofType(LOAD_DECEASED_BY_PAGE).switchMap(() => {
+    action$.ofType(LOAD_DECEASED_BY_PAGE).switchMap(({ pageNumber = {} }) => {
         // const state = store.getState();
         return Rx.Observable.fromPromise(
-            pojokniciApi.getPokojniciByPage(pageNumber).then((data) => data)
+            pokojniciApi.getPokojniciByPage(pageNumber).then((data) => data)
         )
-            .switchMap((pageNumber) => {
-                return Rx.Observable.of(deceasedLoadedByPage(pageNumber));
+            .switchMap((deceased) => {
+                return Rx.Observable.of(deceasedLoadedByPage(deceased));
             })
             .catch(() => {
                 return Rx.Observable.of(
