@@ -27,11 +27,10 @@ const style = {
 const PokojniciPlugin = ({ data, loadDataByPage = () => {} }) => {
     const table = <TableComponent items={data ? data : []} />;
     const pagination = <PaginationComponent numberOfPages={21} sendData={loadDataByPage} />;
-    // console.log(loadDataByPage, "daa");
 
     return (
         <div style={style}>
-            <button onClick={loadDataByPage(1)}>Dohvati pokojnike</button>
+            <button onClick={() => loadDataByPage(1)}>Dohvati pokojnike</button>
             {table}
             {pagination}
         </div>

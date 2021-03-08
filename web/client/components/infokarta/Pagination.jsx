@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Pagination, PageItem } from "react-bootstrap";
+import { Pagination } from "react-bootstrap";
 
 class PaginationComponent extends React.Component {
     static propTypes = {
@@ -11,7 +11,7 @@ class PaginationComponent extends React.Component {
     static defaultProps = {};
 
     render() {
-        let active = 10;
+        let active;
         let items = [];
         for (let number = 1; number <= this.props.numberOfPages; number++) {
             items.push(
