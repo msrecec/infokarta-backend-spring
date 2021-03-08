@@ -137,7 +137,6 @@ public class PokojniciDAOImpl implements PokojniciDAO {
         } else {
             if(!oPage.isPresent()) {
                 if(!oIme.isPresent() && !oPrezime.isPresent()) {
-                    System.out.println("Samo ime oca");
                     String sql = "SELECT * FROM public.\"Pokojnici\" WHERE \"IME OCA\" ILIKE ? ORDER BY fid";
                     pokojnici = jdbcTemplateObject.query(sql, new Object[]{imeOca} ,pokojnikMapper);
                 }
