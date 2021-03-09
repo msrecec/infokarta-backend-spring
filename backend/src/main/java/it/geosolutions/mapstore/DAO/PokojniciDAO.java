@@ -14,7 +14,11 @@ public interface PokojniciDAO {
 
     public Pokojnik getPokojnikById(Optional<Integer> id);
 
-    public List<Pokojnik> getPokojnikByImeOrPrezimeOrPage(Optional<String> ime, Optional<String> prezime, Optional<String> oGodinaUkopa, Optional<Integer> oPage);
+    public List<Pokojnik> getPokojnikByImeOrPrezimeOrPage(Optional<String> ime,
+                                                          Optional<String> prezime,
+                                                          Optional<String> oPocGodinaUkopa,
+                                                          Optional<String> oKonGodinaUkopa,
+                                                          Optional<Integer> oPage);
 
     public List<String> listColumns();
 

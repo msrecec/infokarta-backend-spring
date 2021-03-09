@@ -22,7 +22,8 @@ public class PokojniciController {
     public byte[] getPokojnici(
         @RequestParam(value = "ime", required = false) String ime,
         @RequestParam(value = "prezime", required = false) String prezime,
-        @RequestParam(value = "godinaukopa", required = false) String godinaUkopa,
+        @RequestParam(value = "pocgodinaukopa", required = false) String pocGodinaUkopa,
+        @RequestParam(value = "kongodinaukopa", required = false) String konGodinaUkopa,
         @RequestParam(value = "page", required = false) Integer page)
         throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
@@ -30,14 +31,17 @@ public class PokojniciController {
         String jsonArray;
         Optional<String> oIme = Optional.ofNullable(ime);
         Optional<String> oPrezime = Optional.ofNullable(prezime);
-        Optional<String> oGodinaUkopa = Optional.ofNullable(godinaUkopa);
+        Optional<String> oPocGodinaUkopa = Optional.ofNullable(pocGodinaUkopa);
+        Optional<String> oKonGodinaUkopa = Optional.ofNullable(konGodinaUkopa);
         Optional<Integer> oPage = Optional.ofNullable(page);
 
-        if(!oIme.isPresent() && !oPrezime.isPresent() && !oGodinaUkopa.isPresent() && !oPage.isPresent()) {
+        if(!oIme.isPresent() && !oPrezime.isPresent() && !oPocGodinaUkopa.isPresent() && !oKonGodinaUkopa.isPresent()
+            && !oPage.isPresent()) {
             pokojnici.addAll(pokojniciDAO.listPokojnici());
         }
         else {
-            pokojnici.addAll(pokojniciDAO.getPokojnikByImeOrPrezimeOrPage(oIme, oPrezime, oGodinaUkopa, oPage));
+            pokojnici.addAll(pokojniciDAO.getPokojnikByImeOrPrezimeOrPage(oIme, oPrezime, oPocGodinaUkopa,
+                oKonGodinaUkopa, oPage));
         }
 
         jsonArray = JSONUtils.fromListToJSON(pokojnici);
