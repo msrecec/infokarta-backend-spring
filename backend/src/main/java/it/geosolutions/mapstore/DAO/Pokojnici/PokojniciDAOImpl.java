@@ -1,9 +1,8 @@
-package it.geosolutions.mapstore.DAO;
+package it.geosolutions.mapstore.DAO.Pokojnici;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.pojo.Pokojnik;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -11,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PokojniciDAOImpl implements PokojniciDAO {
+public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     private JdbcTemplate jdbcTemplateObject;
 
     public PokojniciDAOImpl() {
-        JDBCConfig jdbcConfig = new JDBCConfig();
-        this.jdbcTemplateObject = new JdbcTemplate(jdbcConfig.postgresqlDataSource());
+        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
     }
 
     @Override
@@ -27,8 +25,7 @@ public class PokojniciDAOImpl implements PokojniciDAO {
 
     @Override
     public List<String> listColumns() {
-        JDBCConfig jdbcConfig = new JDBCConfig();
-        DataSource dataSource = jdbcConfig.postgresqlDataSource();
+        DataSource dataSource = JDBCConfig.postgresqlDataSource();
         Connection conn = null;
         Statement stmt;
         ArrayList<String> columnNames = new ArrayList<>();

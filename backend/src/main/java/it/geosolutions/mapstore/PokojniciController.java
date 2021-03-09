@@ -1,7 +1,10 @@
 package it.geosolutions.mapstore;
 
-import it.geosolutions.mapstore.DAO.PokojniciDAO;
-import it.geosolutions.mapstore.DAO.PokojniciDAOImpl;
+import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAO;
+import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAOImpl;
+import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAO;
+import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAOImpl;
+import it.geosolutions.mapstore.pojo.Groblje;
 import it.geosolutions.mapstore.pojo.Pokojnik;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,7 @@ public class PokojniciController {
         @RequestParam(value = "prezime", required = false) String prezime,
         @RequestParam(value = "pocgodinaukopa", required = false) String pocGodinaUkopa,
         @RequestParam(value = "kongodinaukopa", required = false) String konGodinaUkopa,
+        @RequestParam(value = "groblje", required = false) String groblje,
         @RequestParam(value = "page", required = false) Integer page)
         throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
@@ -33,6 +37,7 @@ public class PokojniciController {
         Optional<String> oPrezime = Optional.ofNullable(prezime);
         Optional<String> oPocGodinaUkopa = Optional.ofNullable(pocGodinaUkopa);
         Optional<String> oKonGodinaUkopa = Optional.ofNullable(konGodinaUkopa);
+        Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<Integer> oPage = Optional.ofNullable(page);
 
         if(!oIme.isPresent() && !oPrezime.isPresent() && !oPocGodinaUkopa.isPresent() && !oKonGodinaUkopa.isPresent()
@@ -91,4 +96,18 @@ public class PokojniciController {
 
         return json.getBytes("UTF-8");
     }
+    //    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/groblja", method = RequestMethod.GET)
+    @ResponseBody
+    public byte[] getGroblja() throws UnsupportedEncodingException {
+
+        GrobljeDAO grobljeDAO = new GrobljeDAOImpl();
+
+        List<Groblje > groblja = grobljeDAO.listGroblje();
+
+        String json = JSONUtils.fromListToJSON(groblja);
+
+        return json.getBytes("UTF-8");
+    }
+
 }

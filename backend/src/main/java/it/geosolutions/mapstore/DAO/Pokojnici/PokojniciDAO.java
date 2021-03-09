@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO;
+package it.geosolutions.mapstore.DAO.Pokojnici;
 
 import it.geosolutions.mapstore.pojo.Pokojnik;
 
