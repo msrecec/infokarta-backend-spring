@@ -13,23 +13,39 @@ class BaseSearchComponent extends React.Component {
       buildData: []
   };
 
+  constructor(props) {
+      super(props);
+      this.handleChange = this.handleChange.bind(this);
+
+      this.state = {};
+  }
+
   render() {
       console.log('bd: ', this.props.buildData);
-      const searchParameters = {};
       return (
           <Form>
-              <FormGroup controlId="searchActions" onClick={() => this.props.search(searchParameters)}>
+              <FormGroup controlId="searchActions" onClick={() => this.props.search(this.state)}>
                   <Button bsStyle="success">Pretraži</Button>
               </FormGroup>
               {this.props.buildData ?
                   this.props.buildData.map((field) =>
                       <FormGroup controlId={field.label}>
                           <ControlLabel>{field.label}</ControlLabel>
-                          <FormControl type={field.type} defaultValue={searchParameters[field.value]}/>
+                          <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
                       </FormGroup>
                   ) : null}
           </Form>
       );
+  }
+
+  handleChange(field, e) {
+      //   console.log('handleChange', field, e.target.value);
+      //   let stateCopy = [...this.state];
+      //   stateCopy = {
+      //       field: e.target.value
+      //   };
+      //   console.log(stateCopy);
+      this.setState({ [field]: e.target.value });
   }
 }
 

@@ -25,10 +25,10 @@ class TableComponent extends React.Component {
   render() {
       return (
           <div style={style}>
-              <Table striped bordered hover size="sm" responsive="sm">
+              <Table striped bordered hover size="sm" responsive>
                   <thead>
                       <tr>
-                          <th key="#">#</th>
+                          <th key="#" />
                           {/* koristi se tako da edit botun ne pomakne sve udesno za jedno misto */}
                           {this.props.items[0] ?
                               Object.keys(this.props.items[0]).map((header) => {
