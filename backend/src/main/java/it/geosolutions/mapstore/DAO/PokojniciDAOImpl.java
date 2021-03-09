@@ -78,8 +78,8 @@ public class PokojniciDAOImpl implements PokojniciDAO {
     }
 
     @Override
-    public List<Pokojnik> getPokojnikByImeOrPrezimeOrPage(Optional<String> oIme, Optional<String> oPrezime, Optional<String> oImeOca, Optional<Integer> oPage) {
-        String ime = "", prezime = "", imeOca = "";
+    public List<Pokojnik> getPokojnikByImeOrPrezimeOrPage(Optional<String> oIme, Optional<String> oPrezime, Optional<String> oGodinaUkopa, Optional<Integer> oPage) {
+        String ime = "", prezime = "", godinaUkopa = "";
         Integer page = null, offset = null, limit = null;
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List<Pokojnik> pokojnici;
@@ -92,9 +92,9 @@ public class PokojniciDAOImpl implements PokojniciDAO {
             prezime = oPrezime.get().trim();
             prezime = "%"+prezime+"%";
         }
-        if(oImeOca.isPresent()) {
-            imeOca = oImeOca.get().trim();
-            imeOca = "%"+imeOca+"%";
+        if(oGodinaUkopa.isPresent()) {
+            godinaUkopa = oGodinaUkopa.get().trim();
+            godinaUkopa = "%"+godinaUkopa+"%";
         }
         if(oPage.isPresent()) {
             page = oPage.get();
@@ -105,7 +105,7 @@ public class PokojniciDAOImpl implements PokojniciDAO {
             offset = (page-1) * limit;
         }
 
-        if(!oImeOca.isPresent()) {
+        if(!oGodinaUkopa.isPresent()) {
             if(!oPage.isPresent()) {
                 if(!oIme.isPresent() && !oPrezime.isPresent()) {
                     String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" ORDER BY fid";
@@ -140,33 +140,33 @@ public class PokojniciDAOImpl implements PokojniciDAO {
         } else {
             if(!oPage.isPresent()) {
                 if(!oIme.isPresent() && !oPrezime.isPresent()) {
-                    String sql = "SELECT * FROM public.\"Pokojnici\" WHERE \"IME OCA\" ILIKE ? ORDER BY fid";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{imeOca} ,pokojnikMapper);
+                    String sql = "SELECT * FROM public.\"Pokojnici\" WHERE \"Godina ukopa\" ILIKE ? ORDER BY fid";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{godinaUkopa} ,pokojnikMapper);
                 }
                 else if(oIme.isPresent() && !oPrezime.isPresent()) {
-                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, imeOca}, pokojnikMapper);
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"Godina ukopa\" ILIKE ? ORDER BY fid";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, godinaUkopa}, pokojnikMapper);
                 } else if(!oIme.isPresent() && oPrezime.isPresent()) {
-                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"PREZIME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{prezime, imeOca}, pokojnikMapper);
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"PREZIME\" ILIKE ? AND \"Godina ukopa\" ILIKE ? ORDER BY fid";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{prezime, godinaUkopa}, pokojnikMapper);
                 } else {
-                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"PREZIME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, prezime, imeOca}, pokojnikMapper);
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"PREZIME\" ILIKE ? AND \"Godina ukopa\" ILIKE ? ORDER BY fid";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, prezime, godinaUkopa}, pokojnikMapper);
                 }
             } else {
                 if(!oIme.isPresent() && !oPrezime.isPresent()) {
-                    String sql = "SELECT * FROM public.\"Pokojnici\" WHERE \"IME OCA\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{imeOca, limit, offset} ,pokojnikMapper);
+                    String sql = "SELECT * FROM public.\"Pokojnici\" WHERE \"Godina ukopa\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{godinaUkopa, limit, offset} ,pokojnikMapper);
                 }
                 else if(oIme.isPresent() && !oPrezime.isPresent()) {
-                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, imeOca, limit, offset}, pokojnikMapper);
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"Godina ukopa\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, godinaUkopa, limit, offset}, pokojnikMapper);
                 } else if(!oIme.isPresent() && oPrezime.isPresent()) {
-                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"PREZIME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{prezime, imeOca, limit, offset}, pokojnikMapper);
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"PREZIME\" ILIKE ? AND \"Godina ukopa\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{prezime, godinaUkopa, limit, offset}, pokojnikMapper);
                 } else {
-                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"PREZIME\" ILIKE ? AND \"IME OCA\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
-                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, prezime, imeOca, limit, offset}, pokojnikMapper);
+                    String sql = "SELECT DISTINCT * FROM public.\"Pokojnici\" WHERE \"IME\" ILIKE ? AND \"PREZIME\" ILIKE ? AND \"Godina ukopa\" ILIKE ? ORDER BY fid LIMIT ? OFFSET ?";
+                    pokojnici = jdbcTemplateObject.query(sql, new Object[]{ime, prezime, godinaUkopa, limit, offset}, pokojnikMapper);
                 }
             }
         }
