@@ -25,7 +25,7 @@ class TableComponent extends React.Component {
   render() {
       return (
           <div style={style}>
-              <Table striped bordered hover size="sm" responsive>
+              <Table striped bordered condensed hover>
                   <thead>
                       <tr>
                           <th key="#" />
