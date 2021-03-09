@@ -12,9 +12,10 @@ const readOnlyFields = ["fid", "fk"];
 
 export const fetchDataForTable = (action$ /* , store*/) =>
     action$.ofType(LOAD_DECEASED)
-        .switchMap(() => {
+        .switchMap(({ searchParameters = {} }) => {
+            console.log('epic: ', searchParameters);
             // const state = store.getState();
-            return Rx.Observable.fromPromise(pokojniciApi.getPokojnici()
+            return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters)
                 .then(data => data))
                 .switchMap((deceased) => {
                     return Rx.Observable.of(

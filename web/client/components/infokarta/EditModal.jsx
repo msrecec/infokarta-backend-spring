@@ -10,7 +10,6 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 const beautifyHeader = (header) => {
-    console.log(header);
     const regex = /([_])/g;
     const capitalisedHeader = header.charAt(0).toUpperCase() + header.slice(1);
     return capitalisedHeader.replaceAll(regex, ' ');

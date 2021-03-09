@@ -18,6 +18,7 @@ import * as epics from '../../epics/infokarta/pokojnici';
 
 import TableComponent from '../../components/infokarta/Table';
 import ModalComponent from '../../components/infokarta/EditModal';
+import SearchComponent from '../../components/infokarta/SearchForm';
 // import PaginationComponent from '../../components/infokarta/Pagination';
 
 const style = {
@@ -29,6 +30,19 @@ const style = {
     padding: 10
 };
 
+const formData = [
+    {
+        label: "Ime",
+        type: "text",
+        value: "name" // value koji ce bit poslan u search funkciju, vidit u API
+    },
+    {
+        label: "Prezime",
+        type: "text",
+        value: "surname"
+    }
+];
+
 const PokojniciPlugin = ({
     data,
     fieldsToExclude,
@@ -36,16 +50,17 @@ const PokojniciPlugin = ({
     loadData = () => {},
     callbackGet = () => {}
     // callback funkcija: dohvacanje podataka iz child komponente
-    // njoj se pripiše akcija showDynamicModal
+    // njoj se pripiše akcija showDynamicModal i ona se onda proslijedi u child
 }) => {
-    const table = (<TableComponent
-        items={data ? data : []} fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} sendData={callbackGet} />);
+    const search = (<SearchComponent buildData={formData} search = {loadData} />);
+
+    const table = (<TableComponent items={data ? data : []} fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} sendData={callbackGet} />);
 
     const editModal = (<ModalComponent fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} readOnlyFields={readOnlyFields ? readOnlyFields : []} />);
 
     return (
         <div style={style}>
-            <button onClick={loadData}>Dohvati pokojnike</button>
+            {search}
             {table}
             {editModal}
         </div>
