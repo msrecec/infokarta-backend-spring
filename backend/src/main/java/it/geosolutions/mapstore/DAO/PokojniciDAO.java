@@ -18,6 +18,8 @@ public interface PokojniciDAO {
 
     public List<String> listColumns();
 
+    public Integer getPokojnikCount();
+
     public boolean addPokojnik(Pokojnik pokojnik);
 
 }

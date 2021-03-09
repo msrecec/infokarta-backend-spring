@@ -74,4 +74,19 @@ public class PokojniciController {
 
         return json.getBytes("UTF-8");
     }
+
+    //    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici/count", method = RequestMethod.GET)
+    @ResponseBody
+    public byte[] getCount() throws UnsupportedEncodingException {
+
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        Integer count = pokojniciDAO.getPokojnikCount();
+
+        String json = "{" + "\"count\":"+ "\"" + count + "\"" +"}";
+
+        return json.getBytes("UTF-8");
+    }
+
 }

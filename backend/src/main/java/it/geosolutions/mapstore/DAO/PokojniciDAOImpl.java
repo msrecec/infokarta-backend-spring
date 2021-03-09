@@ -173,6 +173,13 @@ public class PokojniciDAOImpl implements PokojniciDAO {
     }
 
     @Override
+    public Integer getPokojnikCount() {
+        String sql = "SELECT COUNT(*) FROM public.\"Pokojnici\"";
+        Integer count = jdbcTemplateObject.queryForInt(sql);
+        return count;
+    }
+
+    @Override
     public boolean addPokojnik(Pokojnik pokojnik) {
         String sql = "";
         return false;
