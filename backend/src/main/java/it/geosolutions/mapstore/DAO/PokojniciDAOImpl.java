@@ -98,6 +98,9 @@ public class PokojniciDAOImpl implements PokojniciDAO {
         }
         if(oPage.isPresent()) {
             page = oPage.get();
+            if(page<=0) {
+                page = 1;
+            }
             limit = 30;
             offset = (page-1) * limit;
         }
