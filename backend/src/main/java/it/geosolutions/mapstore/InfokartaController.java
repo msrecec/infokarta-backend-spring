@@ -17,7 +17,7 @@ import java.util.Optional;
 
 
 @Controller
-public class PokojniciController {
+public class InfokartaController {
 
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
@@ -41,12 +41,12 @@ public class PokojniciController {
         Optional<Integer> oPage = Optional.ofNullable(page);
 
         if(!oIme.isPresent() && !oPrezime.isPresent() && !oPocGodinaUkopa.isPresent() && !oKonGodinaUkopa.isPresent()
-            && !oPage.isPresent()) {
+            && !oPage.isPresent() && !oGroblje.isPresent()) {
             pokojnici.addAll(pokojniciDAO.listPokojnici());
         }
         else {
             pokojnici.addAll(pokojniciDAO.getPokojnikByImeOrPrezimeOrPage(oIme, oPrezime, oPocGodinaUkopa,
-                oKonGodinaUkopa, oPage));
+                oKonGodinaUkopa, oGroblje, oPage));
         }
 
         jsonArray = JSONUtils.fromListToJSON(pokojnici);
@@ -109,5 +109,7 @@ public class PokojniciController {
 
         return json.getBytes("UTF-8");
     }
+
+
 
 }

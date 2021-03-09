@@ -18,6 +18,7 @@ public interface PokojniciDAO {
                                                           Optional<String> prezime,
                                                           Optional<String> oPocGodinaUkopa,
                                                           Optional<String> oKonGodinaUkopa,
+                                                          Optional<String> oGroblje,
                                                           Optional<Integer> oPage);
 
     public List<String> listColumns();
