@@ -40,6 +40,16 @@ const formData = [
         label: "Prezime",
         type: "text",
         value: "surname"
+    },
+    {
+        label: "Godina smrti od:",
+        type: "text",
+        value: "yearOfDeathFrom"
+    },
+    {
+        label: "Godina smrti do:",
+        type: "text",
+        value: "yearOfDeathTo"
     }
 ];
 

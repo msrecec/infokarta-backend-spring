@@ -13,15 +13,21 @@ const Api = {
     searchPokojnici: function(searchParameters) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
         if (searchParameters.name) {
-            url += 'ime=' + searchParameters.name;
+            url += 'ime=' + searchParameters.name + '&';
         }
         if (searchParameters.surname) {
-            url += '&prezime=' + searchParameters.surname;
+            url += 'prezime=' + searchParameters.surname + '&';
+        }
+        if (searchParameters.yearOfDeathFrom) {
+            url += 'pocgodinaukopa=' + searchParameters.yearOfDeathFrom + '&';
+        }
+        if (searchParameters.yearOfDeathTo) {
+            url += 'kongodinaukopa=' + searchParameters.yearOfDeathTo + '&';
         }
         if (searchParameters.pageNumber) {
-            url += '&page=' + searchParameters.pageNumber;
+            url += 'page=' + searchParameters.pageNumber;
         } else {
-            url += '&page=1';
+            url += 'page=1';
         }
         console.log('url: ', url);
         return axios.get(url).then(function(response) {
