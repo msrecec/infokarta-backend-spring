@@ -32,8 +32,8 @@ const style = {
 
 const formData = [
     {
-        label: "Ime",
-        type: "text",
+        label: "Ime", // naziv koji ce bit dodijeljen labelu u formi
+        type: "text", // tip koji ce bit dodijeljen inputu u formi
         value: "name" // value koji ce bit poslan u search funkciju, vidit u API
     },
     {
@@ -62,11 +62,21 @@ const PokojniciPlugin = ({
     // callback funkcija: dohvacanje podataka iz child komponente
     // njoj se pripiše akcija showDynamicModal i ona se onda proslijedi u child
 }) => {
-    const search = (<SearchComponent buildData={formData} search = {loadData} />);
+    const search = (<SearchComponent
+        buildData={formData}
+        search={loadData}
+    />);
 
-    const table = (<TableComponent items={data ? data : []} fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} sendData={callbackGet} />);
+    const table = (<TableComponent
+        items={data ? data : []}
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        sendData={callbackGet}
+    />);
 
-    const editModal = (<ModalComponent fieldsToExclude={fieldsToExclude ? fieldsToExclude : []} readOnlyFields={readOnlyFields ? readOnlyFields : []} />);
+    const editModal = (<ModalComponent
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        readOnlyFields={readOnlyFields ? readOnlyFields : []}
+    />);
 
     return (
         <div style={style}>
