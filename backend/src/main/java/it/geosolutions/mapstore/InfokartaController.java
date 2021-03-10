@@ -45,7 +45,7 @@ public class InfokartaController {
             pokojnici.addAll(pokojniciDAO.listPokojnici());
         }
         else {
-            pokojnici.addAll(pokojniciDAO.getPokojnikByImeOrPrezimeOrPage(oIme, oPrezime, oPocGodinaUkopa,
+            pokojnici.addAll(pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
                 oKonGodinaUkopa, oGroblje, oPage));
         }
 
