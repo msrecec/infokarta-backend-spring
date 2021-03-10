@@ -35,6 +35,22 @@ class BaseModalComponent extends React.Component {
       show: false
   };
 
+  constructor(props) {
+      super(props);
+      this.handleChange = this.handleChange.bind(this);
+
+      this.state = {};
+  }
+
+  componentDidUpdate(prevProps) {
+      if (prevProps.show !== this.props.show) {
+          this.updateState();
+          // svaki put kad se promijeni vrijednost props.show (tj. prikaze komponenta)
+          // zove se funkcija za ucitat podatke u lokalni state
+          // oni se kasnije salju u api poziv za edit
+      }
+  }
+
   render() {
       return (
           <Modal show={this.props.show} onHide={this.props.hideModal}>
@@ -48,7 +64,11 @@ class BaseModalComponent extends React.Component {
                               return (
                                   <FormGroup controlId={entries[0]} key={entries[0]}>
                                       <ControlLabel>{beautifyHeader(entries[0])}</ControlLabel>
-                                      <FormControl as="input" defaultValue={typeof entries[1] === undefined ? '' : entries[1]} readOnly = {this.props.readOnlyFields.includes(entries[0])} />
+                                      <FormControl
+                                          value={this.state[entries[0]]}
+                                          onChange={(e) => this.handleChange(entries[0], e)}
+                                          readOnly={this.props.readOnlyFields.includes(entries[0])}
+                                      />
                                   </FormGroup>
                               );
                           }
@@ -67,6 +87,17 @@ class BaseModalComponent extends React.Component {
               </Modal.Footer>
           </Modal>
       );
+  }
+
+  handleChange(field, e) {
+      this.setState({ [field]: e.target.value });
+  }
+
+  updateState = () => {
+      Object.entries(this.props.itemToEdit).map((entry) => {
+          this.setState({ [entry[0]]: entry[1] });
+          // ucitaj sve podatke u state komponente
+      });
   }
 }
 

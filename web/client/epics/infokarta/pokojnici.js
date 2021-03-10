@@ -13,7 +13,6 @@ const readOnlyFields = ["fid", "fk"];
 export const fetchDataForTable = (action$ /* , store*/) =>
     action$.ofType(LOAD_DECEASED)
         .switchMap(({ searchParameters = {} }) => {
-            console.log('epic: ', searchParameters);
             // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters)
                 .then(data => data))
@@ -22,10 +21,10 @@ export const fetchDataForTable = (action$ /* , store*/) =>
                         deceasedLoaded(deceased, fieldsToExclude, readOnlyFields)
                     );
                 })
-                .catch(() => {
+                .catch((error) => {
                     return Rx.Observable.of(
-                        console.error('error while fetching deceased')
-                        // TODO proucit basicError npr. /epics/details.js, /utils/NotificationUtils
+                        /* eslint-disable no-console */
+                        console.error('error while fetching deceased', error)
                     );
                 });
         });

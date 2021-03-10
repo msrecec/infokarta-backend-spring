@@ -9,6 +9,7 @@ const style = {
 };
 
 // funkcija za uljepsat headere, mijenja underscore sa razmakon i povecava prvo slovo
+// TODO maknit nakon sta se popravi baza
 const beautifyHeader = (header) => {
     const regex = /([_])/g;
     const capitalisedHeader = header.charAt(0).toUpperCase() + header.slice(1);
@@ -44,14 +45,13 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr key={item.fid}>
+                          <tr>
                               <td><Button variant="Primary" onClick={() => this.props.sendData(item)}>Uredi</Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
                                       return (
                                           <td>{field[1]}</td>
-                                          // TODO nac neki smisleni key za postavit ovde, ispitat jel potrebno uopce
                                       );
                                   }
                                   return null;

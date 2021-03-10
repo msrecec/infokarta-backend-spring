@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Button, Form, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
 
@@ -22,7 +21,7 @@ const buttonStyle = {
     marginRight: "5px"
 };
 
-class BaseSearchComponent extends React.Component {
+class SearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
       search: PropTypes.func
@@ -44,12 +43,12 @@ class BaseSearchComponent extends React.Component {
           <Form style={formStyle}>
               {this.props.buildData ?
                   this.props.buildData.map((field) =>
-                      <FormGroup controlId={field.label} style={fieldContainerStyle}>
+                      <FormGroup key={field.label} controlId={field.label} style={fieldContainerStyle}>
                           <ControlLabel>{field.label}</ControlLabel>
                           <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
                       </FormGroup>
                   ) : null}
-              <FormGroup controlId="searchActions" style={buttonContainerStyle}>
+              <FormGroup key="searchActions" controlId="searchActions" style={buttonContainerStyle}>
                   <Button bsStyle="success" onClick={() => this.props.search(this.state)} style={buttonStyle}>Pretraži</Button>
                   <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
               </FormGroup>
@@ -58,12 +57,6 @@ class BaseSearchComponent extends React.Component {
   }
 
   handleChange(field, e) {
-      //   console.log('handleChange', field, e.target.value);
-      //   let stateCopy = [...this.state];
-      //   stateCopy = {
-      //       field: e.target.value
-      //   };
-      //   console.log(stateCopy);
       this.setState({ [field]: e.target.value });
   }
 
@@ -71,17 +64,10 @@ class BaseSearchComponent extends React.Component {
       for (let field in this.state) {
           if ({}.hasOwnProperty.call(this.state, field)) {
               // https://eslint.org/docs/rules/guard-for-in
-              console.log(field);
               this.setState({ [field]: "" });
           }
       }
   }
 }
-
-const SearchComponent = connect((state) => {
-    return {
-    };
-}, {
-})(BaseSearchComponent);
 
 export default SearchComponent;
