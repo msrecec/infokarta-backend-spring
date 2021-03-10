@@ -31,7 +31,6 @@ public class InfokartaController {
         @RequestParam(value = "page", required = false) Integer page)
         throws UnsupportedEncodingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-        List<Pokojnik> pokojnici = new ArrayList<>();
         String jsonArray;
         Optional<String> oIme = Optional.ofNullable(ime);
         Optional<String> oPrezime = Optional.ofNullable(prezime);
