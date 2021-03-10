@@ -40,16 +40,8 @@ public class InfokartaController {
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<Integer> oPage = Optional.ofNullable(page);
 
-        if(!oIme.isPresent() && !oPrezime.isPresent() && !oPocGodinaUkopa.isPresent() && !oKonGodinaUkopa.isPresent()
-            && !oPage.isPresent() && !oGroblje.isPresent()) {
-            pokojnici.addAll(pokojniciDAO.listPokojnici());
-        }
-        else {
-            pokojnici.addAll(pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
-                oKonGodinaUkopa, oGroblje, oPage));
-        }
-
-        jsonArray = JSONUtils.fromListToJSON(pokojnici);
+        jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
+            oKonGodinaUkopa, oGroblje, oPage);
 
         return jsonArray.getBytes("UTF-8");
 

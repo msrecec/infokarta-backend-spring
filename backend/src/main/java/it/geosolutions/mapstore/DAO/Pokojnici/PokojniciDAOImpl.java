@@ -2,6 +2,7 @@ package it.geosolutions.mapstore.DAO.Pokojnici;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -58,11 +59,11 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
-    public List<Pokojnik> listPokojnici() {
+    public String listPokojnici() {
         String sql = "SELECT * FROM public.\"Pokojnici\" ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List <Pokojnik> pokojnici = jdbcTemplateObject.query(sql, pokojnikMapper);
-        return pokojnici;
+        return JSONUtils.fromListToJSON(pokojnici);
     }
 
     @Override
@@ -75,25 +76,39 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
-    public List<Pokojnik> searchPokojnici(Optional<String> oIme,
+    public String searchPokojnici(Optional<String> oIme,
                                           Optional<String> oPrezime,
                                           Optional<String> oPocGodinaUkopa,
                                           Optional<String> oKonGodinaUkopa,
                                           Optional<String> oGroblje,
                                           Optional<Integer> oPage) {
+        // input params
         String ime = "", prezime = "", pocGodinaUkopa = "", konGodinaUkopa = "", groblje = "";
         Integer page = null, offset = null, limit = null;
+        //mapper and util properties
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List<Pokojnik> pokojnici;
-        Object objArr[];
         ArrayList<Object> objArrList = new ArrayList<>();
         boolean and = false;
+        Integer countInt = null;
+        String json = "";
 
-        String sql = "SELECT * FROM public.\"Pokojnici\" ";
+        //sql strings
+        String select = "SELECT * ";
+        String selectCount = "SELECT COUNT(*) ";
+
+        String grobljeSQL = "INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid WHERE public.\"Grobovi\".\"Groblje\" ILIKE ? ";
+        String imeSQL = "\"IME\" ILIKE ? ";
+        String prezimeSQL = "\"PREZIME\" ILIKE ? ";
+        String godineSQL = "TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? ";
+        String orderBySQL = "ORDER BY \"Pokojnici\".fid ";
+        String limitAndOffsetSQL = "LIMIT ? OFFSET ? ";
+
+        String sql = "FROM public.\"Pokojnici\" ";
 
         if(oGroblje.isPresent()) {
             groblje = oGroblje.get().trim();
-            sql+="INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid WHERE public.\"Grobovi\".\"Groblje\" ILIKE ? ";
+            sql+=grobljeSQL;
             and = true;
             objArrList.add(groblje);
         }
@@ -107,7 +122,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
                 and = true;
                 sql+="WHERE ";
             }
-            sql+="\"IME\" ILIKE ? ";
+            sql+=imeSQL;
             objArrList.add(ime);
         }
         if(oPrezime.isPresent()) {
@@ -119,7 +134,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
                 and = true;
                 sql+="WHERE ";
             }
-            sql+="\"PREZIME\" ILIKE ? ";
+            sql+=prezimeSQL;
             objArrList.add(prezime);
         }
         if(oPocGodinaUkopa.isPresent()&&oKonGodinaUkopa.isPresent()) {
@@ -131,12 +146,10 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
                 and = true;
                 sql+="WHERE ";
             }
-            sql+="TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? ";
+            sql+=godineSQL;
             objArrList.add(pocGodinaUkopa);
             objArrList.add(konGodinaUkopa);
         }
-
-        sql+="ORDER BY \"Pokojnici\".fid ";
 
         if(oPage.isPresent()) {
             page = oPage.get();
@@ -145,22 +158,37 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             }
             limit = 30;
             offset = (page-1) * limit;
-            sql+="LIMIT ? OFFSET ?";
+
+            countInt = jdbcTemplateObject.queryForInt(selectCount+sql, objArrList.toArray());
+
+            sql+=orderBySQL;
+            sql+=limitAndOffsetSQL;
             objArrList.add(limit);
             objArrList.add(offset);
+
+            pokojnici = jdbcTemplateObject.query(select+sql, objArrList.toArray(), pokojnikMapper);
+
+            json = JSONUtils.fromListToJSON(pokojnici);
+
+            json = "{\"pokojnici\":" + json + ",\"totalSearchMatchCount\":" + "\"" + countInt + "\"}";
+
+            return json;
+
+        } else {
+
+            countInt = jdbcTemplateObject.queryForInt(selectCount+sql, objArrList.toArray());
+
+            sql+=orderBySQL;
+
+            pokojnici = jdbcTemplateObject.query(select+sql, objArrList.toArray(), pokojnikMapper);
+
+            json = JSONUtils.fromListToJSON(pokojnici);
+
+            json = "{\"pokojnici\":" + json + ",\"totalSearchMatchCount\":" + "\"" + countInt + "\"}";
+
+            return json;
         }
 
-        String sql2 = "SELECT * FROM public.\"Pokojnici\" INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid " +
-            "WHERE \"IME\" ILIKE ? AND \"PREZIME\" ILIKE ? " +
-            "AND TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? AND public.\"Grobovi\".\"Groblje\" ILIKE ? " +
-            "ORDER BY \"Pokojnici\".fid LIMIT ? OFFSET ?";
-
-
-        objArr = objArrList.toArray();
-
-        pokojnici = jdbcTemplateObject.query(sql, objArr, pokojnikMapper);
-
-        return pokojnici;
     }
 
     @Override

@@ -10,11 +10,11 @@ public interface PokojniciDAO {
 
     public void setDataSource(DataSource ds);
 
-    public List<Pokojnik> listPokojnici();
+    public String listPokojnici();
 
     public Pokojnik getPokojnikById(Optional<Integer> id);
 
-    public List<Pokojnik> searchPokojnici(Optional<String> ime,
+    public String searchPokojnici(Optional<String> ime,
                                           Optional<String> prezime,
                                           Optional<String> oPocGodinaUkopa,
                                           Optional<String> oKonGodinaUkopa,
