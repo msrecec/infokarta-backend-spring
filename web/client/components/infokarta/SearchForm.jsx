@@ -93,14 +93,14 @@ class SearchComponent extends React.Component {
   clear() {
       for (let field in this.state) {
           if ({}.hasOwnProperty.call(this.state, field)) {
-              console.log(field);
               // https://eslint.org/docs/rules/guard-for-in
+              this.setState({ [field]: "" });
           }
       }
       let form = document.getElementById("dynamicForm");
       let selectTags = form.getElementsByTagName("select");
 
-      for (let i = 0; i < selectTags.length; i++) {
+      for (let i = 0; i < selectTags.length; i++) { // TODO https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
           selectTags[i].selectedIndex = 0;
       }
   }
