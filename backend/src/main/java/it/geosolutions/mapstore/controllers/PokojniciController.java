@@ -1,5 +1,6 @@
-package it.geosolutions.mapstore;
+package it.geosolutions.mapstore.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAO;
 import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAOImpl;
 import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAO;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 
 @Controller
-public class InfokartaController {
+public class PokojniciController {
 
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
@@ -87,20 +88,17 @@ public class InfokartaController {
 
         return json.getBytes("UTF-8");
     }
-    //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/groblja", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/pokojnici", method = RequestMethod.PUT)
     @ResponseBody
-    public byte[] getGroblja() throws UnsupportedEncodingException {
-
-        GrobljeDAO grobljeDAO = new GrobljeDAOImpl();
-
-        List<Groblje > groblja = grobljeDAO.listGroblje();
-
-        String json = JSONUtils.fromListToJSON(groblja);
-
-        return json.getBytes("UTF-8");
+    public byte[] updatePokojnici(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+        System.out.println("Raw json string output");
+        System.out.println(json);
+        Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
+        System.out.println("Class json string conversion output");
+        System.out.println(pokojnik);
+        String outJson = pokojniciDAO.updatePokojnik(pokojnik);
+        return outJson.getBytes("UTF-8");
     }
-
-
-
 }
