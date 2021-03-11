@@ -7,7 +7,7 @@ import {
 
 import pokojniciApi from '../../api/infokarta/pokojniciApi';
 
-const fieldsToExclude = ["ogc_fid", "field_10"];
+const fieldsToExclude = ["ogc_fid", "field_10"]; // TODO maknit nekako u parent plugin
 const readOnlyFields = ["fid", "fk"];
 
 export const fetchDataForTable = (action$ /* , store*/) =>
@@ -15,7 +15,7 @@ export const fetchDataForTable = (action$ /* , store*/) =>
         .switchMap(({ searchParameters = {} }) => {
             // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters)
-                .then(data => data))
+                .then(data => data.pokojnici))
                 .switchMap((deceased) => {
                     return Rx.Observable.of(
                         deceasedLoaded(deceased, fieldsToExclude, readOnlyFields)
@@ -28,4 +28,3 @@ export const fetchDataForTable = (action$ /* , store*/) =>
                     );
                 });
         });
-

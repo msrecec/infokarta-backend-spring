@@ -39,16 +39,46 @@ class SearchComponent extends React.Component {
   }
 
   render() {
+      console.log(this.state);
       return (
           <Form style={formStyle}>
               {this.props.buildData ?
-                  this.props.buildData.map((field) =>
-                      <FormGroup key={field.label} controlId={field.label} style={fieldContainerStyle}>
-                          <ControlLabel>{field.label}</ControlLabel>
-                          <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
-                      </FormGroup>
+                  this.props.buildData.map((field) => {
+                      return field.type === "text" ?
+                          ( // ako polje ima type = text, napravi klasično text input polje
+                              <FormGroup
+                                  key={field.label}
+                                  controlId={field.label}
+                                  style={fieldContainerStyle}
+                              >
+                                  <ControlLabel>{field.label}</ControlLabel>
+                                  <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
+                              </FormGroup>)
+                          : ( // ako polje nema type = text, napravi select polje
+                              <FormGroup
+                                  key={field.label}
+                                  controlId={field.label}
+                                  style={fieldContainerStyle}
+                              >
+                                  <ControlLabel>{field.label}</ControlLabel>
+                                  <FormControl
+                                      componentClass={field.type}
+                                      placeholder={this.state[field.selectValues[0]]}
+                                      onChange={(e) => this.handleChange(field.value, e)} // TODO testiraj
+                                  >
+                                      {field.selectValues.map((option) => {
+                                          return <option value={option}>{option}</option>;
+                                      })}
+                                  </FormControl>
+                              </FormGroup>
+                          );
+                  }
                   ) : null}
-              <FormGroup key="searchActions" controlId="searchActions" style={buttonContainerStyle}>
+              <FormGroup
+                  key="searchActions"
+                  controlId="searchActions"
+                  style={buttonContainerStyle}
+              >
                   <Button bsStyle="success" onClick={() => this.props.search(this.state)} style={buttonStyle}>Pretraži</Button>
                   <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
               </FormGroup>

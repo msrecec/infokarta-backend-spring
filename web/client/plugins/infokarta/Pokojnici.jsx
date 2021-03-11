@@ -42,14 +42,20 @@ const formData = [
         value: "surname"
     },
     {
-        label: "Godina smrti od:",
+        label: "Godina smrti od",
         type: "text",
         value: "yearOfDeathFrom"
     },
     {
-        label: "Godina smrti do:",
+        label: "Godina smrti do",
         type: "text",
         value: "yearOfDeathTo"
+    },
+    {
+        label: "Groblje",
+        type: "select",
+        value: "graveyard",
+        selectValues: ["Primosten", "Prhovo", "Siroke", "Krusevo"]
     }
 ];
 
@@ -57,20 +63,21 @@ const PokojniciPlugin = ({
     data,
     fieldsToExclude,
     readOnlyFields,
-    loadData = () => {},
+    loadDeceasedData = () => {},
     callbackGet = () => {}
     // callback funkcija: dohvacanje podataka iz child komponente
     // njoj se pripiše akcija showDynamicModal i ona se onda proslijedi u child
 }) => {
+
     const search = (<SearchComponent
         buildData={formData}
-        search={loadData}
+        search={loadDeceasedData}
     />);
 
     const table = (<TableComponent
         items={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        sendData={callbackGet}
+        sendDataToEdit={callbackGet}
     />);
 
     const editModal = (<ModalComponent
@@ -93,7 +100,7 @@ export default createPlugin('Pokojnici', {
         fieldsToExclude: get(state, "pokojnici.fieldsToExclude"),
         readOnlyFields: get(state, "pokojnici.readOnlyFields")
     }), {
-        loadData: loadDeceased,
+        loadDeceasedData: loadDeceased,
         callbackGet: showDynamicModal
     })(PokojniciPlugin),
     epics,

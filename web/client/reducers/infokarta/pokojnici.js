@@ -7,7 +7,6 @@ const pokojnici = (state = {
 }, action) => {
     switch (action.type) {
     case DECEASED_LOADED: {
-        // console.log('reducer1');
         return {
             ...state,
             deceased: action.deceased,
@@ -16,7 +15,6 @@ const pokojnici = (state = {
         };
     }
     default:
-        // console.log('reducer2');
         return state;
     }
 };

@@ -20,7 +20,7 @@ class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
       fieldsToExclude: PropTypes.array,
-      sendData: PropTypes.func
+      sendDataToEdit: PropTypes.func
   };
 
   render() {
@@ -46,7 +46,7 @@ class TableComponent extends React.Component {
                   <tbody>
                       {this.props.items.map((item) =>
                           <tr>
-                              <td><Button variant="Primary" onClick={() => this.props.sendData(item)}>Uredi</Button></td>
+                              <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}>Uredi</Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
