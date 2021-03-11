@@ -55,7 +55,7 @@ const formData = [
         label: "Groblje",
         type: "select",
         value: "graveyard",
-        selectValues: ["Primosten", "Prhovo", "Siroke", "Krusevo"]
+        selectValues: ["", "Primosten", "Prhovo", "Siroke", "Krusevo"] // prvi uvik triba bit prazan
     }
 ];
 

@@ -23,8 +23,6 @@ const Api = {
 
         if (searchParameters.graveyard) {
             url += 'groblje=' + searchParameters.graveyard + '&';
-        } else {
-            url += 'groblje=primosten&';
         }
 
         if (searchParameters.yearOfDeathFrom) {
