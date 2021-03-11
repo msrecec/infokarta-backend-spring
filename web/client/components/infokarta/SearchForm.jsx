@@ -39,9 +39,8 @@ class SearchComponent extends React.Component {
   }
 
   render() {
-      console.log(this.state);
       return (
-          <Form style={formStyle}>
+          <Form style={formStyle} id="dynamicForm">
               {this.props.buildData ?
                   this.props.buildData.map((field) => {
                       return field.type === "text" ?
@@ -64,7 +63,8 @@ class SearchComponent extends React.Component {
                                   <FormControl
                                       componentClass={field.type}
                                       placeholder={this.state[field.selectValues[0]]}
-                                      onChange={(e) => this.handleChange(field.value, e)} // TODO testiraj
+                                      onChange={(e) => this.handleChange(field.value, e)}
+                                      id="select"
                                   >
                                       {field.selectValues.map((option) => {
                                           return <option value={option}>{option}</option>;
@@ -96,6 +96,12 @@ class SearchComponent extends React.Component {
               // https://eslint.org/docs/rules/guard-for-in
               this.setState({ [field]: "" });
           }
+      }
+      let form = document.getElementById("dynamicForm");
+      let selectTags = form.getElementsByTagName("select");
+
+      for (let i = 0; i < selectTags.length; i++) { // TODO https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
+          selectTags[i].selectedIndex = 0;
       }
   }
 }
