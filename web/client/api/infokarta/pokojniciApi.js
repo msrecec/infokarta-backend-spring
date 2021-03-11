@@ -1,4 +1,4 @@
-import axios from '../../libs/ajax';
+import axios from "../../libs/ajax";
 
 const Api = {
     getPokojnici: function() {

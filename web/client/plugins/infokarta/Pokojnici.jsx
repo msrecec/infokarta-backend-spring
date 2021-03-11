@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { get } from 'lodash';
 
 import {
-    loadDeceased
+    loadDeceased,
+    loadDeceasedByPage
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -19,7 +20,7 @@ import * as epics from '../../epics/infokarta/pokojnici';
 import TableComponent from '../../components/infokarta/Table';
 import ModalComponent from '../../components/infokarta/EditModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
-// import PaginationComponent from '../../components/infokarta/Pagination';
+import PaginationComponent from "../../components/infokarta/Pagination";
 
 const style = {
     position: "absolute",
@@ -84,11 +85,14 @@ const PokojniciPlugin = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
     />);
+    
+    const pagination = <PaginationComponent numberOfPages={21} sendData={loadDataByPage} />;
 
     return (
         <div style={style}>
             {search}
             {table}
+            {pagination}
             {editModal}
         </div>
     );

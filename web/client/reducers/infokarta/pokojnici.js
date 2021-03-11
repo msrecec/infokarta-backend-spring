@@ -1,10 +1,11 @@
-import {
-    DECEASED_LOADED
-} from '../../actions/infokarta/pokojnici';
-
-const pokojnici = (state = {
-    deceased: []
-}, action) => {
+import { DECEASED_LOADED } from "../../actions/infokarta/pokojnici";
+const pokojnici = (
+    state = {
+        deceased: [],
+        pageNumber: []
+    },
+    action
+) => {
     switch (action.type) {
     case DECEASED_LOADED: {
         return {

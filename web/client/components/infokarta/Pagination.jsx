@@ -1,35 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Pagination, PageItem} from 'react-bootstrap'
+import React from "react";
+import PropTypes from "prop-types";
+import { Pagination } from "react-bootstrap";
 
 class PaginationComponent extends React.Component {
-  static propTypes = {
-    numberOfPages: PropTypes.number
-  };
+    static propTypes = {
+        numberOfPages: PropTypes.number,
+        sendData: PropTypes.func
+    };
 
-  static defaultProps = {
-  };
+    static defaultProps = {};
 
-  componentDidMount () {
-    let active = 1;
-    let items = [];
-    for (let number = 1; number <= this.props.numberOfPages; number++) {
-      items.push(
-        <Pagination.Item key={number} active={number === active}>
-          {number}
-        </Pagination.Item>,
-      );
+    render() {
+        let active;
+        let items = [];
+        for (let number = 1; number <= this.props.numberOfPages; number++) {
+            items.push(
+                <Pagination.Item key={number} active={number === active} onClick={() => this.props.sendData(number)}>
+                    {number}
+                </Pagination.Item>
+            );
+        }
+        return (
+            <div>
+                <Pagination>{items}</Pagination>
+            </div>
+        );
     }
-    console.log(this.items)
-  }
-
-  render() {
-    return (
-      <div>
-        <Pagination>{this.items}</Pagination>
-      </div>
-    );
-  }
 }
 
 export default PaginationComponent;

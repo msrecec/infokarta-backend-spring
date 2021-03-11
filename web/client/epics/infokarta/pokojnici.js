@@ -1,11 +1,11 @@
-import Rx from 'rxjs';
+import Rx from "rxjs";
 
 import {
     LOAD_DECEASED,
     deceasedLoaded
-} from '../../actions/infokarta/pokojnici';
+} from "../../actions/infokarta/pokojnici";
 
-import pokojniciApi from '../../api/infokarta/pokojniciApi';
+import pokojniciApi from "../../api/infokarta/pokojniciApi";
 
 const fieldsToExclude = ["ogc_fid", "field_10"]; // TODO maknit nekako u parent plugin
 const readOnlyFields = ["fid", "fk"];
