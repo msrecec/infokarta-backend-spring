@@ -7,25 +7,24 @@ import {
 
 import pokojniciApi from '../../api/infokarta/pokojniciApi';
 
-const fieldsToExclude = ["ogc_fid", "field_10"];
+const fieldsToExclude = ["ogc_fid", "field_10"]; // TODO maknit nekako u parent plugin
 const readOnlyFields = ["fid", "fk"];
 
 export const fetchDataForTable = (action$ /* , store*/) =>
     action$.ofType(LOAD_DECEASED)
-        .switchMap(() => {
+        .switchMap(({ searchParameters = {} }) => {
             // const state = store.getState();
-            return Rx.Observable.fromPromise(pokojniciApi.getPokojnici()
-                .then(data => data))
+            return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters)
+                .then(data => data.pokojnici))
                 .switchMap((deceased) => {
                     return Rx.Observable.of(
                         deceasedLoaded(deceased, fieldsToExclude, readOnlyFields)
                     );
                 })
-                .catch(() => {
+                .catch((error) => {
                     return Rx.Observable.of(
-                        console.error('error while fetching deceased')
-                        // TODO proucit basicError npr. /epics/details.js, /utils/NotificationUtils
+                        /* eslint-disable no-console */
+                        console.error('error while fetching deceased', error)
                     );
                 });
         });
-

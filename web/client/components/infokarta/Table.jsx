@@ -9,6 +9,7 @@ const style = {
 };
 
 // funkcija za uljepsat headere, mijenja underscore sa razmakon i povecava prvo slovo
+// TODO maknit nakon sta se popravi baza
 const beautifyHeader = (header) => {
     const regex = /([_])/g;
     const capitalisedHeader = header.charAt(0).toUpperCase() + header.slice(1);
@@ -19,16 +20,16 @@ class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
       fieldsToExclude: PropTypes.array,
-      sendData: PropTypes.func
+      sendDataToEdit: PropTypes.func
   };
 
   render() {
       return (
           <div style={style}>
-              <Table striped bordered hover size="sm" responsive="sm">
+              <Table striped bordered condensed hover>
                   <thead>
                       <tr>
-                          <th key="#">#</th>
+                          <th key="#" />
                           {/* koristi se tako da edit botun ne pomakne sve udesno za jedno misto */}
                           {this.props.items[0] ?
                               Object.keys(this.props.items[0]).map((header) => {
@@ -44,14 +45,13 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr key={item.fid}>
-                              <td><Button variant="Primary" onClick={() => this.props.sendData(item)}>Uredi</Button></td>
+                          <tr>
+                              <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}>Uredi</Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
                                       return (
                                           <td>{field[1]}</td>
-                                          // TODO nac neki smisleni key za postavit ovde, ispitat jel potrebno uopce
                                       );
                                   }
                                   return null;

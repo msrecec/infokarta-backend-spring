@@ -8,6 +8,7 @@ export const deceasedLoaded = (deceased, exclude, readonly) => ({
     readonly
 });
 
-export const loadDeceased = () => ({
-    type: LOAD_DECEASED
+export const loadDeceased = (searchParameters) => ({
+    type: LOAD_DECEASED,
+    searchParameters
 });
