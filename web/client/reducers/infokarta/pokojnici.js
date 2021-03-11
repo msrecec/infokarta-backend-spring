@@ -11,6 +11,7 @@ const pokojnici = (
         return {
             ...state,
             deceased: action.deceased,
+            totalNumber: action.totalNumber,
             fieldsToExclude: action.exclude,
             readOnlyFields: action.readonly
         };

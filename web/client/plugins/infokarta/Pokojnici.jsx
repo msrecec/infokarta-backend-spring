@@ -4,17 +4,22 @@ import { get } from 'lodash';
 
 import {
     loadDeceased,
-    loadDeceasedByPage
+    editDeceased
 } from "../../actions/infokarta/pokojnici";
 
 import {
     showDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
+import {
+    setPaginationNumber
+} from "../../actions/infokarta/paginationControl";
+
 import { createPlugin } from '../../utils/PluginsUtils';
 
 import pokojnici from '../../reducers/infokarta/pokojnici';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
+import paginationControl from '../../reducers/infokarta/paginationControl';
 import * as epics from '../../epics/infokarta/pokojnici';
 
 import TableComponent from '../../components/infokarta/Table';
@@ -62,10 +67,14 @@ const formData = [
 
 const PokojniciPlugin = ({
     data,
+    page,
+    totalNumber,
     fieldsToExclude,
     readOnlyFields,
     loadDeceasedData = () => {},
-    callbackGet = () => {}
+    getPageNumber = () => {},
+    getDataToEdit = () => {},
+    sendEditedData = () => {}
     // callback funkcija: dohvacanje podataka iz child komponente
     // njoj se pripiše akcija showDynamicModal i ona se onda proslijedi u child
 }) => {
@@ -73,20 +82,25 @@ const PokojniciPlugin = ({
     const search = (<SearchComponent
         buildData={formData}
         search={loadDeceasedData}
+        pageNumber={page ? page : 1}
     />);
 
     const table = (<TableComponent
         items={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        sendDataToEdit={callbackGet}
+        sendDataToEdit={getDataToEdit}
     />);
 
     const editModal = (<ModalComponent
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
+        editItem={sendEditedData}
     />);
-    
-    const pagination = <PaginationComponent numberOfPages={21} sendData={loadDataByPage} />;
+
+    const pagination = (<PaginationComponent
+        totalNumber={totalNumber}
+        sendPageNumber={getPageNumber}
+    />);
 
     return (
         <div style={style}>
@@ -101,15 +115,20 @@ const PokojniciPlugin = ({
 export default createPlugin('Pokojnici', {
     component: connect((state) => ({
         data: get(state, "pokojnici.deceased"),
+        page: get(state, "paginationControl.pageNumber"),
+        totalNumber: get(state, "pokojnici.totalNumber"),
         fieldsToExclude: get(state, "pokojnici.fieldsToExclude"),
         readOnlyFields: get(state, "pokojnici.readOnlyFields")
     }), {
         loadDeceasedData: loadDeceased,
-        callbackGet: showDynamicModal
+        getPageNumber: setPaginationNumber,
+        getDataToEdit: showDynamicModal,
+        sendEditedData: editDeceased
     })(PokojniciPlugin),
     epics,
     reducers: {
         pokojnici,
-        dynamicModalControl
+        dynamicModalControl,
+        paginationControl
     }
 });
