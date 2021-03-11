@@ -10,7 +10,6 @@ public class Pokojnik {
     private String oib;
     private String spol;
     private String datum_rodjenja;
-    private String field_10;
     private String bracno_stanje;
     private String mjesto_stanovanja;
     private String adresa_stanovanja;
@@ -28,11 +27,13 @@ public class Pokojnik {
     private String usluga;
     private Integer racun;
     private String datum_usluge;
+    private String ime;
+    private String prezime;
 
     @Override
     public String toString() {
         return "Pokojnik{" +
-            ", fid=" + fid +
+            "fid=" + fid +
             ", fk=" + fk +
             ", ime_i_prezime='" + ime_i_prezime + '\'' +
             ", prezime_djevojacko='" + prezime_djevojacko + '\'' +
@@ -41,7 +42,6 @@ public class Pokojnik {
             ", oib='" + oib + '\'' +
             ", spol='" + spol + '\'' +
             ", datum_rodjenja='" + datum_rodjenja + '\'' +
-            ", field_10='" + field_10 + '\'' +
             ", bracno_stanje='" + bracno_stanje + '\'' +
             ", mjesto_stanovanja='" + mjesto_stanovanja + '\'' +
             ", adresa_stanovanja='" + adresa_stanovanja + '\'' +
@@ -59,6 +59,8 @@ public class Pokojnik {
             ", usluga='" + usluga + '\'' +
             ", racun=" + racun +
             ", datum_usluge='" + datum_usluge + '\'' +
+            ", ime='" + ime + '\'' +
+            ", prezime='" + prezime + '\'' +
             '}';
     }
 
@@ -132,14 +134,6 @@ public class Pokojnik {
 
     public void setDatum_rodjenja(String datum_rodjenja) {
         this.datum_rodjenja = datum_rodjenja;
-    }
-
-    public String getField_10() {
-        return field_10;
-    }
-
-    public void setField_10(String field_10) {
-        this.field_10 = field_10;
     }
 
     public String getBracno_stanje() {
@@ -276,5 +270,21 @@ public class Pokojnik {
 
     public void setDatum_usluge(String datum_usluge) {
         this.datum_usluge = datum_usluge;
+    }
+
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
+    public String getPrezime() {
+        return prezime;
+    }
+
+    public void setPrezime(String prezime) {
+        this.prezime = prezime;
     }
 }
