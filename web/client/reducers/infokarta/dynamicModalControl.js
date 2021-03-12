@@ -1,5 +1,6 @@
 import {
-    SHOW_DYNAMIC_MODAL,
+    SHOW_EDIT_MODAL,
+    SHOW_INSERT_MODAL,
     HIDE_DYNAMIC_MODAL
 } from '../../actions/infokarta/dynamicModalControl';
 
@@ -8,10 +9,17 @@ const dynamicModalControl = (state = {
     modalVisible: false
 }, action) => {
     switch (action.type) {
-    case SHOW_DYNAMIC_MODAL: {
+    case SHOW_EDIT_MODAL: {
         return {
             ...state,
             itemToEdit: action.itemToEdit,
+            modalVisible: true
+        };
+    }
+    case SHOW_INSERT_MODAL: {
+        return {
+            ...state,
+            itemToInsert: action.itemToInsert,
             modalVisible: true
         };
     }

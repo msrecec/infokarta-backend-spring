@@ -94,6 +94,7 @@ class SearchComponent extends React.Component {
               >
                   <Button bsStyle="success" onClick={() => this.props.search(this.state)} style={buttonStyle}>Pretraži</Button>
                   <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
+                  <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
               </FormGroup>
           </Form>
       );
@@ -118,6 +119,10 @@ class SearchComponent extends React.Component {
       }
 
       this.props.search();
+  }
+
+  insertNew() {
+      console.log('TODO dodat akciju i reducer za ucitat novu stavku lol ');
   }
 }
 

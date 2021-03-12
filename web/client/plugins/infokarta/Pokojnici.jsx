@@ -8,7 +8,8 @@ import {
 } from "../../actions/infokarta/pokojnici";
 
 import {
-    showDynamicModal
+    showEditModal,
+    showInsertModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
@@ -23,7 +24,8 @@ import paginationControl from '../../reducers/infokarta/paginationControl';
 import * as epics from '../../epics/infokarta/pokojnici';
 
 import TableComponent from '../../components/infokarta/Table';
-import ModalComponent from '../../components/infokarta/EditModal';
+import EditModal from '../../components/infokarta/EditModal';
+import InsertModal from '../../components/infokarta/InsertModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 
@@ -74,7 +76,8 @@ const PokojniciPlugin = ({
     loadDeceasedData = () => {},
     getPageNumber = () => {},
     getDataToEdit = () => {},
-    sendEditedData = () => {}
+    sendEditedData = () => {},
+    sendNewData = () => {}
     // callback funkcija: dohvacanje podataka iz child komponente
     // njoj se pripiše akcija showDynamicModal i ona se onda proslijedi u child
 }) => {
@@ -91,10 +94,16 @@ const PokojniciPlugin = ({
         sendDataToEdit={getDataToEdit}
     />);
 
-    const editModal = (<ModalComponent
+    const editModal = (<EditModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
         editItem={sendEditedData}
+    />);
+
+    const insertModal = (<InsertModal
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        readOnlyFields={readOnlyFields ? readOnlyFields : []}
+        insertItem={sendNewData}
     />);
 
     const pagination = (<PaginationComponent
@@ -108,6 +117,7 @@ const PokojniciPlugin = ({
             {table}
             {pagination}
             {editModal}
+            {insertModal}
         </div>
     );
 };
@@ -122,8 +132,9 @@ export default createPlugin('Pokojnici', {
     }), {
         loadDeceasedData: loadDeceased,
         getPageNumber: setPaginationNumber,
-        getDataToEdit: showDynamicModal,
-        sendEditedData: editDeceased
+        getDataToEdit: showEditModal,
+        sendEditedData: editDeceased,
+        sendNewData: showInsertModal
     })(PokojniciPlugin),
     epics,
     reducers: {
