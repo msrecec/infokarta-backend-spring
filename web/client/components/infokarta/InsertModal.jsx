@@ -22,17 +22,17 @@ const formStyle = {
 
 class BaseModalComponent extends React.Component {
   static propTypes = {
-      itemToEdit: PropTypes.object,
+      itemToInsert: PropTypes.object,
       fieldsToExclude: PropTypes.array,
       readOnlyFields: PropTypes.array,
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
-      editItem: PropTypes.func
+      insertItem: PropTypes.func
   };
 
   static defaultProps = {
-      itemToEdit: {},
+      itemToInsert: {},
       show: false
   };
 
@@ -48,7 +48,7 @@ class BaseModalComponent extends React.Component {
           this.updateState();
           // svaki put kad se promijeni vrijednost props.show (tj. kad se prikaze komponenta)
           // zove se funkcija za ucitat podatke u lokalni state
-          // oni se kasnije salju u api poziv za edit
+          // oni se kasnije salju u api poziv za insert
       }
   }
 
@@ -56,11 +56,11 @@ class BaseModalComponent extends React.Component {
       return (
           <Modal show={this.props.show} onHide={this.props.hideModal}>
               <Modal.Header closeButton>
-                  <Modal.Title>Uređivanje stavke</Modal.Title>
+                  <Modal.Title>Unos nove stavke</Modal.Title>
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
-                      {this.props.itemToEdit ? Object.entries(this.props.itemToEdit).map((entries) => {
+                      {this.props.itemToInsert ? Object.entries(this.props.itemToInsert).map((entries) => {
                           if (!this.props.fieldsToExclude.includes(entries[0])) {
                               return (
                                   <FormGroup controlId={entries[0]} key={entries[0]}>
@@ -82,7 +82,7 @@ class BaseModalComponent extends React.Component {
                   <Button variant="secondary" onClick={this.props.hideModal}>
                   Zatvori
                   </Button>
-                  <Button variant="primary" onClick={() => this.props.editItem(this.state)}>
+                  <Button variant="primary" onClick={() => this.props.insertItem(this.state)}>
                   Spremi promjene
                   </Button>
               </Modal.Footer>
@@ -95,7 +95,7 @@ class BaseModalComponent extends React.Component {
   }
 
   updateState = () => {
-      Object.entries(this.props.itemToEdit).map((entry) => {
+      Object.entries(this.props.itemToInsert).map((entry) => {
           this.setState({ [entry[0]]: entry[1] });
           // ucitaj sve podatke u state komponente
       });
@@ -104,7 +104,7 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToEdit: get(state, 'dynamicModalControl.itemToEdit'),
+        itemToInsert: get(state, 'dynamicModalControl.itemToInsert'),
         show: get(state, 'dynamicModalControl.modalVisible')
     };
 }, {
