@@ -58,7 +58,36 @@ function receiveResponse(state, action, type) {
                 ...state, responses: fltResponses, requests: fltRequests
             };
         }
-
+        //  INFOKARTA EDIT: GetFeatureInfo kod dodaje grb za svaki entitet. nakon toga svakom URL-u dodaje ostatak adrese servera
+        action.data.features.forEach((item) => {
+            item.properties.grb = "<img src='https://primosten.hr/wp-content/uploads/2015/12/rsz_789398738793.png' />";
+            if (item.properties.source) {
+                item.properties.source = `<a href='http://213.191.153.249:8080/static/${item.properties.source}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source}" height="200px" width="auto"/></a>`;
+                if (action.layer.title === "Grobovi") {
+                    if (item.properties?.source1 !== "") {
+                        item.properties.source1 = `<a href='http://213.191.153.249:8080/static/${item.properties.source1}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source1}" height="200px" width="auto"/></a>`;
+                    }
+                    if (item.properties?.source2 !== "") {
+                        item.properties.source2 = `<a href='http://213.191.153.249:8080/static/${item.properties.source2}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source2}" height="200px" width="auto"/></a>`;
+                    }
+                    if (item.properties?.source3 !== "") {
+                        item.properties.source3 = `<a href='http://213.191.153.249:8080/static/${item.properties.source3}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source3}" height="200px" width="auto"/></a>`;
+                    }
+                    if (item.properties?.source4 !== "") {
+                        item.properties.source4 = `<a href='http://213.191.153.249:8080/static/${item.properties.source4}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source4}" height="200px" width="auto"/></a>`;
+                    }
+                    if (item.properties?.source5 !== "") {
+                        item.properties.source5 = `<a href='http://213.191.153.249:8080/static/${item.properties.source5}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source5}" height="200px" width="auto"/></a>`;
+                    }
+                    if (item.properties?.source6 !== "") {
+                        item.properties.source6 = `<a href='http://213.191.153.249:8080/static/${item.properties.source6}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source6}" height="200px" width="auto"/></a>`;
+                    }
+                    if (item.properties?.source7 !== "") {
+                        item.properties.source7 = `<a href='http://213.191.153.249:8080/static/${item.properties.source7}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source7}" height="200px" width="auto"/></a>`;
+                    }
+                }
+            }
+        });
         // Handle data and vector responses
         const {configuration: config, requests} = state;
         let responses = state.responses || [];
