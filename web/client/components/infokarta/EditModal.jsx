@@ -27,7 +27,8 @@ class BaseModalComponent extends React.Component {
       readOnlyFields: PropTypes.array,
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
-      show: PropTypes.bool
+      show: PropTypes.bool,
+      editItem: PropTypes.func
   };
 
   static defaultProps = {
@@ -81,7 +82,7 @@ class BaseModalComponent extends React.Component {
                   <Button variant="secondary" onClick={this.props.hideModal}>
                   Zatvori
                   </Button>
-                  <Button variant="primary" onClick={this.props.hideModal}> {/* TODO dodat poziv za edit */}
+                  <Button variant="primary" onClick={() => this.props.editItem(this.state)}>
                   Spremi promjene
                   </Button>
               </Modal.Footer>

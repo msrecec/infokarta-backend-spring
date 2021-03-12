@@ -25,6 +25,6 @@ public interface PokojniciDAO {
 
     public Integer getPokojnikCount();
 
-    public boolean addPokojnik(Pokojnik pokojnik);
+    public String updatePokojnik(Pokojnik pokojnik);
 
 }

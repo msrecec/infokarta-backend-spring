@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Form, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import { cloneDeep } from 'lodash';
 
 const formStyle = {
     display: "flex",
@@ -24,11 +25,13 @@ const buttonStyle = {
 class SearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
-      search: PropTypes.func
+      search: PropTypes.func,
+      pageNumber: PropTypes.number
   };
 
   static defaultProps = {
-      buildData: []
+      buildData: [],
+      pageNumber: 1
   };
 
   constructor(props) {
@@ -36,6 +39,17 @@ class SearchComponent extends React.Component {
       this.handleChange = this.handleChange.bind(this);
 
       this.state = {};
+  }
+
+  componentDidUpdate(prevProps) {
+      if (prevProps.pageNumber !== this.props.pageNumber) {
+          this.setState({ page: this.props.pageNumber });
+          let temp = cloneDeep(this.state);
+          temp.page = this.props.pageNumber;
+          this.props.search(temp);
+          // cloneDeep workaround jer je setState asinkron i updatea se tek nakon componentDidUpdate
+          // zato kopiramo state i pripisujemo mu trenutni pageNumber i saljemo u search
+      }
   }
 
   render() {
@@ -64,7 +78,6 @@ class SearchComponent extends React.Component {
                                       componentClass={field.type}
                                       placeholder={this.state[field.selectValues[0]]}
                                       onChange={(e) => this.handleChange(field.value, e)}
-                                      id="select"
                                   >
                                       {field.selectValues.map((option) => {
                                           return <option value={option}>{option}</option>;
@@ -103,6 +116,8 @@ class SearchComponent extends React.Component {
       for (let i = 0; i < selectTags.length; i++) { // TODO https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
           selectTags[i].selectedIndex = 0;
       }
+
+      this.props.search();
   }
 }
 
