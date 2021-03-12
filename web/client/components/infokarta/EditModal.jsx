@@ -53,6 +53,7 @@ class BaseModalComponent extends React.Component {
   }
 
   render() {
+      console.log(this.props.itemToEdit);
       return (
           <Modal show={this.props.show} onHide={this.props.hideModal}>
               <Modal.Header closeButton>

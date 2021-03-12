@@ -12,7 +12,7 @@ import {
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
 
-const fieldsToExclude = ["ogc_fid", "field_10"]; // TODO maknit nekako u parent plugin
+const fieldsToExclude = ["ogc_fid", "field_10", "fid", "fk", "ime_i_prezime"]; // TODO maknit nekako u parent plugin
 const readOnlyFields = ["fid", "fk"];
 
 export const fetchDataForTable = (action$ /* , store*/) =>

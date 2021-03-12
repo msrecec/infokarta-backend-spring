@@ -67,7 +67,6 @@ const Api = {
             /* eslint-disable no-console */
                 console.error(error);
             });
-
     }
 };
 
