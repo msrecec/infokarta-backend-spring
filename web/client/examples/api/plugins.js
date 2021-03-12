@@ -41,7 +41,8 @@ module.exports = {
         BackgroundSelectorPlugin: require('../../plugins/BackgroundSelector').default,
         MeasurePlugin: require('../../plugins/Measure'),
         TOCItemsSettingsPlugin: require('../../plugins/TOCItemsSettings'),
-        IdentifyPlugin: require('../../plugins/Identify')
+        IdentifyPlugin: require('../../plugins/Identify'),
+        Pokojnici: require('../../plugins/infokarta/Pokojnici')
     },
     requires: {
         ReactSwipe: require('react-swipeable-views').default,

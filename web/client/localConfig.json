@@ -148,6 +148,10 @@
         },
         "locales": {
           "supportedLocales": {
+            "hr": {
+              "code": "hr-HR",
+              "description": "Hrvatski"
+            },
             "it": {
               "code": "it-IT",
               "description": "Italiano"
