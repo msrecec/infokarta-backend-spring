@@ -28,7 +28,16 @@ class CellRenderer extends React.Component {
         const isValid = isProperty ? this.context.isValid(this.props.rowData.get(this.props.column.key), this.props.column.key) : true;
         const className = (isModified ? ['modified'] : [])
             .concat(isValid ? [] : ['invalid']).join(" ");
-        return <Cell {...this.props} ref="cell" className={className}/>;
+        const properties = this.props.rowData.properties;
+        if ("properties" in this.props.rowData) {
+            for (const key in properties) {
+                if (properties[key] === properties.source) {
+                    properties[key] = <a href={'http://213.191.153.249:8080/static/' + properties.source} target="_blank">{properties.source}</a>;
+                    // item.properties.source = `"http://213.191.153.249:8080/static/${item.properties.source}"`;
+                }
+            }
+        }
+        return <Cell {...this.props} ref="cell" className={className} />;
     }
 }
 
