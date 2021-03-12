@@ -3,6 +3,8 @@ package it.geosolutions.mapstore.pojo;
 public class Pokojnik {
     private Integer fid;
     private Integer fk;
+    private String ime;
+    private String prezime;
     private String ime_i_prezime;
     private String prezime_djevojacko;
     private String ime_oca;
@@ -27,14 +29,14 @@ public class Pokojnik {
     private String usluga;
     private Integer racun;
     private String datum_usluge;
-    private String ime;
-    private String prezime;
 
     @Override
     public String toString() {
         return "Pokojnik{" +
             "fid=" + fid +
             ", fk=" + fk +
+            ", ime='" + ime + '\'' +
+            ", prezime='" + prezime + '\'' +
             ", ime_i_prezime='" + ime_i_prezime + '\'' +
             ", prezime_djevojacko='" + prezime_djevojacko + '\'' +
             ", ime_oca='" + ime_oca + '\'' +
@@ -59,8 +61,6 @@ public class Pokojnik {
             ", usluga='" + usluga + '\'' +
             ", racun=" + racun +
             ", datum_usluge='" + datum_usluge + '\'' +
-            ", ime='" + ime + '\'' +
-            ", prezime='" + prezime + '\'' +
             '}';
     }
 
