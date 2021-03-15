@@ -5,13 +5,13 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get } from "lodash";
 
 import {
-    showDynamicModal,
+    showInsertModal,
     hideDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 const beautifyHeader = (header) => {
     const regex = /([_])/g;
-    const capitalisedHeader = header.charAt(0).toUpperCase() + header.slice(1);
+    const capitalisedHeader = header[0].toUpperCase() + header.slice(1).toLowerCase();
     return capitalisedHeader.replaceAll(regex, ' ');
 };
 
@@ -24,7 +24,6 @@ class BaseModalComponent extends React.Component {
   static propTypes = {
       itemToInsert: PropTypes.object,
       fieldsToExclude: PropTypes.array,
-      readOnlyFields: PropTypes.array,
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
@@ -32,7 +31,7 @@ class BaseModalComponent extends React.Component {
   };
 
   static defaultProps = {
-      itemToInsert: {},
+      itemToInsert: [],
       show: false
   };
 
@@ -60,15 +59,14 @@ class BaseModalComponent extends React.Component {
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
-                      {this.props.itemToInsert ? Object.entries(this.props.itemToInsert).map((entries) => {
-                          if (!this.props.fieldsToExclude.includes(entries[0])) {
+                      {this.props.itemToInsert ? this.props.itemToInsert.map((entry) => {
+                          if (!this.props.fieldsToExclude.includes(entry)) {
                               return (
-                                  <FormGroup controlId={entries[0]} key={entries[0]}>
-                                      <ControlLabel>{beautifyHeader(entries[0])}</ControlLabel>
+                                  <FormGroup controlId={entry} key={entry}>
+                                      <ControlLabel>{beautifyHeader(entry)}</ControlLabel>
                                       <FormControl
-                                          value={this.state[entries[0]]}
-                                          onChange={(e) => this.handleChange(entries[0], e)}
-                                          readOnly={this.props.readOnlyFields.includes(entries[0])}
+                                          value={""}
+                                          onChange={(e) => this.handleChange(entry, e)}
                                       />
                                   </FormGroup>
                               );
@@ -83,7 +81,7 @@ class BaseModalComponent extends React.Component {
                   Zatvori
                   </Button>
                   <Button variant="primary" onClick={() => this.props.insertItem(this.state)}>
-                  Spremi promjene
+                  Unesi stavku
                   </Button>
               </Modal.Footer>
           </Modal>
@@ -105,10 +103,10 @@ class BaseModalComponent extends React.Component {
 const ModalComponent = connect((state) => {
     return {
         itemToInsert: get(state, 'dynamicModalControl.itemToInsert'),
-        show: get(state, 'dynamicModalControl.modalVisible')
+        show: get(state, 'dynamicModalControl.insertModalVisible')
     };
 }, {
-    showModal: showDynamicModal,
+    showModal: showInsertModal,
     hideModal: hideDynamicModal
 })(BaseModalComponent);
 

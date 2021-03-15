@@ -5,13 +5,13 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get } from "lodash";
 
 import {
-    showDynamicModal,
+    showEditModal,
     hideDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 const beautifyHeader = (header) => {
     const regex = /([_])/g;
-    const capitalisedHeader = header.charAt(0).toUpperCase() + header.slice(1);
+    const capitalisedHeader = header[0].toUpperCase() + header.slice(1).toLowerCase();
     return capitalisedHeader.replaceAll(regex, ' ');
 };
 
@@ -105,10 +105,10 @@ class BaseModalComponent extends React.Component {
 const ModalComponent = connect((state) => {
     return {
         itemToEdit: get(state, 'dynamicModalControl.itemToEdit'),
-        show: get(state, 'dynamicModalControl.modalVisible')
+        show: get(state, 'dynamicModalControl.editModalVisible')
     };
 }, {
-    showModal: showDynamicModal,
+    showModal: showEditModal,
     hideModal: hideDynamicModal
 })(BaseModalComponent);
 

@@ -5,17 +5,13 @@ import { cloneDeep } from 'lodash';
 
 const formStyle = {
     display: "flex",
-    flexDirection: "row"
-};
-
-const fieldContainerStyle = {
-    paddingRight: "5px"
-};
-
-const buttonContainerStyle = {
-    display: "flex",
     flexDirection: "row",
-    alignItems: "flex-end"
+    width: "100%",
+    justifyContent: "center"
+};
+
+const fieldStyle = {
+    paddingRight: "5px"
 };
 
 const buttonStyle = {
@@ -26,7 +22,8 @@ class SearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
       search: PropTypes.func,
-      pageNumber: PropTypes.number
+      pageNumber: PropTypes.number,
+      openInsertForm: PropTypes.func
   };
 
   static defaultProps = {
@@ -54,49 +51,53 @@ class SearchComponent extends React.Component {
 
   render() {
       return (
-          <Form style={formStyle} id="dynamicForm">
-              {this.props.buildData ?
-                  this.props.buildData.map((field) => {
-                      return field.type === "text" ?
-                          ( // ako polje ima type = text, napravi klasično text input polje
-                              <FormGroup
-                                  key={field.label}
-                                  controlId={field.label}
-                                  style={fieldContainerStyle}
-                              >
-                                  <ControlLabel>{field.label}</ControlLabel>
-                                  <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
-                              </FormGroup>)
-                          : ( // ako polje nema type = text, napravi select polje
-                              <FormGroup
-                                  key={field.label}
-                                  controlId={field.label}
-                                  style={fieldContainerStyle}
-                              >
-                                  <ControlLabel>{field.label}</ControlLabel>
-                                  <FormControl
-                                      componentClass={field.type}
-                                      placeholder={this.state[field.selectValues[0]]}
-                                      onChange={(e) => this.handleChange(field.value, e)}
+          <div>
+              <Form style={formStyle} id="dynamicForm">
+                  {this.props.buildData ?
+                      this.props.buildData.map((field) => {
+                          return field.type === "text" ?
+                              ( // ako polje ima type = text, napravi klasično text input polje
+                                  <FormGroup
+                                      key={field.label}
+                                      controlId={field.label}
+                                      style={fieldStyle}
                                   >
-                                      {field.selectValues.map((option) => {
-                                          return <option value={option}>{option}</option>;
-                                      })}
-                                  </FormControl>
-                              </FormGroup>
-                          );
-                  }
-                  ) : null}
-              <FormGroup
-                  key="searchActions"
-                  controlId="searchActions"
-                  style={buttonContainerStyle}
-              >
-                  <Button bsStyle="success" onClick={() => this.props.search(this.state)} style={buttonStyle}>Pretraži</Button>
-                  <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
-                  <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
-              </FormGroup>
-          </Form>
+                                      <ControlLabel>{field.label}</ControlLabel>
+                                      <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
+                                  </FormGroup>)
+                              : ( // ako polje nema type = text, napravi select polje
+                                  <FormGroup
+                                      key={field.label}
+                                      controlId={field.label}
+                                      style={fieldStyle}
+                                  >
+                                      <ControlLabel>{field.label}</ControlLabel>
+                                      <FormControl
+                                          componentClass={field.type}
+                                          placeholder={this.state[field.selectValues[0]]}
+                                          onChange={(e) => this.handleChange(field.value, e)}
+                                      >
+                                          {field.selectValues.map((option) => {
+                                              return <option value={option}>{option}</option>;
+                                          })}
+                                      </FormControl>
+                                  </FormGroup>
+                              );
+                      }
+                      ) : null}
+              </Form>
+              <Form>
+                  <FormGroup
+                      key="searchActions"
+                      controlId="searchActions"
+                      style={formStyle}
+                  >
+                      <Button bsStyle="success" onClick={() => this.props.search(this.state)} style={buttonStyle}>Pretraži</Button>
+                      <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
+                      <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
+                  </FormGroup>
+              </Form>
+          </div>
       );
   }
 
@@ -122,7 +123,7 @@ class SearchComponent extends React.Component {
   }
 
   insertNew() {
-      console.log('TODO dodat akciju i reducer za ucitat novu stavku lol ');
+      this.props.openInsertForm();
   }
 }
 

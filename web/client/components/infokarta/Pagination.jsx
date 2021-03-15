@@ -3,8 +3,17 @@ import PropTypes from "prop-types";
 import { Pagination } from "react-bootstrap";
 
 let active = 1;
-// active triba bit van da bi funkcionira
-// vjerojatno jer ga re-render obriše svaki put
+// active triba bit van rendera da bi funkcionira
+
+const style = {
+    display: "flex",
+    width: "100%",
+    justifyContent: "center"
+};
+
+const noZindex = {
+    zIndex: "0"
+}; // postavljanjen zIndexa na nulu se aktivan item ne prikazuje dok je plugin sakriven
 
 class PaginationComponent extends React.Component {
     static propTypes = {
@@ -31,6 +40,7 @@ class PaginationComponent extends React.Component {
                     key={number}
                     active={number === active}
                     onClick={setNumber.bind(this, number)}
+                    style={noZindex}
                 >
                     {number}
                 </Pagination.Item>
@@ -39,7 +49,7 @@ class PaginationComponent extends React.Component {
 
         return (
             <div>
-                <Pagination>
+                <Pagination style={style}>
                     {/* <Pagination.First />
                     <Pagination.Prev /> */}
                     {items}

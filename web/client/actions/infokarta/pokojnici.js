@@ -4,12 +4,10 @@ export const DECEASED_LOADED_BY_PAGE = "DECEASED_LOADED_BY_PAGE";
 export const LOAD_DECEASED_BY_PAGE = "LOAD_DECEASED_BY_PAGE";
 export const EDIT_DECEASED = "EDIT_DECEASED";
 
-export const deceasedLoaded = (deceased, totalNumber, exclude, readonly) => ({
+export const deceasedLoaded = (deceased, totalNumber) => ({
     type: DECEASED_LOADED,
     deceased,
-    totalNumber,
-    exclude,
-    readonly
+    totalNumber
 });
 
 export const loadDeceased = (searchParameters) => ({
