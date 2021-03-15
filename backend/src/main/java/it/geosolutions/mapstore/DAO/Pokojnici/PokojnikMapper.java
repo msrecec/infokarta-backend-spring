@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class PokojnikMapper implements RowMapper {
     public Pokojnik mapRow(ResultSet rs, int rowNum) throws SQLException {
         Pokojnik pokojnik = new Pokojnik();
+
         pokojnik.setFid(rs.getInt(1));
         pokojnik.setFk(rs.getInt(2));
         pokojnik.setIme_i_prezime(rs.getString(3));
