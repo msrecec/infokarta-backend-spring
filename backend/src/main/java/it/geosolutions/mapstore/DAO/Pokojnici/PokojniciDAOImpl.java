@@ -214,4 +214,10 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
         return json;
     }
+
+    public String addPokojnikByOznakaGroba(Pokojnik pokojnik, String nazivGroblja, String oznGrobnice) {
+        String sql = "SELECT * FROM \"Grob\" WHERE ";
+        return null;
+    }
+
 }
