@@ -54,7 +54,6 @@ const Api = {
     editPokojnik: function(pokojnik) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici';
         let header = { "Content-Type": "application/json;charset=UTF-8" };
-        console.log(pokojnik);
         return axios.put(
             url,
             pokojnik,
@@ -62,6 +61,17 @@ const Api = {
                 headers: header
             })
             .then(function(response) {
+                return response.data;
+            }).catch(function(error) {
+            /* eslint-disable no-console */
+                console.error(error);
+            });
+    },
+    getPokojniciColumns: function() {
+        let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns';
+        return axios.get(url)
+            .then(function(response) {
+                console.log(response.data);
                 return response.data;
             }).catch(function(error) {
             /* eslint-disable no-console */

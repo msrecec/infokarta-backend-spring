@@ -67,25 +67,26 @@ const formData = [
     }
 ];
 
+const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
+const readOnlyFields = ["fid", "fk"];
+
 const PokojniciPlugin = ({
     data,
     page,
     totalNumber,
-    fieldsToExclude,
-    readOnlyFields,
     loadDeceasedData = () => {},
     getPageNumber = () => {},
     getDataToEdit = () => {},
     sendEditedData = () => {},
-    sendNewData = () => {}
-    // callback funkcija: dohvacanje podataka iz child komponente
-    // njoj se pripiše akcija showDynamicModal i ona se onda proslijedi u child
+    sendNewData = () => {},
+    getFormToInsert = () => {}
 }) => {
 
     const search = (<SearchComponent
         buildData={formData}
         search={loadDeceasedData}
         pageNumber={page ? page : 1}
+        openInsertForm={getFormToInsert}
     />);
 
     const table = (<TableComponent
@@ -102,7 +103,6 @@ const PokojniciPlugin = ({
 
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        readOnlyFields={readOnlyFields ? readOnlyFields : []}
         insertItem={sendNewData}
     />);
 
@@ -126,13 +126,12 @@ export default createPlugin('Pokojnici', {
     component: connect((state) => ({
         data: get(state, "pokojnici.deceased"),
         page: get(state, "paginationControl.pageNumber"),
-        totalNumber: get(state, "pokojnici.totalNumber"),
-        fieldsToExclude: get(state, "pokojnici.fieldsToExclude"),
-        readOnlyFields: get(state, "pokojnici.readOnlyFields")
+        totalNumber: get(state, "pokojnici.totalNumber")
     }), {
         loadDeceasedData: loadDeceased,
         getPageNumber: setPaginationNumber,
         getDataToEdit: showEditModal,
+        getFormToInsert: showInsertModal,
         sendEditedData: editDeceased,
         sendNewData: showInsertModal
     })(PokojniciPlugin),

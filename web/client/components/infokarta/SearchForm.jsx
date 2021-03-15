@@ -26,7 +26,8 @@ class SearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
       search: PropTypes.func,
-      pageNumber: PropTypes.number
+      pageNumber: PropTypes.number,
+      openInsertForm: PropTypes.func
   };
 
   static defaultProps = {
@@ -122,7 +123,8 @@ class SearchComponent extends React.Component {
   }
 
   insertNew() {
-      console.log('TODO dodat akciju i reducer za ucitat novu stavku lol ');
+      this.props.openInsertForm();
+      console.log('form opened');
   }
 }
 

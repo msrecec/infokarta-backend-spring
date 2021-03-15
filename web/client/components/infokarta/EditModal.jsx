@@ -5,7 +5,7 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get } from "lodash";
 
 import {
-    showDynamicModal,
+    showEditModal,
     hideDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
@@ -105,10 +105,10 @@ class BaseModalComponent extends React.Component {
 const ModalComponent = connect((state) => {
     return {
         itemToEdit: get(state, 'dynamicModalControl.itemToEdit'),
-        show: get(state, 'dynamicModalControl.modalVisible')
+        show: get(state, 'dynamicModalControl.editModalVisible')
     };
 }, {
-    showModal: showDynamicModal,
+    showModal: showEditModal,
     hideModal: hideDynamicModal
 })(BaseModalComponent);
 
