@@ -71,7 +71,6 @@ const Api = {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns';
         return axios.get(url)
             .then(function(response) {
-                console.log(response.data);
                 return response.data;
             }).catch(function(error) {
             /* eslint-disable no-console */

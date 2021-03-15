@@ -49,7 +49,6 @@ class BaseModalComponent extends React.Component {
           // zove se funkcija za ucitat podatke u lokalni state
           // oni se kasnije salju u api poziv za insert
       }
-      console.log(this.props.fieldsToExclude);
   }
 
   render() {

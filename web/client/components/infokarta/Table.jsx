@@ -4,8 +4,8 @@ import {Table, Button} from 'react-bootstrap';
 
 const style = {
     overflow: "auto",
-    maxHeight: "500px",
-    maxWidth: "1400px"
+    maxHeight: "600px",
+    maxWidth: "1000px"
 };
 
 // funkcija za uljepsat headere, mijenja underscore sa razmakon i povecava prvo slovo

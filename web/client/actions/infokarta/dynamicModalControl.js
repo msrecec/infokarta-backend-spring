@@ -12,7 +12,7 @@ export const showInsertModal = () =>({
     type: SHOW_INSERT_MODAL
 });
 
-export const generateInsertForm = (itemToInsert, exclude) => ({
+export const generateInsertForm = (itemToInsert) => ({
     type: GENERATE_INSERT_FORM,
     itemToInsert
 });

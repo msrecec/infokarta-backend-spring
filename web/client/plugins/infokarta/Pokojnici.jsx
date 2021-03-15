@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
+import { assign, get } from 'lodash';
+
+import Message from '../../components/I18N/Message';
+import { Glyphicon } from 'react-bootstrap';
+// import layersIcon from '../toolbar/assets/img/layers.png';
 
 import {
     loadDeceased,
@@ -30,11 +34,6 @@ import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 
 const style = {
-    position: "absolute",
-    background: "white",
-    zIndex: 1000,
-    top: 50,
-    left: 50,
     padding: 10
 };
 
@@ -63,36 +62,41 @@ const formData = [
         label: "Groblje",
         type: "select",
         value: "graveyard",
-        selectValues: ["", "Primosten", "Prhovo", "Siroke", "Krusevo"] // prvi uvik triba bit prazan
+        selectValues: ["", "Primosten", "Prhovo", "Siroke", "Krusevo"] // prvi value uvijek treba bit prazan za select fieldove
     }
 ];
 
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const readOnlyFields = ["fid", "fk"];
 
-const PokojniciPlugin = ({
+const Pokojnici = ({
     data,
     page,
     totalNumber,
     loadDeceasedData = () => {},
-    getPageNumber = () => {},
-    getDataToEdit = () => {},
+    sendPageNumber = () => {},
+    setupEditModal = () => {},
     sendEditedData = () => {},
     sendNewData = () => {},
-    getFormToInsert = () => {}
+    setupInsertModal = () => {}
 }) => {
 
     const search = (<SearchComponent
         buildData={formData}
         search={loadDeceasedData}
         pageNumber={page ? page : 1}
-        openInsertForm={getFormToInsert}
+        openInsertForm={setupInsertModal}
     />);
 
     const table = (<TableComponent
         items={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        sendDataToEdit={getDataToEdit}
+        sendDataToEdit={setupEditModal}
+    />);
+
+    const pagination = (<PaginationComponent
+        totalNumber={totalNumber}
+        sendPageNumber={sendPageNumber}
     />);
 
     const editModal = (<EditModal
@@ -104,11 +108,6 @@ const PokojniciPlugin = ({
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         insertItem={sendNewData}
-    />);
-
-    const pagination = (<PaginationComponent
-        totalNumber={totalNumber}
-        sendPageNumber={getPageNumber}
     />);
 
     return (
@@ -129,12 +128,23 @@ export default createPlugin('Pokojnici', {
         totalNumber: get(state, "pokojnici.totalNumber")
     }), {
         loadDeceasedData: loadDeceased,
-        getPageNumber: setPaginationNumber,
-        getDataToEdit: showEditModal,
-        getFormToInsert: showInsertModal,
+        sendPageNumber: setPaginationNumber,
+        setupEditModal: showEditModal,
+        setupInsertModal: showInsertModal,
         sendEditedData: editDeceased,
         sendNewData: showInsertModal
-    })(PokojniciPlugin),
+    })(Pokojnici),
+    containers: {
+        DrawerMenu: {
+            name: "Pokojnici",
+            position: 2,
+            text: <Message msgId="pokojnici"/>,
+            icon: <Glyphicon glyph="user"/>,
+            action: () => ({type: ''}),
+            priority: 1,
+            doNotHide: true
+        }
+    },
     epics,
     reducers: {
         pokojnici,
