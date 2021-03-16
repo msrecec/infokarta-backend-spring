@@ -2,10 +2,12 @@ package it.geosolutions.mapstore.DAO.Pokojnik;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +83,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
                                           Optional<String> oPocGodinaUkopa,
                                           Optional<String> oKonGodinaUkopa,
                                           Optional<String> oGroblje,
-                                          Optional<Integer> oPage) {
+                                          Optional<Integer> oPage) throws UnsupportedEncodingException {
         // input params
         String ime = "", prezime = "", pocGodinaUkopa = "", konGodinaUkopa = "", groblje = "";
         Integer page = null, offset = null, limit = null;
@@ -97,7 +99,8 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String select = "SELECT * ";
         String selectCount = "SELECT COUNT(*) ";
 
-        String grobljeSQL = "INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid WHERE public.\"Grobovi\".\"Groblje\" ILIKE ? ";
+        String grobljeSQL = "INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid INNER JOIN public.\"Groblja\" ON " +
+            "public.\"Grobovi\".fk = public.\"Groblja\".fid WHERE public.\"Groblja\".\"naziv\" ILIKE ? ";
         String imeSQL = "\"IME\" ILIKE ? ";
         String prezimeSQL = "\"PREZIME\" ILIKE ? ";
         String godineSQL = "TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? ";
@@ -107,14 +110,14 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String sql = "FROM public.\"Pokojnici\" ";
 
         if(oGroblje.isPresent()) {
-            groblje = oGroblje.get().trim();
+            groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
             sql+=grobljeSQL;
             and = true;
             objArrList.add(groblje);
         }
 
         if(oIme.isPresent()) {
-            ime = oIme.get().trim();
+            ime = EncodingUtils.decodeISO88591(oIme.get()).trim();
             ime = "%"+ime+"%";
             if(and) {
                 sql+="AND ";
@@ -126,7 +129,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             objArrList.add(ime);
         }
         if(oPrezime.isPresent()) {
-            prezime = oPrezime.get().trim();
+            prezime = EncodingUtils.decodeISO88591(oPrezime.get()).trim();
             prezime = "%"+prezime+"%";
             if(and) {
                 sql+="AND ";

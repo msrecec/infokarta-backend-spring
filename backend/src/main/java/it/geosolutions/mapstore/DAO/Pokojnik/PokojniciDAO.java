@@ -3,6 +3,7 @@ package it.geosolutions.mapstore.DAO.Pokojnik;
 import it.geosolutions.mapstore.pojo.Pokojnik;
 
 import javax.sql.DataSource;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public interface PokojniciDAO {
                                           Optional<String> oPocGodinaUkopa,
                                           Optional<String> oKonGodinaUkopa,
                                           Optional<String> oGroblje,
-                                          Optional<Integer> oPage);
+                                          Optional<Integer> oPage) throws UnsupportedEncodingException;
 
     public List<String> listColumns();
 
