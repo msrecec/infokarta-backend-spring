@@ -13,9 +13,13 @@ import java.util.List;
 public class GrobDAOImpl implements GrobDAO {
     private JdbcTemplate jdbcTemplateObject;
 
+    public GrobDAOImpl() {
+        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
+    }
+
     @Override
     public void setDataSource(DataSource ds) {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
+        this.jdbcTemplateObject = new JdbcTemplate(ds);
     }
 
     @Override
