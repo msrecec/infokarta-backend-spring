@@ -99,8 +99,12 @@ public class PokojniciController {
 
     @RequestMapping(value = "/pokojnici", method = RequestMethod.POST)
     @ResponseBody
-    public byte[] addPokojnik(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
+    public byte[] addPokojnik(@RequestBody String jsonArr) throws UnsupportedEncodingException, JsonProcessingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        List<Object> objList = JSONUtils.fromJSONtoList(jsonArr);
+
+        objList.stream().forEach(System.out::println);
 
         return null;
     }

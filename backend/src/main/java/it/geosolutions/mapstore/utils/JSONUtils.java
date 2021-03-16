@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public interface JSONUtils {
@@ -43,5 +45,16 @@ public interface JSONUtils {
         P p = objectMapper.readValue(json, typeClass);
 
         return p;
+    }
+
+    static List<Object> fromJSONtoList(String jsonArray) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Object> objList;
+
+        Object[] objArr = objectMapper.readValue(jsonArray, Object[].class);
+
+        objList = Arrays.asList(objArr);
+
+        return objList;
     }
 }
