@@ -32,17 +32,16 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public Grob getGrobByRBR(String redniBroj) {
-        String rbr = redniBroj.trim();
-        String sql = "SELECT * FROM public.\"Grobovi\" WHERE TRIM(public.\"Grobovi\".\"Rednibroj\") ILIKE ? ORDER BY fid";
+        String sql = "SELECT \"Grobovi\".* FROM \"Grobovi\" WHERE TRIM(public.\"Grobovi\".\"Rednibroj\") ILIKE ? ORDER BY fid";
         GrobMapper grobMapper = new GrobMapper();
-        Grob grob = (Grob)jdbcTemplateObject.queryForObject(sql, new Object[]{rbr}, grobMapper);
+        Grob grob = (Grob)jdbcTemplateObject.queryForObject(sql, new Object[]{redniBroj}, grobMapper);
 
         return grob;
     }
 
     @Override
     public List<Grob> getGroboviByGroblje(String groblje) {
-        String sql = "SELECT * FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid WHERE TRIM(\"Groblja\".naziv) ILIKE ? ORDER BY \"Rednibroj\"";
+        String sql = "SELECT \"Grobovi\".* FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid WHERE \"Groblja\".\"naziv\" ILIKE ? ORDER BY \"Rednibroj\"";
         GrobMapper grobMapper = new GrobMapper();
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , grobMapper);
         return grobovi;

@@ -69,7 +69,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     @Override
     public Pokojnik getPokojnikById(Optional<Integer> oId) {
         Integer id = oId.get();
-        String sql = "SELECT * FROM public.\"Pokojnici\" WHERE fid = ? ORDER BY fid";
+        String sql = "SELECT * FROM \"Pokojnici\" WHERE fid = ? ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         Pokojnik pokojnik = (Pokojnik) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, pokojnikMapper);
         return pokojnik;

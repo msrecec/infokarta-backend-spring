@@ -9,7 +9,11 @@ import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,28 +22,16 @@ public class GroboviController {
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/grobovi", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getGrobovi() throws UnsupportedEncodingException {
-
-        GrobDAO grobDAO = new GrobDAOImpl();
-
-        List<Grob> grobovi = grobDAO.listGrobovi();
-
-        String json = JSONUtils.fromListToJSON(grobovi);
-
-        return json.getBytes("UTF-8");
-    }
-
-    //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/grobovi/rbr", method = RequestMethod.GET)
-    @ResponseBody
-    public byte[] getGroboviRBR(@RequestParam(value = "groblje", required = false) String groblje) throws UnsupportedEncodingException {
+    public byte[] getGrobovi(@RequestParam(value = "groblje", required = false) String groblje, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 
         GrobDAO grobDAO = new GrobDAOImpl();
         List<Grob> grobovi;
         Optional<String> oGroblje = Optional.ofNullable(groblje);
 
         if(oGroblje.isPresent()){
-            grobovi = grobDAO.getGroboviByGroblje(oGroblje.get());
+            String decoded =  new String(oGroblje.get().getBytes("iso-8859-1"), "UTF-8");
+            System.out.println(decoded);
+            grobovi = grobDAO.getGroboviByGroblje(decoded);
         } else {
             grobovi = grobDAO.listGrobovi();
 
@@ -49,7 +41,6 @@ public class GroboviController {
 
         return json.getBytes("UTF-8");
     }
-
 
 
 
