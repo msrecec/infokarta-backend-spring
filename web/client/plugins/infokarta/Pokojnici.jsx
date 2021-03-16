@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { assign, get } from 'lodash';
+import { get } from 'lodash';
 
 import Message from '../../components/I18N/Message';
 import { Glyphicon } from 'react-bootstrap';
@@ -84,7 +84,7 @@ const Pokojnici = ({
     const search = (<SearchComponent
         buildData={formData}
         search={loadDeceasedData}
-        pageNumber={page ? page : 1}
+        pageNumber={typeof page === "number" ? page : 1}
         openInsertForm={setupInsertModal}
     />);
 
@@ -97,6 +97,7 @@ const Pokojnici = ({
     const pagination = (<PaginationComponent
         totalNumber={totalNumber}
         sendPageNumber={sendPageNumber}
+        active={typeof page === "number" ? page : 1}
     />);
 
     const editModal = (<EditModal

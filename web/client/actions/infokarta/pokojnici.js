@@ -15,16 +15,6 @@ export const loadDeceased = (searchParameters) => ({
     searchParameters
 });
 
-export const deceasedLoadedByPage = (deceased) => ({
-    type: DECEASED_LOADED_BY_PAGE,
-    deceased
-});
-
-export const loadDeceasedByPage = (pageNumber) => ({
-    type: LOAD_DECEASED_BY_PAGE,
-    pageNumber
-});
-
 export const editDeceased = (itemToEdit) => ({
     type: EDIT_DECEASED,
     itemToEdit

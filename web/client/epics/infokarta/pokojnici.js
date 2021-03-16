@@ -67,7 +67,7 @@ export const fetchColumnsForInsert = (action$ /* , store*/) =>
                 .catch((error) => {
                     return Rx.Observable.of(
                         /* eslint-disable no-console */
-                        console.error('error while fetching deceased', error)
+                        console.error('error while fetching columns to insert new deceased', error)
                     );
                 });
         });

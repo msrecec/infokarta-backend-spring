@@ -39,6 +39,7 @@ class SearchComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+      // kad se promijeni stranica paginacije, pokreni search ponovno
       if (prevProps.pageNumber !== this.props.pageNumber) {
           this.setState({ page: this.props.pageNumber });
           let temp = cloneDeep(this.state);
@@ -115,7 +116,7 @@ class SearchComponent extends React.Component {
       let form = document.getElementById("dynamicForm");
       let selectTags = form.getElementsByTagName("select");
 
-      for (let i = 0; i < selectTags.length; i++) { // TODO https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
+      for (let i = 0; i < selectTags.length; i++) {
           selectTags[i].selectedIndex = 0;
       }
 
