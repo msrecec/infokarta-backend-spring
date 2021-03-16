@@ -8,5 +8,5 @@ import java.util.List;
 public interface GrobljeDAO {
     public void setDataSource(DataSource ds);
 
-    public List<Groblje> listGroblje();
+    public List<Groblje> listGroblja();
 }

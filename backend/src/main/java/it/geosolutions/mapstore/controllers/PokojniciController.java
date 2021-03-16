@@ -1,18 +1,14 @@
 package it.geosolutions.mapstore.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAO;
-import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAOImpl;
-import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAO;
-import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAOImpl;
-import it.geosolutions.mapstore.pojo.Groblje;
+import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.pojo.Pokojnik;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,12 +89,19 @@ public class PokojniciController {
     @ResponseBody
     public byte[] updatePokojnici(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-        System.out.println("Raw json string output");
-        System.out.println(json);
+
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
-        System.out.println("Class json string conversion output");
-        System.out.println(pokojnik);
+
         String outJson = pokojniciDAO.updatePokojnik(pokojnik);
+
         return outJson.getBytes("UTF-8");
+    }
+
+    @RequestMapping(value = "/pokojnici", method = RequestMethod.POST)
+    @ResponseBody
+    public byte[] addPokojnik(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        return null;
     }
 }

@@ -1,23 +1,23 @@
 package it.geosolutions.mapstore.pojo;
 
 public class Groblje {
-    private Integer brojGrobova;
+    private Integer fid;
     private String naziv;
 
     @Override
     public String toString() {
         return "Groblje{" +
-            "brojGrobova=" + brojGrobova +
+            "fid=" + fid +
             ", naziv='" + naziv + '\'' +
             '}';
     }
 
-    public Integer getBrojGrobova() {
-        return brojGrobova;
+    public Integer getFid() {
+        return fid;
     }
 
-    public void setBrojGrobova(Integer brojGrobova) {
-        this.brojGrobova = brojGrobova;
+    public void setFid(Integer fid) {
+        this.fid = fid;
     }
 
     public String getNaziv() {

@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO.Grobovi;
+package it.geosolutions.mapstore.DAO.Grob;
 
 import it.geosolutions.mapstore.pojo.Grob;
 import org.postgis.PGgeometry;
