@@ -39,9 +39,9 @@ public class GroboviController {
         Optional<String> oGroblje = Optional.ofNullable(groblje);
 
         if(oGroblje.isPresent()){
-            grobovi = grobDAO.getRBRGrobovaByGroblje(oGroblje.get());
+            grobovi = grobDAO.getGroboviByGroblje(oGroblje.get());
         } else {
-            grobovi = grobDAO.getRBRGrobova();
+            grobovi = grobDAO.listGrobovi();
 
         }
 

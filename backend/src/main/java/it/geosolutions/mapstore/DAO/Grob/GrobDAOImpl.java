@@ -41,30 +41,10 @@ public class GrobDAOImpl implements GrobDAO {
     }
 
     @Override
-    public List<Grob> getRBRGrobova() {
-        String sql = "SELECT DISTINCT \"Rednibroj\" FROM \"Grobovi\" ORDER BY \"Rednibroj\"";
-        List<Grob> redniBrojevi = jdbcTemplateObject.query(sql, new RowMapper<Grob>() {
-            @Override
-            public Grob mapRow(ResultSet rs, int i) throws SQLException {
-                Grob grob = new Grob();
-                grob.setRedniBroj(rs.getString(1));
-                return grob;
-            }
-        });
-        return null;
-    }
-
-    @Override
-    public List<Grob> getRBRGrobovaByGroblje(String groblje) {
-        String sql = "SELECT DISTINCT \"Rednibroj\" FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid WHERE TRIM(\"Groblja\".naziv) ILIKE ? ORDER BY \"Rednibroj\"";
-        List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , new RowMapper<Grob>() {
-            @Override
-            public Grob mapRow(ResultSet rs, int i) throws SQLException {
-                Grob grob = new Grob();
-                grob.setRedniBroj(rs.getString(1));
-                return grob;
-            }
-        });
+    public List<Grob> getGroboviByGroblje(String groblje) {
+        String sql = "SELECT * FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid WHERE TRIM(\"Groblja\".naziv) ILIKE ? ORDER BY \"Rednibroj\"";
+        GrobMapper grobMapper = new GrobMapper();
+        List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , grobMapper);
         return grobovi;
     }
 }

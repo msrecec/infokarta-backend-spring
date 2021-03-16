@@ -12,7 +12,5 @@ public interface GrobDAO {
 
     public Grob getGrobByRBR(String redniBroj);
 
-    public List<Grob> getRBRGrobova();
-
-    public List<Grob> getRBRGrobovaByGroblje(String groblje);
+    public List<Grob> getGroboviByGroblje(String groblje);
 }

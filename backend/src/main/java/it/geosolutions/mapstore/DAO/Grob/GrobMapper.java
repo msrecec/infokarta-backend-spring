@@ -1,6 +1,7 @@
 package it.geosolutions.mapstore.DAO.Grob;
 
 import it.geosolutions.mapstore.pojo.Grob;
+import it.geosolutions.mapstore.utils.JSONUtils;
 import org.postgis.PGgeometry;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -12,7 +13,7 @@ public class GrobMapper implements RowMapper {
     public Grob mapRow(ResultSet rs, int i) throws SQLException {
         Grob grob = new Grob();
 
-        grob.setGeom((PGgeometry)rs.getObject(1));
+        grob.setGeom(rs.getString(1));
         grob.setFid(rs.getInt(2));
         grob.setSource(rs.getString(3));
         grob.setSource1(rs.getString(4));
