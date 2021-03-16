@@ -215,9 +215,22 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         return json;
     }
 
-    public String addPokojnikByOznakaGroba(Pokojnik pokojnik, String nazivGroblja, String oznGrobnice) {
-        String sql = "SELECT * FROM \"Grob\" WHERE ";
-        return null;
-    }
+    @Override
+    public String addPokojnik(Pokojnik pokojnik) {
+        String sql = "INSERT INTO public.\"Pokojnici\"(\n" +
+            "\tfid, fk, \"IME I PREZIME\", \"Prezime djevojačko\", \"IME OCA\", \"NADIMAK\", \"OIB\", \"SPOL\", \"DATU ROĐENJA\", \"Bračno stanje\", " +
+            "\"MJESTO STANOVANJA\", \"ADRESA STANOVANJA\", \"Ime i prezime bračnog druga\", \"DOB\", \"UZROK SMRTI\", \"Mjesto smrti\", \"DATUM SMRTI\", " +
+            "\"DATUM KREMIRANJA\", \"DATUM UKOPA\", \"oznaka grobnice\", groblje, \"Naknadni upisi i bilješke\", \"Godina ukopa\", \"USLUGA\", \"RAČUN\", " +
+            "\"DATUM USLUGE\", \"IME\", \"PREZIME\")\n" +
+            "\tVALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        Integer numberOfAffectedRows = jdbcTemplateObject.update(sql, pokojnik.getFk(),pokojnik.getIme_i_prezime(), pokojnik.getPrezime_djevojacko(), pokojnik.getIme_oca(), pokojnik.getNadimak(), pokojnik.getOib(),
+            pokojnik.getSpol(), pokojnik.getDatum_rodjenja(), pokojnik.getBracno_stanje(), pokojnik.getMjesto_stanovanja(), pokojnik.getAdresa_stanovanja(), pokojnik.getIme_i_prezime_bracnog_druga(),
+            pokojnik.getDob(), pokojnik.getUzrok_smrti(), pokojnik.getMjesto_smrti(), pokojnik.getDatum_smrti(), pokojnik.getDatum_kremiranja(), pokojnik.getDatum_ukopa(),
+            pokojnik.getOznaka_grobnice(), pokojnik.getGroblje(), pokojnik.getNaknadni_upisi_i_biljeske(), pokojnik.getGodina_ukopa(), pokojnik.getUsluga(), pokojnik.getRacun(),
+            pokojnik.getDatum_usluge(), pokojnik.getIme(), pokojnik.getPrezime());
+
+        String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
+        return json;
+    }
 }

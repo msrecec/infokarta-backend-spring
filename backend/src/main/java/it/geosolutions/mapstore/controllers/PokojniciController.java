@@ -85,6 +85,7 @@ public class PokojniciController {
         return json.getBytes("UTF-8");
     }
 
+    //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.PUT)
     @ResponseBody
     public byte[] updatePokojnici(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
@@ -97,15 +98,16 @@ public class PokojniciController {
         return outJson.getBytes("UTF-8");
     }
 
+    //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.POST)
     @ResponseBody
-    public byte[] addPokojnik(@RequestBody String jsonArr) throws UnsupportedEncodingException, JsonProcessingException {
+    public byte[] addPokojnik(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
-        List<Object> objList = JSONUtils.fromJSONtoList(jsonArr);
+        Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 
-        objList.stream().forEach(System.out::println);
+        String outJson = pokojniciDAO.addPokojnik(pokojnik);
 
-        return null;
+        return outJson.getBytes("UTF-8");
     }
 }

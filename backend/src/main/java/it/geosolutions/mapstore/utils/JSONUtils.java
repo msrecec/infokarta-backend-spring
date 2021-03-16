@@ -46,15 +46,4 @@ public interface JSONUtils {
 
         return p;
     }
-
-    static List<Object> fromJSONtoList(String jsonArray) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        List<Object> objList;
-
-        Object[] objArr = objectMapper.readValue(jsonArray, Object[].class);
-
-        objList = Arrays.asList(objArr);
-
-        return objList;
-    }
 }

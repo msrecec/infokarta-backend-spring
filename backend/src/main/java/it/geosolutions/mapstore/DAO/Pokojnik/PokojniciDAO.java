@@ -27,4 +27,6 @@ public interface PokojniciDAO {
 
     public String updatePokojnik(Pokojnik pokojnik);
 
+    public String addPokojnik(Pokojnik pokojnik);
+
 }
