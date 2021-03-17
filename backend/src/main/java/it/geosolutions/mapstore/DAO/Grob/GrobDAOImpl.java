@@ -32,7 +32,8 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public List<Grob> getGroboviByGroblje(String groblje) {
-        String sql = "SELECT \"Grobovi\".* FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid WHERE \"Groblja\".\"naziv\" ILIKE ? ORDER BY \"Rednibroj\"";
+        String sql = "SELECT \"Grobovi\".* FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid " +
+            "WHERE \"Groblja\".\"naziv\" ILIKE ? ORDER BY \"Grobovi\".\"Rednibroj\"";
         GrobMapper grobMapper = new GrobMapper();
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , grobMapper);
         return grobovi;

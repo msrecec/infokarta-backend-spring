@@ -61,6 +61,15 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
+    public Pokojnik getFirstPokojnik() {
+        String sql = "SELECT * FROM public.\"Pokojnici\" LIMIT 1";
+
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
+
+        return (Pokojnik)jdbcTemplateObject.queryForObject(sql, pokojnikMapper);
+    }
+
+    @Override
     public String listPokojnici() {
         String sql = "SELECT * FROM public.\"Pokojnici\" ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();

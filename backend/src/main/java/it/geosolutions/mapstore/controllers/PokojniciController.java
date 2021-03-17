@@ -65,9 +65,13 @@ public class PokojniciController {
 
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
-        List<String> columns = pokojniciDAO.listColumns();
+//        List<String> columns = pokojniciDAO.listColumns();
 
-        String json = JSONUtils.fromListToJSON(columns);
+//        String json = JSONUtils.fromListToJSON(columns);
+
+        Pokojnik pokojnik = pokojniciDAO.getFirstPokojnik();
+
+        String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
         return json.getBytes("UTF-8");
     }
