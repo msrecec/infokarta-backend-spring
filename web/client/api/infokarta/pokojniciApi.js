@@ -13,6 +13,7 @@ const Api = {
     },
     searchPokojnici: function(searchParameters) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
+
         if (searchParameters.name) {
             url += 'ime=' + searchParameters.name + '&';
         }
@@ -70,6 +71,35 @@ const Api = {
     getPokojniciColumns: function() {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns';
         return axios.get(url)
+            .then(function(response) {
+                return response.data;
+            }).catch(function(error) {
+            /* eslint-disable no-console */
+                console.error(error);
+            });
+    },
+    insertPokojnik: function(itemToInsert) {
+        let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
+
+        if (itemToInsert.graveyard) {
+            url += 'groblje=' + itemToInsert.graveyard + '&';
+            delete itemToInsert.graveyard;
+        }
+
+        if (itemToInsert.graveNumber) {
+            url += 'rbr=' + itemToInsert.graveNumber;
+            delete itemToInsert.graveNumber;
+        }
+
+        console.log('itemToInsert', itemToInsert);
+        console.log('url', url);
+        let header = { "Content-Type": "application/json;charset=UTF-8" };
+        return axios.post(
+            url,
+            itemToInsert,
+            {
+                headers: header
+            })
             .then(function(response) {
                 return response.data;
             }).catch(function(error) {

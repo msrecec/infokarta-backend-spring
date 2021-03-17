@@ -3,6 +3,7 @@ import Rx from "rxjs";
 import {
     LOAD_DECEASED,
     EDIT_DECEASED,
+    INSERT_DECEASED,
     deceasedLoaded
 } from "../../actions/infokarta/pokojnici";
 
@@ -39,8 +40,8 @@ export const sendEditData = (action$ /* , store*/) =>
             // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.editPokojnik(itemToEdit)
                 .then(data => data))
-                .switchMap((responseData) => {
-                    console.log('edit response: ', responseData);
+                .switchMap((response) => {
+                    console.log('edit response: ', response);
                     return Rx.Observable.of(
                         hideDynamicModal()
                     );
@@ -62,6 +63,26 @@ export const fetchColumnsForInsert = (action$ /* , store*/) =>
                 .switchMap((columns) => {
                     return Rx.Observable.of(
                         generateInsertForm(columns)
+                    );
+                })
+                .catch((error) => {
+                    return Rx.Observable.of(
+                        /* eslint-disable no-console */
+                        console.error('error while fetching columns to insert new deceased', error)
+                    );
+                });
+        });
+
+export const insertNew = (action$ /* , store*/) =>
+    action$.ofType(INSERT_DECEASED)
+        .switchMap(({ itemToInsert = {} }) => {
+            // const state = store.getState();
+            return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert)
+                .then(data => data))
+                .switchMap((response) => {
+                    console.log('insert response: ', response);
+                    return Rx.Observable.of(
+                        hideDynamicModal()
                     );
                 })
                 .catch((error) => {

@@ -23,7 +23,8 @@ class BaseModalComponent extends React.Component {
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
-      insertItem: PropTypes.func
+      insertItem: PropTypes.func,
+      extraForm: PropTypes.func
   };
 
   static defaultProps = {
@@ -55,13 +56,47 @@ class BaseModalComponent extends React.Component {
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
+                      {this.props.extraForm ?
+                          this.props.extraForm.map((field) => {
+                              return field.type === "text" ?
+                                  ( // ako polje ima type = text, napravi klasično text input polje
+                                      <FormGroup
+                                          key={field.label}
+                                          controlId={field.label}
+                                      >
+                                          <ControlLabel>{field.label}</ControlLabel>
+                                          <FormControl
+                                              type={field.type}
+                                              value={this.state[field.value]}
+                                              onChange={(e) => this.handleChange(field.value, e)}/>
+                                      </FormGroup>)
+                                  : ( // ako polje nema type = text, napravi select polje
+                                      <FormGroup
+                                          key={field.label}
+                                          controlId={field.label}
+                                      >
+                                          <ControlLabel>{field.label}</ControlLabel>
+                                          <FormControl
+                                              componentClass={field.type}
+                                              placeholder={this.state[field.selectValues[0]]}
+                                              onChange={(e) => this.handleChange(field.value, e)}
+                                          >
+                                              {field.selectValues.map((option) => {
+                                                  return <option value={option}>{option}</option>;
+                                              })}
+                                          </FormControl>
+                                      </FormGroup>
+                                  );
+                          }
+                          ) : null}
+                      <hr/>
                       {this.props.itemToInsert ? this.props.itemToInsert.map((entry) => {
                           if (!this.props.fieldsToExclude.includes(entry)) {
                               return (
                                   <FormGroup controlId={entry} key={entry}>
                                       <ControlLabel>{beautifyHeader(entry)}</ControlLabel>
                                       <FormControl
-                                          value={""}
+                                          value={this.state.entry}
                                           onChange={(e) => this.handleChange(entry, e)}
                                       />
                                   </FormGroup>
@@ -89,10 +124,11 @@ class BaseModalComponent extends React.Component {
   }
 
   updateState = () => {
-      Object.entries(this.props.itemToInsert).map((entry) => {
-          this.setState({ [entry[0]]: entry[1] });
-          // ucitaj sve podatke u state komponente
-      });
+      const obj = this.props.itemToInsert.reduce((accumulator, currentValue) => {
+          accumulator[currentValue] = "";
+          return accumulator;
+      }, {});
+      this.setState(obj);
   }
 }
 

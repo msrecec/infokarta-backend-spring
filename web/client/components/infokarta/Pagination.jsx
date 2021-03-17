@@ -50,7 +50,7 @@ class PaginationComponent extends React.Component {
 
         return (
             <div>
-                <Pagination style={style}>
+                <Pagination key="pagination" style={style}>
                     {/* <Pagination.First />
                     <Pagination.Prev /> */}
                     {items}

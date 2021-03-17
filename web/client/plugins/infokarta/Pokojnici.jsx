@@ -8,7 +8,8 @@ import { Glyphicon } from 'react-bootstrap';
 
 import {
     loadDeceased,
-    editDeceased
+    editDeceased,
+    insertDeceased
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -62,7 +63,21 @@ const formData = [
         label: "Groblje",
         type: "select",
         value: "graveyard",
-        selectValues: ["", "Primosten", "Prhovo", "Siroke", "Krusevo"] // prvi value uvijek treba bit prazan za select fieldove
+        selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"] // prvi value uvijek treba bit prazan za select fieldove
+    }
+];
+
+const extraInsertForm = [
+    {
+        label: "Groblje",
+        type: "select",
+        value: "graveyard",
+        selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"] // prvi value uvijek treba bit prazan za select fieldove
+    },
+    {
+        label: "Redni broj grobnice",
+        type: "text",
+        value: "graveNumber"
     }
 ];
 
@@ -86,6 +101,7 @@ const Pokojnici = ({
         search={loadDeceasedData}
         pageNumber={typeof page === "number" ? page : 1}
         openInsertForm={setupInsertModal}
+        resetPagination={sendPageNumber}
     />);
 
     const table = (<TableComponent
@@ -108,6 +124,7 @@ const Pokojnici = ({
 
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        extraForm={extraInsertForm}
         insertItem={sendNewData}
     />);
 
@@ -133,7 +150,7 @@ export default createPlugin('Pokojnici', {
         setupEditModal: showEditModal,
         setupInsertModal: showInsertModal,
         sendEditedData: editDeceased,
-        sendNewData: showInsertModal
+        sendNewData: insertDeceased
     })(Pokojnici),
     containers: {
         DrawerMenu: {

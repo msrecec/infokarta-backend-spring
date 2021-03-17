@@ -23,7 +23,8 @@ class SearchComponent extends React.Component {
       buildData: PropTypes.array,
       search: PropTypes.func,
       pageNumber: PropTypes.number,
-      openInsertForm: PropTypes.func
+      openInsertForm: PropTypes.func,
+      resetPagination: PropTypes.func
   };
 
   static defaultProps = {
@@ -93,7 +94,7 @@ class SearchComponent extends React.Component {
                       controlId="searchActions"
                       style={formStyle}
                   >
-                      <Button bsStyle="success" onClick={() => this.props.search(this.state)} style={buttonStyle}>Pretraži</Button>
+                      <Button bsStyle="success" onClick={() => this.search()} style={buttonStyle}>Pretraži</Button>
                       <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
                       <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
                   </FormGroup>
@@ -120,7 +121,12 @@ class SearchComponent extends React.Component {
           selectTags[i].selectedIndex = 0;
       }
 
-      this.props.search();
+      this.search();
+  }
+
+  search() {
+      this.props.search(this.state);
+      this.props.resetPagination(1);
   }
 
   insertNew() {
