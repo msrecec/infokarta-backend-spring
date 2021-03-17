@@ -61,17 +61,24 @@ public class PokojniciController {
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/columns", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getColumns() throws UnsupportedEncodingException {
+    public byte[] getColumns(@RequestParam(value = "variables", required = false) Boolean variables) throws UnsupportedEncodingException {
+
+        String json;
+
+        Optional<Boolean> oVariables = Optional.ofNullable(variables);
 
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
-//        List<String> columns = pokojniciDAO.listColumns();
+        if(oVariables.isPresent()) {
+            Pokojnik pokojnik = pokojniciDAO.getFirstPokojnik();
 
-//        String json = JSONUtils.fromListToJSON(columns);
+            json = JSONUtils.fromPOJOToJSON(pokojnik);
+        } else {
+            List<String> columns = pokojniciDAO.listColumns();
 
-        Pokojnik pokojnik = pokojniciDAO.getFirstPokojnik();
+            json = JSONUtils.fromListToJSON(columns);
+        }
 
-        String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
         return json.getBytes("UTF-8");
     }
