@@ -11,4 +11,6 @@ public interface GrobDAO {
     public List<Grob> listGrobovi();
 
     public List<Grob> getGroboviByGroblje(String groblje);
+
+    public List<Grob> getRbrByGroblje(String groblje);
 }

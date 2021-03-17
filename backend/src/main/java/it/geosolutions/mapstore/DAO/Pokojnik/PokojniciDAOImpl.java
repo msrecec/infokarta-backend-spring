@@ -245,4 +245,20 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
         return json;
     }
+
+    @Override
+    public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr) {
+        String sql = "SELECT \"Grobovi\".fid FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid " +
+            "WHERE \"Groblja\".naziv ILIKE ? AND \"Grobovi\".\"Rednibroj\" ILIKE ? ";
+
+        Optional<Integer> oFid = Optional.ofNullable(jdbcTemplateObject.queryForInt(sql, new Object[]{groblje, rbr}));
+
+        if(oFid.isPresent()) {
+            pokojnik.setFk(oFid.get());
+        }
+
+        String json = addPokojnik(pokojnik);
+
+        return json;
+    }
 }

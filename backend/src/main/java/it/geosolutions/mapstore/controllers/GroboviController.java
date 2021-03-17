@@ -23,7 +23,9 @@ public class GroboviController {
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/grobovi", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getGrobovi(@RequestParam(value = "groblje", required = false) String groblje) throws UnsupportedEncodingException {
+    public byte[] getGrobovi(
+        @RequestParam(value = "groblje", required = false) String groblje
+    ) throws UnsupportedEncodingException {
 
         GrobDAO grobDAO = new GrobDAOImpl();
         List<Grob> grobovi;

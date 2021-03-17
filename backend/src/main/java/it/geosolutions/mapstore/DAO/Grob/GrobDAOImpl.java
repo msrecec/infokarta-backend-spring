@@ -38,4 +38,21 @@ public class GrobDAOImpl implements GrobDAO {
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , grobMapper);
         return grobovi;
     }
+
+    @Override
+    public List<Grob> getRbrByGroblje(String groblje) {
+        String sql = "SELECT DISTINCT \"Grobovi\".\"Rednibroj\" FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid\n" +
+            "WHERE \"Groblja\".naziv ILIKE ?";
+
+        List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje}, new RowMapper() {
+            @Override
+            public Object mapRow(ResultSet rs, int i) throws SQLException {
+                Grob grob = new Grob();
+                grob.setRedniBroj(rs.getString(1));
+                return grob;
+            }
+        });
+
+        return grobovi;
+    }
 }

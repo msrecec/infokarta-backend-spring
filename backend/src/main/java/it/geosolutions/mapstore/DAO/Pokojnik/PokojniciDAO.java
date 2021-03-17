@@ -30,6 +30,8 @@ public interface PokojniciDAO {
 
     public String addPokojnik(Pokojnik pokojnik);
 
+    public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr);
+
     public Pokojnik getFirstPokojnik();
 
 }
