@@ -43,21 +43,4 @@ public class GroboviController {
     }
 
 
-
-    //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/grobovi/{rbr}", method = RequestMethod.GET)
-    @ResponseBody
-    public byte[] getGrobByRBR(@PathVariable String rbr) throws UnsupportedEncodingException {
-
-        GrobDAO grobDAO = new GrobDAOImpl();
-
-        Grob grob = grobDAO.getGrobByRBR(rbr);
-
-        String json = JSONUtils.fromPOJOToJSON(grob);
-
-        return json.getBytes("UTF-8");
-    }
-
-
-
 }
