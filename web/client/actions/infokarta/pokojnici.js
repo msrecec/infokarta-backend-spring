@@ -3,6 +3,7 @@ export const LOAD_DECEASED = "LOAD_DECEASED";
 export const DECEASED_LOADED_BY_PAGE = "DECEASED_LOADED_BY_PAGE";
 export const LOAD_DECEASED_BY_PAGE = "LOAD_DECEASED_BY_PAGE";
 export const EDIT_DECEASED = "EDIT_DECEASED";
+export const INSERT_DECEASED = "INSERT_DECEASED";
 
 export const deceasedLoaded = (deceased, totalNumber) => ({
     type: DECEASED_LOADED,
@@ -15,17 +16,12 @@ export const loadDeceased = (searchParameters) => ({
     searchParameters
 });
 
-export const deceasedLoadedByPage = (deceased) => ({
-    type: DECEASED_LOADED_BY_PAGE,
-    deceased
-});
-
-export const loadDeceasedByPage = (pageNumber) => ({
-    type: LOAD_DECEASED_BY_PAGE,
-    pageNumber
-});
-
 export const editDeceased = (itemToEdit) => ({
     type: EDIT_DECEASED,
     itemToEdit
+});
+
+export const insertDeceased = (itemToInsert) => ({
+    type: INSERT_DECEASED,
+    itemToInsert
 });

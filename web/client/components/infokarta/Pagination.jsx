@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Pagination } from "react-bootstrap";
 
-let active = 1;
+// let active = 1;
 // active triba bit van rendera da bi funkcionira
 
 const style = {
@@ -18,7 +18,8 @@ const noZindex = {
 class PaginationComponent extends React.Component {
     static propTypes = {
         totalNumber: PropTypes.number,
-        sendPageNumber: PropTypes.func
+        sendPageNumber: PropTypes.func,
+        active: PropTypes.number
     };
 
     static defaultProps = {
@@ -30,7 +31,7 @@ class PaginationComponent extends React.Component {
         let items = [];
 
         function setNumber(currentNumber) {
-            active = currentNumber;
+            // active = currentNumber;
             this.props.sendPageNumber(currentNumber);
         }
 
@@ -38,7 +39,7 @@ class PaginationComponent extends React.Component {
             items.push(
                 <Pagination.Item
                     key={number}
-                    active={number === active}
+                    active={number === this.props.active}
                     onClick={setNumber.bind(this, number)}
                     style={noZindex}
                 >
@@ -49,7 +50,7 @@ class PaginationComponent extends React.Component {
 
         return (
             <div>
-                <Pagination style={style}>
+                <Pagination key="pagination" style={style}>
                     {/* <Pagination.First />
                     <Pagination.Prev /> */}
                     {items}

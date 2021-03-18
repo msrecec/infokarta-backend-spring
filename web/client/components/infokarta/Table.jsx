@@ -2,18 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Table, Button} from 'react-bootstrap';
 
+import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
+
 const style = {
     overflow: "auto",
     maxHeight: "600px",
     maxWidth: "1000px"
-};
-
-// funkcija za uljepsat headere, mijenja underscore sa razmakon i povecava prvo slovo
-// TODO maknit nakon sta se popravi baza
-const beautifyHeader = (header) => {
-    const regex = /([_])/g;
-    const capitalisedHeader = header[0].toUpperCase() + header.slice(1).toLowerCase();
-    return capitalisedHeader.replaceAll(regex, ' ');
 };
 
 class TableComponent extends React.Component {
