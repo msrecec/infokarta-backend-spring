@@ -26,16 +26,15 @@ const Api = {
             url += 'groblje=' + searchParameters.graveyard + '&';
         }
 
-        if (searchParameters.yearOfDeathFrom) {
+        if (searchParameters.yearOfDeathFrom && searchParameters.yearOfDeathTo) {
             url += 'pocgodinaukopa=' + searchParameters.yearOfDeathFrom + '&';
-        } else {
-            url += 'pocgodinaukopa=' + 1000 + '&';
-        }
-
-        if (searchParameters.yearOfDeathTo) {
             url += 'kongodinaukopa=' + searchParameters.yearOfDeathTo + '&';
-        } else {
+        } else if (searchParameters.yearOfDeathFrom) {
+            url += 'pocgodinaukopa=' + searchParameters.yearOfDeathFrom + '&';
             url += 'kongodinaukopa=' + new Date().getFullYear() + '&';
+        } else if (searchParameters.yearOfDeathTo) {
+            url += 'pocgodinaukopa=' + 0 + '&';
+            url += 'kongodinaukopa=' + searchParameters.yearOfDeathTo + '&';
         }
 
         if (searchParameters.page) {
@@ -43,8 +42,12 @@ const Api = {
         } else {
             url += 'page=1';
         }
-
-        return axios.get(url)
+        let header = { "Content-Type": "application/json;charset=UTF-8" };
+        return axios.get(
+            url,
+            {
+                headers: header
+            })
             .then(function(response) {
                 return response.data;
             }).catch(function(error) {
