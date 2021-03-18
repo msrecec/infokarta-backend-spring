@@ -21,7 +21,7 @@ public class GrobljaController {
 
         GrobljeDAO grobljeDAO = new GrobljeDAOImpl();
 
-        List<Groblje> groblja = grobljeDAO.listGroblje();
+        List<Groblje> groblja = grobljeDAO.listGroblja();
 
         String json = JSONUtils.fromListToJSON(groblja);
 

@@ -1,18 +1,16 @@
 package it.geosolutions.mapstore.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAO;
-import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAOImpl;
-import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAO;
-import it.geosolutions.mapstore.DAO.Pokojnici.PokojniciDAOImpl;
-import it.geosolutions.mapstore.pojo.Groblje;
+import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,13 +62,24 @@ public class PokojniciController {
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/columns", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getColumns() throws UnsupportedEncodingException {
+    public byte[] getColumns(@RequestParam(value = "variables", required = false) Boolean variables) throws UnsupportedEncodingException {
+
+        String json;
+
+        Optional<Boolean> oVariables = Optional.ofNullable(variables);
 
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
-        List<String> columns = pokojniciDAO.listColumns();
+        if(oVariables.isPresent()) {
+            Pokojnik pokojnik = pokojniciDAO.getFirstPokojnik();
 
-        String json = JSONUtils.fromListToJSON(columns);
+            json = JSONUtils.fromPOJOToJSON(pokojnik);
+        } else {
+            List<String> columns = pokojniciDAO.listColumns();
+
+            json = JSONUtils.fromListToJSON(columns);
+        }
+
 
         return json.getBytes("UTF-8");
     }
@@ -89,16 +98,54 @@ public class PokojniciController {
         return json.getBytes("UTF-8");
     }
 
+    //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.PUT)
     @ResponseBody
     public byte[] updatePokojnici(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-        System.out.println("Raw json string output");
-        System.out.println(json);
+
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
-        System.out.println("Class json string conversion output");
-        System.out.println(pokojnik);
+
         String outJson = pokojniciDAO.updatePokojnik(pokojnik);
+
         return outJson.getBytes("UTF-8");
     }
+
+    //    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici", method = RequestMethod.POST)
+    @ResponseBody
+    public byte[] addPokojnik(
+        @RequestBody String json,
+        @RequestParam(value = "groblje", required = false) String groblje,
+        @RequestParam(value = "rbr", required = false) String rbr
+    ) throws UnsupportedEncodingException, JsonProcessingException {
+
+        String outJson;
+
+        Optional<String> oGroblje = Optional.ofNullable(groblje);
+        Optional<String> oRbr = Optional.ofNullable(rbr);
+
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
+
+        if(oGroblje.isPresent() && oRbr.isPresent()) {
+
+            outJson = pokojniciDAO.addPokojnikByGrobljeAndRbr(
+                pokojnik,
+                EncodingUtils.decodeISO88591(oGroblje.get()),
+                EncodingUtils.decodeISO88591(oRbr.get())
+            );
+
+        } else {
+
+            outJson = pokojniciDAO.addPokojnik(pokojnik);
+
+        }
+
+
+        return outJson.getBytes("UTF-8");
+    }
+
+
 }

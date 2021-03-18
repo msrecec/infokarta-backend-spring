@@ -11,8 +11,9 @@ public class GrobljeMapper  implements RowMapper {
     @Override
     public Object mapRow(ResultSet rs, int i) throws SQLException {
         Groblje groblje = new Groblje();
-        groblje.setNaziv(rs.getString(1));
-        groblje.setBrojGrobova(rs.getInt(2));
+
+        groblje.setFid(rs.getInt(1));
+        groblje.setNaziv(rs.getString(2));
 
         return groblje;
     }

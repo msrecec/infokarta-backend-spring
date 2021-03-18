@@ -3,7 +3,7 @@ package it.geosolutions.mapstore.pojo;
 import org.postgis.PGgeometry;
 
 public class Grob {
-    private PGgeometry geom;
+    private String geom;
     private Integer fid;
     private String source;
     private String source1;
@@ -38,11 +38,11 @@ public class Grob {
             '}';
     }
 
-    public PGgeometry getGeom() {
+    public String getGeom() {
         return geom;
     }
 
-    public void setGeom(PGgeometry geom) {
+    public void setGeom(String geom) {
         this.geom = geom;
     }
 

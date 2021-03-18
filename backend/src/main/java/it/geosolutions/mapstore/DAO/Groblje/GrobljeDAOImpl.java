@@ -1,9 +1,7 @@
 package it.geosolutions.mapstore.DAO.Groblje;
 
-import it.geosolutions.mapstore.DAO.Pokojnici.PokojnikMapper;
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.pojo.Groblje;
-import it.geosolutions.mapstore.pojo.Pokojnik;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -22,10 +20,11 @@ public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
     }
 
     @Override
-    public List<Groblje> listGroblje() {
-        String sql = "SELECT \"Groblje\", COUNT(*) FROM public.\"Grobovi\" GROUP BY \"Groblje\"";
+    public List<Groblje> listGroblja() {
+        String sql = "SELECT * FROM public.\"Groblja\" ORDER BY fid";
         GrobljeMapper grobljeMapper = new GrobljeMapper();
         List <Groblje> groblja = jdbcTemplateObject.query(sql, grobljeMapper);
         return groblja;
     }
+
 }

@@ -1,11 +1,13 @@
-package it.geosolutions.mapstore.DAO.Pokojnici;
+package it.geosolutions.mapstore.DAO.Pokojnik;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,15 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
+    public Pokojnik getFirstPokojnik() {
+        String sql = "SELECT * FROM public.\"Pokojnici\" LIMIT 1";
+
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
+
+        return (Pokojnik)jdbcTemplateObject.queryForObject(sql, pokojnikMapper);
+    }
+
+    @Override
     public String listPokojnici() {
         String sql = "SELECT * FROM public.\"Pokojnici\" ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
@@ -69,7 +80,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     @Override
     public Pokojnik getPokojnikById(Optional<Integer> oId) {
         Integer id = oId.get();
-        String sql = "SELECT * FROM public.\"Pokojnici\" WHERE fid = ? ORDER BY fid";
+        String sql = "SELECT * FROM \"Pokojnici\" WHERE fid = ? ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         Pokojnik pokojnik = (Pokojnik) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, pokojnikMapper);
         return pokojnik;
@@ -81,7 +92,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
                                           Optional<String> oPocGodinaUkopa,
                                           Optional<String> oKonGodinaUkopa,
                                           Optional<String> oGroblje,
-                                          Optional<Integer> oPage) {
+                                          Optional<Integer> oPage) throws UnsupportedEncodingException {
         // input params
         String ime = "", prezime = "", pocGodinaUkopa = "", konGodinaUkopa = "", groblje = "";
         Integer page = null, offset = null, limit = null;
@@ -97,7 +108,8 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String select = "SELECT * ";
         String selectCount = "SELECT COUNT(*) ";
 
-        String grobljeSQL = "INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid WHERE public.\"Grobovi\".\"Groblje\" ILIKE ? ";
+        String grobljeSQL = "INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid INNER JOIN public.\"Groblja\" ON " +
+            "public.\"Grobovi\".fk = public.\"Groblja\".fid WHERE public.\"Groblja\".\"naziv\" ILIKE ? ";
         String imeSQL = "\"IME\" ILIKE ? ";
         String prezimeSQL = "\"PREZIME\" ILIKE ? ";
         String godineSQL = "TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? ";
@@ -107,14 +119,14 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String sql = "FROM public.\"Pokojnici\" ";
 
         if(oGroblje.isPresent()) {
-            groblje = oGroblje.get().trim();
+            groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
             sql+=grobljeSQL;
             and = true;
             objArrList.add(groblje);
         }
 
         if(oIme.isPresent()) {
-            ime = oIme.get().trim();
+            ime = EncodingUtils.decodeISO88591(oIme.get()).trim();
             ime = "%"+ime+"%";
             if(and) {
                 sql+="AND ";
@@ -126,7 +138,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             objArrList.add(ime);
         }
         if(oPrezime.isPresent()) {
-            prezime = oPrezime.get().trim();
+            prezime = EncodingUtils.decodeISO88591(oPrezime.get()).trim();
             prezime = "%"+prezime+"%";
             if(and) {
                 sql+="AND ";
@@ -215,9 +227,38 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         return json;
     }
 
-    public String addPokojnikByOznakaGroba(Pokojnik pokojnik, String nazivGroblja, String oznGrobnice) {
-        String sql = "SELECT * FROM \"Grob\" WHERE ";
-        return null;
+    @Override
+    public String addPokojnik(Pokojnik pokojnik) {
+        String sql = "INSERT INTO public.\"Pokojnici\"(\n" +
+            "\tfid, fk, \"IME I PREZIME\", \"Prezime djevojačko\", \"IME OCA\", \"NADIMAK\", \"OIB\", \"SPOL\", \"DATU ROĐENJA\", \"Bračno stanje\", " +
+            "\"MJESTO STANOVANJA\", \"ADRESA STANOVANJA\", \"Ime i prezime bračnog druga\", \"DOB\", \"UZROK SMRTI\", \"Mjesto smrti\", \"DATUM SMRTI\", " +
+            "\"DATUM KREMIRANJA\", \"DATUM UKOPA\", \"oznaka grobnice\", groblje, \"Naknadni upisi i bilješke\", \"Godina ukopa\", \"USLUGA\", \"RAČUN\", " +
+            "\"DATUM USLUGE\", \"IME\", \"PREZIME\")\n" +
+            "\tVALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        Integer numberOfAffectedRows = jdbcTemplateObject.update(sql, pokojnik.getFk(),pokojnik.getIme_i_prezime(), pokojnik.getPrezime_djevojacko(), pokojnik.getIme_oca(), pokojnik.getNadimak(), pokojnik.getOib(),
+            pokojnik.getSpol(), pokojnik.getDatum_rodjenja(), pokojnik.getBracno_stanje(), pokojnik.getMjesto_stanovanja(), pokojnik.getAdresa_stanovanja(), pokojnik.getIme_i_prezime_bracnog_druga(),
+            pokojnik.getDob(), pokojnik.getUzrok_smrti(), pokojnik.getMjesto_smrti(), pokojnik.getDatum_smrti(), pokojnik.getDatum_kremiranja(), pokojnik.getDatum_ukopa(),
+            pokojnik.getOznaka_grobnice(), pokojnik.getGroblje(), pokojnik.getNaknadni_upisi_i_biljeske(), pokojnik.getGodina_ukopa(), pokojnik.getUsluga(), pokojnik.getRacun(),
+            pokojnik.getDatum_usluge(), pokojnik.getIme(), pokojnik.getPrezime());
+
+        String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
+        return json;
     }
 
+    @Override
+    public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr) {
+        String sql = "SELECT \"Grobovi\".fid FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid " +
+            "WHERE \"Groblja\".naziv ILIKE ? AND \"Grobovi\".\"Rednibroj\" ILIKE ? ";
+
+        Optional<Integer> oFid = Optional.ofNullable(jdbcTemplateObject.queryForInt(sql, new Object[]{groblje, rbr}));
+
+        if(oFid.isPresent()) {
+            pokojnik.setFk(oFid.get());
+        }
+
+        String json = addPokojnik(pokojnik);
+
+        return json;
+    }
 }
