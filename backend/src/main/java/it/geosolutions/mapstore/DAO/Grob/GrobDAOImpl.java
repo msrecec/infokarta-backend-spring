@@ -2,6 +2,7 @@ package it.geosolutions.mapstore.DAO.Grob;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.pojo.Grob;
+import org.postgis.PGgeometry;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -54,5 +55,20 @@ public class GrobDAOImpl implements GrobDAO {
         });
 
         return grobovi;
+    }
+
+    @Override
+    public String getGeomByFid(Integer fid) {
+        String sql = "SELECT ST_AsGeoJSON(\"Grobovi\".\"geom\") from \"Grobovi\" where \"Grobovi\".\"fid\" = ? ";
+
+        String geom = (String)jdbcTemplateObject.queryForObject(sql, new Object[]{fid} , new RowMapper() {
+            @Override
+            public Object mapRow(ResultSet rs, int i) throws SQLException {
+                String str = (String)rs.getObject(1);
+                return str;
+            }
+        });
+
+        return geom;
     }
 }
