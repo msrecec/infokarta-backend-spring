@@ -121,11 +121,11 @@ class SearchComponent extends React.Component {
           selectTags[i].selectedIndex = 0;
       }
 
-      this.search();
+      this.search({});
   }
 
-  search() {
-      this.props.search(this.state);
+  search(searchParams = this.state) {
+      this.props.search(searchParams);
       this.props.resetPagination(1);
   }
 
