@@ -69,7 +69,7 @@ const Api = {
             });
     },
     getPokojniciColumns: function() {
-        let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns';
+        let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns?variables=true';
         return axios.get(url)
             .then(function(response) {
                 return Object.keys(response.data);
@@ -91,8 +91,6 @@ const Api = {
             delete itemToInsert.graveNumber;
         }
 
-        console.log('itemToInsert', itemToInsert);
-        console.log('url', url);
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.post(
             url,
