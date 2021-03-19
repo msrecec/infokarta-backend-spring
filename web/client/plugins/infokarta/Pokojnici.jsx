@@ -9,7 +9,8 @@ import { Glyphicon } from 'react-bootstrap';
 import {
     loadDeceased,
     editDeceased,
-    insertDeceased
+    insertDeceased,
+    zoomToGrave
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -93,7 +94,8 @@ const Pokojnici = ({
     setupEditModal = () => {},
     sendEditedData = () => {},
     sendNewData = () => {},
-    setupInsertModal = () => {}
+    setupInsertModal = () => {},
+    sendZoomData = () => {}
 }) => {
 
     const search = (<SearchComponent
@@ -108,6 +110,7 @@ const Pokojnici = ({
         items={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         sendDataToEdit={setupEditModal}
+        zoomToItem={sendZoomData}
     />);
 
     const pagination = (<PaginationComponent
@@ -150,7 +153,8 @@ export default createPlugin('Pokojnici', {
         setupEditModal: showEditModal,
         setupInsertModal: showInsertModal,
         sendEditedData: editDeceased,
-        sendNewData: insertDeceased
+        sendNewData: insertDeceased,
+        sendZoomData: zoomToGrave
     })(Pokojnici),
     containers: {
         DrawerMenu: {
