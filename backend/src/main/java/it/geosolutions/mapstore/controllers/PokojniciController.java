@@ -8,7 +8,13 @@ import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
@@ -146,6 +152,28 @@ public class PokojniciController {
 
         return outJson.getBytes("UTF-8");
     }
+
+
+    //    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici/testu", method = RequestMethod.POST)
+    @ResponseBody
+    public String handleFormUpload(
+        @RequestParam("name") String name,
+        @RequestParam("file") MultipartFile file
+    ) throws IOException {
+
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+            System.out.println(bytes.toString());
+            System.out.println(name);
+            System.out.println("test success");
+            // store the bytes somewhere
+            return "success";
+        } else {
+            return "failure";
+        }
+    }
+
 
 
 }
