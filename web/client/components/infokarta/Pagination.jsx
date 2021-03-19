@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Pagination } from "react-bootstrap";
 
-// let active = 1;
+let activeNumber;
 // active triba bit van rendera da bi funkcionira
 
 const style = {
@@ -13,7 +13,8 @@ const style = {
 
 const noZindex = {
     zIndex: "0"
-}; // postavljanjen zIndexa na nulu se aktivan item ne prikazuje dok je plugin sakriven
+};
+// postavljanjen zIndexa na nulu se aktivan item ne prikazuje dok je plugin sakriven
 
 class PaginationComponent extends React.Component {
     static propTypes = {
@@ -28,35 +29,37 @@ class PaginationComponent extends React.Component {
 
     render() {
         let numberOfPages = Math.ceil(this.props.totalNumber / 30);
-        let items = [];
+        // 30 stavki po stranici
 
-        function setNumber(currentNumber) {
-            // active = currentNumber;
-            this.props.sendPageNumber(currentNumber);
-        }
-
-        for (let number = 1; number <= numberOfPages; number++) {
-            items.push(
-                <Pagination.Item
-                    key={number}
-                    active={number === this.props.active}
-                    onClick={setNumber.bind(this, number)}
-                    style={noZindex}
-                >
-                    {number}
-                </Pagination.Item>
-            );
+        let paginationForm = document.getElementsByClassName("dynamicFormPagination");
+        console.log(paginationForm[0]);
+        let tempPagination = paginationForm[0];
+        if (tempPagination) {
+            if (tempPagination.childNodes) {
+                for (let node in tempPagination.childNodes) {
+                    if ({}.hasOwnProperty.call(tempPagination.childNodes, node)) {
+                        console.log('node', node);
+                        if (node.style) {
+                            console.log('node', node);
+                            node.style.zIndex = -1;
+                        }
+                    }
+                }
+            }
         }
 
         return (
             <div>
-                <Pagination key="pagination" style={style}>
-                    {/* <Pagination.First />
-                    <Pagination.Prev /> */}
-                    {items}
-                    {/* <Pagination.Next />
-                    <Pagination.Last /> */}
-                </Pagination>
+                <Pagination
+                    className="dynamicFormPagination"
+                    style={style}
+                    prev next first last ellipsis boundaryLinks
+                    bsSize="small"
+                    items={numberOfPages}
+                    maxButtons={8}
+                    activePage={this.props.active}
+                    onSelect={this.props.sendPageNumber}
+                />
             </div>
         );
     }
