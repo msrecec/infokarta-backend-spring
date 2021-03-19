@@ -109,18 +109,22 @@ const Api = {
             });
     },
     getGraveCoordinates: function(graveId) {
-        let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
-        url += 'grob=' + graveId + '&geom=true';
+        let url = 'http://localhost:8080/mapstore/rest/config/grobovi?';
+        url += 'fid=' + graveId + '&geom=true';
 
         let header = { "Content-Type": "application/json;charset=UTF-8" };
-        return axios.post(
+        return axios.get(
             url,
             {
                 headers: header
             })
             .then(function(response) {
-                console.log(response.data);
-                return response.data;
+                console.log(response.data.coordinates);
+                let coordinates = {
+                    x: response.data.coordinates[0],
+                    y: response.data.coordinates[1]
+                };
+                return coordinates;
             }).catch(function(error) {
             /* eslint-disable no-console */
                 console.error(error);
