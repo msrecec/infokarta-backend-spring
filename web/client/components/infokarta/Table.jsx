@@ -7,7 +7,7 @@ import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 const style = {
     overflow: "auto",
     maxHeight: "600px",
-    maxWidth: "1000px"
+    minWidth: "580px"
 };
 
 class TableComponent extends React.Component {

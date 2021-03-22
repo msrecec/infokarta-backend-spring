@@ -37,10 +37,10 @@ class Menu extends React.Component {
     static defaultProps = {
         docked: false,
         single: false,
-        width: 1000,
+        width: 600,
         overlapMap: true,
         layout: {},
-        resizable: false,
+        resizable: true,
         onResize: () => {}
     };
 
