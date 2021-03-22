@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URLDecoder;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
@@ -200,26 +201,32 @@ public class PokojniciController {
         }
     }
 
-
-    //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
-    @ResponseBody
-    byte[] handleFormDownload(
-        @RequestParam("fid") Integer fid
-    ) throws IOException {
-
+    @RequestMapping("/pokojnici/slika")
+    public void downloadImgResource(HttpServletRequest request, HttpServletResponse response, @RequestParam("fid") Integer fid) throws IOException {
         PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
 
         PokojnikSlika pokojnikSlika = pokojnikSlikaDAO.getSlikaByFid(fid);
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(pokojnikSlika.getSlika());
-
-        BufferedImage img = ImageIO.read(bis);
-
-        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-
-        ImageIO.write(img, pokojnikSlika.getTip(), bao);
-
-        return bao.toByteArray();
+        response.setContentType("image/jpeg");
+        response.addHeader("Content-Disposition", "attachment; filename=mira.jpg");
+        response.getOutputStream().write(pokojnikSlika.getSlika());
+//        response.getOutputStream().flush();
     }
+
+
+    //    @Secured({"ROLE_ADMIN"})
+//    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
+//    @ResponseBody
+//    byte[] handleFormDownload(
+//        @RequestParam("fid") Integer fid
+//    ) throws IOException {
+//
+//        PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
+//
+//        PokojnikSlika pokojnikSlika = pokojnikSlikaDAO.getSlikaByFid(fid);
+//
+//        String json = "{\"name\":\"mislav\"}";
+//
+//        return pokojnikSlika.getSlika();
+//    }
 }
