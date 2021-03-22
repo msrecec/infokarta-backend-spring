@@ -532,10 +532,7 @@
                       "frame": 3,
                       "margin": 5,
                       "label": false,
-                      "vertical": true,
-                      "menuOptions": {
-                        "resizable": true
-                      }
+                      "vertical": true
                      }
                   }
               }, {
