@@ -46,7 +46,7 @@ class SearchComponent extends React.Component {
           let temp = cloneDeep(this.state);
           temp.page = this.props.pageNumber;
           this.props.search(temp);
-          // cloneDeep workaround jer je setState asinkron i updatea se tek nakon componentDidUpdate
+          // cloneDeep workaround jer je setState asinkron i updatea se nakon componentDidUpdate
           // zato kopiramo state i pripisujemo mu trenutni pageNumber i saljemo u search
       }
   }
@@ -54,7 +54,7 @@ class SearchComponent extends React.Component {
   render() {
       return (
           <div>
-              <Form style={formStyle} id="dynamicForm">
+              <form style={formStyle} id="dynamicForm">
                   {this.props.buildData ?
                       this.props.buildData.map((field) => {
                           return field.type === "text" ?
@@ -65,7 +65,11 @@ class SearchComponent extends React.Component {
                                       style={fieldStyle}
                                   >
                                       <ControlLabel>{field.label}</ControlLabel>
-                                      <FormControl type={field.type} value={this.state[field.value]} onChange={(e) => this.handleChange(field.value, e)}/>
+                                      <FormControl
+                                          type={field.type}
+                                          value={this.state[field.value]}
+                                          onChange={(e) => this.handleChange(field.value, e)}
+                                      />
                                   </FormGroup>)
                               : ( // ako polje nema type = text, napravi select polje
                                   <FormGroup
@@ -76,19 +80,19 @@ class SearchComponent extends React.Component {
                                       <ControlLabel>{field.label}</ControlLabel>
                                       <FormControl
                                           componentClass={field.type}
-                                          placeholder={this.state[field.selectValues[0]]}
+                                          value={this.state[field.value] ? this.state[field.value] : ""}
                                           onChange={(e) => this.handleChange(field.value, e)}
                                       >
                                           {field.selectValues.map((option) => {
-                                              return <option value={option}>{option}</option>;
+                                              return <option value={option} key={option}>{option}</option>;
                                           })}
                                       </FormControl>
                                   </FormGroup>
                               );
                       }
                       ) : null}
-              </Form>
-              <Form>
+              </form>
+              <form>
                   <FormGroup
                       key="searchActions"
                       controlId="searchActions"
@@ -98,7 +102,7 @@ class SearchComponent extends React.Component {
                       <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
                       <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
                   </FormGroup>
-              </Form>
+              </form>
           </div>
       );
   }
