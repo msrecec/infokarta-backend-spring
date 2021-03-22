@@ -32,21 +32,15 @@ class PaginationComponent extends React.Component {
         // 30 stavki po stranici
 
         let paginationForm = document.getElementsByClassName("dynamicFormPagination");
-        console.log(paginationForm[0]);
         let tempPagination = paginationForm[0];
         if (tempPagination) {
             if (tempPagination.childNodes) {
-                for (let node in tempPagination.childNodes) {
-                    if ({}.hasOwnProperty.call(tempPagination.childNodes, node)) {
-                        console.log('node', node);
-                        if (node.style) {
-                            console.log('node', node);
-                            node.style.zIndex = -1;
-                        }
-                    }
+                for (const [key, value] of Object.entries(tempPagination.childNodes)) {
+                    value.style.zIndex = -1;
                 }
             }
         }
+        // workaround da prekine prikazivat aktivne elemente paginacije dok je drawerMenu zatvoren
 
         return (
             <div>
