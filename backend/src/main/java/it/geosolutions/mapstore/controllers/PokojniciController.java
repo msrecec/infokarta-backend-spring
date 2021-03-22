@@ -201,7 +201,7 @@ public class PokojniciController {
         }
     }
 
-    @RequestMapping("/pokojnici/slika")
+    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
     public void downloadImgResource(HttpServletRequest request, HttpServletResponse response, @RequestParam("fid") Integer fid) throws IOException {
         PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
 
