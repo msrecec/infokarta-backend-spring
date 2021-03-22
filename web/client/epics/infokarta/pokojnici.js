@@ -4,6 +4,7 @@ import {
     LOAD_DECEASED,
     EDIT_DECEASED,
     INSERT_DECEASED,
+    ZOOM_TO_GRAVE,
     deceasedLoaded
 } from "../../actions/infokarta/pokojnici";
 
@@ -12,6 +13,10 @@ import {
     generateInsertForm,
     hideDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
+
+import {
+    panTo
+} from '../../actions/map';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
 
@@ -83,6 +88,26 @@ export const insertNew = (action$ /* , store*/) =>
                     console.log('insert response: ', response);
                     return Rx.Observable.of(
                         hideDynamicModal()
+                    );
+                })
+                .catch((error) => {
+                    return Rx.Observable.of(
+                        /* eslint-disable no-console */
+                        console.error('error while fetching columns to insert new deceased', error)
+                    );
+                });
+        });
+
+export const zoomToGrave = (action$ /* , store*/) =>
+    action$.ofType(ZOOM_TO_GRAVE)
+        .switchMap(({ graveId = {} }) => {
+            // const state = store.getState();
+            return Rx.Observable.fromPromise(pokojniciApi.getGraveCoordinates(graveId)
+                .then(data => data))
+                .switchMap((response) => {
+                    console.log('grave response: ', response);
+                    return Rx.Observable.of(
+                        panTo(response)
                     );
                 })
                 .catch((error) => {

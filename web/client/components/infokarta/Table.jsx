@@ -14,7 +14,8 @@ class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
       fieldsToExclude: PropTypes.array,
-      sendDataToEdit: PropTypes.func
+      sendDataToEdit: PropTypes.func,
+      zoomToItem: PropTypes.func
   };
 
   render() {
@@ -24,7 +25,8 @@ class TableComponent extends React.Component {
                   <thead>
                       <tr>
                           <th key="#" />
-                          {/* koristi se tako da edit botun ne pomakne sve udesno za jedno misto */}
+                          <th key="##" />
+                          {/* koristi se tako da botuni ne pomaknu sve udesno za jedno misto */}
                           {this.props.items[0] ?
                               Object.keys(this.props.items[0]).map((header) => {
                                   if (!this.props.fieldsToExclude.includes(header)) {
@@ -41,6 +43,7 @@ class TableComponent extends React.Component {
                       {this.props.items.map((item) =>
                           <tr>
                               <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}>Uredi</Button></td>
+                              <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fid)}>Prikaži</Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
