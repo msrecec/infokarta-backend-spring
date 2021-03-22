@@ -122,7 +122,8 @@ const Api = {
                 console.log(response.data.coordinates);
                 let coordinates = {
                     x: response.data.coordinates[0],
-                    y: response.data.coordinates[1]
+                    y: response.data.coordinates[1],
+                    crs: "EPSG:3765"
                 };
                 return coordinates;
             }).catch(function(error) {
