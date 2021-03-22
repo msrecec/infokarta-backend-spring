@@ -2,19 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Pagination } from "react-bootstrap";
 
-let activeNumber;
-// active triba bit van rendera da bi funkcionira
-
 const style = {
     display: "flex",
     width: "100%",
     justifyContent: "center"
 };
-
-const noZindex = {
-    zIndex: "0"
-};
-// postavljanjen zIndexa na nulu se aktivan item ne prikazuje dok je plugin sakriven
 
 class PaginationComponent extends React.Component {
     static propTypes = {
@@ -36,7 +28,7 @@ class PaginationComponent extends React.Component {
         if (tempPagination) {
             if (tempPagination.childNodes) {
                 for (const [key, value] of Object.entries(tempPagination.childNodes)) {
-                    value.style.zIndex = -1;
+                    value.style.zIndex = 0;
                 }
             }
         }

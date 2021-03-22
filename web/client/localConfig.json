@@ -57,7 +57,14 @@
     "userSessions": {
       "enabled": true
     },
-    "projectionDefs": [],
+    "projectionDefs": [
+      {
+        "code": "EPSG:3765",
+        "def": "+proj=tmerc +lat_0=0 +lon_0=16.5 +k=0.9999 +x_0=500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs",
+        "extent": [208311.05, 4614890.75, 724721.78, 5159767.36],
+        "worldExtent": [13.0, 41.62, 19.43, 46.54]
+      }
+    ],
     "initialState": {
       "defaultState": {
         "annotations": {
@@ -411,20 +418,26 @@
                 "showLabels": true,
                 "showToggle": true,
                 "filterAllowedCRS": ["EPSG:4326", "EPSG:3857"],
-                "additionalCRS": {}
+                "additionalCRS": {
+                  "EPSG:3765": {
+                    "label": "HTRS96/TM"
+                    }
+                }
               }
             }, {
               "name": "CRSSelector",
               "cfg": {
                 "additionalCRS": {
-
+                  "EPSG:3765": {
+                    "label": "HTRS96/TM"
+                    }
                 },
                 "filterAllowedCRS": [
                   "EPSG:4326",
                   "EPSG:3857"
                 ],
                 "allowedRoles": [
-                  "ADMIN"
+                  "ADMIN", "USER", "ALL"
                 ]
               }
             }, {
@@ -519,7 +532,10 @@
                       "frame": 3,
                       "margin": 5,
                       "label": false,
-                      "vertical": true
+                      "vertical": true,
+                      "menuOptions": {
+                        "resizable": true
+                      }
                      }
                   }
               }, {
