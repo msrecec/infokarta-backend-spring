@@ -3,19 +3,26 @@ package it.geosolutions.mapstore.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
 import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
+import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaDAO;
+import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaDAOImpl;
 import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.pojo.PokojnikSlika;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.MIMETypeUtil;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.URLDecoder;
 import java.util.List;
 import java.util.Optional;
@@ -155,7 +162,7 @@ public class PokojniciController {
 
 
     //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici/testu", method = RequestMethod.POST)
+    @RequestMapping(value = "/pokojnici/upload", method = RequestMethod.POST)
     @ResponseBody
     public String handleFormUpload(
         @RequestParam("name") String name,
@@ -163,17 +170,56 @@ public class PokojniciController {
     ) throws IOException {
 
         if (!file.isEmpty()) {
-            byte[] bytes = file.getBytes();
-            System.out.println(bytes.toString());
-            System.out.println(name);
-            System.out.println("test success");
-            // store the bytes somewhere
-            return "success";
+            PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
+            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+
+            if(MIMETypeUtil.isImage(extension)) {
+
+                byte[] bytes = file.getBytes();
+                PokojnikSlika pokojnikSlika = new PokojnikSlika();
+
+                pokojnikSlika.setNaziv("test");
+                pokojnikSlika.setTip(extension);
+                pokojnikSlika.setSlika(bytes);
+                pokojnikSlika.setFk(1);
+
+                pokojnikSlikaDAO.addSlika(pokojnikSlika);
+
+                System.out.println("File name: " + name);
+                System.out.println("File extension: " + extension);
+                System.out.println(bytes.toString());
+                System.out.println("test success");
+
+                return "image success";
+            } else {
+                return "document success";
+            }
+
         } else {
             return "failure";
         }
     }
 
 
+    //    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
+    @ResponseBody
+    byte[] handleFormDownload(
+        @RequestParam("fid") Integer fid
+    ) throws IOException {
 
+        PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
+
+        PokojnikSlika pokojnikSlika = pokojnikSlikaDAO.getSlikaByFid(fid);
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(pokojnikSlika.getSlika());
+
+        BufferedImage img = ImageIO.read(bis);
+
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+
+        ImageIO.write(img, pokojnikSlika.getTip(), bao);
+
+        return bao.toByteArray();
+    }
 }
