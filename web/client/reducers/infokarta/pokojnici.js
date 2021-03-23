@@ -1,8 +1,14 @@
-import { DECEASED_LOADED } from "../../actions/infokarta/pokojnici";
+import {
+    DECEASED_LOADED,
+    START_CHOOSE_GRAVE_MODE,
+    END_CHOOSE_GRAVE_MODE
+} from "../../actions/infokarta/pokojnici";
 const pokojnici = (
     state = {
         deceased: [],
-        pageNumber: []
+        pageNumber: [],
+        chooseGraveMode: false,
+        chosenGrave: {}
     },
     action
 ) => {
@@ -12,6 +18,19 @@ const pokojnici = (
             ...state,
             deceased: action.deceased,
             totalNumber: action.totalNumber
+        };
+    }
+    case START_CHOOSE_GRAVE_MODE: {
+        return {
+            ...state,
+            chooseGraveMode: true
+        };
+    }
+    case END_CHOOSE_GRAVE_MODE: {
+        return {
+            ...state,
+            chooseGraveMode: false,
+            chosenGrave: action.chosenGrave
         };
     }
     default:

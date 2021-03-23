@@ -6,7 +6,7 @@ import { get } from "lodash";
 
 import {
     showInsertModal,
-    hideDynamicModal
+    hideInsertModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
@@ -139,7 +139,7 @@ const ModalComponent = connect((state) => {
     };
 }, {
     showModal: showInsertModal,
-    hideModal: hideDynamicModal
+    hideModal: hideInsertModal
 })(BaseModalComponent);
 
 export default ModalComponent;

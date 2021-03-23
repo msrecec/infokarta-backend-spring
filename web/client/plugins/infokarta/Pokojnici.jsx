@@ -39,7 +39,7 @@ const style = {
     padding: 10
 };
 
-const formData = [
+const searchFormData = [
     {
         label: "Ime", // naziv koji ce bit dodijeljen labelu u formi
         type: "text", // tip koji ce bit dodijeljen inputu u formi
@@ -68,7 +68,7 @@ const formData = [
     }
 ];
 
-const extraInsertForm = [
+const insertFormData = [
     {
         label: "Groblje",
         type: "select",
@@ -81,6 +81,22 @@ const extraInsertForm = [
         value: "graveNumber"
     }
 ];
+
+// const insertFormHeaders = [
+//     {
+//         section: 1,
+//         title: "Odabir grobnice"
+//     },
+//     {
+//         section: 2,
+//         title: "Unos pokojnikovih podataka"
+//     },
+//     {
+//         section: 3,
+//         title: "Prijenos datoteka"
+//     }
+// ];
+// TODO smislit nacin za dodat ove naslove u sekcije
 
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const readOnlyFields = ["fid", "fk"];
@@ -99,7 +115,7 @@ const Pokojnici = ({
 }) => {
 
     const search = (<SearchComponent
-        buildData={formData}
+        buildData={searchFormData}
         search={loadDeceasedData}
         pageNumber={typeof page === "number" ? page : 1}
         openInsertForm={setupInsertModal}
@@ -127,7 +143,7 @@ const Pokojnici = ({
 
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        extraForm={extraInsertForm}
+        extraForm={insertFormData}
         insertItem={sendNewData}
     />);
 

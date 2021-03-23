@@ -11,7 +11,8 @@ import {
 import {
     SHOW_INSERT_MODAL,
     generateInsertForm,
-    hideDynamicModal
+    hideEditModal,
+    hideInsertModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
@@ -48,7 +49,7 @@ export const sendEditData = (action$ /* , store*/) =>
                 .switchMap((response) => {
                     console.log('edit response: ', response);
                     return Rx.Observable.of(
-                        hideDynamicModal()
+                        hideEditModal()
                     );
                 })
                 .catch((error) => {
@@ -87,7 +88,7 @@ export const insertNew = (action$ /* , store*/) =>
                 .switchMap((response) => {
                     console.log('insert response: ', response);
                     return Rx.Observable.of(
-                        hideDynamicModal()
+                        hideInsertModal()
                     );
                 })
                 .catch((error) => {

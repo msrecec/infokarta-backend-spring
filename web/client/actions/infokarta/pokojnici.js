@@ -5,6 +5,8 @@ export const LOAD_DECEASED_BY_PAGE = "LOAD_DECEASED_BY_PAGE";
 export const EDIT_DECEASED = "EDIT_DECEASED";
 export const INSERT_DECEASED = "INSERT_DECEASED";
 export const ZOOM_TO_GRAVE = "ZOOM_TO_GRAVE";
+export const START_CHOOSE_GRAVE_MODE = "START_CHOOSE_GRAVE_MODE";
+export const END_CHOOSE_GRAVE_MODE = "END_CHOOSE_GRAVE_MODE";
 
 export const deceasedLoaded = (deceased, totalNumber) => ({
     type: DECEASED_LOADED,
@@ -31,3 +33,13 @@ export const zoomToGrave = (graveId) => ({
     type: ZOOM_TO_GRAVE,
     graveId
 });
+
+export const startChooseGraveMode = () => ({
+    type: START_CHOOSE_GRAVE_MODE
+});
+
+export const endChooseGraveMode = (chosenGrave) => ({
+    type: END_CHOOSE_GRAVE_MODE,
+    chosenGrave
+});
+
