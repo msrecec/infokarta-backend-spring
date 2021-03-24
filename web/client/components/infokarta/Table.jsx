@@ -43,7 +43,7 @@ class TableComponent extends React.Component {
                       {this.props.items.map((item) =>
                           <tr>
                               <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}>Uredi</Button></td>
-                              <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fid)}>Prikaži</Button></td>
+                              <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fk)}>Prikaži</Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
