@@ -1,7 +1,7 @@
-package it.geosolutions.mapstore.DAO.Groblje;
+package it.geosolutions.mapstore.repository.Groblje;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.pojo.Groblje;
+import it.geosolutions.mapstore.model.Groblje;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

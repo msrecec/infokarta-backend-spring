@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.pojo;
+package it.geosolutions.mapstore.model;
 
 public class Groblje {
     private Integer fid;

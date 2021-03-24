@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.pojo;
+package it.geosolutions.mapstore.model;
 
 import java.util.Arrays;
 

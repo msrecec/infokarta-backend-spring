@@ -1,7 +1,7 @@
-package it.geosolutions.mapstore.DAO.PokojnikSlika;
+package it.geosolutions.mapstore.repository.PokojnikSlika;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.pojo.PokojnikSlika;
+import it.geosolutions.mapstore.model.PokojnikSlika;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

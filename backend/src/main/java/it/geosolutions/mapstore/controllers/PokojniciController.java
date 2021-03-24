@@ -1,30 +1,15 @@
 package it.geosolutions.mapstore.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
-import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
-import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaDAO;
-import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaDAOImpl;
-import it.geosolutions.mapstore.pojo.Pokojnik;
-import it.geosolutions.mapstore.pojo.PokojnikSlika;
+import it.geosolutions.mapstore.repository.Pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.repository.Pokojnik.PokojniciDAOImpl;
+import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.MIMETypeUtil;
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URLDecoder;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Optional;
 
@@ -160,73 +145,4 @@ public class PokojniciController {
 
         return outJson.getBytes("UTF-8");
     }
-
-
-    //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici/upload", method = RequestMethod.POST)
-    @ResponseBody
-    public String handleFormUpload(
-        @RequestParam("name") String name,
-        @RequestParam("file") MultipartFile file
-    ) throws IOException {
-
-        if (!file.isEmpty()) {
-            PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
-            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-
-            if(MIMETypeUtil.isImage(extension)) {
-
-                byte[] bytes = file.getBytes();
-                PokojnikSlika pokojnikSlika = new PokojnikSlika();
-
-                pokojnikSlika.setNaziv("test");
-                pokojnikSlika.setTip(extension);
-                pokojnikSlika.setSlika(bytes);
-                pokojnikSlika.setFk(1);
-
-                pokojnikSlikaDAO.addSlika(pokojnikSlika);
-
-                System.out.println("File name: " + name);
-                System.out.println("File extension: " + extension);
-                System.out.println(bytes.toString());
-                System.out.println("test success");
-
-                return "image success";
-            } else {
-                return "document success";
-            }
-
-        } else {
-            return "failure";
-        }
-    }
-
-    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
-    public void downloadImgResource(HttpServletRequest request, HttpServletResponse response, @RequestParam("fid") Integer fid) throws IOException {
-        PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
-
-        PokojnikSlika pokojnikSlika = pokojnikSlikaDAO.getSlikaByFid(fid);
-
-        response.setContentType("image/jpeg");
-        response.addHeader("Content-Disposition", "attachment; filename=mira.jpg");
-        response.getOutputStream().write(pokojnikSlika.getSlika());
-//        response.getOutputStream().flush();
-    }
-
-
-    //    @Secured({"ROLE_ADMIN"})
-//    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
-//    @ResponseBody
-//    byte[] handleFormDownload(
-//        @RequestParam("fid") Integer fid
-//    ) throws IOException {
-//
-//        PokojnikSlikaDAO pokojnikSlikaDAO = new PokojnikSlikaDAOImpl();
-//
-//        PokojnikSlika pokojnikSlika = pokojnikSlikaDAO.getSlikaByFid(fid);
-//
-//        String json = "{\"name\":\"mislav\"}";
-//
-//        return pokojnikSlika.getSlika();
-//    }
 }

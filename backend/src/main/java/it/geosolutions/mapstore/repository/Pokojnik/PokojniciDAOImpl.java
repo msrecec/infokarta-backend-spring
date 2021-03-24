@@ -1,7 +1,7 @@
-package it.geosolutions.mapstore.DAO.Pokojnik;
+package it.geosolutions.mapstore.repository.Pokojnik;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.jdbc.core.JdbcTemplate;

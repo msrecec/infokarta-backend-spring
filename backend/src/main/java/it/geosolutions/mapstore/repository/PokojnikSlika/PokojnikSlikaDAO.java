@@ -1,6 +1,6 @@
-package it.geosolutions.mapstore.DAO.PokojnikSlika;
+package it.geosolutions.mapstore.repository.PokojnikSlika;
 
-import it.geosolutions.mapstore.pojo.PokojnikSlika;
+import it.geosolutions.mapstore.model.PokojnikSlika;
 
 import javax.sql.DataSource;
 
