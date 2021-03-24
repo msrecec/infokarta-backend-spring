@@ -1,12 +1,20 @@
 import Rx from "rxjs";
+import { get } from 'lodash';
 
 import {
     LOAD_DECEASED,
     EDIT_DECEASED,
     INSERT_DECEASED,
     ZOOM_TO_GRAVE,
-    deceasedLoaded
+    ENABLE_GRAVE_PICK_MODAL,
+    deceasedLoaded,
+    disableGravePickModal,
+    setGravePickMode
 } from "../../actions/infokarta/pokojnici";
+
+import {
+    LOAD_FEATURE_INFO
+} from "../../actions/mapInfo";
 
 import {
     SHOW_INSERT_MODAL,
@@ -117,4 +125,36 @@ export const zoomToGrave = (action$ /* , store*/) =>
                         console.error('error while fetching columns to insert new deceased', error)
                     );
                 });
+        });
+
+export const startChooseGraveMode = (action$) =>
+    action$.ofType(ENABLE_GRAVE_PICK_MODAL)
+        .switchMap(({}) => {
+            return Rx.Observable.of(
+                hideInsertModal()
+            );
+        });
+
+export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {}) =>
+    action$.ofType(LOAD_FEATURE_INFO)
+        .switchMap(({ data = {} }) => {
+            let pokojniciState = get(getState(), "pokojnici");
+            if (pokojniciState.chooseGraveModal === true) {
+                if (data.numberReturned === 1) {
+                    let temp = data.features[0].id.split(".");
+                    const tablica = temp[0];
+                    const id = parseInt(temp[1], 10);
+                    console.log(tablica, id);
+                    return Rx.Observable.of(
+                        setGravePickMode("single")
+                    );
+                } else if (data.numberReturned !== 1) {
+                    return Rx.Observable.of(
+                        setGravePickMode("multiple")
+                    );
+                }
+            }
+            return Rx.Observable.of(
+                setGravePickMode("initial")
+            );
         });

@@ -1,13 +1,15 @@
 import {
     DECEASED_LOADED,
-    START_CHOOSE_GRAVE_MODE,
-    END_CHOOSE_GRAVE_MODE
+    ENABLE_GRAVE_PICK_MODAL,
+    DISABLE_GRAVE_PICK_MODAL,
+    SET_GRAVE_PICK_MODE
 } from "../../actions/infokarta/pokojnici";
 const pokojnici = (
     state = {
         deceased: [],
         pageNumber: [],
-        chooseGraveMode: false,
+        chooseGraveModal: false,
+        graveChooseMode: "initial", // "initial", "single", "multiple"
         chosenGrave: {}
     },
     action
@@ -20,17 +22,24 @@ const pokojnici = (
             totalNumber: action.totalNumber
         };
     }
-    case START_CHOOSE_GRAVE_MODE: {
+    case ENABLE_GRAVE_PICK_MODAL: {
         return {
             ...state,
-            chooseGraveMode: true
+            chooseGraveModal: true
         };
     }
-    case END_CHOOSE_GRAVE_MODE: {
+    case DISABLE_GRAVE_PICK_MODAL: {
         return {
             ...state,
-            chooseGraveMode: false,
+            chooseGraveModal: false,
             chosenGrave: action.chosenGrave
+        };
+    }
+    case SET_GRAVE_PICK_MODE: {
+        return {
+            ...state,
+            graveChooseMode: action.mode,
+            chosenGrave: action.grave
         };
     }
     default:

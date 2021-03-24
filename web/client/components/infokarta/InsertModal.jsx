@@ -24,7 +24,8 @@ class BaseModalComponent extends React.Component {
       hideModal: PropTypes.func,
       show: PropTypes.bool,
       insertItem: PropTypes.func,
-      extraForm: PropTypes.func
+      extraForm: PropTypes.func,
+      startChooseGraveMode: PropTypes.func
   };
 
   static defaultProps = {
@@ -56,6 +57,9 @@ class BaseModalComponent extends React.Component {
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
+                      <Button variant="primary" onClick={() => this.props.startChooseGraveMode()}>
+                        Odaberi grobnicu sa karte
+                      </Button>
                       {this.props.extraForm ?
                           this.props.extraForm.map((field) => {
                               return field.type === "text" ?

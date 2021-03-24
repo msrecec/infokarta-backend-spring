@@ -10,7 +10,8 @@ import {
     loadDeceased,
     editDeceased,
     insertDeceased,
-    zoomToGrave
+    zoomToGrave,
+    enableGravePickModal
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -34,6 +35,7 @@ import EditModal from '../../components/infokarta/EditModal';
 import InsertModal from '../../components/infokarta/InsertModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
+import GravePickerModal from '../../components/infokarta/GravePickerModal';
 
 const style = {
     padding: 10
@@ -98,7 +100,7 @@ const insertFormData = [
 // ];
 // TODO smislit nacin za dodat ove naslove u sekcije
 
-const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
+const fieldsToExclude = ["", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk"];
 
 const Pokojnici = ({
@@ -111,7 +113,8 @@ const Pokojnici = ({
     sendEditedData = () => {},
     sendNewData = () => {},
     setupInsertModal = () => {},
-    sendZoomData = () => {}
+    sendZoomData = () => {},
+    startChooseMode = () => {}
 }) => {
 
     const search = (<SearchComponent
@@ -145,6 +148,10 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         extraForm={insertFormData}
         insertItem={sendNewData}
+        startChooseGraveMode={startChooseMode}
+    />);
+
+    const gravePickerModal = (<GravePickerModal
     />);
 
     return (
@@ -154,6 +161,7 @@ const Pokojnici = ({
             {pagination}
             {editModal}
             {insertModal}
+            {gravePickerModal}
         </div>
     );
 };
@@ -170,7 +178,8 @@ export default createPlugin('Pokojnici', {
         setupInsertModal: showInsertModal,
         sendEditedData: editDeceased,
         sendNewData: insertDeceased,
-        sendZoomData: zoomToGrave
+        sendZoomData: zoomToGrave,
+        startChooseMode: enableGravePickModal
     })(Pokojnici),
     containers: {
         DrawerMenu: {

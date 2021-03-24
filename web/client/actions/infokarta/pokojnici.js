@@ -5,8 +5,10 @@ export const LOAD_DECEASED_BY_PAGE = "LOAD_DECEASED_BY_PAGE";
 export const EDIT_DECEASED = "EDIT_DECEASED";
 export const INSERT_DECEASED = "INSERT_DECEASED";
 export const ZOOM_TO_GRAVE = "ZOOM_TO_GRAVE";
-export const START_CHOOSE_GRAVE_MODE = "START_CHOOSE_GRAVE_MODE";
-export const END_CHOOSE_GRAVE_MODE = "END_CHOOSE_GRAVE_MODE";
+export const ENABLE_GRAVE_PICK_MODAL = "ENABLE_GRAVE_PICK_MODAL";
+export const DISABLE_GRAVE_PICK_MODAL = "DISABLE_GRAVE_PICK_MODAL";
+export const SET_GRAVE_PICK_MODE = "SET_GRAVE_PICK_MODE";
+export const CONFIRM_GRAVE_PICK = "CONFIRM_GRAVE_PICK";
 
 export const deceasedLoaded = (deceased, totalNumber) => ({
     type: DECEASED_LOADED,
@@ -34,12 +36,21 @@ export const zoomToGrave = (graveId) => ({
     graveId
 });
 
-export const startChooseGraveMode = () => ({
-    type: START_CHOOSE_GRAVE_MODE
+export const enableGravePickModal = () => ({
+    type: ENABLE_GRAVE_PICK_MODAL
 });
 
-export const endChooseGraveMode = (chosenGrave) => ({
-    type: END_CHOOSE_GRAVE_MODE,
+export const disableGravePickModal = (chosenGrave) => ({
+    type: DISABLE_GRAVE_PICK_MODAL,
     chosenGrave
 });
 
+export const setGravePickMode = (mode, grave) => ({
+    type: SET_GRAVE_PICK_MODE,
+    mode, // "initial", "single", "multiple"
+    grave
+});
+
+export const confirmGravePick = () => ({
+    type: CONFIRM_GRAVE_PICK
+});
