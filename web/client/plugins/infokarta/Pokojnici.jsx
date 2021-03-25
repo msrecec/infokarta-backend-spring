@@ -28,6 +28,7 @@ import { createPlugin } from '../../utils/PluginsUtils';
 import pokojnici from '../../reducers/infokarta/pokojnici';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import paginationControl from '../../reducers/infokarta/paginationControl';
+
 import * as epics from '../../epics/infokarta/pokojnici';
 
 import TableComponent from '../../components/infokarta/Table';
@@ -35,7 +36,6 @@ import EditModal from '../../components/infokarta/EditModal';
 import InsertModal from '../../components/infokarta/InsertModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
-import GravePickerModal from '../../components/infokarta/GravePickerModal';
 
 const style = {
     padding: 10
@@ -98,7 +98,7 @@ const insertFormData = [
 //         title: "Prijenos datoteka"
 //     }
 // ];
-// TODO smislit nacin za dodat ove naslove u sekcije
+// TODO smislit nacin za dodat ove naslove u sekcije dinamicki
 
 const fieldsToExclude = ["", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk"];
@@ -151,9 +151,6 @@ const Pokojnici = ({
         startChooseGraveMode={startChooseMode}
     />);
 
-    const gravePickerModal = (<GravePickerModal
-    />);
-
     return (
         <div style={style}>
             {search}
@@ -161,7 +158,6 @@ const Pokojnici = ({
             {pagination}
             {editModal}
             {insertModal}
-            {gravePickerModal}
         </div>
     );
 };

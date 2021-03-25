@@ -18,12 +18,12 @@ const formStyle = {
 
 class BaseModalComponent extends React.Component {
   static propTypes = {
-      itemToInsert: PropTypes.object,
+      itemToInsert: PropTypes.func,
       fieldsToExclude: PropTypes.array,
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
-      insertItem: PropTypes.func,
+      insertItem: PropTypes.array,
       extraForm: PropTypes.func,
       startChooseGraveMode: PropTypes.func
   };

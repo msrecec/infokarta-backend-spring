@@ -10,7 +10,7 @@ const pokojnici = (
         pageNumber: [],
         chooseGraveModal: false,
         graveChooseMode: "initial", // "initial", "single", "multiple"
-        chosenGrave: {}
+        chosenGrave: null
     },
     action
 ) => {
@@ -31,8 +31,7 @@ const pokojnici = (
     case DISABLE_GRAVE_PICK_MODAL: {
         return {
             ...state,
-            chooseGraveModal: false,
-            chosenGrave: action.chosenGrave
+            chooseGraveModal: false
         };
     }
     case SET_GRAVE_PICK_MODE: {

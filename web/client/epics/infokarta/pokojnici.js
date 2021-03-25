@@ -146,7 +146,7 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
                     const id = parseInt(temp[1], 10);
                     console.log(tablica, id);
                     return Rx.Observable.of(
-                        setGravePickMode("single")
+                        setGravePickMode("single", id)
                     );
                 } else if (data.numberReturned !== 1) {
                     return Rx.Observable.of(
