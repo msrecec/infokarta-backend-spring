@@ -6,6 +6,7 @@ import it.geosolutions.mapstore.repository.PokojnikSlika.PokojnikSlikaMetaDAOImp
 import it.geosolutions.mapstore.model.PokojnikSlikaMeta;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.MIMETypeUtil;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,11 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 @Controller
 public class PokojniciSlikeController {
@@ -89,11 +90,17 @@ public class PokojniciSlikeController {
     public void downloadImgResource(HttpServletRequest request, HttpServletResponse response, @RequestParam("fid") Integer fid) throws IOException {
         PokojnikSlikaMetaDAO pokojnikSlikaMetaDAO = new PokojnikSlikaMetaDAOImpl();
 
-        PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaByFid(fid);
+        PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
+        File f = new File(
+            pokojnikSlikaMeta.getLokacija()+"\\"
+                +pokojnikSlikaMeta.getFid()+"."
+                +pokojnikSlikaMeta.getTip());
 
-        response.setContentType("image/jpeg");
-        response.addHeader("Content-Disposition", "attachment; filename=mira.jpg");
-//        response.getOutputStream().write(pokojnikSlikaMeta.getLokacija());
+        byte[] bytes = FileUtils.readFileToByteArray(f);
+
+        response.setContentType(MIMETypeUtil.mimeTypes.get(pokojnikSlikaMeta.getTip()));
+        response.addHeader("Content-Disposition", "attachment; filename="+pokojnikSlikaMeta.getNaziv()+"."+pokojnikSlikaMeta.getTip());
+        response.getOutputStream().write(bytes);
         response.getOutputStream().flush();
     }
 }

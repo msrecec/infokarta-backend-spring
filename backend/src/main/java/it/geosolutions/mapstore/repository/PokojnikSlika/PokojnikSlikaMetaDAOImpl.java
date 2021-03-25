@@ -29,7 +29,7 @@ public class PokojnikSlikaMetaDAOImpl implements PokojnikSlikaMetaDAO, JDBCConfi
     }
 
     @Override
-    public PokojnikSlikaMeta getSlikaByFid(Integer fid) {
+    public PokojnikSlikaMeta getSlikaMetaByFid(Integer fid) {
         PokojnikSlikaMetaMapper pokojnikSlikaMetaMapper = new PokojnikSlikaMetaMapper();
         String sql = "SELECT * FROM public.\"Pokojnici_slike_meta\" WHERE public.\"Pokojnici_slike_meta\".fid = ? ";
         PokojnikSlikaMeta pokojnikSlikaMeta = (PokojnikSlikaMeta) jdbcTemplateObject.queryForObject(sql, new Object[]{fid}, pokojnikSlikaMetaMapper);

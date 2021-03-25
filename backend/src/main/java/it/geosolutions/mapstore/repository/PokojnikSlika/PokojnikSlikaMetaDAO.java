@@ -7,5 +7,5 @@ import javax.sql.DataSource;
 public interface PokojnikSlikaMetaDAO {
     public void setDataSource(DataSource ds);
     PokojnikSlikaMeta addSlika(PokojnikSlikaMeta pokojnikSlikaMeta);
-    PokojnikSlikaMeta getSlikaByFid(Integer fid);
+    PokojnikSlikaMeta getSlikaMetaByFid(Integer fid);
 }
