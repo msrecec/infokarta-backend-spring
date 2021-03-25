@@ -24,6 +24,7 @@ import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Optional;
 
 @Controller
 public class PokojniciSlikeController {
@@ -87,20 +88,32 @@ public class PokojniciSlikeController {
     }
 
     @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
-    public void downloadImgResource(HttpServletRequest request, HttpServletResponse response, @RequestParam("fid") Integer fid) throws IOException {
+    public void downloadImgResource(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestParam("fid") Integer fid,
+        @RequestParam(value = "thumbnail", required = false) Boolean thumbnail
+    ) throws IOException {
         PokojnikSlikaMetaDAO pokojnikSlikaMetaDAO = new PokojnikSlikaMetaDAOImpl();
+        Optional<Boolean> oThumbnail = Optional.ofNullable(thumbnail);
 
-        PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
-        File f = new File(
-            pokojnikSlikaMeta.getLokacija()+"\\"
-                +pokojnikSlikaMeta.getFid()+"."
-                +pokojnikSlikaMeta.getTip());
+        if(oThumbnail.isPresent()) {
 
-        byte[] bytes = FileUtils.readFileToByteArray(f);
+        } else {
 
-        response.setContentType(MIMETypeUtil.mimeTypes.get(pokojnikSlikaMeta.getTip()));
-        response.addHeader("Content-Disposition", "attachment; filename="+pokojnikSlikaMeta.getNaziv()+"."+pokojnikSlikaMeta.getTip());
-        response.getOutputStream().write(bytes);
-        response.getOutputStream().flush();
+            PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
+            File f = new File(
+                pokojnikSlikaMeta.getLokacija()+"\\"
+                    +pokojnikSlikaMeta.getFid()+"."
+                    +pokojnikSlikaMeta.getTip());
+
+            byte[] bytes = FileUtils.readFileToByteArray(f);
+
+            response.setContentType(MIMETypeUtil.mimeTypes.get(pokojnikSlikaMeta.getTip()));
+            response.addHeader("Content-Disposition", "attachment; filename="+pokojnikSlikaMeta.getNaziv()+"."+pokojnikSlikaMeta.getTip());
+            response.getOutputStream().write(bytes);
+            response.getOutputStream().flush();
+
+        }
     }
 }
