@@ -2,19 +2,19 @@ package it.geosolutions.mapstore.model;
 
 import java.util.Arrays;
 
-public class PokojnikSlika {
+public class PokojnikSlikaMeta {
     private Integer fid;
     private String naziv;
-    private byte[] slika;
+    private String lokacija;
     private String tip;
     private Integer fk;
 
     @Override
     public String toString() {
-        return "PokojnikSlika{" +
+        return "PokojnikSlikaMeta{" +
             "fid=" + fid +
             ", naziv='" + naziv + '\'' +
-            ", slika=" + Arrays.toString(slika) +
+            ", slika=" + lokacija +
             ", tip='" + tip + '\'' +
             ", fk=" + fk +
             '}';
@@ -36,12 +36,12 @@ public class PokojnikSlika {
         this.naziv = naziv;
     }
 
-    public byte[] getSlika() {
-        return slika;
+    public String getLokacija() {
+        return lokacija;
     }
 
-    public void setSlika(byte[] slika) {
-        this.slika = slika;
+    public void setLokacija(String lokacija) {
+        this.lokacija = lokacija;
     }
 
     public String getTip() {
