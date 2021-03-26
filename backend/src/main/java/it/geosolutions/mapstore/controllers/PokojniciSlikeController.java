@@ -1,9 +1,12 @@
 package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.config.FileSystemConfig;
-import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaMetaDAO;
-import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaMetaDAOImpl;
+import it.geosolutions.mapstore.DAO.PokojnikSlikaMeta.PokojnikSlikaMetaDAO;
+import it.geosolutions.mapstore.DAO.PokojnikSlikaMeta.PokojnikSlikaMetaDAOImpl;
+import it.geosolutions.mapstore.dto.PokojnikSlikaMetaDTO;
 import it.geosolutions.mapstore.model.PokojnikSlikaMeta;
+import it.geosolutions.mapstore.service.PokojnikSlikaMetaService;
+import it.geosolutions.mapstore.service.PokojnikSlikaMetaServiceImpl;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.MIMETypeUtil;
 import org.apache.commons.io.FileUtils;
@@ -16,10 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class PokojniciSlikeController {
+
 
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/upload/slika", method = RequestMethod.POST)
@@ -80,17 +85,38 @@ public class PokojniciSlikeController {
     }
 
     @RequestMapping(value = "/pokojnici/download/slika/meta/{fid}", method = RequestMethod.GET)
-    public void getImgMeta(
+    public void getImgMetaByImgMetaFid(
         HttpServletRequest request,
         HttpServletResponse response,
         @PathVariable Integer fid
     ) throws IOException {
 
-        PokojnikSlikaMetaDAO pokojnikSlikaMetaDAO = new PokojnikSlikaMetaDAOImpl();
+        PokojnikSlikaMetaService pokojnikSlikaMetaService = new PokojnikSlikaMetaServiceImpl();
 
-        PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
+        PokojnikSlikaMetaDTO pokojnikSlikaMetaDTO = pokojnikSlikaMetaService.getSlikaMetaByFid(fid);
 
-        byte[] bytes = JSONUtils.fromPOJOToJSON(pokojnikSlikaMeta).getBytes(StandardCharsets.UTF_8);
+        byte[] bytes = JSONUtils.fromPOJOToJSON(pokojnikSlikaMetaDTO).getBytes(StandardCharsets.UTF_8);
+
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(bytes);
+
+        response.getOutputStream().flush();
+
+    }
+
+    @RequestMapping(value = "/pokojnici/download/slika/meta", method = RequestMethod.GET)
+    public void getImgMetaByPokojnikFid(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestParam Integer fid
+    ) throws IOException {
+
+        PokojnikSlikaMetaService pokojnikSlikaMetaService = new PokojnikSlikaMetaServiceImpl();
+
+        List<PokojnikSlikaMetaDTO> pokojnikSlikaMetaDTOList = pokojnikSlikaMetaService.getSlikaMetaByPokojnikFid(fid);
+
+        byte[] bytes = JSONUtils.fromListToJSON(pokojnikSlikaMetaDTOList).getBytes(StandardCharsets.UTF_8);
 
         response.addHeader("Content-type", "application/json; charset=utf-8");
 
@@ -114,7 +140,8 @@ public class PokojniciSlikeController {
 
         } else {
 
-            PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
+            PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid).get();
+
             File f = new File(
                 pokojnikSlikaMeta.getLokacija()+"\\"
                     +pokojnikSlikaMeta.getFid()+"."

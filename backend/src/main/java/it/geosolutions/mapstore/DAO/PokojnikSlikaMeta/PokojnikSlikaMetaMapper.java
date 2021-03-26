@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO.PokojnikSlika;
+package it.geosolutions.mapstore.DAO.PokojnikSlikaMeta;
 
 import it.geosolutions.mapstore.model.PokojnikSlikaMeta;
 import org.springframework.jdbc.core.RowMapper;
