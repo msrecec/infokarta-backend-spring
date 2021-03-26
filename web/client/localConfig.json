@@ -290,7 +290,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "Pokojnici", "GravePickerTool",
+        "desktop": ["Details", "Pokojnici",
           {
             "name": "Map",
             "cfg": {

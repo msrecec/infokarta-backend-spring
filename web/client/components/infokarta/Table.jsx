@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Button} from 'react-bootstrap';
+import {Table, Button, Glyphicon} from 'react-bootstrap';
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
@@ -42,8 +42,8 @@ class TableComponent extends React.Component {
                   <tbody>
                       {this.props.items.map((item) =>
                           <tr>
-                              <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}>Uredi</Button></td>
-                              <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fk)}>Prikaži</Button></td>
+                              <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}><Glyphicon glyph="pencil"/></Button></td>
+                              <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fk)}><Glyphicon glyph="zoom-to"/></Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {

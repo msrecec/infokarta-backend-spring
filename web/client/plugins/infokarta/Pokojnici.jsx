@@ -11,7 +11,7 @@ import {
     editDeceased,
     insertDeceased,
     zoomToGrave,
-    enableGravePickModal
+    enableGravePickMode
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -28,6 +28,7 @@ import { createPlugin } from '../../utils/PluginsUtils';
 import pokojnici from '../../reducers/infokarta/pokojnici';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import paginationControl from '../../reducers/infokarta/paginationControl';
+import GravePickerModal from '../../components/infokarta/GravePickerModal';
 
 import * as epics from '../../epics/infokarta/pokojnici';
 
@@ -100,7 +101,7 @@ const insertFormData = [
 // ];
 // TODO smislit nacin za dodat ove naslove u sekcije dinamicki
 
-const fieldsToExclude = ["", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
+const fieldsToExclude = [/* "fid", "fk", */ "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk"];
 
 const Pokojnici = ({
@@ -151,6 +152,9 @@ const Pokojnici = ({
         startChooseGraveMode={startChooseMode}
     />);
 
+    const gravePickerModal = (<GravePickerModal
+    />);
+
     return (
         <div style={style}>
             {search}
@@ -158,6 +162,7 @@ const Pokojnici = ({
             {pagination}
             {editModal}
             {insertModal}
+            {gravePickerModal}
         </div>
     );
 };
@@ -175,7 +180,7 @@ export default createPlugin('Pokojnici', {
         sendEditedData: editDeceased,
         sendNewData: insertDeceased,
         sendZoomData: zoomToGrave,
-        startChooseMode: enableGravePickModal
+        startChooseMode: enableGravePickMode
     })(Pokojnici),
     containers: {
         DrawerMenu: {

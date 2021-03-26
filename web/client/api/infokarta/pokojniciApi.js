@@ -81,7 +81,7 @@ const Api = {
                 console.error(error);
             });
     },
-    insertPokojnik: function(itemToInsert) {
+    insertPokojnik: function(itemToInsert, graveId) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
 
         if (itemToInsert.graveyard) {
@@ -92,6 +92,10 @@ const Api = {
         if (itemToInsert.graveNumber) {
             url += 'rbr=' + itemToInsert.graveNumber;
             delete itemToInsert.graveNumber;
+        }
+
+        if (graveId) {
+            itemToInsert.fk = graveId;
         }
 
         let header = { "Content-Type": "application/json;charset=UTF-8" };

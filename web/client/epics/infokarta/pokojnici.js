@@ -6,10 +6,13 @@ import {
     EDIT_DECEASED,
     INSERT_DECEASED,
     ZOOM_TO_GRAVE,
-    ENABLE_GRAVE_PICK_MODAL,
     deceasedLoaded,
-    disableGravePickModal,
-    setGravePickMode
+
+    ENABLE_GRAVE_PICK_MODE,
+    DISABLE_GRAVE_PICK_MODE,
+    CONFIRM_GRAVE_PICK,
+    showGravePickModal,
+    hideGravePickModal
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -20,7 +23,8 @@ import {
     SHOW_INSERT_MODAL,
     generateInsertForm,
     hideEditModal,
-    hideInsertModal
+    hideInsertModal,
+    showInsertModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
@@ -87,10 +91,28 @@ export const fetchColumnsForInsert = (action$ /* , store*/) =>
                 });
         });
 
-export const insertNew = (action$ /* , store*/) =>
+export const insertNew = (action$, {getState = () => {}} = {}) =>
     action$.ofType(INSERT_DECEASED)
         .switchMap(({ itemToInsert = {} }) => {
-            // const state = store.getState();
+            let pokojniciState = get(getState(), "pokojnici");
+            console.log('INSERT NEW EPIC', pokojniciState);
+            let temp = pokojniciState.chosenGrave;
+            if (temp) {
+                return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
+                    .then(data => data))
+                    .switchMap((response) => {
+                        console.log('insert response: ', response);
+                        return Rx.Observable.of(
+                            hideInsertModal()
+                        );
+                    })
+                    .catch((error) => {
+                        return Rx.Observable.of(
+                            /* eslint-disable no-console */
+                            console.error('error while inserting new deceased', error)
+                        );
+                    });
+            }
             return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert)
                 .then(data => data))
                 .switchMap((response) => {
@@ -101,8 +123,8 @@ export const insertNew = (action$ /* , store*/) =>
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
-                        /* eslint-disable no-console */
-                        console.error('error while fetching columns to insert new deceased', error)
+                    /* eslint-disable no-console */
+                        console.error('error while inserting new deceased', error)
                     );
                 });
         });
@@ -122,16 +144,24 @@ export const zoomToGrave = (action$ /* , store*/) =>
                 .catch((error) => {
                     return Rx.Observable.of(
                         /* eslint-disable no-console */
-                        console.error('error while fetching columns to insert new deceased', error)
+                        console.error('error while fetching geom for zoom function', error)
                     );
                 });
         });
 
 export const startChooseGraveMode = (action$) =>
-    action$.ofType(ENABLE_GRAVE_PICK_MODAL)
+    action$.ofType(ENABLE_GRAVE_PICK_MODE)
         .switchMap(({}) => {
             return Rx.Observable.of(
                 hideInsertModal()
+            );
+        });
+
+export const confirmGravePickAndOpenInsertModal = (action$) =>
+    action$.ofType(CONFIRM_GRAVE_PICK)
+        .switchMap(({}) => {
+            return Rx.Observable.of(
+                showInsertModal()
             );
         });
 
@@ -139,22 +169,20 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
     action$.ofType(LOAD_FEATURE_INFO)
         .switchMap(({ data = {} }) => {
             let pokojniciState = get(getState(), "pokojnici");
-            if (pokojniciState.chooseGraveModal === true) {
-                if (data.numberReturned === 1) {
+            if (pokojniciState.graveChooseEnabled === true) {
+                console.log(data);
+                if (data.numberReturned === 1 && data.features[0].id.includes("Grobovi")) {
                     let temp = data.features[0].id.split(".");
                     const tablica = temp[0];
                     const id = parseInt(temp[1], 10);
                     console.log(tablica, id);
                     return Rx.Observable.of(
-                        setGravePickMode("single", id)
-                    );
-                } else if (data.numberReturned !== 1) {
-                    return Rx.Observable.of(
-                        setGravePickMode("multiple")
+                        showGravePickModal("single", id, data.features[0])
                     );
                 }
+                return Rx.Observable.of(
+                    showGravePickModal("multiple")
+                );
             }
-            return Rx.Observable.of(
-                setGravePickMode("initial")
-            );
+            return null;
         });

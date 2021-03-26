@@ -1,67 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {Button} from 'react-bootstrap';
 import { get } from "lodash";
+import {Button, Modal} from 'react-bootstrap';
 
-// import {
-//     enableGravePickModal,
-//     disableGravePickModal,
-//     confirmGravePick,
-//     setGravePickMode
-// } from "../../actions/infokarta/pokojnici";
-
-let modalHeader = "";
-let modalButtons = null;
-let cancelButton = (
-    <div>
-        <Button variant="primary" onClick={() => this.props.hideModal()}>
-            Odustani
-        </Button>
-    </div>
-);
-
-let decisionButtons = (
-    <div>
-        <Button variant="primary" onClick={() => this.console.log()}>
-            Potvrdi
-        </Button>
-        <Button variant="primary" onClick={() => this.props.setChooseMode("initial", null)}>
-            Odustani
-        </Button>
-    </div>
-);
-
-const style = {
-    background: "white",
-    position: "fixed",
-    bottom: "0px",
-    height: "100px",
-    width: "100%",
-    zIndex: 10000,
-    display: "none"
-};
-
-function toggleDiv(show) {
-    console.log('!!! toggleDiv', show);
-    const x = document.getElementById("!!! customDiv");
-    if (show === true) {
-        console.log('!!! SHOW DIV');
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
+import {
+    hideGravePickModal,
+    confirmGravePick
+} from "../../actions/infokarta/pokojnici";
 
 class GravePicker extends React.Component {
   static propTypes = {
       show: PropTypes.bool,
       mode: PropTypes.string,
       chosenGrave: PropTypes.number,
-      showModal: PropTypes.func,
+      graveData: PropTypes.object,
+
       hideModal: PropTypes.func,
-      loadGrave: PropTypes.func,
-      setChooseMode: PropTypes.func
+      loadGrave: PropTypes.func
   };
 
   static defaultProps = {
@@ -70,16 +26,29 @@ class GravePicker extends React.Component {
       mode: "initial"
   };
 
-  componentDidUpdate(prevProps) {
-      console.log('!!! entered CDU', prevProps, this.props);
-      if (prevProps.show !== this.props.show) {
-          console.log('!!! CDU - PROP CHANGED', this.props.show);
-          toggleDiv(this.props.show);
-      }
-  }
-
   render() {
-      console.log('!!! entered render');
+      let modalHeader = "";
+      let modalButtons = null;
+
+      let cancelButton = (
+          <div>
+              <Button variant="danger" onClick={() => this.props.hideModal()}>
+                U redu
+              </Button>
+          </div>
+      );
+
+      let decisionButtons = (
+          <div>
+              <Button variant="success" onClick={() => this.props.loadGrave()}>
+                Da
+              </Button>
+              <Button variant="danger" onClick={() => this.props.hideModal()}>
+                Ne, odaberi drugu
+              </Button>
+          </div>
+      );
+
       switch (this.props.mode) {
       case "single":
           modalHeader = "Jeste li sigurni da želite odabrati ovu grobnicu?";
@@ -95,32 +64,32 @@ class GravePicker extends React.Component {
           break;
       }
 
-      return (
-          <div id="customDiv" style={style}>
-              <h3>
-                  {modalHeader}
-              </h3>
-              <div>
+      return this.props.show ? (
+          <Modal show={this.props.show} onHide={this.props.hideModal}>
+              <Modal.Header closeButton>
+                  <Modal.Title>{modalHeader}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  {this.props.graveData ? this.props.graveData.id : ""}
+              </Modal.Body>
+              <Modal.Footer>
                   {modalButtons}
-              </div>
-          </div>
-      );
+              </Modal.Footer>
+          </Modal>
+      ) : null;
   }
 }
 
-// const GravePickerComponent = connect((state) => {
-//     return {
-//         // show: get(state, 'pokojnici.chooseGraveModal'),
-//         // mode: get(state, 'pokojnici.graveChooseMode'),
-//         // chosenGrave: get(state, 'pokojnici.chosenGrave')
-//     };
-// }, {
-//     // showModal: enableGravePickModal,
-//     // hideModal: disableGravePickModal,
-//     // loadGrave: confirmGravePick,
-//     // setChooseMode: setGravePickMode
-// })(GravePicker);
+const GravePickerModal = connect((state) => {
+    return {
+        show: get(state, 'pokojnici.chooseGraveModal'),
+        mode: get(state, 'pokojnici.graveChooseMode'),
+        chosenGrave: get(state, 'pokojnici.chosenGrave'),
+        graveData: get(state, 'pokojnici.graveData')
+    };
+}, {
+    hideModal: hideGravePickModal,
+    loadGrave: confirmGravePick
+})(GravePicker);
 
-// export default GravePickerComponent;
-
-export default GravePicker;
+export default GravePickerModal;
