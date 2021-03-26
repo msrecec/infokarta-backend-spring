@@ -9,10 +9,7 @@ import it.geosolutions.mapstore.utils.MIMETypeUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -30,7 +27,7 @@ import java.util.Optional;
 public class PokojniciSlikeController {
 
     //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici/upload/slike", method = RequestMethod.POST)
+    @RequestMapping(value = "/pokojnici/upload/slika", method = RequestMethod.POST)
     @ResponseBody
     public byte[] handleFormUpload(
         @RequestParam("name") String name,
@@ -87,7 +84,28 @@ public class PokojniciSlikeController {
         }
     }
 
-    @RequestMapping(value = "/pokojnici/slika", method = RequestMethod.GET)
+    @RequestMapping(value = "/pokojnici/download/slika/meta/{fid}", method = RequestMethod.GET)
+    public void getImgMeta(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @PathVariable Integer fid
+    ) throws IOException {
+
+        PokojnikSlikaMetaDAO pokojnikSlikaMetaDAO = new PokojnikSlikaMetaDAOImpl();
+
+        PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
+
+        byte[] bytes = JSONUtils.fromPOJOToJSON(pokojnikSlikaMeta).getBytes(StandardCharsets.UTF_8);
+
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(bytes);
+
+        response.getOutputStream().flush();
+
+    }
+
+    @RequestMapping(value = "/pokojnici/download/slika", method = RequestMethod.GET)
     public void downloadImgResource(
         HttpServletRequest request,
         HttpServletResponse response,
