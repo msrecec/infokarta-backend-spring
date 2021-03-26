@@ -1,8 +1,8 @@
 package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.config.FileSystemConfig;
-import it.geosolutions.mapstore.repository.PokojnikSlika.PokojnikSlikaMetaDAO;
-import it.geosolutions.mapstore.repository.PokojnikSlika.PokojnikSlikaMetaDAOImpl;
+import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaMetaDAO;
+import it.geosolutions.mapstore.DAO.PokojnikSlika.PokojnikSlikaMetaDAOImpl;
 import it.geosolutions.mapstore.model.PokojnikSlikaMeta;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.MIMETypeUtil;
@@ -12,15 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.Optional;
 
 @Controller

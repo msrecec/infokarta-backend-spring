@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.repository.Groblje;
+package it.geosolutions.mapstore.DAO.Groblje;
 
 import it.geosolutions.mapstore.model.Groblje;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.repository.PokojnikSlika;
+package it.geosolutions.mapstore.DAO.PokojnikSlika;
 
 import it.geosolutions.mapstore.model.PokojnikSlikaMeta;
 

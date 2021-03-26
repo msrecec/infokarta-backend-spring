@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.repository.Pokojnik;
+package it.geosolutions.mapstore.DAO.Pokojnik;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.Pokojnik;

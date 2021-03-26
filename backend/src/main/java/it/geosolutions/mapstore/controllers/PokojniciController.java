@@ -1,8 +1,8 @@
 package it.geosolutions.mapstore.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import it.geosolutions.mapstore.repository.Pokojnik.PokojniciDAO;
-import it.geosolutions.mapstore.repository.Pokojnik.PokojniciDAOImpl;
+import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;

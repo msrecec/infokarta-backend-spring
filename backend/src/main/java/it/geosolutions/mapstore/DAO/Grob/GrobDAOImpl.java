@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.repository.Grob;
+package it.geosolutions.mapstore.DAO.Grob;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.Grob;
