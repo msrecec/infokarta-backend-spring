@@ -140,6 +140,12 @@ public class PokojniciSlikeController {
 
         } else {
 
+            Optional<PokojnikSlikaMeta> oPokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid);
+
+            if(!oPokojnikSlikaMeta.isPresent()) {
+                return;
+            }
+
             PokojnikSlikaMeta pokojnikSlikaMeta = pokojnikSlikaMetaDAO.getSlikaMetaByFid(fid).get();
 
             File f = new File(
