@@ -101,7 +101,7 @@ const insertFormData = [
 // ];
 // TODO smislit nacin za dodat ove naslove u sekcije dinamicki
 
-const fieldsToExclude = [/* "fid", "fk", */ "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
+const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk"];
 
 const Pokojnici = ({

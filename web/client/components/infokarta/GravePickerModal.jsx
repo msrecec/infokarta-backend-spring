@@ -77,7 +77,7 @@ class GravePicker extends React.Component {
               </Modal.Footer>
           </Modal>
       ) : null;
-  }
+  } // TODO uredit stil i ostalo, istestirat
 }
 
 const GravePickerModal = connect((state) => {

@@ -45,6 +45,8 @@ class TableComponent extends React.Component {
                               <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}><Glyphicon glyph="pencil"/></Button></td>
                               <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fk)}><Glyphicon glyph="zoom-to"/></Button></td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
+                              {/* TODO dodat tooltipove na ikonice od botuna */}
+                              {/* TODO dodat pin kad se zumira */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
                                       return (
