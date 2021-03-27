@@ -156,7 +156,8 @@ public class PokojniciSlikeController {
             byte[] bytes = FileUtils.readFileToByteArray(f);
 
             response.setContentType(MIMETypeUtil.mimeTypes.get(pokojnikSlikaMeta.getTip()));
-            response.addHeader("Content-Disposition", "attachment; filename="+pokojnikSlikaMeta.getNaziv()+"."+pokojnikSlikaMeta.getTip());
+//            response.addHeader("Content-Disposition", "attachment; filename="+pokojnikSlikaMeta.getNaziv()+"."+pokojnikSlikaMeta.getTip());
+            response.addHeader("Content-Disposition", "inline; filename="+pokojnikSlikaMeta.getNaziv()+"."+pokojnikSlikaMeta.getTip());
             response.getOutputStream().write(bytes);
             response.getOutputStream().flush();
 
