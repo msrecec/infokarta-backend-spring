@@ -31,6 +31,14 @@ public class PokojnikSlikaMetaDAOImpl implements PokojnikSlikaMetaDAO, JDBCConfi
     }
 
     @Override
+    public PokojnikSlikaMeta addSlikaGrob(PokojnikSlikaMeta pokojnikSlikaMeta) {
+        PokojnikSlikaMetaMapper pokojnikSlikaMetaMapper = new PokojnikSlikaMetaMapper();
+        String sql = "INSERT INTO public.\"Grobovi_slike_meta\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;";
+        PokojnikSlikaMeta pokojnikSlikaMetaReturn = (PokojnikSlikaMeta)jdbcTemplateObject.queryForObject(sql, new Object[]{pokojnikSlikaMeta.getNaziv(), pokojnikSlikaMeta.getLokacija(), pokojnikSlikaMeta.getTip(), pokojnikSlikaMeta.getFk()}, pokojnikSlikaMetaMapper);
+        return pokojnikSlikaMetaReturn;
+    }
+
+    @Override
     public Optional<PokojnikSlikaMeta> getSlikaMetaByFid(Integer fid) {
         PokojnikSlikaMetaMapper pokojnikSlikaMetaMapper = new PokojnikSlikaMetaMapper();
         String sql = "SELECT * FROM public.\"Pokojnici_slike_meta\" WHERE public.\"Pokojnici_slike_meta\".fid = ? ";

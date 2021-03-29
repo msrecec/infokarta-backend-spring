@@ -11,4 +11,6 @@ public interface PokojnikSlikaMetaDAO {
     PokojnikSlikaMeta addSlika(PokojnikSlikaMeta pokojnikSlikaMeta);
     Optional<PokojnikSlikaMeta> getSlikaMetaByFid(Integer fid);
     List<PokojnikSlikaMeta> getSlikaMetaByPokojnikFid(Integer fid);
+
+    PokojnikSlikaMeta addSlikaGrob(PokojnikSlikaMeta pokojnikSlikaMeta);
 }
