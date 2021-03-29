@@ -36,7 +36,11 @@ public class GroboviController {
             json = JSONUtils.fromListToJSON(grobovi);
         } else if (oGeom.isPresent() && oFid.isPresent() && !oGroblje.isPresent()) {
 
-            json = grobDAO.getGeomByFid(oFid.get());
+            if(oFid.get() > 0) {
+                json = grobDAO.getGeomByFid(oFid.get());
+            } else {
+                return null;
+            }
 
         } else {
             grobovi = grobDAO.listGrobovi();
