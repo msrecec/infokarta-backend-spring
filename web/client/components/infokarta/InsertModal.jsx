@@ -10,6 +10,7 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
+import {buildDynamicForm} from "../../utils/infokarta/ComponentConstructorUtil";
 
 const formStyle = {
     overflow: "auto",
@@ -57,42 +58,7 @@ class BaseModalComponent extends React.Component {
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
-                      <Button variant="primary" onClick={() => this.props.startChooseGraveMode()}>
-                        Odaberi grobnicu sa karte
-                      </Button>
-                      {this.props.extraForm ?
-                          this.props.extraForm.map((field) => {
-                              return field.type === "text" ?
-                                  ( // ako polje ima type = text, napravi klasično text input polje
-                                      <FormGroup
-                                          key={field.label}
-                                          controlId={field.label}
-                                      >
-                                          <ControlLabel>{field.label}</ControlLabel>
-                                          <FormControl
-                                              type={field.type}
-                                              value={this.state[field.value]}
-                                              onChange={(e) => this.handleChange(field.value, e)}/>
-                                      </FormGroup>)
-                                  : ( // ako polje nema type = text, napravi select polje
-                                      <FormGroup
-                                          key={field.label}
-                                          controlId={field.label}
-                                      >
-                                          <ControlLabel>{field.label}</ControlLabel>
-                                          <FormControl
-                                              componentClass={field.type}
-                                              placeholder={this.state[field.selectValues[0]]}
-                                              onChange={(e) => this.handleChange(field.value, e)}
-                                          >
-                                              {field.selectValues.map((option) => {
-                                                  return <option value={option}>{option}</option>;
-                                              })}
-                                          </FormControl>
-                                      </FormGroup>
-                                  );
-                          }
-                          ) : null}
+                      {this.props.extraForm ? buildDynamicForm(this.props.extraForm) : null}
                       <hr/>
                       {this.props.itemToInsert ? this.props.itemToInsert.map((entry) => {
                           if (!this.props.fieldsToExclude.includes(entry)) {

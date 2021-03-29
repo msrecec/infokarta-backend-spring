@@ -39,7 +39,8 @@ const pokojnici = (
         return {
             ...state,
             graveChooseEnabled: false,
-            chooseGraveModal: false
+            chooseGraveModal: false,
+            chosenGrave: null
         };
     } // ugasi ovaj mode i sve vezano uz njega. id groba se dodaje u fk prilikon slanja http zahtjeva
     case SHOW_GRAVE_PICK_MODAL: {
@@ -52,7 +53,6 @@ const pokojnici = (
         };
     } // ako je graveChooseEnabled istinit, kliknut jedan feature i taj feature je grob ucitaj ga u modal
     case HIDE_GRAVE_PICK_MODAL: {
-        console.log('hide lol');
         return {
             ...state,
             chooseGraveModal: false,

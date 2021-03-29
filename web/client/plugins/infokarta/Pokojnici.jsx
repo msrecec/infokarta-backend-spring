@@ -42,66 +42,7 @@ const style = {
     padding: 10
 };
 
-const searchFormData = [
-    {
-        label: "Ime", // naziv koji ce bit dodijeljen labelu u formi
-        type: "text", // tip koji ce bit dodijeljen inputu u formi
-        value: "name" // value koji ce bit poslan u search funkciju, vidit u API
-    },
-    {
-        label: "Prezime",
-        type: "text",
-        value: "surname"
-    },
-    {
-        label: "Godina smrti od",
-        type: "text",
-        value: "yearOfDeathFrom"
-    },
-    {
-        label: "Godina smrti do",
-        type: "text",
-        value: "yearOfDeathTo"
-    },
-    {
-        label: "Groblje",
-        type: "select",
-        value: "graveyard",
-        selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"] // prvi value uvijek treba bit prazan za select fieldove
-    }
-];
-
-const insertFormData = [
-    {
-        label: "Groblje",
-        type: "select",
-        value: "graveyard",
-        selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"] // prvi value uvijek treba bit prazan za select fieldove
-    },
-    {
-        label: "Redni broj grobnice",
-        type: "text",
-        value: "graveNumber"
-    }
-];
-
-// const insertFormHeaders = [
-//     {
-//         section: 1,
-//         title: "Odabir grobnice"
-//     },
-//     {
-//         section: 2,
-//         title: "Unos pokojnikovih podataka"
-//     },
-//     {
-//         section: 3,
-//         title: "Prijenos datoteka"
-//     }
-// ];
-// TODO smislit nacin za dodat ove naslove u sekcije dinamicki
-
-const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
+const fieldsToExclude = ["ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk"];
 
 const Pokojnici = ({
@@ -117,6 +58,59 @@ const Pokojnici = ({
     sendZoomData = () => {},
     startChooseMode = () => {}
 }) => {
+    const searchFormData = [
+        {
+            label: "Ime",
+            type: "text",
+            value: "name"
+        },
+        {
+            label: "Prezime",
+            type: "text",
+            value: "surname"
+        },
+        {
+            label: "Godina smrti od",
+            type: "text",
+            value: "yearOfDeathFrom"
+        },
+        {
+            label: "Godina smrti do",
+            type: "text",
+            value: "yearOfDeathTo"
+        },
+        {
+            label: "Groblje",
+            type: "select",
+            value: "graveyard",
+            selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
+        }
+    ];
+
+    // const insertFormHeaders = [
+    //     {
+    //         section: 1,
+    //         title: "Odabir grobnice"
+    //     },
+    //     {
+    //         section: 2,
+    //         title: "Unos pokojnikovih podataka"
+    //     },
+    //     {
+    //         section: 3,
+    //         title: "Prijenos datoteka"
+    //     }
+    // ];
+    // TODO smislit nacin za dodat ove naslove u sekcije dinamicki
+
+    const insertFormData = [
+        {
+            label: "Odaberite grobnicu klikom na kartu",
+            type: "button",
+            bsStyle: "success",
+            onClickfunction: startChooseMode
+        }
+    ];
 
     const search = (<SearchComponent
         buildData={searchFormData}

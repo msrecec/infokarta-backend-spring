@@ -117,23 +117,30 @@ const Api = {
         url += 'fid=' + graveId + '&geom=true';
 
         let header = { "Content-Type": "application/json;charset=UTF-8" };
-        return axios.get(
-            url,
-            {
-                headers: header
-            })
-            .then(function(response) {
-                console.log(response.data.coordinates);
-                let coordinates = {
-                    x: response.data.coordinates[0],
-                    y: response.data.coordinates[1],
-                    crs: "EPSG:3765"
-                };
-                return coordinates;
-            }).catch(function(error) {
-            /* eslint-disable no-console */
-                console.error(error);
-            });
+        if (graveId !== 0) {
+            return axios.get(
+                url,
+                {
+                    headers: header
+                })
+                .then(function(response) {
+                    console.log(response.data.coordinates);
+                    let coordinates = {
+                        coordinates: {
+                            x: response.data.coordinates[0],
+                            y: response.data.coordinates[1]
+                        },
+                        zoom: 16,
+                        crs: "EPSG:3765"
+                    };
+                    return coordinates;
+                }).catch(function(error) {
+                /* eslint-disable no-console */
+                    console.error(error);
+                });
+        }
+        console.log('ERROR: fid is not valid');
+        return null;
     }
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Button, Glyphicon} from 'react-bootstrap';
+import {Table, Button, Glyphicon, Tooltip, OverlayTrigger} from 'react-bootstrap';
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
@@ -9,6 +9,18 @@ const style = {
     maxHeight: "600px",
     minWidth: "580px"
 };
+
+let editTooltip = (
+    <Tooltip id="tooltip-top">
+        Uredi stavku
+    </Tooltip>
+);
+
+let zoomTooltip = (
+    <Tooltip id="tooltip-top">
+        Pronađi na karti
+    </Tooltip>
+);
 
 class TableComponent extends React.Component {
   static propTypes = {
@@ -42,8 +54,27 @@ class TableComponent extends React.Component {
                   <tbody>
                       {this.props.items.map((item) =>
                           <tr>
-                              <td><Button variant="Primary" onClick={() => this.props.sendDataToEdit(item)}><Glyphicon glyph="pencil"/></Button></td>
-                              <td><Button variant="Primary" onClick={() => this.props.zoomToItem(item.fk)}><Glyphicon glyph="zoom-to"/></Button></td>
+                              <td>
+                                  <OverlayTrigger placement="top" overlay={editTooltip}>
+                                      <Button
+                                          bsStyle="primary"
+                                          onClick={() => this.props.sendDataToEdit(item)}
+                                      >
+                                          <Glyphicon glyph="pencil"/>
+                                      </Button>
+                                  </OverlayTrigger>
+                              </td>
+                              <td>
+                                  <OverlayTrigger placement="top" overlay={zoomTooltip}>
+                                      <Button
+                                          bsStyle="primary"
+                                          onClick={() => this.props.zoomToItem(item.fk)}
+                                          disabled={item.fk === 0 ? true : false}
+                                      >
+                                          <Glyphicon glyph="zoom-to"/>
+                                      </Button>
+                                  </OverlayTrigger>
+                              </td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {/* TODO dodat tooltipove na ikonice od botuna */}
                               {/* TODO dodat pin kad se zumira */}
