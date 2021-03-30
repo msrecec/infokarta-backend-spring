@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SlikaMetaService {
     public SlikaMetaDTO getSlikaMetaByFid(Integer fid, String entity);
-    List<SlikaMetaDTO> getSlikaMetaByPokojnikFid(Integer fid);
+    List<SlikaMetaDTO> getSlikaMetaByEntityFid(Integer fid, String entity);
     ByteArrayOutputStream createThumbnail(MultipartFile originalFile, Integer width);
     SlikaMetaDTO addSlikaToEntity(SlikaMeta slikaMeta, String entity);
 }

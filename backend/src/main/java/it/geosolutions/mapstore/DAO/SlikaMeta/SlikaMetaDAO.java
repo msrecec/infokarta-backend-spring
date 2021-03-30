@@ -8,9 +8,8 @@ import java.util.Optional;
 
 public interface SlikaMetaDAO {
     public void setDataSource(DataSource ds);
-    SlikaMeta addSlika(SlikaMeta slikaMeta);
     Optional<SlikaMeta> getSlikaMetaByFid(Integer fk, String entityTable);
-    List<SlikaMeta> getSlikaMetaByPokojnikFid(Integer fid);
+    List<SlikaMeta> getSlikaMetaByEntityFid(Integer fid, String entityTable, String entity);
 
     SlikaMeta addSlikaGrob(SlikaMeta slikaMeta);
 

@@ -21,7 +21,7 @@ public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
 
     @Override
     public List<Groblje> listGroblja() {
-        String sql = "SELECT * FROM public.\"Groblja\" ORDER BY fid";
+        String sql = "SELECT * FROM public.\"groblja\" ORDER BY fid";
         GrobljeMapper grobljeMapper = new GrobljeMapper();
         List <Groblje> groblja = jdbcTemplateObject.query(sql, grobljeMapper);
         return groblja;

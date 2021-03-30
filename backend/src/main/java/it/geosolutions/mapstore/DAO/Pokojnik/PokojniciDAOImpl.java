@@ -35,7 +35,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         try {
             conn = dataSource.getConnection();
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"Pokojnici\" LIMIT 1");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM public.\"pokojnici\" LIMIT 1");
 
             if(rs != null) {
                 ResultSetMetaData rsmd = rs.getMetaData();
@@ -62,7 +62,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public Pokojnik getFirstPokojnik() {
-        String sql = "SELECT * FROM public.\"Pokojnici\" LIMIT 1";
+        String sql = "SELECT * FROM public.\"pokojnici\" LIMIT 1";
 
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
 
@@ -71,7 +71,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public String listPokojnici() {
-        String sql = "SELECT * FROM public.\"Pokojnici\" ORDER BY fid";
+        String sql = "SELECT * FROM public.\"pokojnici\" ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List <Pokojnik> pokojnici = jdbcTemplateObject.query(sql, pokojnikMapper);
         return JSONUtils.fromListToJSON(pokojnici);
@@ -80,7 +80,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     @Override
     public Pokojnik getPokojnikById(Optional<Integer> oId) {
         Integer id = oId.get();
-        String sql = "SELECT * FROM \"Pokojnici\" WHERE fid = ? ORDER BY fid";
+        String sql = "SELECT * FROM \"pokojnici\" WHERE fid = ? ORDER BY fid";
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         Pokojnik pokojnik = (Pokojnik) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, pokojnikMapper);
         return pokojnik;
@@ -108,15 +108,15 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         String select = "SELECT * ";
         String selectCount = "SELECT COUNT(*) ";
 
-        String grobljeSQL = "INNER JOIN public.\"Grobovi\" ON \"Pokojnici\".fk = public.\"Grobovi\".fid INNER JOIN public.\"Groblja\" ON " +
-            "public.\"Grobovi\".fk = public.\"Groblja\".fid WHERE public.\"Groblja\".\"naziv\" ILIKE ? ";
+        String grobljeSQL = "INNER JOIN public.\"grobovi\" ON \"pokojnici\".fk = public.\"grobovi\".fid INNER JOIN public.\"groblja\" ON " +
+            "public.\"grobovi\".fk = public.\"groblja\".fid WHERE public.\"groblja\".\"naziv\" ILIKE ? ";
         String imeSQL = "\"IME\" ILIKE ? ";
         String prezimeSQL = "\"PREZIME\" ILIKE ? ";
         String godineSQL = "TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? ";
-        String orderBySQL = "ORDER BY \"Pokojnici\".fid ";
+        String orderBySQL = "ORDER BY \"pokojnici\".fid ";
         String limitAndOffsetSQL = "LIMIT ? OFFSET ? ";
 
-        String sql = "FROM public.\"Pokojnici\" ";
+        String sql = "FROM public.\"pokojnici\" ";
 
         if(oGroblje.isPresent()) {
             groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
@@ -205,14 +205,14 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public Integer getPokojnikCount() {
-        String sql = "SELECT COUNT(*) FROM public.\"Pokojnici\"";
+        String sql = "SELECT COUNT(*) FROM public.\"pokojnici\"";
         Integer count = jdbcTemplateObject.queryForInt(sql);
         return count;
     }
 
     @Override
     public String updatePokojnik(Pokojnik pokojnik) {
-        String sql = "UPDATE \"Pokojnici\" SET \"IME I PREZIME\" = ?, \"Prezime djevojačko\" = ?, \"IME OCA\" = ?, \"NADIMAK\" = ?, \"OIB\" = ?, \"SPOL\" = ?, \"DATU ROĐENJA\" = ?, \n" +
+        String sql = "UPDATE \"pokojnici\" SET \"IME I PREZIME\" = ?, \"Prezime djevojačko\" = ?, \"IME OCA\" = ?, \"NADIMAK\" = ?, \"OIB\" = ?, \"SPOL\" = ?, \"DATU ROĐENJA\" = ?, \n" +
             "\"Bračno stanje\" = ?, \"MJESTO STANOVANJA\" = ?, \"ADRESA STANOVANJA\" = ?, \"Ime i prezime bračnog druga\" = ?, \"DOB\" = ?, \"UZROK SMRTI\" = ?,\n" +
             "\"Mjesto smrti\" = ?, \"DATUM SMRTI\" = ?, \"DATUM KREMIRANJA\" = ?, \"DATUM UKOPA\" = ?, \"oznaka grobnice\" = ?, \"groblje\" = ?, \"Naknadni upisi i bilješke\" = ?,\n" +
             "\"Godina ukopa\" = ?, \"USLUGA\" = ?, \"RAČUN\" = ?, \"DATUM USLUGE\" = ?, \"IME\" = ?, \"PREZIME\" = ? WHERE fid = ?";
@@ -229,7 +229,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public String addPokojnik(Pokojnik pokojnik) {
-        String sql = "INSERT INTO public.\"Pokojnici\"(\n" +
+        String sql = "INSERT INTO public.\"pokojnici\"(\n" +
             "\tfid, fk, \"IME I PREZIME\", \"Prezime djevojačko\", \"IME OCA\", \"NADIMAK\", \"OIB\", \"SPOL\", \"DATU ROĐENJA\", \"Bračno stanje\", " +
             "\"MJESTO STANOVANJA\", \"ADRESA STANOVANJA\", \"Ime i prezime bračnog druga\", \"DOB\", \"UZROK SMRTI\", \"Mjesto smrti\", \"DATUM SMRTI\", " +
             "\"DATUM KREMIRANJA\", \"DATUM UKOPA\", \"oznaka grobnice\", groblje, \"Naknadni upisi i bilješke\", \"Godina ukopa\", \"USLUGA\", \"RAČUN\", " +
@@ -248,8 +248,8 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr) {
-        String sql = "SELECT \"Grobovi\".fid FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid " +
-            "WHERE \"Groblja\".naziv ILIKE ? AND \"Grobovi\".\"Rednibroj\" ILIKE ? ";
+        String sql = "SELECT \"grobovi\".fid FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid " +
+            "WHERE \"groblja\".naziv ILIKE ? AND \"grobovi\".\"Rednibroj\" ILIKE ? ";
 
         Optional<Integer> oFid = Optional.ofNullable(jdbcTemplateObject.queryForInt(sql, new Object[]{groblje, rbr}));
 

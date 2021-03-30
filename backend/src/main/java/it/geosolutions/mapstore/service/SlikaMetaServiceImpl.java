@@ -21,7 +21,7 @@ public class SlikaMetaServiceImpl implements SlikaMetaService {
 
     @Override
     public SlikaMetaDTO getSlikaMetaByFid(Integer fid, String entity) {
-        String entityTable = entity+"_slike";
+        String entityTable = entity+"_slike_meta";
 
         Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable);
 
@@ -33,10 +33,10 @@ public class SlikaMetaServiceImpl implements SlikaMetaService {
     }
 
     @Override
-    public List<SlikaMetaDTO> getSlikaMetaByPokojnikFid(Integer fid) {
-        slikaMetaDAO.getSlikaMetaByPokojnikFid(fid);
+    public List<SlikaMetaDTO> getSlikaMetaByEntityFid(Integer fid, String entity) {
+        String entityTable = entity + "_slike_meta";
+        List<SlikaMeta> slikaMetaList = slikaMetaDAO.getSlikaMetaByEntityFid(fid, entityTable, entity);
         List<SlikaMetaDTO> slikaMetaDTOList = new ArrayList<>();
-        List<SlikaMeta> slikaMetaList = slikaMetaDAO.getSlikaMetaByPokojnikFid(fid);
 
         for(SlikaMeta p : slikaMetaList) {
             slikaMetaDTOList.add(mapSlikaMetaToDTO(p));

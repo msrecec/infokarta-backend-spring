@@ -100,7 +100,7 @@ public class SlikeController {
         return;
     }
 
-    @RequestMapping(value = "/pokojnici/download/{entity}/slika/meta/{fid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{entity}/download/slika/meta/{fid}", method = RequestMethod.GET)
     public void getImgMetaByImgMetaFid(
         HttpServletRequest request,
         HttpServletResponse response,
@@ -109,27 +109,32 @@ public class SlikeController {
     ) throws IOException {
 
         if(MediaMetaUtil.isMeta(entity)) {
+
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity);
+            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity.toLowerCase());
 
             ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
         }
     }
 
-    @RequestMapping(value = "/pokojnici/download/slika/meta", method = RequestMethod.GET)
-    public void getImgMetaByPokojnikFid(
+    @RequestMapping(value = "/{entity}/download/slika/meta", method = RequestMethod.GET)
+    public void getImgMetaByEntityFid(
         HttpServletRequest request,
         HttpServletResponse response,
-        @RequestParam Integer fid
+        @PathVariable("entity") String entity,
+        @RequestParam("fid") Integer fid
     ) throws IOException {
 
-        SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
+        if(MediaMetaUtil.isMeta(entity)) {
 
-        List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByPokojnikFid(fid);
+            SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
+            List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity.toLowerCase());
 
+            ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
+
+        }
     }
 
     @RequestMapping(value = "/{entity}/download/slika/{fid}", method = RequestMethod.GET)
@@ -147,33 +152,36 @@ public class SlikeController {
 
         } else {
 
-            String entityTable = entity + "_slike_meta";
+            if(MediaMetaUtil.isMeta(entity)) {
 
-            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable);
+                String entityTable = entity + "_slike_meta";
 
-            if(!oPokojnikSlikaMeta.isPresent()) {
-                return;
-            }
+                Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable.toLowerCase());
 
-            SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
+                if(!oPokojnikSlikaMeta.isPresent()) {
+                    return;
+                }
 
-            String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
+                SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
 
-            File f = new File(
-                punaLokacija+"\\"
-                    + slikaMeta.getFid()+"."
-                    + slikaMeta.getTip());
+                String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
 
-            if(f.exists()) {
-                byte[] bytes = FileUtils.readFileToByteArray(f);
+                File f = new File(
+                    punaLokacija+"\\"
+                        + slikaMeta.getFid()+"."
+                        + slikaMeta.getTip());
 
-                response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
-    //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
-                response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
-                response.getOutputStream().write(bytes);
-                response.getOutputStream().flush();
-            } else {
-                return;
+                if(f.exists()) {
+                    byte[] bytes = FileUtils.readFileToByteArray(f);
+
+                    response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
+        //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
+                    response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
+                    response.getOutputStream().write(bytes);
+                    response.getOutputStream().flush();
+                } else {
+                    return;
+                }
             }
         }
     }

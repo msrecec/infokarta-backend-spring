@@ -23,17 +23,9 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public SlikaMeta addSlika(SlikaMeta slikaMeta) {
-        SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
-        String sql = "INSERT INTO public.\"Pokojnici_slike_meta\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;";
-        SlikaMeta slikaMetaReturn = (SlikaMeta)jdbcTemplateObject.queryForObject(sql, new Object[]{slikaMeta.getNaziv(), slikaMeta.getLokacija(), slikaMeta.getTip(), slikaMeta.getFk()}, slikaMetaMapper);
-        return slikaMetaReturn;
-    }
-
-    @Override
     public SlikaMeta addSlikaGrob(SlikaMeta slikaMeta) {
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
-        String sql = "INSERT INTO public.\"Grobovi_slike_meta\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;";
+        String sql = "INSERT INTO public.\"grobovi_slike_meta\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;";
         SlikaMeta slikaMetaReturn = (SlikaMeta)jdbcTemplateObject.queryForObject(sql, new Object[]{slikaMeta.getNaziv(), slikaMeta.getLokacija(), slikaMeta.getTip(), slikaMeta.getFk()}, slikaMetaMapper);
         return slikaMetaReturn;
     }
@@ -50,13 +42,13 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public List<SlikaMeta> getSlikaMetaByPokojnikFid(Integer fid) {
+    public List<SlikaMeta> getSlikaMetaByEntityFid(Integer fid, String entityTable, String entity) {
 
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
 
-        String sql = "SELECT * FROM public.\"Pokojnici_slike_meta\" " +
-            "INNER JOIN \"Pokojnici\" ON \"Pokojnici_slike_meta\".fk = \"Pokojnici\".fid " +
-            "WHERE public.\"Pokojnici\".fid = ? ";
+        String sql = "SELECT * FROM public.\"" + entityTable + "\" " +
+            "INNER JOIN public.\"" + entity + "\" ON public.\""+ entityTable + "\".fk = public.\"" + entity + "\".fid " +
+            "WHERE public.\"" + entity + "\".fid = ? ";
 
         List<SlikaMeta> slikaMeta = jdbcTemplateObject.query(sql, new Object[]{fid}, slikaMetaMapper);
 
