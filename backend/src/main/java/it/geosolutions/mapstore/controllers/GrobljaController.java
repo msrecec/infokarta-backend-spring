@@ -4,7 +4,7 @@ import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAO;
 import it.geosolutions.mapstore.DAO.Groblje.GrobljeDAOImpl;
 import it.geosolutions.mapstore.model.Groblje;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
+import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +28,7 @@ public class GrobljaController {
 
         String json = JSONUtils.fromListToJSON(groblja);
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
 }

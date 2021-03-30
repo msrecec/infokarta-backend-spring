@@ -5,7 +5,7 @@ import it.geosolutions.mapstore.DAO.Grob.GrobDAO;
 import it.geosolutions.mapstore.model.Grob;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
+import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +52,7 @@ public class GroboviController {
             json = JSONUtils.fromListToJSON(grobovi);
         }
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
 
