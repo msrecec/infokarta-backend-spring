@@ -2,7 +2,7 @@ package it.geosolutions.mapstore.model;
 
 import java.util.Arrays;
 
-public class PokojnikSlikaMeta {
+public class SlikaMeta {
     private Integer fid;
     private String naziv;
     private String lokacija;
@@ -11,7 +11,7 @@ public class PokojnikSlikaMeta {
 
     @Override
     public String toString() {
-        return "PokojnikSlikaMeta{" +
+        return "SlikaMeta{" +
             "fid=" + fid +
             ", naziv='" + naziv + '\'' +
             ", slika=" + lokacija +

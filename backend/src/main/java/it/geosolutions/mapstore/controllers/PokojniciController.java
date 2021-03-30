@@ -9,6 +9,8 @@ import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 import java.util.Optional;
@@ -20,14 +22,16 @@ public class PokojniciController {
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getPokojnici(
+    public void getPokojnici(
+        HttpServletRequest request,
+        HttpServletResponse response,
         @RequestParam(value = "ime", required = false) String ime,
         @RequestParam(value = "prezime", required = false) String prezime,
         @RequestParam(value = "pocgodinaukopa", required = false) String pocGodinaUkopa,
         @RequestParam(value = "kongodinaukopa", required = false) String konGodinaUkopa,
         @RequestParam(value = "groblje", required = false) String groblje,
         @RequestParam(value = "page", required = false) Integer page)
-        throws UnsupportedEncodingException {
+        throws IOException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         String jsonArray;
         Optional<String> oIme = Optional.ofNullable(ime);
@@ -40,14 +44,22 @@ public class PokojniciController {
         jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
             oKonGodinaUkopa, oGroblje, oPage);
 
-        return jsonArray.getBytes("UTF-8");
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(jsonArray.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
 
     }
 
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getPokojnik(@PathVariable Integer id) throws UnsupportedEncodingException {
+    public void getPokojnik(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @PathVariable Integer id)
+        throws IOException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         Optional<Integer> oId = Optional.ofNullable(id);
 
@@ -55,13 +67,21 @@ public class PokojniciController {
 
         String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
-        return json.getBytes("UTF-8");
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(json.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/columns", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getColumns(@RequestParam(value = "variables", required = false) Boolean variables) throws UnsupportedEncodingException {
+    public void getColumns(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestParam(value = "variables", required = false) Boolean variables
+    ) throws IOException {
 
         String json;
 
@@ -79,14 +99,17 @@ public class PokojniciController {
             json = JSONUtils.fromListToJSON(columns);
         }
 
+        response.addHeader("Content-type", "application/json; charset=utf-8");
 
-        return json.getBytes("UTF-8");
+        response.getOutputStream().write(json.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici/count", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getCount() throws UnsupportedEncodingException {
+    public void getCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
@@ -94,30 +117,44 @@ public class PokojniciController {
 
         String json = "{" + "\"count\":"+ "\"" + count + "\"" +"}";
 
-        return json.getBytes("UTF-8");
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(json.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.PUT)
     @ResponseBody
-    public byte[] updatePokojnici(@RequestBody String json) throws UnsupportedEncodingException, JsonProcessingException {
+    public void updatePokojnici(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestBody String json
+    ) throws IOException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 
         String outJson = pokojniciDAO.updatePokojnik(pokojnik);
 
-        return outJson.getBytes("UTF-8");
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(outJson.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.POST)
     @ResponseBody
-    public byte[] addPokojnik(
+    public void addPokojnik(
+        HttpServletRequest request,
+        HttpServletResponse response,
         @RequestBody String json,
         @RequestParam(value = "groblje", required = false) String groblje,
         @RequestParam(value = "rbr", required = false) String rbr
-    ) throws UnsupportedEncodingException, JsonProcessingException {
+    ) throws IOException {
 
         String outJson;
 
@@ -142,7 +179,10 @@ public class PokojniciController {
 
         }
 
+        response.addHeader("Content-type", "application/json; charset=utf-8");
 
-        return outJson.getBytes("UTF-8");
+        response.getOutputStream().write(outJson.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 }

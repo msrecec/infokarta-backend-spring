@@ -1,12 +1,12 @@
 package it.geosolutions.mapstore.dto;
 
-public class PokojnikSlikaMetaDTO {
+public class SlikaMetaDTO {
     private Integer fid;
     private String naziv;
     private String tip;
     private Integer fk;
 
-    public PokojnikSlikaMetaDTO(Integer fid, String naziv, String tip, Integer fk) {
+    public SlikaMetaDTO(Integer fid, String naziv, String tip, Integer fk) {
         this.fid = fid;
         this.naziv = naziv;
         this.tip = tip;
@@ -15,7 +15,7 @@ public class PokojnikSlikaMetaDTO {
 
     @Override
     public String toString() {
-        return "PokojnikSlikaMetaDTO{" +
+        return "SlikaMetaDTO{" +
             "fid=" + fid +
             ", naziv='" + naziv + '\'' +
             ", tip='" + tip + '\'' +

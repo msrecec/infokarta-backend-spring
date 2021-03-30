@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class GrobljaController {
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/groblja", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getGroblja() throws UnsupportedEncodingException {
+    public void getGroblja(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         GrobljeDAO grobljeDAO = new GrobljeDAOImpl();
 
@@ -25,7 +28,11 @@ public class GrobljaController {
 
         String json = JSONUtils.fromListToJSON(groblja);
 
-        return json.getBytes("UTF-8");
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(json.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 
 }

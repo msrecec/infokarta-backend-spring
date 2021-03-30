@@ -8,6 +8,9 @@ import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +20,13 @@ public class GroboviController {
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/grobovi", method = RequestMethod.GET)
     @ResponseBody
-    public byte[] getGrobovi(
+    public void getGrobovi(
+        HttpServletRequest req,
+        HttpServletResponse response,
         @RequestParam(value = "groblje", required = false) String groblje,
         @RequestParam(value = "geom", required = false) Boolean geom,
         @RequestParam(value = "fid", required = false) Integer fid
-    ) throws UnsupportedEncodingException {
+    ) throws IOException {
 
         GrobDAO grobDAO = new GrobDAOImpl();
         List<Grob> grobovi;
@@ -39,7 +44,7 @@ public class GroboviController {
             if(oFid.get() > 0) {
                 json = grobDAO.getGeomByFid(oFid.get());
             } else {
-                return null;
+                return;
             }
 
         } else {
@@ -47,7 +52,11 @@ public class GroboviController {
             json = JSONUtils.fromListToJSON(grobovi);
         }
 
-        return json.getBytes("UTF-8");
+        response.addHeader("Content-type", "application/json; charset=utf-8");
+
+        response.getOutputStream().write(json.getBytes("UTF-8"));
+
+        response.getOutputStream().flush();
     }
 
 
