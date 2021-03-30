@@ -23,16 +23,16 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
-import { toggleControl } from '../../actions/controls';
-import { zoomAndAddPoint } from '../../actions/search';
-import { changeDrawingStatus } from '../../actions/draw';
+import { toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
+import { zoomToPoint } from '../../actions/map';
+import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
+import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
 
-export const fetchDataForTable = (action$ /* , store*/) =>
+export const fetchDataForTable = (action$) =>
     action$.ofType(LOAD_DECEASED)
         .switchMap(({ searchParameters = {} }) => {
-            // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters)
                 .then(data => data))
                 .switchMap((deceased) => {
@@ -48,10 +48,9 @@ export const fetchDataForTable = (action$ /* , store*/) =>
                 });
         });
 
-export const sendEditData = (action$ /* , store*/) =>
+export const sendEditData = (action$) =>
     action$.ofType(EDIT_DECEASED)
         .switchMap(({ itemToEdit = {} }) => {
-            // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.editPokojnik(itemToEdit)
                 .then(data => data))
                 .switchMap((response) => {
@@ -68,10 +67,9 @@ export const sendEditData = (action$ /* , store*/) =>
                 });
         });
 
-export const fetchColumnsForInsert = (action$ /* , store*/) =>
+export const fetchColumnsForInsert = (action$) =>
     action$.ofType(SHOW_INSERT_MODAL)
         .switchMap(({}) => {
-            // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.getPokojniciColumns()
                 .then(data => data))
                 .switchMap((columns) => {
@@ -108,18 +106,32 @@ export const insertNew = (action$, {getState = () => {}} = {}) =>
                 });
         });
 
-export const zoomToGrave = (action$ /* , store*/) =>
+export const zoomToGrave = (action$) =>
     action$.ofType(ZOOM_TO_GRAVE)
         .switchMap(({ graveId = {} }) => {
-            // const state = store.getState();
             return Rx.Observable.fromPromise(pokojniciApi.getGraveCoordinates(graveId)
                 .then(data => data))
-                .mergeMap((res) => {
+                .switchMap((res) => {
+                    const feature = {
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [res.coordinates.x, res.coordinates.y]
+                        }
+                    };
                     console.log('zoom response: ', res);
-                    return Rx.Observable.of(
-                        changeDrawingStatus("clean", "", "drawer"),
-                        zoomAndAddPoint(res.coordinates, res.zoom, res.crs)
-                    );
+                    return Rx.Observable.from([
+                        updateAdditionalLayer('graves', 'graves', 'overlay', {
+                            features: [feature],
+                            type: "vector",
+                            name: "gravePoints",
+                            id: "gravePoints",
+                            visibility: true,
+                            style: defaultIconStyle,
+                            featuresCrs: "EPSG:3765"
+                        }),
+                        zoomToPoint(res.coordinates, res.zoom, res.crs)
+                    ]);
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
@@ -127,6 +139,14 @@ export const zoomToGrave = (action$ /* , store*/) =>
                         console.error('error while fetching geom for zoom function', error)
                     );
                 });
+        });
+
+export const removeGravePinLayer = (action$) =>
+    action$.ofType(TOGGLE_CONTROL)
+        .switchMap(({}) => {
+            return Rx.Observable.of(
+                removeAdditionalLayer({id: 'graves', owner: 'graves'})
+            );
         });
 
 export const startChooseGraveMode = (action$) =>
