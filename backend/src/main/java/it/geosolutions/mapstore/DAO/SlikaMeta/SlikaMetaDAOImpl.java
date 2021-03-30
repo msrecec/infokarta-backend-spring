@@ -39,10 +39,10 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public Optional<SlikaMeta> getSlikaMetaByFid(Integer fid) {
+    public Optional<SlikaMeta> getSlikaMetaByFid(Integer fk, String entityTable) {
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
-        String sql = "SELECT * FROM public.\"Pokojnici_slike_meta\" WHERE public.\"Pokojnici_slike_meta\".fid = ? ";
-        SlikaMeta slikaMeta = (SlikaMeta) jdbcTemplateObject.queryForObject(sql, new Object[]{fid}, slikaMetaMapper);
+        String sql = "SELECT * FROM public.\"" + entityTable +"\" WHERE public.\"Pokojnici_slike_meta\".fid = ? ";
+        SlikaMeta slikaMeta = (SlikaMeta) jdbcTemplateObject.queryForObject(sql, new Object[]{fk}, slikaMetaMapper);
 
         Optional<SlikaMeta> oPokojnikSlikaMeta = Optional.ofNullable(slikaMeta);
 

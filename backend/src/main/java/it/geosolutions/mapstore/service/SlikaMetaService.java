@@ -8,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public interface SlikaMetaService {
-    SlikaMetaDTO getSlikaMetaByFid(Integer fid);
+    public SlikaMetaDTO getSlikaMetaByFid(Integer fid, String entity);
     List<SlikaMetaDTO> getSlikaMetaByPokojnikFid(Integer fid);
     ByteArrayOutputStream createThumbnail(MultipartFile originalFile, Integer width);
     SlikaMetaDTO addSlikaToEntity(SlikaMeta slikaMeta, String entity);

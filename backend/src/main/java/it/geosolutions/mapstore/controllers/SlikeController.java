@@ -26,7 +26,6 @@ import java.util.Optional;
 @Controller
 public class SlikeController {
 
-
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/{entity}/upload/slika", method = RequestMethod.POST)
     @ResponseBody
@@ -101,19 +100,21 @@ public class SlikeController {
         return;
     }
 
-    @RequestMapping(value = "/pokojnici/download/slika/meta/{fid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pokojnici/download/{entity}/slika/meta/{fid}", method = RequestMethod.GET)
     public void getImgMetaByImgMetaFid(
         HttpServletRequest request,
         HttpServletResponse response,
+        @PathVariable String entity,
         @PathVariable Integer fid
     ) throws IOException {
 
-        SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
+        if(MediaMetaUtil.isMeta(entity)) {
+            SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-        SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid);
+            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity);
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
-
+            ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+        }
     }
 
     @RequestMapping(value = "/pokojnici/download/slika/meta", method = RequestMethod.GET)
@@ -131,10 +132,11 @@ public class SlikeController {
 
     }
 
-    @RequestMapping(value = "/pokojnici/download/slika", method = RequestMethod.GET)
+    @RequestMapping(value = "/{entity}/download/slika", method = RequestMethod.GET)
     public void downloadImgResource(
         HttpServletRequest request,
         HttpServletResponse response,
+        @PathVariable String entity,
         @RequestParam("fid") Integer fid,
         @RequestParam(value = "thumbnail", required = false) Boolean thumbnail
     ) throws IOException {
@@ -145,13 +147,13 @@ public class SlikeController {
 
         } else {
 
-            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid);
+            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entity);
 
             if(!oPokojnikSlikaMeta.isPresent()) {
                 return;
             }
 
-            SlikaMeta slikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid).get();
+            SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
 
             String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
 

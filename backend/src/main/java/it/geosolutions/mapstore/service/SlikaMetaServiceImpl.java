@@ -20,9 +20,10 @@ public class SlikaMetaServiceImpl implements SlikaMetaService {
     }
 
     @Override
-    public SlikaMetaDTO getSlikaMetaByFid(Integer fid) {
+    public SlikaMetaDTO getSlikaMetaByFid(Integer fid, String entity) {
+        String entityTable = entity+"_slike";
 
-        Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid);
+        Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable);
 
         if(oPokojnikSlikaMeta.isPresent()) {
             return mapSlikaMetaToDTO(oPokojnikSlikaMeta.get());
