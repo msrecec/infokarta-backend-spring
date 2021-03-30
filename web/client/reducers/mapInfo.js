@@ -58,36 +58,25 @@ function receiveResponse(state, action, type) {
                 ...state, responses: fltResponses, requests: fltRequests
             };
         }
-        //  INFOKARTA EDIT: GetFeatureInfo kod dodaje grb za svaki entitet. nakon toga svakom URL-u dodaje ostatak adrese servera
-        action.data.features.forEach((item) => {
-            item.properties.grb = "<img src='https://primosten.hr/wp-content/uploads/2015/12/rsz_789398738793.png' />";
-            if (item.properties.source) {
-                item.properties.source = `<a href='http://213.191.153.249:8080/static/${item.properties.source}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source}" height="200px" width="auto"/></a>`;
-                if (action.layer.title === "Grobovi") {
-                    if (item.properties?.source1 !== "") {
-                        item.properties.source1 = `<a href='http://213.191.153.249:8080/static/${item.properties.source1}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source1}" height="200px" width="auto"/></a>`;
+
+        // TODO jednog dana kad bude potrebno napravit dinamicko dohvacanje grbova
+        // GetFeatureInfo kod dodaje grb za svaki entitet. nakon toga svakom URL-u dodaje ostatak adrese servera
+        const url = 'http://213.191.153.249:8080/static';
+        const grbUrl = 'https://primosten.hr/wp-content/uploads/2015/12/rsz_789398738793.png';
+        if (action.data.features) {
+            // provjera je li postavljeno u properties mode u settingsima
+            action.data.features.forEach((item) => {
+                // ako je kliknuto na vise featurea
+                Object.entries(item.properties).map((property) => {
+                    if (property[0].includes('grb')) {
+                        item.properties.grb = `<img src='${grbUrl}' />`;
+                    } else if (property[0].includes('source') && property[1]) {
+                        item.properties[property[0]] = `<a href="${url}/${property[1]}" target="_blank"><img src="${url}/${property[1]}" height="200px" width="auto"/></a>`;
                     }
-                    if (item.properties?.source2 !== "") {
-                        item.properties.source2 = `<a href='http://213.191.153.249:8080/static/${item.properties.source2}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source2}" height="200px" width="auto"/></a>`;
-                    }
-                    if (item.properties?.source3 !== "") {
-                        item.properties.source3 = `<a href='http://213.191.153.249:8080/static/${item.properties.source3}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source3}" height="200px" width="auto"/></a>`;
-                    }
-                    if (item.properties?.source4 !== "") {
-                        item.properties.source4 = `<a href='http://213.191.153.249:8080/static/${item.properties.source4}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source4}" height="200px" width="auto"/></a>`;
-                    }
-                    if (item.properties?.source5 !== "") {
-                        item.properties.source5 = `<a href='http://213.191.153.249:8080/static/${item.properties.source5}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source5}" height="200px" width="auto"/></a>`;
-                    }
-                    if (item.properties?.source6 !== "") {
-                        item.properties.source6 = `<a href='http://213.191.153.249:8080/static/${item.properties.source6}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source6}" height="200px" width="auto"/></a>`;
-                    }
-                    if (item.properties?.source7 !== "") {
-                        item.properties.source7 = `<a href='http://213.191.153.249:8080/static/${item.properties.source7}' target="_blank"><img src="http://213.191.153.249:8080/static/${item.properties.source7}" height="200px" width="auto"/></a>`;
-                    }
-                }
-            }
-        });
+                });
+            });
+        }
+
         // Handle data and vector responses
         const {configuration: config, requests} = state;
         let responses = state.responses || [];

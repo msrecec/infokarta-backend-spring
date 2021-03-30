@@ -1,8 +1,6 @@
 package it.geosolutions.mapstore.DAO.Grob;
 
-import it.geosolutions.mapstore.pojo.Grob;
-import it.geosolutions.mapstore.utils.JSONUtils;
-import org.postgis.PGgeometry;
+import it.geosolutions.mapstore.model.Grob;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

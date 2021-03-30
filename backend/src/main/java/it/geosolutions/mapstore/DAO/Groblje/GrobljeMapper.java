@@ -1,7 +1,6 @@
 package it.geosolutions.mapstore.DAO.Groblje;
 
-import it.geosolutions.mapstore.pojo.Groblje;
-import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.model.Groblje;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

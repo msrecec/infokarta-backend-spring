@@ -1,6 +1,6 @@
 package it.geosolutions.mapstore.DAO.Pokojnik;
 
-import it.geosolutions.mapstore.pojo.Pokojnik;
+import it.geosolutions.mapstore.model.Pokojnik;
 
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;

@@ -28,4 +28,10 @@
         <!-- The default password encoder -->
         <property name="passwordEncoder" ref="${passwordEncoderUsed}"></property>
     </bean>
+    <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- max file size in bytes -->
+        <property name="maxUploadSize" value="25000000" />
+        <!-- other properties... -->
+    </bean>
 </beans>
