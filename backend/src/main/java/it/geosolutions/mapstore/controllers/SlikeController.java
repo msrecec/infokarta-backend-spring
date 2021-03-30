@@ -85,6 +85,26 @@ public class SlikeController {
                         fos.close();
                     }
 
+                    // thumbnails
+
+                    f = new File(FileSystemConfig.ROOT_LOCATION+"\\"+entityDocument+"_thumbnails"+"\\" + fk);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    ByteArrayOutputStream thumbnail = slikaMetaService.createThumbnail(file, 100);
+
+                    fos = new FileOutputStream(FileSystemConfig.ROOT_LOCATION+"\\"+entityDocument+"_thumbnails"+"\\" + fk + "\\" + slikaMetaDTO.getFid()+"."+extension);
+
+                    try {
+                        fos.write(thumbnail.toByteArray());
+                    } finally {
+                        fos.close();
+                    }
+
                     ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
 
                 } else if(MIMETypeUtil.isDocument(extension)) {
@@ -150,6 +170,39 @@ public class SlikeController {
 
         if(oThumbnail.isPresent()) {
 
+            if(MediaMetaUtil.isMeta(entity)) {
+
+                String entityTable = entity + "_slike_meta";
+
+                Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable.toLowerCase());
+
+                if(!oPokojnikSlikaMeta.isPresent()) {
+                    return;
+                }
+
+                SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
+
+                String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
+
+                punaLokacija = punaLokacija.replace("_slike", "_slike_thumbnails");
+
+                File f = new File(
+                    punaLokacija+"\\"
+                        + slikaMeta.getFid()+"."
+                        + slikaMeta.getTip());
+
+                if(f.exists()) {
+                    byte[] bytes = FileUtils.readFileToByteArray(f);
+
+                    response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
+                    //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
+                    response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
+                    response.getOutputStream().write(bytes);
+                    response.getOutputStream().flush();
+                } else {
+                    return;
+                }
+            }
         } else {
 
             if(MediaMetaUtil.isMeta(entity)) {

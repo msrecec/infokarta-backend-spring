@@ -4,9 +4,13 @@ import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAO;
 import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
+import org.imgscalr.Scalr;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,9 +54,14 @@ public class SlikaMetaServiceImpl implements SlikaMetaService {
     }
 
     @Override
-    public ByteArrayOutputStream createThumbnail(MultipartFile originalFile, Integer width) {
-
-        return null;
+    public ByteArrayOutputStream createThumbnail(MultipartFile originalFile, Integer width) throws IOException {
+        ByteArrayOutputStream thumbOutput = new ByteArrayOutputStream();
+        BufferedImage thumbImg = null;
+        BufferedImage img = ImageIO.read(originalFile.getInputStream());
+        img = Scalr.rotate(img, Scalr.Rotation.CW_90, Scalr.OP_ANTIALIAS);
+        thumbImg = Scalr.resize(img, Scalr.Method.AUTOMATIC, Scalr.Mode.AUTOMATIC, width, Scalr.OP_ANTIALIAS);
+        ImageIO.write(thumbImg, originalFile.getContentType().split("/")[1] , thumbOutput);
+        return thumbOutput;
     }
 
     @Override
