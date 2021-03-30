@@ -1,6 +1,4 @@
-package it.geosolutions.mapstore.pojo;
-
-import org.postgis.PGgeometry;
+package it.geosolutions.mapstore.model;
 
 public class Grob {
     private String geom;

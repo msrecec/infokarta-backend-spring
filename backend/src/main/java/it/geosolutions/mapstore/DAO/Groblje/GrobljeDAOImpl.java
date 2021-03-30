@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.DAO.Groblje;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.pojo.Groblje;
+import it.geosolutions.mapstore.model.Groblje;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -21,7 +21,7 @@ public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
 
     @Override
     public List<Groblje> listGroblja() {
-        String sql = "SELECT * FROM public.\"Groblja\" ORDER BY fid";
+        String sql = "SELECT * FROM public.\"groblja\" ORDER BY fid";
         GrobljeMapper grobljeMapper = new GrobljeMapper();
         List <Groblje> groblja = jdbcTemplateObject.query(sql, grobljeMapper);
         return groblja;

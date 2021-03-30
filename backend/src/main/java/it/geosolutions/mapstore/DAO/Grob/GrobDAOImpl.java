@@ -1,8 +1,7 @@
 package it.geosolutions.mapstore.DAO.Grob;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.pojo.Grob;
-import org.postgis.PGgeometry;
+import it.geosolutions.mapstore.model.Grob;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -25,7 +24,7 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public List<Grob> listGrobovi() {
-        String sql = "SELECT * FROM public.\"Grobovi\" ORDER BY fid";
+        String sql = "SELECT * FROM public.\"grobovi\" ORDER BY fid";
         GrobMapper grobMapper = new GrobMapper();
         List<Grob> grobovi = jdbcTemplateObject.query(sql, grobMapper);
         return grobovi;
@@ -33,8 +32,8 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public List<Grob> getGroboviByGroblje(String groblje) {
-        String sql = "SELECT \"Grobovi\".* FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid " +
-            "WHERE \"Groblja\".\"naziv\" ILIKE ? ORDER BY \"Grobovi\".\"Rednibroj\"";
+        String sql = "SELECT \"grobovi\".* FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid " +
+            "WHERE \"groblja\".\"naziv\" ILIKE ? ORDER BY \"grobovi\".\"Rednibroj\"";
         GrobMapper grobMapper = new GrobMapper();
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , grobMapper);
         return grobovi;
@@ -42,8 +41,8 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public List<Grob> getRbrByGroblje(String groblje) {
-        String sql = "SELECT DISTINCT \"Grobovi\".\"Rednibroj\" FROM \"Grobovi\" INNER JOIN \"Groblja\" ON \"Grobovi\".fk = \"Groblja\".fid\n" +
-            "WHERE \"Groblja\".naziv ILIKE ?";
+        String sql = "SELECT DISTINCT \"grobovi\".\"Rednibroj\" FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid\n" +
+            "WHERE \"groblja\".naziv ILIKE ?";
 
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje}, new RowMapper() {
             @Override
@@ -59,7 +58,7 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public String getGeomByFid(Integer fid) {
-        String sql = "SELECT ST_AsGeoJSON(\"Grobovi\".\"geom\") from \"Grobovi\" where \"Grobovi\".\"fid\" = ? ";
+        String sql = "SELECT ST_AsGeoJSON(\"grobovi\".\"geom\") from \"grobovi\" where \"grobovi\".\"fid\" = ? ";
 
         String geom = (String)jdbcTemplateObject.queryForObject(sql, new Object[]{fid} , new RowMapper() {
             @Override

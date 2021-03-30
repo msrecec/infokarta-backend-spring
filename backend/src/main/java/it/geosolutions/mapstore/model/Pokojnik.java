@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.pojo;
+package it.geosolutions.mapstore.model;
 
 public class Pokojnik {
     private Integer fid;
