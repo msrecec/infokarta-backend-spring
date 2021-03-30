@@ -132,12 +132,12 @@ public class SlikeController {
 
     }
 
-    @RequestMapping(value = "/{entity}/download/slika", method = RequestMethod.GET)
+    @RequestMapping(value = "/{entity}/download/slika/{fid}", method = RequestMethod.GET)
     public void downloadImgResource(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable String entity,
-        @RequestParam("fid") Integer fid,
+        @PathVariable("entity") String entity,
+        @PathVariable("fid") Integer fid,
         @RequestParam(value = "thumbnail", required = false) Boolean thumbnail
     ) throws IOException {
         SlikaMetaDAO slikaMetaDAO = new SlikaMetaDAOImpl();
@@ -147,7 +147,9 @@ public class SlikeController {
 
         } else {
 
-            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entity);
+            String entityTable = entity + "_slike_meta";
+
+            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable);
 
             if(!oPokojnikSlikaMeta.isPresent()) {
                 return;
