@@ -42,7 +42,8 @@ const style = {
     padding: 10
 };
 
-const fieldsToExclude = ["ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
+const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
+const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk"];
 
 const Pokojnici = ({
@@ -140,7 +141,7 @@ const Pokojnici = ({
     />);
 
     const insertModal = (<InsertModal
-        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertFormData}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}

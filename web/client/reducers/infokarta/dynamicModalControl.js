@@ -3,13 +3,17 @@ import {
     SHOW_INSERT_MODAL,
     HIDE_EDIT_MODAL,
     HIDE_INSERT_MODAL,
-    GENERATE_INSERT_FORM
+    GENERATE_INSERT_FORM,
+    SHOW_INSERT_CONFIRMATION_FORM,
+    HIDE_INSERT_CONFIRMATION_FORM
 } from '../../actions/infokarta/dynamicModalControl';
 
 const dynamicModalControl = (state = {
     itemToEdit: {},
+    itemToCheck: {},
     editModalVisible: false,
-    insertModalVisible: false
+    insertModalVisible: false,
+    insertConfirmationModalVisible: false
 }, action) => {
     switch (action.type) {
     case SHOW_EDIT_MODAL: {
@@ -41,6 +45,21 @@ const dynamicModalControl = (state = {
             ...state,
             itemToInsert: action.itemToInsert,
             insertModalVisible: true
+        };
+    }
+    case SHOW_INSERT_CONFIRMATION_FORM: {
+        return {
+            ...state,
+            itemToCheck: action.itemToCheck,
+            insertModalVisible: false,
+            insertConfirmationModalVisible: true
+        };
+    }
+    case HIDE_INSERT_CONFIRMATION_FORM: {
+        return {
+            ...state,
+            insertModalVisible: true,
+            insertConfirmationModalVisible: false
         };
     }
     default:

@@ -19,13 +19,13 @@ const formStyle = {
 
 class BaseModalComponent extends React.Component {
   static propTypes = {
-      itemToInsert: PropTypes.func,
+      itemToInsert: PropTypes.array,
       fieldsToExclude: PropTypes.array,
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
-      insertItem: PropTypes.array,
-      extraForm: PropTypes.func,
+      sendToConfirmationForm: PropTypes.func,
+      extraForm: PropTypes.array,
       startChooseGraveMode: PropTypes.func
   };
 
@@ -52,7 +52,7 @@ class BaseModalComponent extends React.Component {
 
   render() {
       return (
-          <Modal show={this.props.show} onHide={this.props.hideModal}>
+          <Modal show={this.props.show} onHide={this.props.hideModal} backdrop={'static'}>
               <Modal.Header closeButton>
                   <Modal.Title>Unos nove stavke</Modal.Title>
               </Modal.Header>
@@ -81,7 +81,7 @@ class BaseModalComponent extends React.Component {
                   <Button variant="secondary" onClick={this.props.hideModal}>
                   Zatvori
                   </Button>
-                  <Button variant="primary" onClick={() => this.props.insertItem(this.state)}>
+                  <Button variant="primary" onClick={() => this.props.sendToConfirmationForm(this.state)}>
                   Unesi stavku
                   </Button>
               </Modal.Footer>

@@ -50,7 +50,7 @@ class BaseModalComponent extends React.Component {
 
   render() {
       return (
-          <Modal show={this.props.show} onHide={this.props.hideModal}>
+          <Modal show={this.props.show} onHide={this.props.hideModal} backdrop={'static'}>
               <Modal.Header closeButton>
                   <Modal.Title>Uređivanje stavke</Modal.Title>
               </Modal.Header>
