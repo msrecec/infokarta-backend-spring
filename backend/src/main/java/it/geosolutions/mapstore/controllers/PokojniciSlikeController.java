@@ -187,13 +187,17 @@ public class PokojniciSlikeController {
         for(Grob grob : grobovi) {
             if(Optional.ofNullable(grob.getSource()).isPresent() && grob.getSource().contains("PrimostenGIS")) {
                 pokojnikSlikaMeta = new PokojnikSlikaMeta();
-                src = grob.getSource();
+                src = grob.getSource().replace("\\", "/");
                 File unos = new File(FileSystemConfig.TEST_ROOT_LOCATION+"\\"+src);
 
                 if(unos.exists()) {
                     nazivArr = grob.getSource().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -233,6 +237,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource1().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -272,6 +280,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource2().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -311,6 +323,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource3().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -350,6 +366,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource4().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -389,6 +409,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource5().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -428,6 +452,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource6().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
@@ -467,6 +495,10 @@ public class PokojniciSlikeController {
                     nazivArr = grob.getSource7().split("/");
                     naziv = nazivArr[nazivArr.length - 1];
                     naziv = naziv.replace(".jpg", "");
+                    if(naziv.contains("\\")) {
+                        nazivArr = naziv.split("\\\\");
+                        naziv = nazivArr[nazivArr.length - 1];
+                    }
                     pokojnikSlikaMeta.setNaziv(naziv);
                     pokojnikSlikaMeta.setTip("jpg");
                     pokojnikSlikaMeta.setLokacija("Grobovi_slike\\" + grob.getFid());
