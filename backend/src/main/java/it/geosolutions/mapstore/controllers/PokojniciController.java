@@ -5,7 +5,7 @@ import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
+import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +44,7 @@ public class PokojniciController {
         jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
             oKonGodinaUkopa, oGroblje, oPage);
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, jsonArray);
+        HeaderUtils.responseWithJSON(response, jsonArray);
 
     }
 
@@ -63,7 +63,7 @@ public class PokojniciController {
 
         String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
 //    @Secured({"ROLE_ADMIN"})
@@ -91,7 +91,7 @@ public class PokojniciController {
             json = JSONUtils.fromListToJSON(columns);
         }
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -105,7 +105,7 @@ public class PokojniciController {
 
         String json = "{" + "\"count\":"+ "\"" + count + "\"" +"}";
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -123,7 +123,7 @@ public class PokojniciController {
 
         String outJson = pokojniciDAO.updatePokojnik(pokojnik);
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, outJson);
+        HeaderUtils.responseWithJSON(response, outJson);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -160,6 +160,6 @@ public class PokojniciController {
 
         }
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, outJson);
+        HeaderUtils.responseWithJSON(response, outJson);
     }
 }

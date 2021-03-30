@@ -10,7 +10,7 @@ import it.geosolutions.mapstore.service.SlikaMetaServiceImpl;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.MIMETypeUtil;
 import it.geosolutions.mapstore.utils.MediaMetaUtil;
-import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
+import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
@@ -105,7 +105,7 @@ public class SlikeController {
                         fos.close();
                     }
 
-                    ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+                    HeaderUtils.responseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
 
                 } else if(MIMETypeUtil.isDocument(extension)) {
                     return;
@@ -134,7 +134,7 @@ public class SlikeController {
 
             SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity.toLowerCase());
 
-            ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+            HeaderUtils.responseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
         }
     }
 
@@ -152,7 +152,7 @@ public class SlikeController {
 
             List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity.toLowerCase());
 
-            ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
+            HeaderUtils.responseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
 
         }
     }

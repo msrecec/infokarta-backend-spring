@@ -3,9 +3,9 @@ package it.geosolutions.mapstore.utils;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public interface ResponseHeaderUtils {
+public interface HeaderUtils {
 
-    static void headerResponseWithJSON(HttpServletResponse response, String json) throws IOException {
+    static void responseWithJSON(HttpServletResponse response, String json) throws IOException {
 
         response.addHeader("Content-type", "application/json; charset=utf-8");
 
