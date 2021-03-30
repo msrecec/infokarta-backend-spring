@@ -33,7 +33,7 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     @Override
     public Optional<SlikaMeta> getSlikaMetaByFid(Integer fk, String entityTable) {
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
-        String sql = "SELECT * FROM public.\"" + entityTable +"\" WHERE public.\"" + entityTable + "\".fid = ? ";
+        String sql = new StringBuilder().append("SELECT * FROM public.\"").append(entityTable).append("\" WHERE public.\"").append(entityTable).append("\".fid = ? ").toString();
         SlikaMeta slikaMeta = (SlikaMeta) jdbcTemplateObject.queryForObject(sql, new Object[]{fk}, slikaMetaMapper);
 
         Optional<SlikaMeta> oPokojnikSlikaMeta = Optional.ofNullable(slikaMeta);
@@ -46,9 +46,7 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
 
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
 
-        String sql = "SELECT * FROM public.\"" + entityTable + "\" " +
-            "INNER JOIN public.\"" + entity + "\" ON public.\""+ entityTable + "\".fk = public.\"" + entity + "\".fid " +
-            "WHERE public.\"" + entity + "\".fid = ? ";
+        String sql = new StringBuilder().append("SELECT * FROM public.\"").append(entityTable).append("\" ").append("INNER JOIN public.\"").append(entity).append("\" ON public.\"").append(entityTable).append("\".fk = public.\"").append(entity).append("\".fid ").append("WHERE public.\"").append(entity).append("\".fid = ? ").toString();
 
         List<SlikaMeta> slikaMeta = jdbcTemplateObject.query(sql, new Object[]{fid}, slikaMetaMapper);
 
