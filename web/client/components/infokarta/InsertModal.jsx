@@ -6,7 +6,8 @@ import { get } from "lodash";
 
 import {
     showInsertModal,
-    hideInsertModal
+    hideInsertModal,
+    showInsertConfirmationModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
@@ -109,7 +110,8 @@ const ModalComponent = connect((state) => {
     };
 }, {
     showModal: showInsertModal,
-    hideModal: hideInsertModal
+    hideModal: hideInsertModal,
+    sendToConfirmationForm: showInsertConfirmationModal
 })(BaseModalComponent);
 
 export default ModalComponent;

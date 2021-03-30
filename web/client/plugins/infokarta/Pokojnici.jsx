@@ -35,6 +35,7 @@ import * as epics from '../../epics/infokarta/pokojnici';
 import TableComponent from '../../components/infokarta/Table';
 import EditModal from '../../components/infokarta/EditModal';
 import InsertModal from '../../components/infokarta/InsertModal';
+import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 
@@ -44,7 +45,7 @@ const style = {
 
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
-const readOnlyFields = ["fid", "fk"];
+const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
 
 const Pokojnici = ({
     data,
@@ -143,6 +144,13 @@ const Pokojnici = ({
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertFormData}
+        // insertItem={sendNewData}
+        startChooseGraveMode={startChooseMode}
+    />);
+
+    const insertConfirmationModal = (<InsertConfirmationModal
+        fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
+        extraForm={insertFormData}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
     />);
@@ -157,6 +165,7 @@ const Pokojnici = ({
             {pagination}
             {editModal}
             {insertModal}
+            {insertConfirmationModal}
             {gravePickerModal}
         </div>
     );

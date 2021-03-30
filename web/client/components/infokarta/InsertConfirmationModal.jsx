@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {Button, Modal, Form} from 'react-bootstrap';
+import {Button, Modal, Form, ControlLabel} from 'react-bootstrap';
 import { get } from "lodash";
 
 import {
@@ -46,14 +46,14 @@ class BaseModalComponent extends React.Component {
               <Modal.Body style={formStyle}>
                   <Form>
                       <h3>Odabrana grobnica</h3>
-                      {this.props.grave ? displayFeatureInfo(this.props.grave) : <span>Nije odabrana grobnica.</span>}
+                      {this.props.grave ? displayFeatureInfo(this.props.grave) : <ControlLabel>Nije odabrana grobnica.</ControlLabel>}
                       <hr/>
                       <h3>Pokojnikovi podaci</h3>
-                      {this.props.itemToCheck ? buildDynamicForm(this.props.itemToCheck, this.props.fieldsToExclude) : <span>Nema podataka za prikaz.</span>}
+                      {this.props.itemToCheck ? displayFeatureInfo(this.props.itemToCheck /* , this.props.fieldsToExclude*/) : <ControlLabel>Nema podataka za prikaz.</ControlLabel>}
                   </Form>
               </Modal.Body>
               <Modal.Footer>
-                  <Button variant="secondary" onClick={this.props.returnToInsertModal(this.props.itemToCheck)}>
+                  <Button variant="secondary" onClick={() => this.props.returnToInsertModal(this.props.itemToCheck)}>
                   Povratak
                   </Button>
                   <Button variant="primary" onClick={() => this.props.insertItem(this.props.itemToCheck)}>
