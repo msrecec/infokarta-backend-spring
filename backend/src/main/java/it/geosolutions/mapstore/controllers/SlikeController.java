@@ -9,6 +9,8 @@ import it.geosolutions.mapstore.service.SlikaMetaService;
 import it.geosolutions.mapstore.service.SlikaMetaServiceImpl;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.MIMETypeUtil;
+import it.geosolutions.mapstore.utils.MediaMetaUtil;
+import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
@@ -18,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,61 +28,77 @@ public class SlikeController {
 
 
     //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici/upload/slika", method = RequestMethod.POST)
+    @RequestMapping(value = "/{entity}/upload/slika", method = RequestMethod.POST)
     @ResponseBody
-    public byte[] handleFormUpload(
+    public void addMediaByEntity(
+        HttpServletRequest request,
+        HttpServletResponse response,
         @RequestParam("name") String name,
         @RequestParam("file") MultipartFile file,
+        @PathVariable String entity,
         @RequestParam("fk") Integer fk
     ) throws IOException {
-        String lokacija;
+        String punaLokacija;
+        String relativnaLokacija;
 
-        if (!file.isEmpty()) {
-            SlikaMetaDAO slikaMetaDAO = new SlikaMetaDAOImpl();
-            String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        if(MediaMetaUtil.isMeta(entity)) {
+            String e = entity.toLowerCase();
+            if (!file.isEmpty()) {
 
-            if(MIMETypeUtil.isImage(extension)) {
+                SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-                byte[] bytes = file.getBytes();
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
-                lokacija = FileSystemConfig.ROOT_LOCATION+"\\Pokojnici"+"\\"+fk;
+                if(MIMETypeUtil.isImage(extension)) {
+                    SlikaMetaDTO slikaMetaDTO;
 
-                SlikaMeta slikaMeta = new SlikaMeta();
+                    byte[] bytes = file.getBytes();
 
-                slikaMeta.setNaziv(name);
-                slikaMeta.setTip(extension);
-                slikaMeta.setLokacija(lokacija);
-                slikaMeta.setFk(fk);
+                    String entityDocument = e + "_slike";
 
-                slikaMeta = slikaMetaDAO.addSlika(slikaMeta);
+                    relativnaLokacija = entityDocument + "\\" + fk;
 
-                File f = new File(lokacija);
+                    punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + relativnaLokacija;
 
-                if(!f.exists()) {
-                   if(!f.mkdir()){
-                       return null;
-                   }
+
+                    SlikaMeta slikaMeta = new SlikaMeta();
+
+                    slikaMeta.setNaziv(name);
+                    slikaMeta.setTip(extension);
+                    slikaMeta.setLokacija(relativnaLokacija);
+                    slikaMeta.setFk(fk);
+
+                    slikaMetaDTO = slikaMetaService.addSlikaToEntity(slikaMeta, e);
+
+                    File f = new File(punaLokacija);
+
+                    if(!f.exists()) {
+                       if(!f.mkdir()){
+                           return;
+                       }
+                    }
+
+                    FileOutputStream fos = new FileOutputStream(punaLokacija+"\\"+ slikaMetaDTO.getFid()+"."+extension);
+
+                    try {
+                        fos.write(bytes);
+                    } finally {
+                        fos.close();
+                    }
+
+                    ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+
+                } else if(MIMETypeUtil.isDocument(extension)) {
+                    return;
+                } else {
+                    return;
                 }
 
-                FileOutputStream fos = new FileOutputStream(lokacija+"\\"+ slikaMeta.getFid()+"."+extension);
-
-                try {
-                    fos.write(bytes);
-                } finally {
-                    fos.close();
-                }
-
-                return JSONUtils.fromPOJOToJSON(slikaMeta).getBytes(StandardCharsets.UTF_8);
-
-            } else if(MIMETypeUtil.isDocument(extension)) {
-                return null;
             } else {
-                return null;
+                return;
             }
-
-        } else {
-            return null;
         }
+        return;
     }
 
     @RequestMapping(value = "/pokojnici/download/slika/meta/{fid}", method = RequestMethod.GET)
@@ -95,13 +112,7 @@ public class SlikeController {
 
         SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid);
 
-        byte[] bytes = JSONUtils.fromPOJOToJSON(slikaMetaDTO).getBytes(StandardCharsets.UTF_8);
-
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(bytes);
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
 
     }
 
@@ -116,13 +127,7 @@ public class SlikeController {
 
         List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByPokojnikFid(fid);
 
-        byte[] bytes = JSONUtils.fromListToJSON(slikaMetaDTOList).getBytes(StandardCharsets.UTF_8);
-
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(bytes);
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
 
     }
 
@@ -148,19 +153,24 @@ public class SlikeController {
 
             SlikaMeta slikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid).get();
 
+            String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
+
             File f = new File(
-                slikaMeta.getLokacija()+"\\"
+                punaLokacija+"\\"
                     + slikaMeta.getFid()+"."
                     + slikaMeta.getTip());
 
-            byte[] bytes = FileUtils.readFileToByteArray(f);
+            if(f.exists()) {
+                byte[] bytes = FileUtils.readFileToByteArray(f);
 
-            response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
-//            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
-            response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
-            response.getOutputStream().write(bytes);
-            response.getOutputStream().flush();
-
+                response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
+    //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
+                response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
+                response.getOutputStream().write(bytes);
+                response.getOutputStream().flush();
+            } else {
+                return;
+            }
         }
     }
 

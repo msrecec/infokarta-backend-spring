@@ -1,11 +1,10 @@
 package it.geosolutions.mapstore.utils;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public interface MediaMetaUtil {
-    Map<String, String> mediaMeta = new HashMap<String, String>(){{
-        put("pokojnici", "pokojnici_slike_meta");
-        put("grobovi", "grobovi_slike_meta");
-    }};
+    List<String> mediaMeta = Arrays.asList("pokojnici", "grobovi");
+    static boolean isMeta(String entity) {
+        return mediaMeta.contains(entity.toLowerCase());
+    }
 }

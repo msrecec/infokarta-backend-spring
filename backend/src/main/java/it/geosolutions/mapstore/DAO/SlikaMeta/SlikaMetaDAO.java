@@ -13,4 +13,6 @@ public interface SlikaMetaDAO {
     List<SlikaMeta> getSlikaMetaByPokojnikFid(Integer fid);
 
     SlikaMeta addSlikaGrob(SlikaMeta slikaMeta);
+
+    SlikaMeta addSlikaToEntity(SlikaMeta slikaMeta, String entity);
 }

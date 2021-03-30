@@ -5,13 +5,13 @@ import it.geosolutions.mapstore.DAO.Grob.GrobDAO;
 import it.geosolutions.mapstore.model.Grob;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,11 +52,7 @@ public class GroboviController {
             json = JSONUtils.fromListToJSON(grobovi);
         }
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(json.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, json);
     }
 
 

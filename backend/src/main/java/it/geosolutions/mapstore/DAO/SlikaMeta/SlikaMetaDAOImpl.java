@@ -62,4 +62,18 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
 
         return slikaMeta;
     }
+
+    @Override
+    public SlikaMeta addSlikaToEntity(SlikaMeta slikaMeta, String entityTable) {
+        SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
+
+        String sql = new StringBuilder().append("INSERT INTO public.\"").append(entityTable).append("\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;").toString();
+        SlikaMeta slikaMetaReturn = (SlikaMeta)jdbcTemplateObject.queryForObject(sql,
+            new Object[]{slikaMeta.getNaziv(),
+                slikaMeta.getLokacija(),
+                slikaMeta.getTip(),
+                slikaMeta.getFk()},
+            slikaMetaMapper);
+        return slikaMetaReturn;
+    }
 }

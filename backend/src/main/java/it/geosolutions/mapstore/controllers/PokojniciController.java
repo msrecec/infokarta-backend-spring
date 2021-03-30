@@ -1,11 +1,11 @@
 package it.geosolutions.mapstore.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
 import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,11 +44,7 @@ public class PokojniciController {
         jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
             oKonGodinaUkopa, oGroblje, oPage);
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(jsonArray.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, jsonArray);
 
     }
 
@@ -67,11 +63,7 @@ public class PokojniciController {
 
         String json = JSONUtils.fromPOJOToJSON(pokojnik);
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(json.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, json);
     }
 
 //    @Secured({"ROLE_ADMIN"})
@@ -99,11 +91,7 @@ public class PokojniciController {
             json = JSONUtils.fromListToJSON(columns);
         }
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(json.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, json);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -117,11 +105,7 @@ public class PokojniciController {
 
         String json = "{" + "\"count\":"+ "\"" + count + "\"" +"}";
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(json.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, json);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -132,17 +116,14 @@ public class PokojniciController {
         HttpServletResponse response,
         @RequestBody String json
     ) throws IOException {
+
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 
         String outJson = pokojniciDAO.updatePokojnik(pokojnik);
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(outJson.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, outJson);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -179,10 +160,6 @@ public class PokojniciController {
 
         }
 
-        response.addHeader("Content-type", "application/json; charset=utf-8");
-
-        response.getOutputStream().write(outJson.getBytes("UTF-8"));
-
-        response.getOutputStream().flush();
+        ResponseHeaderUtils.headerResponseWithJSON(response, outJson);
     }
 }
