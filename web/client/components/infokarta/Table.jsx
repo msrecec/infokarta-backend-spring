@@ -69,6 +69,8 @@ class TableComponent extends React.Component {
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.zoomToItem(item.fk)}
+                                          // TODO prominit zoom funkciju da prima dodatan parametar
+                                          // po kojemu se razlikuje koji api poziv se salje
                                           disabled={item.fk === 0 ? true : false}
                                       >
                                           <Glyphicon glyph="zoom-to"/>
@@ -76,8 +78,6 @@ class TableComponent extends React.Component {
                                   </OverlayTrigger>
                               </td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
-                              {/* TODO dodat tooltipove na ikonice od botuna */}
-                              {/* TODO dodat pin kad se zumira */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
                                       return (

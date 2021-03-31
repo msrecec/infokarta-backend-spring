@@ -6,14 +6,16 @@ import {
     EDIT_DECEASED,
     INSERT_DECEASED,
     ZOOM_TO_GRAVE,
-    deceasedLoaded,
+    deceasedLoaded
+} from "../../actions/infokarta/deceased";
 
+import {
     ENABLE_GRAVE_PICK_MODE,
     CONFIRM_GRAVE_PICK,
     showGravePickModal,
     disableGravePickMode,
     clearGravePickerToolStore
-} from "../../actions/infokarta/pokojnici";
+} from "../../actions/infokarta/gravePickerTool";
 
 import {
     SHOW_INSERT_MODAL,
@@ -90,8 +92,8 @@ export const fetchColumnsForInsert = (action$) =>
 export const insertNew = (action$, {getState = () => {}} = {}) =>
     action$.ofType(INSERT_DECEASED)
         .switchMap(({ itemToInsert = {} }) => {
-            let pokojniciStore = get(getState(), "pokojnici");
-            let temp = pokojniciStore.chosenGrave;
+            let gravePickerToolStore = get(getState(), "gravePickerTool");
+            let temp = gravePickerToolStore.chosenGrave;
             return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
                 .then(data => data))
                 .mergeMap((response) => {
@@ -172,8 +174,8 @@ export const confirmGravePickAndOpenInsertModal = (action$) =>
 export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {}) =>
     action$.ofType(LOAD_FEATURE_INFO)
         .switchMap(({ data = {} }) => {
-            let pokojniciStore = get(getState(), "pokojnici");
-            if (pokojniciStore.graveChooseEnabled === true) {
+            let gravePickerToolStore = get(getState(), "gravePickerTool");
+            if (gravePickerToolStore.graveChooseEnabled === true) {
                 if (data.numberReturned === 1 && data.features[0].id.toUpperCase().includes("GROBOVI")) {
                     let temp = data.features[0].id.split(".");
                     const id = parseInt(temp[1], 10);

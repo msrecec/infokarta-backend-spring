@@ -10,8 +10,8 @@ import {
     clearAllDynamicForms
 } from "../../actions/infokarta/dynamicModalControl";
 
-import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
-import {buildDynamicForm} from "../../utils/infokarta/ComponentConstructorUtil";
+import { beautifyHeader } from "../../utils/infokarta/BeautifyUtil";
+import { buildDynamicForm } from "../../utils/infokarta/ComponentConstructorUtil";
 
 const formStyle = {
     overflow: "auto",

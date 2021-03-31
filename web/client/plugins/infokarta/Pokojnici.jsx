@@ -10,9 +10,12 @@ import {
     loadDeceased,
     editDeceased,
     insertDeceased,
-    zoomToGrave,
+    zoomToGrave
+} from "../../actions/infokarta/deceased";
+
+import {
     enableGravePickMode
-} from "../../actions/infokarta/pokojnici";
+} from "../../actions/infokarta/gravePickerTool";
 
 import {
     showEditModal,
@@ -25,12 +28,12 @@ import {
 
 import { createPlugin } from '../../utils/PluginsUtils';
 
-import pokojnici from '../../reducers/infokarta/pokojnici';
+import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import paginationControl from '../../reducers/infokarta/paginationControl';
-import GravePickerModal from '../../components/infokarta/GravePickerModal';
+import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 
-import * as epics from '../../epics/infokarta/pokojnici';
+import * as epics from '../../epics/infokarta/deceased';
 
 import TableComponent from '../../components/infokarta/Table';
 import EditModal from '../../components/infokarta/EditModal';
@@ -38,6 +41,7 @@ import InsertModal from '../../components/infokarta/InsertModal';
 import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
+import GravePickerModal from '../../components/infokarta/GravePickerModal';
 
 const style = {
     padding: 10
@@ -173,9 +177,9 @@ const Pokojnici = ({
 
 export default createPlugin('Pokojnici', {
     component: connect((state) => ({
-        data: get(state, "pokojnici.deceased"),
+        data: get(state, "deceased.data"),
         page: get(state, "paginationControl.pageNumber"),
-        totalNumber: get(state, "pokojnici.totalNumber")
+        totalNumber: get(state, "deceased.totalNumber")
     }), {
         loadDeceasedData: loadDeceased,
         sendPageNumber: setPaginationNumber,
@@ -199,8 +203,9 @@ export default createPlugin('Pokojnici', {
     },
     epics,
     reducers: {
-        pokojnici,
+        deceased,
         dynamicModalControl,
-        paginationControl
+        paginationControl,
+        gravePickerTool
     }
 });

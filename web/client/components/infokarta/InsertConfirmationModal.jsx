@@ -64,7 +64,7 @@ const ModalComponent = connect((state) => {
     return {
         itemToCheck: get(state, 'dynamicModalControl.itemToCheck'),
         show: get(state, 'dynamicModalControl.insertConfirmationModalVisible'),
-        grave: get(state, 'pokojnici.graveData')
+        grave: get(state, 'gravePickerTool.graveData')
     };
 }, {
     showModal: showInsertConfirmationModal,
