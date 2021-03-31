@@ -68,7 +68,7 @@ const gravePickerTool = (
             chosenGrave: null,
             graveData: {}
         };
-    }
+    } // resetira state na pocetno stanje
     default:
         return state;
     }

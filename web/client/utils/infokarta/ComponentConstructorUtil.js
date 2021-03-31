@@ -38,8 +38,8 @@ export const displayFeatureInfo = (item) => {
             );
         }
         return null;
-
     });
+    elementList.push(<br />); // da zadnji entry nije spojen na footer
     return elementList;
 };
 

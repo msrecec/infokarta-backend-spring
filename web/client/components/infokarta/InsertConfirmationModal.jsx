@@ -45,7 +45,6 @@ class BaseModalComponent extends React.Component {
                       <h3>Pokojnikovi podaci</h3>
                       {this.props.itemToCheck ? displayFeatureInfo(this.props.itemToCheck /* , this.props.fieldsToExclude*/) : <ControlLabel>Nema podataka za prikaz.</ControlLabel>}
                   </Form>
-                  <br />
               </Modal.Body>
               <Modal.Footer>
                   <Button onClick={() => this.props.returnToInsertModal(this.props.itemToCheck)}>

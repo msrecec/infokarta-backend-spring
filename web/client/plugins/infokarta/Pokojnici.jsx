@@ -24,13 +24,13 @@ import {
 
 import {
     setPaginationNumber
-} from "../../actions/infokarta/paginationControl";
+} from "../../actions/infokarta/searchAndPagination";
 
 import { createPlugin } from '../../utils/PluginsUtils';
 
 import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
-import paginationControl from '../../reducers/infokarta/paginationControl';
+import paginationControl from '../../reducers/infokarta/searchAndPagination';
 import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 
 import * as epics from '../../epics/infokarta/deceased';
@@ -178,7 +178,7 @@ const Pokojnici = ({
 export default createPlugin('Pokojnici', {
     component: connect((state) => ({
         data: get(state, "deceased.data"),
-        page: get(state, "paginationControl.pageNumber"),
+        page: get(state, "searchAndPagination.pageNumber"),
         totalNumber: get(state, "deceased.totalNumber")
     }), {
         loadDeceasedData: loadDeceased,
