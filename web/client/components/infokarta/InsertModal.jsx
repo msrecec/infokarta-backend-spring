@@ -43,9 +43,7 @@ class BaseModalComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-      console.log('CDU', this.state);
       if (prevProps.show !== this.props.show) {
-          console.log('show', this.state);
           this.updateState();
           // svaki put kad se promijeni vrijednost props.show (tj. kad se prikaze komponenta)
           // zove se funkcija za ucitat podatke u lokalni state
@@ -65,7 +63,6 @@ class BaseModalComponent extends React.Component {
                       <hr/>
                       {Object.entries(this.state).map((entry) => {
                           if (!this.props.fieldsToExclude.includes(entry[0])) {
-                              //   console.log('entry', entry);
                               return (
                                   <FormGroup controlId={entry[0]} key={entry[0]}>
                                       <ControlLabel>{beautifyHeader(entry[0])}</ControlLabel>
@@ -98,7 +95,6 @@ class BaseModalComponent extends React.Component {
   }
 
   updateState = () => {
-      console.log('itemToCheck value in updateState: ', isEmpty(this.props.itemToCheck));
       if (isEmpty(this.props.itemToCheck)) {
           const obj = this.props.itemToInsert.reduce((accumulator, currentValue) => {
               accumulator[currentValue] = "";
@@ -106,12 +102,6 @@ class BaseModalComponent extends React.Component {
           }, {});
           this.setState(obj);
       } else {
-          //   console.log('item mapping ');
-          //   Object.entries(this.props.itemToCheck).map((entry) => {
-          //       this.setState({ [entry[0]]: entry[1] });
-          //       // ucitaj sve podatke u state komponente
-          //   });
-          console.log('set state to itemToCheck');
           this.setState(this.props.itemToCheck);
       }
   }
