@@ -4,8 +4,8 @@ import { get } from 'lodash';
 
 import Message from '../../components/I18N/Message';
 import { Glyphicon } from 'react-bootstrap';
-// import layersIcon from '../toolbar/assets/img/layers.png';
 
+// actions
 import {
     loadDeceased,
     editDeceased,
@@ -26,15 +26,20 @@ import {
     setPaginationNumber
 } from "../../actions/infokarta/searchAndPagination";
 
+// utils
 import { createPlugin } from '../../utils/PluginsUtils';
 
+// reducers
 import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import paginationControl from '../../reducers/infokarta/searchAndPagination';
 import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 
+
+// epics
 import * as epics from '../../epics/infokarta/deceased';
 
+// components
 import TableComponent from '../../components/infokarta/Table';
 import EditModal from '../../components/infokarta/EditModal';
 import InsertModal from '../../components/infokarta/InsertModal';
