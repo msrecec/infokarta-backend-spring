@@ -5,7 +5,8 @@ import {
     HIDE_INSERT_MODAL,
     GENERATE_INSERT_FORM,
     SHOW_INSERT_CONFIRMATION_FORM,
-    HIDE_INSERT_CONFIRMATION_FORM
+    HIDE_INSERT_CONFIRMATION_FORM,
+    CLEAR_ALL_DYNAMIC_FORMS
 } from '../../actions/infokarta/dynamicModalControl';
 
 const dynamicModalControl = (state = {
@@ -59,6 +60,16 @@ const dynamicModalControl = (state = {
         return {
             ...state,
             insertModalVisible: true,
+            insertConfirmationModalVisible: false
+        };
+    }
+    case CLEAR_ALL_DYNAMIC_FORMS: {
+        return {
+            ...state,
+            itemToEdit: {},
+            itemToCheck: {},
+            editModalVisible: false,
+            insertModalVisible: false,
             insertConfirmationModalVisible: false
         };
     }

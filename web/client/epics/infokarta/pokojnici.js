@@ -11,7 +11,8 @@ import {
     ENABLE_GRAVE_PICK_MODE,
     CONFIRM_GRAVE_PICK,
     showGravePickModal,
-    disableGravePickMode
+    disableGravePickMode,
+    clearGravePickerToolStore
 } from "../../actions/infokarta/pokojnici";
 
 import {
@@ -19,7 +20,8 @@ import {
     generateInsertForm,
     hideEditModal,
     hideInsertModal,
-    showInsertModal
+    showInsertModal,
+    clearAllDynamicForms
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
@@ -92,10 +94,11 @@ export const insertNew = (action$, {getState = () => {}} = {}) =>
             let temp = pokojniciStore.chosenGrave;
             return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
                 .then(data => data))
-                .switchMap((response) => {
+                .mergeMap((response) => {
                     console.log('insert response: ', response);
                     return Rx.Observable.of(
-                        hideInsertModal()
+                        clearAllDynamicForms(),
+                        clearGravePickerToolStore()
                     );
                 })
                 .catch((error) => {
@@ -171,7 +174,7 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
         .switchMap(({ data = {} }) => {
             let pokojniciStore = get(getState(), "pokojnici");
             if (pokojniciStore.graveChooseEnabled === true) {
-                if (data.numberReturned === 1 && data.features[0].id.toUpperCase().includes("GROBOVI")){
+                if (data.numberReturned === 1 && data.features[0].id.toUpperCase().includes("GROBOVI")) {
                     let temp = data.features[0].id.split(".");
                     const id = parseInt(temp[1], 10);
                     return Rx.Observable.of(

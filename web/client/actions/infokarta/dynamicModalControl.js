@@ -5,6 +5,7 @@ export const HIDE_INSERT_MODAL = 'HIDE_INSERT_MODAL';
 export const GENERATE_INSERT_FORM = 'GENERATE_INSERT_FORM';
 export const SHOW_INSERT_CONFIRMATION_FORM = 'SHOW_INSERT_CONFIRMATION_FORM';
 export const HIDE_INSERT_CONFIRMATION_FORM = 'HIDE_INSERT_CONFIRMATION_FORM';
+export const CLEAR_ALL_DYNAMIC_FORMS = 'CLEAR_ALL_DYNAMIC_FORMS';
 
 export const showEditModal = (itemToEdit) => ({
     type: SHOW_EDIT_MODAL,
@@ -35,4 +36,8 @@ export const showInsertConfirmationModal = (itemToCheck) => ({
 
 export const hideInsertConfirmationModal = () => ({
     type: HIDE_INSERT_CONFIRMATION_FORM
+});
+
+export const clearAllDynamicForms = () => ({
+    type: CLEAR_ALL_DYNAMIC_FORMS
 });

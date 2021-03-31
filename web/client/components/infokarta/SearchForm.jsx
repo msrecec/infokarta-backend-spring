@@ -46,8 +46,10 @@ class SearchComponent extends React.Component {
           let temp = cloneDeep(this.state);
           temp.page = this.props.pageNumber;
           this.props.search(temp);
-          // cloneDeep workaround jer je setState asinkron i updatea se nakon componentDidUpdate
+          // cloneDeep workaround jer se setState ocita tek u sljedecem pozivu render fje
           // zato kopiramo state i pripisujemo mu trenutni pageNumber i saljemo u search
+
+          // TODO popravi nakon odvajanja search komponenti u store
       }
   }
 

@@ -10,6 +10,7 @@ export const HIDE_GRAVE_PICK_MODAL = "HIDE_GRAVE_PICK_MODAL";
 export const ENABLE_GRAVE_PICK_MODE = "ENABLE_GRAVE_PICK_MODE";
 export const DISABLE_GRAVE_PICK_MODE = "DISABLE_GRAVE_PICK_MODE";
 export const CONFIRM_GRAVE_PICK = "CONFIRM_GRAVE_PICK";
+export const CLEAR_GRAVE_PICKER_TOOL_STORE = "CLEAR_GRAVE_PICKER_TOOL_STORE";
 
 export const deceasedLoaded = (deceased, totalNumber) => ({
     type: DECEASED_LOADED,
@@ -58,4 +59,8 @@ export const disableGravePickMode = () => ({
 
 export const confirmGravePick = () => ({
     type: CONFIRM_GRAVE_PICK
+});
+
+export const clearGravePickerToolStore =  () => ({
+    type: CLEAR_GRAVE_PICKER_TOOL_STORE
 });

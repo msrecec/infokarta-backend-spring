@@ -4,7 +4,8 @@ import {
     HIDE_GRAVE_PICK_MODAL,
     ENABLE_GRAVE_PICK_MODE,
     DISABLE_GRAVE_PICK_MODE,
-    CONFIRM_GRAVE_PICK
+    CONFIRM_GRAVE_PICK,
+    CLEAR_GRAVE_PICKER_TOOL_STORE
 } from "../../actions/infokarta/pokojnici";
 const pokojnici = (
     state = {
@@ -68,6 +69,16 @@ const pokojnici = (
             graveChooseMode: "initial"
         };
     } // korisnik je zadovoljan odabirom groba, gasi se modal za prikaz i pali se insert modal
+    case CLEAR_GRAVE_PICKER_TOOL_STORE: {
+        return {
+            ...state,
+            graveChooseEnabled: false,
+            graveChooseMode: "initial",
+            chooseGraveModal: false,
+            chosenGrave: null,
+            graveData: {}
+        };
+    }
     default:
         return state;
     }

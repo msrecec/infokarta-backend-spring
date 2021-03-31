@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 
 import {
     showInsertModal,
-    hideInsertModal,
-    showInsertConfirmationModal
+    showInsertConfirmationModal,
+    clearAllDynamicForms
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
@@ -25,9 +25,9 @@ class BaseModalComponent extends React.Component {
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
-      sendToConfirmationForm: PropTypes.func,
       extraForm: PropTypes.array,
-      startChooseGraveMode: PropTypes.func
+      sendToConfirmationForm: PropTypes.func,
+      itemToCheck: PropTypes.object
   };
 
   static defaultProps = {
@@ -43,7 +43,9 @@ class BaseModalComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+      console.log('CDU', this.state);
       if (prevProps.show !== this.props.show) {
+          console.log('show', this.state);
           this.updateState();
           // svaki put kad se promijeni vrijednost props.show (tj. kad se prikaze komponenta)
           // zove se funkcija za ucitat podatke u lokalni state
@@ -61,28 +63,29 @@ class BaseModalComponent extends React.Component {
                   <Form>
                       {this.props.extraForm ? buildDynamicForm(this.props.extraForm) : null}
                       <hr/>
-                      {this.props.itemToInsert ? this.props.itemToInsert.map((entry) => {
-                          if (!this.props.fieldsToExclude.includes(entry)) {
+                      {Object.entries(this.state).map((entry) => {
+                          if (!this.props.fieldsToExclude.includes(entry[0])) {
+                              //   console.log('entry', entry);
                               return (
-                                  <FormGroup controlId={entry} key={entry}>
-                                      <ControlLabel>{beautifyHeader(entry)}</ControlLabel>
+                                  <FormGroup controlId={entry[0]} key={entry[0]}>
+                                      <ControlLabel>{beautifyHeader(entry[0])}</ControlLabel>
                                       <FormControl
-                                          value={this.state.entry}
-                                          onChange={(e) => this.handleChange(entry, e)}
+                                          value={this.state[entry[0]]}
+                                          onChange={(e) => this.handleChange(entry[0], e)}
                                       />
                                   </FormGroup>
                               );
                           }
                           return null;
+                      })
                       }
-                      ) : null}
                   </Form>
               </Modal.Body>
               <Modal.Footer>
-                  <Button variant="secondary" onClick={this.props.hideModal}>
+                  <Button onClick={this.props.hideModal}>
                   Zatvori
                   </Button>
-                  <Button variant="primary" onClick={() => this.props.sendToConfirmationForm(this.state)}>
+                  <Button bsStyle="success" onClick={() => this.props.sendToConfirmationForm(this.state)}>
                   Unesi stavku
                   </Button>
               </Modal.Footer>
@@ -95,22 +98,34 @@ class BaseModalComponent extends React.Component {
   }
 
   updateState = () => {
-      const obj = this.props.itemToInsert.reduce((accumulator, currentValue) => {
-          accumulator[currentValue] = "";
-          return accumulator;
-      }, {});
-      this.setState(obj);
+      console.log('itemToCheck value in updateState: ', isEmpty(this.props.itemToCheck));
+      if (isEmpty(this.props.itemToCheck)) {
+          const obj = this.props.itemToInsert.reduce((accumulator, currentValue) => {
+              accumulator[currentValue] = "";
+              return accumulator;
+          }, {});
+          this.setState(obj);
+      } else {
+          //   console.log('item mapping ');
+          //   Object.entries(this.props.itemToCheck).map((entry) => {
+          //       this.setState({ [entry[0]]: entry[1] });
+          //       // ucitaj sve podatke u state komponente
+          //   });
+          console.log('set state to itemToCheck');
+          this.setState(this.props.itemToCheck);
+      }
   }
 }
 
 const ModalComponent = connect((state) => {
     return {
         itemToInsert: get(state, 'dynamicModalControl.itemToInsert'),
+        itemToCheck: get(state, 'dynamicModalControl.itemToCheck'),
         show: get(state, 'dynamicModalControl.insertModalVisible')
     };
 }, {
     showModal: showInsertModal,
-    hideModal: hideInsertModal,
+    hideModal: clearAllDynamicForms,
     sendToConfirmationForm: showInsertConfirmationModal
 })(BaseModalComponent);
 

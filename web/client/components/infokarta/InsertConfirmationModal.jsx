@@ -9,7 +9,7 @@ import {
     hideInsertConfirmationModal
 } from "../../actions/infokarta/dynamicModalControl";
 
-import {buildDynamicForm, displayFeatureInfo} from "../../utils/infokarta/ComponentConstructorUtil";
+import {displayFeatureInfo} from "../../utils/infokarta/ComponentConstructorUtil";
 
 const formStyle = {
     overflow: "auto",
@@ -18,7 +18,7 @@ const formStyle = {
 
 class BaseModalComponent extends React.Component {
   static propTypes = {
-      itemToCheck: PropTypes.array,
+      itemToCheck: PropTypes.object,
       fieldsToExclude: PropTypes.array,
       show: PropTypes.bool,
       returnToInsertModal: PropTypes.func,
@@ -30,12 +30,6 @@ class BaseModalComponent extends React.Component {
       itemToCheck: [],
       show: false
   };
-
-  //   componentDidUpdate(prevProps) {
-  //       if (prevProps.show !== this.props.show) {
-  //           this.updateState();
-  //       }
-  //   }
 
   render() {
       return (
@@ -51,26 +45,19 @@ class BaseModalComponent extends React.Component {
                       <h3>Pokojnikovi podaci</h3>
                       {this.props.itemToCheck ? displayFeatureInfo(this.props.itemToCheck /* , this.props.fieldsToExclude*/) : <ControlLabel>Nema podataka za prikaz.</ControlLabel>}
                   </Form>
+                  <br />
               </Modal.Body>
               <Modal.Footer>
-                  <Button variant="secondary" onClick={() => this.props.returnToInsertModal(this.props.itemToCheck)}>
+                  <Button onClick={() => this.props.returnToInsertModal(this.props.itemToCheck)}>
                   Povratak
                   </Button>
-                  <Button variant="primary" onClick={() => this.props.insertItem(this.props.itemToCheck)}>
+                  <Button bsStyle="success" onClick={() => this.props.insertItem(this.props.itemToCheck)}>
                   Potvrdi unos
                   </Button>
               </Modal.Footer>
           </Modal>
       );
   }
-
-//   updateState = () => {
-//       const obj = this.props.itemToCheck.reduce((accumulator, currentValue) => {
-//           accumulator[currentValue] = "";
-//           return accumulator;
-//       }, {});
-//       this.setState(obj);
-//   }
 }
 
 const ModalComponent = connect((state) => {

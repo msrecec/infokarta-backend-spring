@@ -19,21 +19,21 @@ export const displayFeatureInfo = (item) => {
         if (property[0].includes('source') && property[1]) {
             return (
                 <div>
+                    <hr />
                     <div style={style}>
                         <span><b>{beautifyHeader(property[0])}</b></span>
                         {parse(property[1])}
                     </div>
-                    <hr />
                 </div>
             );
         } else if (property[1]) {
             return (
                 <div>
+                    <hr />
                     <div style={style}>
                         <span><b>{beautifyHeader(property[0])}</b></span>
                         <span>{property[1]}</span>
                     </div>
-                    <hr />
                 </div>
             );
         }
@@ -59,7 +59,7 @@ Svrha funkcije: gradi grupe unutar forme. Prima listu objekata:
         bsStyle: bootstrap stil
         onClickFunction: onClick funkcija
 */
-export const buildDynamicForm = (blueprint, exclude = [], readOnly = []) => {
+export const buildDynamicForm = (blueprint, exclude = [], readOnly = [], handleChangeFunction = () => {}) => {
     let elementList = blueprint.map((field) => {
         if (!exclude.includes(field)) {
             switch (field.type) {
@@ -73,8 +73,7 @@ export const buildDynamicForm = (blueprint, exclude = [], readOnly = []) => {
                         <FormControl
                             type={field.type}
                             value={this.state[field.value]}
-                            // onChange={(e) => this.handleChange(field.value, e)}
-                            // TODO dodat mogucnost slanja handleChange funkcije u buildDynamicForm
+                            onChange={(e) => handleChangeFunction(field.value, e)}
                             readOnly={readOnly.includes(field.value)}/>
                     </FormGroup>
                 );
@@ -88,7 +87,7 @@ export const buildDynamicForm = (blueprint, exclude = [], readOnly = []) => {
                         <FormControl
                             componentClass={field.type}
                             placeholder={this.state[field.selectValues[0]]}
-                            // onChange={(e) => this.handleChange(field.value, e)}
+                            onChange={(e) => handleChangeFunction(field.value, e)}
                             // TODO dodat mogucnost slanja handleChange funkcije u buildDynamicForm
                         >
                             {field.selectValues.map((option) => {
