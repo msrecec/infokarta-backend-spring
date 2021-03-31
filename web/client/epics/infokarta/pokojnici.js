@@ -171,7 +171,7 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
         .switchMap(({ data = {} }) => {
             let pokojniciStore = get(getState(), "pokojnici");
             if (pokojniciStore.graveChooseEnabled === true) {
-                if (data.numberReturned === 1 && data.features[0].id.includes("Grobovi")) {
+                if (data.numberReturned === 1 && data.features[0].id.toUpperCase().includes("GROBOVI")){
                     let temp = data.features[0].id.split(".");
                     const id = parseInt(temp[1], 10);
                     return Rx.Observable.of(
