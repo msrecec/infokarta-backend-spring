@@ -47,7 +47,6 @@ export const sendSearchRequestUponSearchParameterOrPageChange = (action$, {getSt
     ).switchMap(({}) => {
         const searchParameters = get(getState(), "deceased.searchParameters");
         const pageNumber = get(getState(), "deceased.pageNumber");
-        console.log('!!! sendSearchRequestUponSearchParameterOrPageChange', searchParameters, pageNumber);
         return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters, pageNumber)
             .then(data => data))
             .switchMap((response) => {
@@ -69,7 +68,7 @@ export const sendEditDataForDeceased = (action$) =>
             return Rx.Observable.fromPromise(pokojniciApi.editPokojnik(itemToEdit)
                 .then(data => data))
                 .mergeMap((response) => {
-                    console.log('!!! edit response: ', response);
+                    console.log('edit response: ', response);
                     return Rx.Observable.of(
                         hideEditModal(),
                         sendSearchRequestForDeceased()
@@ -109,7 +108,7 @@ export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
             return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
                 .then(data => data))
                 .mergeMap((response) => {
-                    console.log('!!! insert response: ', response);
+                    console.log('insert response: ', response);
                     return Rx.Observable.of(
                         clearAllDynamicForms(),
                         clearGravePickerToolStore()
@@ -136,7 +135,7 @@ export const zoomToGraveFromPokojniciPlugin = (action$) =>
                             coordinates: [res.coordinates.x, res.coordinates.y]
                         }
                     };
-                    console.log('!!! zoom response: ', res);
+                    console.log('zoom response: ', res);
                     return Rx.Observable.from([
                         updateAdditionalLayer('graves', 'graves', 'overlay', {
                             features: [feature],

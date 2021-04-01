@@ -118,14 +118,13 @@ const Api = {
         url += 'fid=' + graveId + '&geom=true';
 
         let header = { "Content-Type": "application/json;charset=UTF-8" };
-        if (graveId !== 0) {
+        if (graveId > 0) {
             return axios.get(
                 url,
                 {
                     headers: header
                 })
                 .then(function(response) {
-                    console.log(response.data.coordinates);
                     let coordinates = {
                         coordinates: {
                             x: response.data.coordinates[0],
@@ -140,7 +139,7 @@ const Api = {
                     console.error(error);
                 });
         }
-        console.log('ERROR: fid is not valid');
+        console.error('ERROR: fid is not valid');
         return null;
     }
 };

@@ -107,7 +107,6 @@ const Pokojnici = ({
     const search = (<SearchComponent
         buildData={searchFormData}
         search={sendSearchParameters}
-        pageNumber={typeof page === "number" ? page : 1}
         openInsertForm={setupInsertModal}
         resetSearchParameters={resetSearchParameters}
     />);
@@ -134,7 +133,6 @@ const Pokojnici = ({
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertFormData}
-        // insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
     />);
 

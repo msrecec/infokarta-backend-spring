@@ -16,11 +16,13 @@ let editTooltip = (
     </Tooltip>
 );
 
-let zoomTooltip = (
-    <Tooltip id="tooltip-top">
-        Pronađi na karti
-    </Tooltip>
-);
+let zoomTooltip = (fid) => {
+    return (
+        <Tooltip id="tooltip-top">
+            {fid > 0 ? "Pronađi stavku na karti" : "Koordinate stavke ne postoje."}
+        </Tooltip>
+    );
+};
 
 class TableComponent extends React.Component {
   static propTypes = {
@@ -65,13 +67,13 @@ class TableComponent extends React.Component {
                                   </OverlayTrigger>
                               </td>
                               <td>
-                                  <OverlayTrigger placement="top" overlay={zoomTooltip}>
+                                  <OverlayTrigger placement="top" overlay={zoomTooltip(item.fk)}>
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.zoomToItem(item.fk)}
                                           // TODO prominit zoom funkciju da prima dodatan parametar
                                           // po kojemu se razlikuje koji api poziv se salje
-                                          disabled={item.fk === 0 ? true : false}
+                                          disabled={item.fk > 0 ? false : true}
                                       >
                                           <Glyphicon glyph="zoom-to"/>
                                       </Button>
