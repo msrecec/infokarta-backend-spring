@@ -7,12 +7,10 @@ import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import it.geosolutions.mapstore.service.SlikaMetaService;
 import it.geosolutions.mapstore.service.SlikaMetaServiceImpl;
-import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.MIMETypeUtil;
-import it.geosolutions.mapstore.utils.EntityUtil;
-import it.geosolutions.mapstore.utils.HeaderUtils;
+import it.geosolutions.mapstore.utils.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,13 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
 public class SlikeController {
 
     //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/{entity}/upload/slika", method = RequestMethod.POST)
+    @RequestMapping(value = "/{entity}/upload/media/slika", method = RequestMethod.POST)
     @ResponseBody
     public void addSlikaByEntity(
         HttpServletRequest request,
@@ -39,7 +38,7 @@ public class SlikeController {
 
         String root = FileSystemConfig.ROOT_LOCATION;
 
-        String entity = inEntity.toLowerCase();
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
 
         if(EntityUtil.isEntity(entity)) {
 
@@ -59,7 +58,7 @@ public class SlikeController {
 
                     SlikaMeta slikaMeta = new SlikaMeta();
 
-                    String slika = root + "\\" + entity + "\\" + "media" + "\\" + "slike" + "\\" + entityFid;
+                    String slika = entity + "\\" + "media" + "\\" + "slike" + "\\" + entityFid;
                     String original = slika + "\\" + "original";
                     String thumbnail = slika + "\\" + "thumbnail";
 
@@ -71,7 +70,11 @@ public class SlikeController {
 
                     slikaMetaDTO = slikaMetaService.addSlikaMetaByEntity(slikaMeta, entity);
 
-                    // base folder
+                    slika = root + "\\" + slika;
+                    original = root + "\\" + original;
+                    thumbnail = root + "\\" + thumbnail;
+
+                        // base folder
 
                     File f = new File(slika);
 
@@ -133,127 +136,110 @@ public class SlikeController {
         }
         return;
     }
-/*
-    @RequestMapping(value = "/{entity}/download/slika/meta/{fid}", method = RequestMethod.GET)
-    public void getImgMetaByImgMetaFid(
+
+    @RequestMapping(value = "/{entity}/download/media/slika/meta/{fid}", method = RequestMethod.GET)
+    public void getSlikaMetaByFid(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable String entity,
-        @PathVariable Integer fid
+        @PathVariable("entity") String inEntity,
+        @PathVariable("fid") Integer fid
     ) throws IOException {
+
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
 
         if(EntityUtil.isEntity(entity)) {
 
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity.toLowerCase());
+            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity);
 
-            HeaderUtils.responseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+            String json = JSONUtils.fromPOJOToJSON(slikaMetaDTO);
+
+            HeaderUtils.responseWithJSON(response, json);
         }
     }
 
-    @RequestMapping(value = "/{entity}/download/slika/meta", method = RequestMethod.GET)
+    @RequestMapping(value = "/{entity}/download/media/slika/meta", method = RequestMethod.GET)
     public void getImgMetaByEntityFid(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("entity") String entity,
-        @RequestParam("fid") Integer fid
+        @PathVariable("entity") String inEntity,
+        @RequestParam("entityFid") Integer fid
     ) throws IOException {
+
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
 
         if(EntityUtil.isEntity(entity)) {
 
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-            List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity.toLowerCase());
+            List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity);
 
             HeaderUtils.responseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
 
         }
     }
-
-    @RequestMapping(value = "/{entity}/download/slika/{fid}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{entity}/download/media/slika/{fid}", method = RequestMethod.GET)
     public void downloadImgResource(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("entity") String entity,
+        @PathVariable("entity") String inEntity,
         @PathVariable("fid") Integer fid,
-        @RequestParam(value = "thumbnail", required = false) Boolean thumbnail
+        @RequestParam(value = "thumbnail", required = false) Boolean hasThumbnail
     ) throws IOException {
         SlikaMetaDAO slikaMetaDAO = new SlikaMetaDAOImpl();
-        Optional<Boolean> oThumbnail = Optional.ofNullable(thumbnail);
+        Optional<Boolean> oThumbnail = Optional.ofNullable(hasThumbnail);
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
 
-        if(oThumbnail.isPresent()) {
+        if(EntityUtil.isEntity(entity)) {
 
-            if(EntityUtil.isEntity(entity)) {
+            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entity);
 
-                String entityTable = entity + "_slike_meta";
-
-                Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable.toLowerCase());
-
-                if(!oPokojnikSlikaMeta.isPresent()) {
-                    return;
-                }
-
-                SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
-
-                String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
-
-                punaLokacija = punaLokacija.replace("_slike", "_slike_thumbnails");
-
-                File f = new File(
-                    punaLokacija+"\\"
-                        + slikaMeta.getFid()+"."
-                        + slikaMeta.getTip());
-
-                if(f.exists()) {
-                    byte[] bytes = FileUtils.readFileToByteArray(f);
-
-                    response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
-                    //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
-                    response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
-                    response.getOutputStream().write(bytes);
-                    response.getOutputStream().flush();
-                } else {
-                    return;
-                }
+            if (!oPokojnikSlikaMeta.isPresent()) {
+                response.setStatus(404);
+                HeaderUtils.responseWithJSON(response, "[]");
+                return;
             }
-        } else {
 
-            if(EntityUtil.isEntity(entity)) {
+            SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
+            File f;
 
-                String entityTable = entity + "_slike_meta";
+            if (oThumbnail.isPresent()) {
 
-                Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable.toLowerCase());
+                String thumbnail = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getThumbnail();
 
-                if(!oPokojnikSlikaMeta.isPresent()) {
-                    return;
-                }
+                f = new File(
+                    thumbnail
+                        + "\\" + slikaMeta.getFid()
+                        + "." + slikaMeta.getTip());
 
-                SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
+            } else {
 
-                String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
+                String original = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getOriginal();
 
-                File f = new File(
-                    punaLokacija+"\\"
-                        + slikaMeta.getFid()+"."
-                        + slikaMeta.getTip());
-
-                if(f.exists()) {
-                    byte[] bytes = FileUtils.readFileToByteArray(f);
-
-                    response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
-        //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
-                    response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
-                    response.getOutputStream().write(bytes);
-                    response.getOutputStream().flush();
-                } else {
-                    return;
-                }
+                f = new File(
+                    original
+                        + "\\" + slikaMeta.getFid()
+                        + "." + slikaMeta.getTip());
             }
+
+
+            if (!f.exists()) {
+                response.setStatus(404);
+                HeaderUtils.responseWithJSON(response, "[]");
+                return;
+            }
+
+            byte[] bytes = FileUtils.readFileToByteArray(f);
+
+            response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
+            //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
+            response.addHeader("Content-Disposition", "inline; filename=" + slikaMeta.getNaziv() + "." + slikaMeta.getTip());
+            response.getOutputStream().write(bytes);
+            response.getOutputStream().flush();
+
         }
     }
-*/
-
 
 /*
     @RequestMapping(value="/grobovi/test/transfer", method = RequestMethod.POST)

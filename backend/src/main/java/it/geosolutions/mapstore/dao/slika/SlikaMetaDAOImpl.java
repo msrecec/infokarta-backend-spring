@@ -4,6 +4,7 @@ import it.geosolutions.mapstore.config.FileSystemConfig;
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import it.geosolutions.mapstore.utils.EntityUtil;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -30,10 +31,16 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public Optional<SlikaMeta> getSlikaMetaByFid(Integer fk, String entityTable) {
+    public Optional<SlikaMeta> getSlikaMetaByFid(Integer fk, String entity) {
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
-        String sql = new StringBuilder().append("SELECT * FROM public.\"").append(entityTable).append("\" WHERE public.\"").append(entityTable).append("\".fid = ? ").toString();
-        SlikaMeta slikaMeta = (SlikaMeta) jdbcTemplateObject.queryForObject(sql, new Object[]{fk}, slikaMetaMapper);
+        String entityFid = entity + "_fid";
+        String sql = "SELECT fid, naziv, tip, original, thumbnail, " + entityFid + " FROM public.\"slike_meta\" WHERE public.\"slike_meta\".fid = ? ";
+        SlikaMeta slikaMeta;
+        try {
+            slikaMeta = (SlikaMeta) jdbcTemplateObject.queryForObject(sql, new Object[]{fk}, slikaMetaMapper);
+        } catch(DataAccessException e) {
+            slikaMeta = null;
+        }
 
         Optional<SlikaMeta> oPokojnikSlikaMeta = Optional.ofNullable(slikaMeta);
 
@@ -41,15 +48,16 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public List<SlikaMeta> getSlikaMetaByEntityFid(Integer fid, String entityTable, String entity) {
+    public List<SlikaMeta> getSlikaMetaByEntityFid(Integer fid, String entity) {
 
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
 
+        String entityFid = entity + "_fid";
+
         String sql = new StringBuilder()
-            .append("SELECT * FROM public.\"").append(entityTable).append("\" ")
-            .append("INNER JOIN public.\"").append(entity).append("\" ON public.\"").append(entityTable)
-            .append("\".fk = public.\"").append(entity).append("\".fid ").append("WHERE public.\"")
-            .append(entity).append("\".fid = ? ").toString();
+            .append("SELECT public.slike_meta.fid, public.slike_meta.naziv, public.slike_meta.tip, public.slike_meta.original, public.slike_meta.thumbnail, public.slike_meta.")
+            .append(entityFid).append(" FROM public.slike_meta ").append("INNER JOIN public.").append(entity).append(" ON public.slike_meta.")
+            .append(entityFid).append(" = public.").append(entity).append(".fid ").append("WHERE public.").append(entity).append(".fid = ? ").toString();
 
         List<SlikaMeta> slikaMeta = jdbcTemplateObject.query(sql, new Object[]{fid}, slikaMetaMapper);
 
