@@ -42,7 +42,7 @@ import InsertModal from '../../components/infokarta/InsertModal';
 import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
-import GravePickerModal from '../../components/infokarta/GravePickerModal';
+import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
 
 const style = {
     padding: 10

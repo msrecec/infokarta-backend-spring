@@ -8,9 +8,9 @@ import {
     hideGravePickModal,
     confirmGravePick,
     disableGravePickMode
-} from "../../actions/infokarta/gravePickerTool";
+} from "../../../actions/infokarta/gravePickerTool";
 
-import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
+import { displayFeatureInfo } from "../../../utils/infokarta/ComponentConstructorUtil";
 
 const style = {
     overflow: "auto",
