@@ -31,7 +31,7 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
-import { toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
+import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
 import { zoomToPoint } from '../../actions/map';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
 import { defaultIconStyle } from '../../utils/SearchUtils';
@@ -158,7 +158,7 @@ export const zoomToGraveFromPokojniciPlugin = (action$) =>
         });
 
 export const removeGravePinLayer = (action$) =>
-    action$.ofType(TOGGLE_CONTROL)
+    action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY)
         .switchMap(({}) => {
             return Rx.Observable.of(
                 removeAdditionalLayer({id: 'graves', owner: 'graves'})
