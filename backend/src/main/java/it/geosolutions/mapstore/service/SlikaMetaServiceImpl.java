@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.service;
 
-import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAO;
-import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAOImpl;
+import it.geosolutions.mapstore.dao.slikaMeta.SlikaMetaDAO;
+import it.geosolutions.mapstore.dao.slikaMeta.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import org.imgscalr.Scalr;
@@ -65,9 +65,7 @@ public class SlikaMetaServiceImpl implements SlikaMetaService {
     }
 
     @Override
-    public SlikaMetaDTO addSlikaToEntity(SlikaMeta slikaMeta, String entity) {
-        String entityTable = entity+"_slike_meta";
-        SlikaMeta slikaMetaReturn = slikaMetaDAO.addSlikaToEntity(slikaMeta, entityTable);
-        return mapSlikaMetaToDTO(slikaMetaReturn);
+    public SlikaMetaDTO addSlikaMetaByEntity(SlikaMeta slikaMeta, String entity) {
+        return mapSlikaMetaToDTO(slikaMetaDAO.addSlikaMetaByEntity(slikaMeta, entity));
     }
 }

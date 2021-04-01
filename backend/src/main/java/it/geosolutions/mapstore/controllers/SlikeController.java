@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAO;
-import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAOImpl;
+import it.geosolutions.mapstore.dao.slikaMeta.SlikaMetaDAO;
+import it.geosolutions.mapstore.dao.slikaMeta.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.config.FileSystemConfig;
 import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
@@ -9,7 +9,7 @@ import it.geosolutions.mapstore.service.SlikaMetaService;
 import it.geosolutions.mapstore.service.SlikaMetaServiceImpl;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.MIMETypeUtil;
-import it.geosolutions.mapstore.utils.MediaMetaUtil;
+import it.geosolutions.mapstore.utils.EntityUtil;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -29,7 +29,7 @@ public class SlikeController {
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/{entity}/upload/slika", method = RequestMethod.POST)
     @ResponseBody
-    public void addMediaByEntity(
+    public void addSlikaByEntity(
         HttpServletRequest request,
         HttpServletResponse response,
         @RequestParam("name") String name,
@@ -40,7 +40,7 @@ public class SlikeController {
         String punaLokacija;
         String relativnaLokacija;
 
-        if(MediaMetaUtil.isMeta(entity)) {
+        if(EntityUtil.isEntity(entity)) {
             String e = entity.toLowerCase();
             if (!file.isEmpty()) {
 
@@ -67,7 +67,7 @@ public class SlikeController {
                     slikaMeta.setLokacija(relativnaLokacija);
                     slikaMeta.setFk(fk);
 
-                    slikaMetaDTO = slikaMetaService.addSlikaToEntity(slikaMeta, e);
+                    slikaMetaDTO = slikaMetaService.addSlikaMetaByEntity(slikaMeta, e);
 
                     File f = new File(punaLokacija);
 
@@ -128,7 +128,7 @@ public class SlikeController {
         @PathVariable Integer fid
     ) throws IOException {
 
-        if(MediaMetaUtil.isMeta(entity)) {
+        if(EntityUtil.isEntity(entity)) {
 
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
@@ -146,7 +146,7 @@ public class SlikeController {
         @RequestParam("fid") Integer fid
     ) throws IOException {
 
-        if(MediaMetaUtil.isMeta(entity)) {
+        if(EntityUtil.isEntity(entity)) {
 
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
@@ -170,7 +170,7 @@ public class SlikeController {
 
         if(oThumbnail.isPresent()) {
 
-            if(MediaMetaUtil.isMeta(entity)) {
+            if(EntityUtil.isEntity(entity)) {
 
                 String entityTable = entity + "_slike_meta";
 
@@ -205,7 +205,7 @@ public class SlikeController {
             }
         } else {
 
-            if(MediaMetaUtil.isMeta(entity)) {
+            if(EntityUtil.isEntity(entity)) {
 
                 String entityTable = entity + "_slike_meta";
 

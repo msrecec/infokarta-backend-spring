@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO.Pokojnik;
+package it.geosolutions.mapstore.dao.pokojnik;
 
 import it.geosolutions.mapstore.model.Pokojnik;
 import org.springframework.jdbc.core.RowMapper;

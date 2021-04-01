@@ -12,5 +12,5 @@ public interface SlikaMetaService {
     public SlikaMetaDTO getSlikaMetaByFid(Integer fid, String entity);
     List<SlikaMetaDTO> getSlikaMetaByEntityFid(Integer fid, String entity);
     ByteArrayOutputStream createThumbnail(MultipartFile originalFile, Integer width) throws IOException;
-    SlikaMetaDTO addSlikaToEntity(SlikaMeta slikaMeta, String entity);
+    SlikaMetaDTO addSlikaMetaByEntity(SlikaMeta slikaMeta, String entity);
 }

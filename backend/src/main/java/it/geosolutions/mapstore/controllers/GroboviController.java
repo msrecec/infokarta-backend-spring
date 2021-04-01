@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.DAO.Grob.GrobDAOImpl;
-import it.geosolutions.mapstore.DAO.Grob.GrobDAO;
+import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
+import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.model.Grob;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;

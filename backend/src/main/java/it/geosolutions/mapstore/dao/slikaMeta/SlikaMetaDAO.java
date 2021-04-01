@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO.SlikaMeta;
+package it.geosolutions.mapstore.dao.slikaMeta;
 
 import it.geosolutions.mapstore.model.SlikaMeta;
 
@@ -13,5 +13,7 @@ public interface SlikaMetaDAO {
 
     SlikaMeta addSlikaGrob(SlikaMeta slikaMeta);
 
-    SlikaMeta addSlikaToEntity(SlikaMeta slikaMeta, String entity);
+    SlikaMeta addSlikaMetaByEntity(SlikaMeta slikaMeta, String entity);
+    SlikaMeta addSlikaOriginalMetaByEntity(SlikaMeta slikaMeta, String entity);
+    SlikaMeta addSlikaThumbnailMetaByEntity(SlikaMeta slikaMeta, String entity);
 }

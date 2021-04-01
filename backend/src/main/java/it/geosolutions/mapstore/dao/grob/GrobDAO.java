@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO.Grob;
+package it.geosolutions.mapstore.dao.grob;
 
 import it.geosolutions.mapstore.model.Grob;
 

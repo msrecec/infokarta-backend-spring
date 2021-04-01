@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.DAO.Groblje;
+package it.geosolutions.mapstore.dao.groblje;
 
 import it.geosolutions.mapstore.model.Groblje;
 

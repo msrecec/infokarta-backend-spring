@@ -1,10 +1,14 @@
-package it.geosolutions.mapstore.DAO.SlikaMeta;
+package it.geosolutions.mapstore.dao.slikaMeta;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.SlikaMeta;
+import it.geosolutions.mapstore.utils.EntityUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,16 +58,63 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public SlikaMeta addSlikaToEntity(SlikaMeta slikaMeta, String entityTable) {
+    public SlikaMeta addSlikaMetaByEntity(SlikaMeta slikaMeta, String entity) {
+
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
 
-        String sql = new StringBuilder().append("INSERT INTO public.\"").append(entityTable).append("\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;").toString();
-        SlikaMeta slikaMetaReturn = (SlikaMeta)jdbcTemplateObject.queryForObject(sql,
-            new Object[]{slikaMeta.getNaziv(),
-                slikaMeta.getLokacija(),
+        if(EntityUtil.isEntity(entity)) {
+
+            String sql = new StringBuilder()
+                .append("INSERT INTO public.\"")
+                .append(entity.toLowerCase())
+                .append("\"(fid, naziv, tip, ")
+                .append(entity.toLowerCase())
+                .append("_fid) VALUES (DEFAULT, ?, ?, ?) RETURNING *")
+                .toString();
+
+            Object[] params = new Object[] {
+                slikaMeta.getNaziv(),
                 slikaMeta.getTip(),
-                slikaMeta.getFk()},
-            slikaMetaMapper);
-        return slikaMetaReturn;
+                slikaMeta.getFk()
+            };
+
+            SlikaMeta slikaMetaReturn = (SlikaMeta)jdbcTemplateObject.queryForObject(
+                sql,
+                params,
+                new RowMapper<Object>() {
+                    @Override
+                    public Object mapRow(ResultSet rs, int i) throws SQLException {
+                        SlikaMeta slikaMeta = new SlikaMeta();
+
+                        slikaMeta.setFid(rs.getInt(1));
+                        slikaMeta.setNaziv(rs.getString(2));
+                        slikaMeta.setTip(rs.getString(3));
+                        slikaMeta.setFk(rs.getInt(4));
+
+                        return slikaMeta;
+                    }
+                }
+            );
+
+            return slikaMetaReturn;
+
+        } else {
+
+            return null;
+
+        }
     }
+
+    @Override
+    public SlikaMeta addSlikaOriginalMetaByEntity(SlikaMeta slikaMeta, String entity) {
+
+        return null;
+    }
+
+    @Override
+    public SlikaMeta addSlikaThumbnailMetaByEntity(SlikaMeta slikaMeta, String entity) {
+
+        return null;
+    }
+
 }
