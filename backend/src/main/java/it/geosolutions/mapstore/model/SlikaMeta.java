@@ -5,7 +5,8 @@ import java.util.Arrays;
 public class SlikaMeta {
     private Integer fid;
     private String naziv;
-    private String lokacija;
+    private String original;
+    private String thumbnail;
     private String tip;
     private Integer fk;
 
@@ -14,7 +15,8 @@ public class SlikaMeta {
         return "SlikaMeta{" +
             "fid=" + fid +
             ", naziv='" + naziv + '\'' +
-            ", slika=" + lokacija +
+            ", original='" + original + '\'' +
+            ", thumbnail='" + thumbnail + '\'' +
             ", tip='" + tip + '\'' +
             ", fk=" + fk +
             '}';
@@ -36,12 +38,20 @@ public class SlikaMeta {
         this.naziv = naziv;
     }
 
-    public String getLokacija() {
-        return lokacija;
+    public String getOriginal() {
+        return original;
     }
 
-    public void setLokacija(String lokacija) {
-        this.lokacija = lokacija;
+    public void setOriginal(String original) {
+        this.original = original;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getTip() {

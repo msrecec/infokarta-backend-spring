@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.service;
 
-import it.geosolutions.mapstore.dao.slikaMeta.SlikaMetaDAO;
-import it.geosolutions.mapstore.dao.slikaMeta.SlikaMetaDAOImpl;
+import it.geosolutions.mapstore.dao.slika.SlikaMetaDAO;
+import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import org.imgscalr.Scalr;

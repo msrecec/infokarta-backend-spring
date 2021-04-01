@@ -1,12 +1,15 @@
-package it.geosolutions.mapstore.dao.slikaMeta;
+package it.geosolutions.mapstore.dao.slika;
 
+import it.geosolutions.mapstore.config.FileSystemConfig;
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import it.geosolutions.mapstore.utils.EntityUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,14 +30,6 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
     }
 
     @Override
-    public SlikaMeta addSlikaGrob(SlikaMeta slikaMeta) {
-        SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
-        String sql = "INSERT INTO public.\"grobovi_slike_meta\"(fid, naziv, lokacija, tip, fk) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING *;";
-        SlikaMeta slikaMetaReturn = (SlikaMeta)jdbcTemplateObject.queryForObject(sql, new Object[]{slikaMeta.getNaziv(), slikaMeta.getLokacija(), slikaMeta.getTip(), slikaMeta.getFk()}, slikaMetaMapper);
-        return slikaMetaReturn;
-    }
-
-    @Override
     public Optional<SlikaMeta> getSlikaMetaByFid(Integer fk, String entityTable) {
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
         String sql = new StringBuilder().append("SELECT * FROM public.\"").append(entityTable).append("\" WHERE public.\"").append(entityTable).append("\".fid = ? ").toString();
@@ -50,7 +45,11 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
 
         SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
 
-        String sql = new StringBuilder().append("SELECT * FROM public.\"").append(entityTable).append("\" ").append("INNER JOIN public.\"").append(entity).append("\" ON public.\"").append(entityTable).append("\".fk = public.\"").append(entity).append("\".fid ").append("WHERE public.\"").append(entity).append("\".fid = ? ").toString();
+        String sql = new StringBuilder()
+            .append("SELECT * FROM public.\"").append(entityTable).append("\" ")
+            .append("INNER JOIN public.\"").append(entity).append("\" ON public.\"").append(entityTable)
+            .append("\".fk = public.\"").append(entity).append("\".fid ").append("WHERE public.\"")
+            .append(entity).append("\".fid = ? ").toString();
 
         List<SlikaMeta> slikaMeta = jdbcTemplateObject.query(sql, new Object[]{fid}, slikaMetaMapper);
 
@@ -65,11 +64,13 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
         if(EntityUtil.isEntity(entity)) {
 
             String sql = new StringBuilder()
-                .append("INSERT INTO public.\"")
+                .append("INSERT INTO public.\"slike_meta\"")
+                .append("(fid, naziv, tip, ")
                 .append(entity.toLowerCase())
-                .append("\"(fid, naziv, tip, ")
+                .append("_fid) VALUES (DEFAULT, ?, ?, ?)")
+                .append(" RETURNING fid, naziv, tip,")
                 .append(entity.toLowerCase())
-                .append("_fid) VALUES (DEFAULT, ?, ?, ?) RETURNING *")
+                .append("_fid")
                 .toString();
 
             Object[] params = new Object[] {
@@ -96,6 +97,8 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
                 }
             );
 
+            sql = "";
+
             return slikaMetaReturn;
 
         } else {
@@ -103,18 +106,6 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
             return null;
 
         }
-    }
-
-    @Override
-    public SlikaMeta addSlikaOriginalMetaByEntity(SlikaMeta slikaMeta, String entity) {
-
-        return null;
-    }
-
-    @Override
-    public SlikaMeta addSlikaThumbnailMetaByEntity(SlikaMeta slikaMeta, String entity) {
-
-        return null;
     }
 
 }
