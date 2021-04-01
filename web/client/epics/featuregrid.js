@@ -1188,3 +1188,14 @@ export const hideDrawerOnFeatureGridOpenMobile = (action$, { getState } = {}) =>
             && drawerEnabledControlSelector(getState())
         )
         .mapTo(toggleControl('drawer', 'enabled'));
+
+// INFOKARTA EDIT - QOL: zoom svaki put kad se odabere feature,
+// tj. kad se klikne na redak u feature attributes tablici
+// export const zoomOnFeatureSelect = (action$) =>
+//     action$.ofType(SELECT_FEATURES)
+//         .switchMap(({ features = {} }) => {
+//             return Rx.Observable.of(
+//                 // console.log(features),
+//                 zoomToExtent(features[0].bbox, "EPSG:3765")
+//             );
+//         });

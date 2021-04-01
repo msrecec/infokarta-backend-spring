@@ -10,18 +10,19 @@ const style = {
 
 class PaginationComponent extends React.Component {
     static propTypes = {
+        setPageNumber: PropTypes.func,
         totalNumber: PropTypes.number,
-        sendPageNumber: PropTypes.func,
+        itemsPerPage: PropTypes.number,
         active: PropTypes.number
     };
 
     static defaultProps = {
+        itemsPerPage: 30,
         totalNumber: 1
     };
 
     render() {
-        let numberOfPages = Math.ceil(this.props.totalNumber / 30);
-        // 30 stavki po stranici
+        let numberOfPages = Math.ceil(this.props.totalNumber / this.props.itemsPerPage);
 
         let paginationForm = document.getElementsByClassName("dynamicFormPagination");
         let tempPagination = paginationForm[0];
@@ -33,6 +34,7 @@ class PaginationComponent extends React.Component {
             }
         }
         // workaround da prekine prikazivat aktivne elemente paginacije dok je drawerMenu zatvoren
+        // zakomentirajte dio od rendera do ovde da vidite u cemu je stvar
 
         return (
             <div>
@@ -44,7 +46,7 @@ class PaginationComponent extends React.Component {
                     items={numberOfPages}
                     maxButtons={8}
                     activePage={this.props.active}
-                    onSelect={this.props.sendPageNumber}
+                    onSelect={this.props.setPageNumber}
                 />
             </div>
         );

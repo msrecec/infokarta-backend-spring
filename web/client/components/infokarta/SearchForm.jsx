@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
-import { cloneDeep } from 'lodash';
 
 const formStyle = {
     display: "flex",
@@ -22,14 +21,12 @@ class SearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
       search: PropTypes.func,
-      pageNumber: PropTypes.number,
-      openInsertForm: PropTypes.func,
-      resetPagination: PropTypes.func
+      resetSearchParameters: PropTypes.func,
+      openInsertForm: PropTypes.func
   };
 
   static defaultProps = {
-      buildData: [],
-      pageNumber: 1
+      buildData: []
   };
 
   constructor(props) {
@@ -37,20 +34,6 @@ class SearchComponent extends React.Component {
       this.handleChange = this.handleChange.bind(this);
 
       this.state = {};
-  }
-
-  componentDidUpdate(prevProps) {
-      // kad se promijeni stranica paginacije, pokreni search ponovno
-      if (prevProps.pageNumber !== this.props.pageNumber) {
-          this.setState({ page: this.props.pageNumber });
-          let temp = cloneDeep(this.state);
-          temp.page = this.props.pageNumber;
-          this.props.search(temp);
-          // cloneDeep workaround jer se setState ocita tek u sljedecem pozivu render fje
-          // zato kopiramo state i pripisujemo mu trenutni pageNumber i saljemo u search
-
-          // TODO popravi nakon odvajanja search komponenti u store
-      }
   }
 
   render() {
@@ -127,12 +110,11 @@ class SearchComponent extends React.Component {
           selectTags[i].selectedIndex = 0;
       }
 
-      this.search({});
+      this.props.resetSearchParameters();
   }
 
   search(searchParams = this.state) {
       this.props.search(searchParams);
-      this.props.resetPagination(1);
   }
 
   insertNew() {

@@ -2,11 +2,15 @@ import Rx from "rxjs";
 import { get } from 'lodash';
 
 import {
-    LOAD_DECEASED,
+    SEND_SEARCH_REQUEST_FOR_DECEASED,
+    SET_SEARCH_PARAMETERS_FOR_DECEASED,
+    RESET_SEARCH_PARAMETERS_FOR_DECEASED,
+    SET_PAGE_FOR_DECEASED,
     EDIT_DECEASED,
     INSERT_DECEASED,
-    ZOOM_TO_GRAVE,
-    deceasedLoaded
+    ZOOM_TO_GRAVE_FROM_DECEASED,
+    deceasedResponseReceived,
+    sendSearchRequestForDeceased
 } from "../../actions/infokarta/deceased";
 
 import {
@@ -34,33 +38,41 @@ import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
 
-export const fetchDataForTable = (action$) =>
-    action$.ofType(LOAD_DECEASED)
-        .switchMap(({ searchParameters = {} }) => {
-            return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters)
-                .then(data => data))
-                .switchMap((deceased) => {
-                    return Rx.Observable.of(
-                        deceasedLoaded(deceased.pokojnici, deceased.totalSearchMatchCount)
-                    );
-                })
-                .catch((error) => {
-                    return Rx.Observable.of(
-                        /* eslint-disable no-console */
-                        console.error('error while fetching deceased', error)
-                    );
-                });
-        });
+export const sendSearchRequestUponSearchParameterOrPageChange = (action$, {getState = () => {}} = {}) =>
+    action$.ofType(
+        SEND_SEARCH_REQUEST_FOR_DECEASED,
+        SET_SEARCH_PARAMETERS_FOR_DECEASED,
+        RESET_SEARCH_PARAMETERS_FOR_DECEASED,
+        SET_PAGE_FOR_DECEASED
+    ).switchMap(({}) => {
+        const searchParameters = get(getState(), "deceased.searchParameters");
+        const pageNumber = get(getState(), "deceased.pageNumber");
+        console.log('!!! sendSearchRequestUponSearchParameterOrPageChange', searchParameters, pageNumber);
+        return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters, pageNumber)
+            .then(data => data))
+            .switchMap((response) => {
+                return Rx.Observable.of(
+                    deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount)
+                );
+            })
+            .catch((error) => {
+                return Rx.Observable.of(
+                    /* eslint-disable no-console */
+                    console.error('error while fetching deceased', error)
+                );
+            });
+    });
 
-export const sendEditData = (action$) =>
+export const sendEditDataForDeceased = (action$) =>
     action$.ofType(EDIT_DECEASED)
         .switchMap(({ itemToEdit = {} }) => {
             return Rx.Observable.fromPromise(pokojniciApi.editPokojnik(itemToEdit)
                 .then(data => data))
-                .switchMap((response) => {
-                    console.log('edit response: ', response);
+                .mergeMap((response) => {
+                    console.log('!!! edit response: ', response);
                     return Rx.Observable.of(
-                        hideEditModal()
+                        hideEditModal(),
+                        sendSearchRequestForDeceased()
                     );
                 })
                 .catch((error) => {
@@ -71,7 +83,7 @@ export const sendEditData = (action$) =>
                 });
         });
 
-export const fetchColumnsForInsert = (action$) =>
+export const fetchColumnsFromDeceasedForInsert = (action$) =>
     action$.ofType(SHOW_INSERT_MODAL)
         .switchMap(({}) => {
             return Rx.Observable.fromPromise(pokojniciApi.getPokojniciColumns()
@@ -89,7 +101,7 @@ export const fetchColumnsForInsert = (action$) =>
                 });
         });
 
-export const insertNew = (action$, {getState = () => {}} = {}) =>
+export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
     action$.ofType(INSERT_DECEASED)
         .switchMap(({ itemToInsert = {} }) => {
             let gravePickerToolStore = get(getState(), "gravePickerTool");
@@ -97,7 +109,7 @@ export const insertNew = (action$, {getState = () => {}} = {}) =>
             return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
                 .then(data => data))
                 .mergeMap((response) => {
-                    console.log('insert response: ', response);
+                    console.log('!!! insert response: ', response);
                     return Rx.Observable.of(
                         clearAllDynamicForms(),
                         clearGravePickerToolStore()
@@ -111,8 +123,8 @@ export const insertNew = (action$, {getState = () => {}} = {}) =>
                 });
         });
 
-export const zoomToGrave = (action$) =>
-    action$.ofType(ZOOM_TO_GRAVE)
+export const zoomToGraveFromPokojniciPlugin = (action$) =>
+    action$.ofType(ZOOM_TO_GRAVE_FROM_DECEASED)
         .switchMap(({ graveId = {} }) => {
             return Rx.Observable.fromPromise(pokojniciApi.getGraveCoordinates(graveId)
                 .then(data => data))
@@ -124,7 +136,7 @@ export const zoomToGrave = (action$) =>
                             coordinates: [res.coordinates.x, res.coordinates.y]
                         }
                     };
-                    console.log('zoom response: ', res);
+                    console.log('!!! zoom response: ', res);
                     return Rx.Observable.from([
                         updateAdditionalLayer('graves', 'graves', 'overlay', {
                             features: [feature],
