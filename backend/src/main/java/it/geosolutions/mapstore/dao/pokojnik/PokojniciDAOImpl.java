@@ -248,8 +248,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr) {
-        String sql = "SELECT \"grobovi\".fid FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid " +
-            "WHERE \"groblja\".naziv ILIKE ? AND \"grobovi\".\"Rednibroj\" ILIKE ? ";
+        String sql = new StringBuilder().append("SELECT \"grobovi\".fid FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid ").append("WHERE \"groblja\".naziv ILIKE ? AND \"grobovi\".\"Rednibroj\" ILIKE ? ").toString();
 
         Optional<Integer> oFid = Optional.ofNullable(jdbcTemplateObject.queryForInt(sql, new Object[]{groblje, rbr}));
 

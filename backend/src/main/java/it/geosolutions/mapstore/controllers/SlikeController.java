@@ -32,44 +32,48 @@ public class SlikeController {
     public void addSlikaByEntity(
         HttpServletRequest request,
         HttpServletResponse response,
-        @RequestParam("name") String name,
         @RequestParam("file") MultipartFile file,
-        @PathVariable String entity,
-        @RequestParam("fk") Integer fk
+        @PathVariable("entity") String inEntity,
+        @RequestParam("entityFid") Integer entityFid
     ) throws IOException {
-        String punaLokacija;
-        String relativnaLokacija;
+
+        String root = FileSystemConfig.ROOT_LOCATION;
+
+        String entity = inEntity.toLowerCase();
 
         if(EntityUtil.isEntity(entity)) {
-            String e = entity.toLowerCase();
+
             if (!file.isEmpty()) {
 
                 SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
                 String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
+                String name = FilenameUtils.getName(file.getOriginalFilename());
+
+                byte[] bytes = file.getBytes();
+
                 if(MIMETypeUtil.isImage(extension)) {
+
                     SlikaMetaDTO slikaMetaDTO;
-
-                    byte[] bytes = file.getBytes();
-
-                    String entityDocument = e + "_slike";
-
-                    relativnaLokacija = entityDocument + "\\" + fk;
-
-                    punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + relativnaLokacija;
-
 
                     SlikaMeta slikaMeta = new SlikaMeta();
 
+                    String slika = root + "\\" + entity + "\\" + "media" + "\\" + "slike" + "\\" + entityFid;
+                    String original = slika + "\\" + "original";
+                    String thumbnail = slika + "\\" + "thumbnail";
+
                     slikaMeta.setNaziv(name);
                     slikaMeta.setTip(extension);
-                    slikaMeta.setLokacija(relativnaLokacija);
-                    slikaMeta.setFk(fk);
+                    slikaMeta.setOriginal(original);
+                    slikaMeta.setThumbnail(thumbnail);
+                    slikaMeta.setFk(entityFid);
 
-                    slikaMetaDTO = slikaMetaService.addSlikaMetaByEntity(slikaMeta, e);
+                    slikaMetaDTO = slikaMetaService.addSlikaMetaByEntity(slikaMeta, entity);
 
-                    File f = new File(punaLokacija);
+                    // base folder
+
+                    File f = new File(slika);
 
                     if(!f.exists()) {
                        if(!f.mkdir()){
@@ -77,7 +81,17 @@ public class SlikeController {
                        }
                     }
 
-                    FileOutputStream fos = new FileOutputStream(punaLokacija+"\\"+ slikaMetaDTO.getFid()+"."+extension);
+                    // originals
+
+                    f = new File(original);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    FileOutputStream fos = new FileOutputStream(original + "\\" + slikaMetaDTO.getFid() + "." + extension);
 
                     try {
                         fos.write(bytes);
@@ -87,7 +101,7 @@ public class SlikeController {
 
                     // thumbnails
 
-                    f = new File(FileSystemConfig.ROOT_LOCATION+"\\"+entityDocument+"_thumbnails"+"\\" + fk);
+                    f = new File(thumbnail);
 
                     if(!f.exists()) {
                         if(!f.mkdir()){
@@ -95,12 +109,12 @@ public class SlikeController {
                         }
                     }
 
-                    ByteArrayOutputStream thumbnail = slikaMetaService.createThumbnail(file, 100);
+                    ByteArrayOutputStream thumbnailArr = slikaMetaService.createThumbnail(file, 100);
 
-                    fos = new FileOutputStream(FileSystemConfig.ROOT_LOCATION+"\\"+entityDocument+"_thumbnails"+"\\" + fk + "\\" + slikaMetaDTO.getFid()+"."+extension);
+                    fos = new FileOutputStream(thumbnail + "\\" + slikaMetaDTO.getFid() + "." + extension);
 
                     try {
-                        fos.write(thumbnail.toByteArray());
+                        fos.write(thumbnailArr.toByteArray());
                     } finally {
                         fos.close();
                     }
@@ -119,7 +133,7 @@ public class SlikeController {
         }
         return;
     }
-
+/*
     @RequestMapping(value = "/{entity}/download/slika/meta/{fid}", method = RequestMethod.GET)
     public void getImgMetaByImgMetaFid(
         HttpServletRequest request,
@@ -238,7 +252,7 @@ public class SlikeController {
             }
         }
     }
-
+*/
 
 
 /*

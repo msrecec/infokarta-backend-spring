@@ -65,10 +65,10 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
 
             String sql = new StringBuilder()
                 .append("INSERT INTO public.\"slike_meta\"")
-                .append("(fid, naziv, tip, ")
+                .append("(fid, naziv, tip, original, thumbnail, ")
                 .append(entity.toLowerCase())
-                .append("_fid) VALUES (DEFAULT, ?, ?, ?)")
-                .append(" RETURNING fid, naziv, tip,")
+                .append("_fid) VALUES (DEFAULT, ?, ?, ?, ?, ?)")
+                .append(" RETURNING fid, naziv, tip, original, thumbnail, ")
                 .append(entity.toLowerCase())
                 .append("_fid")
                 .toString();
@@ -76,6 +76,8 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
             Object[] params = new Object[] {
                 slikaMeta.getNaziv(),
                 slikaMeta.getTip(),
+                slikaMeta.getOriginal(),
+                slikaMeta.getThumbnail(),
                 slikaMeta.getFk()
             };
 
@@ -90,14 +92,14 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
                         slikaMeta.setFid(rs.getInt(1));
                         slikaMeta.setNaziv(rs.getString(2));
                         slikaMeta.setTip(rs.getString(3));
-                        slikaMeta.setFk(rs.getInt(4));
+                        slikaMeta.setOriginal(rs.getString(4));
+                        slikaMeta.setThumbnail(rs.getString(5));
+                        slikaMeta.setFk(rs.getInt(6));
 
                         return slikaMeta;
                     }
                 }
             );
-
-            sql = "";
 
             return slikaMetaReturn;
 
