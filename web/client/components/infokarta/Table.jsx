@@ -57,6 +57,7 @@ class TableComponent extends React.Component {
                       {this.props.items.map((item) =>
                           <tr>
                               <td>
+                                  {/* glyphicon-eye-open za details/document view */}
                                   <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={editTooltip}>
                                       <Button
                                           bsStyle="primary"
