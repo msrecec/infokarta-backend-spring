@@ -4,52 +4,60 @@ import { get } from 'lodash';
 
 import Message from '../../components/I18N/Message';
 import { Glyphicon } from 'react-bootstrap';
-// import layersIcon from '../toolbar/assets/img/layers.png';
 
+// actions
 import {
-    loadDeceased,
+    setSearchParametersForDeceased,
+    resetSearchParametersForDeceased,
     editDeceased,
     insertDeceased,
-    zoomToGrave,
+    zoomToGraveFromDeceased,
+    setPageForDeceased
+} from "../../actions/infokarta/deceased";
+
+import {
     enableGravePickMode
-} from "../../actions/infokarta/pokojnici";
+} from "../../actions/infokarta/gravePickerTool";
 
 import {
     showEditModal,
     showInsertModal
 } from "../../actions/infokarta/dynamicModalControl";
 
-import {
-    setPaginationNumber
-} from "../../actions/infokarta/paginationControl";
-
+// utils
 import { createPlugin } from '../../utils/PluginsUtils';
 
-import pokojnici from '../../reducers/infokarta/pokojnici';
+// reducers
+import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
-import paginationControl from '../../reducers/infokarta/paginationControl';
-import GravePickerModal from '../../components/infokarta/GravePickerModal';
+import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 
-import * as epics from '../../epics/infokarta/pokojnici';
+// epics
+import * as epics from '../../epics/infokarta/deceased';
 
+// components
 import TableComponent from '../../components/infokarta/Table';
 import EditModal from '../../components/infokarta/EditModal';
 import InsertModal from '../../components/infokarta/InsertModal';
+import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
+import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
 
 const style = {
     padding: 10
 };
 
-const fieldsToExclude = ["ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
-const readOnlyFields = ["fid", "fk"];
+const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
+const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
+const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
 
 const Pokojnici = ({
     data,
     page,
     totalNumber,
-    loadDeceasedData = () => {},
+    sendSearchParameters = () => {},
+    resetSearchParameters = () => {},
     sendPageNumber = () => {},
     setupEditModal = () => {},
     sendEditedData = () => {},
@@ -87,22 +95,6 @@ const Pokojnici = ({
         }
     ];
 
-    // const insertFormHeaders = [
-    //     {
-    //         section: 1,
-    //         title: "Odabir grobnice"
-    //     },
-    //     {
-    //         section: 2,
-    //         title: "Unos pokojnikovih podataka"
-    //     },
-    //     {
-    //         section: 3,
-    //         title: "Prijenos datoteka"
-    //     }
-    // ];
-    // TODO smislit nacin za dodat ove naslove u sekcije dinamicki
-
     const insertFormData = [
         {
             label: "Odaberite grobnicu klikom na kartu",
@@ -114,10 +106,9 @@ const Pokojnici = ({
 
     const search = (<SearchComponent
         buildData={searchFormData}
-        search={loadDeceasedData}
-        pageNumber={typeof page === "number" ? page : 1}
+        search={sendSearchParameters}
         openInsertForm={setupInsertModal}
-        resetPagination={sendPageNumber}
+        resetSearchParameters={resetSearchParameters}
     />);
 
     const table = (<TableComponent
@@ -129,7 +120,7 @@ const Pokojnici = ({
 
     const pagination = (<PaginationComponent
         totalNumber={totalNumber}
-        sendPageNumber={sendPageNumber}
+        setPageNumber={sendPageNumber}
         active={typeof page === "number" ? page : 1}
     />);
 
@@ -140,7 +131,13 @@ const Pokojnici = ({
     />);
 
     const insertModal = (<InsertModal
-        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
+        extraForm={insertFormData}
+        startChooseGraveMode={startChooseMode}
+    />);
+
+    const insertConfirmationModal = (<InsertConfirmationModal
+        fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertFormData}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
@@ -156,6 +153,7 @@ const Pokojnici = ({
             {pagination}
             {editModal}
             {insertModal}
+            {insertConfirmationModal}
             {gravePickerModal}
         </div>
     );
@@ -163,17 +161,18 @@ const Pokojnici = ({
 
 export default createPlugin('Pokojnici', {
     component: connect((state) => ({
-        data: get(state, "pokojnici.deceased"),
-        page: get(state, "paginationControl.pageNumber"),
-        totalNumber: get(state, "pokojnici.totalNumber")
+        data: get(state, "deceased.data"),
+        page: get(state, "deceased.pageNumber"),
+        totalNumber: get(state, "deceased.totalNumber")
     }), {
-        loadDeceasedData: loadDeceased,
-        sendPageNumber: setPaginationNumber,
+        sendSearchParameters: setSearchParametersForDeceased,
+        resetSearchParameters: resetSearchParametersForDeceased,
+        sendPageNumber: setPageForDeceased,
         setupEditModal: showEditModal,
         setupInsertModal: showInsertModal,
         sendEditedData: editDeceased,
         sendNewData: insertDeceased,
-        sendZoomData: zoomToGrave,
+        sendZoomData: zoomToGraveFromDeceased,
         startChooseMode: enableGravePickMode
     })(Pokojnici),
     containers: {
@@ -189,8 +188,8 @@ export default createPlugin('Pokojnici', {
     },
     epics,
     reducers: {
-        pokojnici,
+        deceased,
         dynamicModalControl,
-        paginationControl
+        gravePickerTool
     }
 });

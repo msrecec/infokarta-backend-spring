@@ -11,7 +11,7 @@ const Api = {
                 console.error(error);
             });
     },
-    searchPokojnici: function(searchParameters) {
+    searchPokojnici: function(searchParameters, pageNumber) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
 
         if (searchParameters.name) {
@@ -37,11 +37,12 @@ const Api = {
             url += 'kongodinaukopa=' + searchParameters.yearOfDeathTo + '&';
         }
 
-        if (searchParameters.page) {
-            url += 'page=' + searchParameters.page;
+        if (pageNumber) {
+            url += 'page=' + pageNumber;
         } else {
             url += 'page=1';
         }
+
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.get(
             url,
@@ -117,14 +118,13 @@ const Api = {
         url += 'fid=' + graveId + '&geom=true';
 
         let header = { "Content-Type": "application/json;charset=UTF-8" };
-        if (graveId !== 0) {
+        if (graveId > 0) {
             return axios.get(
                 url,
                 {
                     headers: header
                 })
                 .then(function(response) {
-                    console.log(response.data.coordinates);
                     let coordinates = {
                         coordinates: {
                             x: response.data.coordinates[0],
@@ -139,7 +139,7 @@ const Api = {
                     console.error(error);
                 });
         }
-        console.log('ERROR: fid is not valid');
+        console.error('ERROR: fid is not valid');
         return null;
     }
 };

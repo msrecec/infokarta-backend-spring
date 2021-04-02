@@ -16,11 +16,13 @@ let editTooltip = (
     </Tooltip>
 );
 
-let zoomTooltip = (
-    <Tooltip id="tooltip-top">
-        Pronađi na karti
-    </Tooltip>
-);
+let zoomTooltip = (fid) => {
+    return (
+        <Tooltip id="tooltip-top">
+            {fid > 0 ? "Pronađi stavku na karti" : "Koordinate stavke ne postoje."}
+        </Tooltip>
+    );
+};
 
 class TableComponent extends React.Component {
   static propTypes = {
@@ -55,7 +57,7 @@ class TableComponent extends React.Component {
                       {this.props.items.map((item) =>
                           <tr>
                               <td>
-                                  <OverlayTrigger placement="top" overlay={editTooltip}>
+                                  <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={editTooltip}>
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.sendDataToEdit(item)}
@@ -65,19 +67,19 @@ class TableComponent extends React.Component {
                                   </OverlayTrigger>
                               </td>
                               <td>
-                                  <OverlayTrigger placement="top" overlay={zoomTooltip}>
+                                  <OverlayTrigger placement="top" overlay={zoomTooltip(item.fk)}>
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.zoomToItem(item.fk)}
-                                          disabled={item.fk === 0 ? true : false}
+                                          // TODO prominit zoom funkciju da prima dodatan parametar
+                                          // po kojemu se razlikuje koji api poziv se salje
+                                          disabled={item.fk > 0 ? false : true}
                                       >
                                           <Glyphicon glyph="zoom-to"/>
                                       </Button>
                                   </OverlayTrigger>
                               </td>
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
-                              {/* TODO dodat tooltipove na ikonice od botuna */}
-                              {/* TODO dodat pin kad se zumira */}
                               {Object.entries(item).map((field) => {
                                   if (!this.props.fieldsToExclude.includes(field[0])) {
                                       return (

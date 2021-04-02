@@ -8,9 +8,9 @@ import {
     hideGravePickModal,
     confirmGravePick,
     disableGravePickMode
-} from "../../actions/infokarta/pokojnici";
+} from "../../../actions/infokarta/gravePickerTool";
 
-import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
+import { displayFeatureInfo } from "../../../utils/infokarta/ComponentConstructorUtil";
 
 const style = {
     overflow: "auto",
@@ -107,10 +107,10 @@ class GravePicker extends React.Component {
 
 const GravePickerModal = connect((state) => {
     return {
-        show: get(state, 'pokojnici.chooseGraveModal'),
-        mode: get(state, 'pokojnici.graveChooseMode'),
-        chosenGrave: get(state, 'pokojnici.chosenGrave'),
-        graveData: get(state, 'pokojnici.graveData')
+        show: get(state, 'gravePickerTool.chooseGraveModal'),
+        mode: get(state, 'gravePickerTool.graveChooseMode'),
+        chosenGrave: get(state, 'gravePickerTool.chosenGrave'),
+        graveData: get(state, 'gravePickerTool.graveData')
     };
 }, {
     hideModal: hideGravePickModal,
