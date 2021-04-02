@@ -23,7 +23,7 @@ class BaseModalComponent extends React.Component {
       show: PropTypes.bool,
       returnToInsertModal: PropTypes.func,
       insertItem: PropTypes.func,
-      grave: PropTypes.object
+      extraForm: PropTypes.object
   };
 
   static defaultProps = {
@@ -39,13 +39,9 @@ class BaseModalComponent extends React.Component {
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
-                      <h3>Odabrana grobnica</h3>
-                      {this.props.grave ? displayFeatureInfo(this.props.grave) : <ControlLabel>Nije odabrana grobnica.</ControlLabel>}
-                      <hr/>
-                      <h3>Pokojnikovi podaci</h3>
+                      {this.props.extraForm ? this.props.extraForm : null}
                       {this.props.itemToCheck ? displayFeatureInfo(this.props.itemToCheck /* , this.props.fieldsToExclude*/) : <ControlLabel>Nema podataka za prikaz.</ControlLabel>}
                   </Form>
-                  {/* TODO odvojit odabrana grobnica dio da bude ka extraForm u InsertModalu */}
               </Modal.Body>
               <Modal.Footer>
                   <Button onClick={() => this.props.returnToInsertModal(this.props.itemToCheck)}>
@@ -63,8 +59,7 @@ class BaseModalComponent extends React.Component {
 const ModalComponent = connect((state) => {
     return {
         itemToCheck: get(state, 'dynamicModalControl.itemToCheck'),
-        show: get(state, 'dynamicModalControl.insertConfirmationModalVisible'),
-        grave: get(state, 'gravePickerTool.graveData')
+        show: get(state, 'dynamicModalControl.insertConfirmationModalVisible')
     };
 }, {
     showModal: showInsertConfirmationModal,

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { get } from 'lodash';
 
 import Message from '../../components/I18N/Message';
-import { Glyphicon } from 'react-bootstrap';
+import { Glyphicon, Button, ControlLabel } from 'react-bootstrap';
 
 // actions
 import {
@@ -26,6 +26,7 @@ import {
 
 // utils
 import { createPlugin } from '../../utils/PluginsUtils';
+import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
 
 // reducers
 import deceased from '../../reducers/infokarta/deceased';
@@ -56,6 +57,7 @@ const Pokojnici = ({
     data,
     page,
     totalNumber,
+    chosenGrave,
     sendSearchParameters = () => {},
     resetSearchParameters = () => {},
     sendPageNumber = () => {},
@@ -130,15 +132,31 @@ const Pokojnici = ({
         editItem={sendEditedData}
     />);
 
+    const gravePickerButtonStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    };
+    const insertModalGravePickerModeButton = (<div style={gravePickerButtonStyle}>
+        <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
+    </div>);
+
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
-        extraForm={insertFormData}
-        startChooseGraveMode={startChooseMode}
+        extraForm={insertModalGravePickerModeButton}
     />);
+
+    const graveConfirmationForm = (<div>
+        <h3>Odabrana grobnica</h3>
+        {chosenGrave ? displayFeatureInfo(chosenGrave) : <ControlLabel>Nije odabrana grobnica.</ControlLabel>}
+        <hr/>
+        <h3>Pokojnikovi podaci</h3>
+    </div>
+    );
 
     const insertConfirmationModal = (<InsertConfirmationModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
-        extraForm={insertFormData}
+        extraForm={graveConfirmationForm}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
     />);
@@ -163,7 +181,8 @@ export default createPlugin('Pokojnici', {
     component: connect((state) => ({
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
-        totalNumber: get(state, "deceased.totalNumber")
+        totalNumber: get(state, "deceased.totalNumber"),
+        chosenGrave: get(state, 'gravePickerTool.graveData')
     }), {
         sendSearchParameters: setSearchParametersForDeceased,
         resetSearchParameters: resetSearchParametersForDeceased,
