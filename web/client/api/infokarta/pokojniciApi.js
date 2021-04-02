@@ -107,7 +107,7 @@ const Api = {
                 headers: header
             })
             .then(function(response) {
-                return response.data;
+                return response;
             }).catch(function(error) {
             /* eslint-disable no-console */
                 console.error(error);

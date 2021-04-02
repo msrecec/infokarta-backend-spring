@@ -112,18 +112,20 @@ export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
             return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
                 .then(data => data))
                 .mergeMap((response) => {
-                    console.log('insert response: ', response);
-                    return Rx.Observable.of(
-                        sendSearchRequestForDeceased(),
-                        clearDynamicComponentStore(),
-                        clearGravePickerToolStore(),
-                        insertSuccessful("Unos potvrđen", "Nova stavka je uspješno pohranjena u bazu podataka.")
-                    );
-                    // TODO dodat provjeru je li response vratia objekt ili prazan objekt
-                    // return Rx.Observable.of(
-                    //     hideInsertConfirmationModal(),
-                    //     insertUnsuccessful(Došlo je do greške", "Nova stavka nije pohranjena u bazu.")
-                    // );
+                    if (response.status === 200) {
+                        console.log('insert response: ', response.data);
+                        return Rx.Observable.of(
+                            sendSearchRequestForDeceased(),
+                            clearDynamicComponentStore(),
+                            clearGravePickerToolStore(),
+                            insertSuccessful("Unos potvrđen", "Nova stavka je uspješno pohranjena u bazu podataka.")
+                        );
+                    } else {
+                        return Rx.Observable.of(
+                            hideInsertConfirmationModal(),
+                            insertUnsuccessful("Došlo je do greške", "Nova stavka nije pohranjena u bazu. Error: " + response.status)
+                        );
+                    }
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
