@@ -4,6 +4,7 @@ import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -236,11 +237,19 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             "\"DATUM USLUGE\", \"IME\", \"PREZIME\")\n" +
             "\tVALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Integer numberOfAffectedRows = jdbcTemplateObject.update(sql, pokojnik.getFk(),pokojnik.getIme_i_prezime(), pokojnik.getPrezime_djevojacko(), pokojnik.getIme_oca(), pokojnik.getNadimak(), pokojnik.getOib(),
-            pokojnik.getSpol(), pokojnik.getDatum_rodjenja(), pokojnik.getBracno_stanje(), pokojnik.getMjesto_stanovanja(), pokojnik.getAdresa_stanovanja(), pokojnik.getIme_i_prezime_bracnog_druga(),
-            pokojnik.getDob(), pokojnik.getUzrok_smrti(), pokojnik.getMjesto_smrti(), pokojnik.getDatum_smrti(), pokojnik.getDatum_kremiranja(), pokojnik.getDatum_ukopa(),
-            pokojnik.getOznaka_grobnice(), pokojnik.getGroblje(), pokojnik.getNaknadni_upisi_i_biljeske(), pokojnik.getGodina_ukopa(), pokojnik.getUsluga(), pokojnik.getRacun(),
-            pokojnik.getDatum_usluge(), pokojnik.getIme(), pokojnik.getPrezime());
+        Integer numberOfAffectedRows;
+
+        try {
+
+            numberOfAffectedRows = jdbcTemplateObject.update(sql, pokojnik.getFk(),pokojnik.getIme_i_prezime(), pokojnik.getPrezime_djevojacko(), pokojnik.getIme_oca(), pokojnik.getNadimak(), pokojnik.getOib(),
+                pokojnik.getSpol(), pokojnik.getDatum_rodjenja(), pokojnik.getBracno_stanje(), pokojnik.getMjesto_stanovanja(), pokojnik.getAdresa_stanovanja(), pokojnik.getIme_i_prezime_bracnog_druga(),
+                pokojnik.getDob(), pokojnik.getUzrok_smrti(), pokojnik.getMjesto_smrti(), pokojnik.getDatum_smrti(), pokojnik.getDatum_kremiranja(), pokojnik.getDatum_ukopa(),
+                pokojnik.getOznaka_grobnice(), pokojnik.getGroblje(), pokojnik.getNaknadni_upisi_i_biljeske(), pokojnik.getGodina_ukopa(), pokojnik.getUsluga(), pokojnik.getRacun(),
+                pokojnik.getDatum_usluge(), pokojnik.getIme(), pokojnik.getPrezime());
+
+        } catch (DataAccessException ex) {
+            numberOfAffectedRows = 0;
+        }
 
 //        String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
         return numberOfAffectedRows;
