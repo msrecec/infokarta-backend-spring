@@ -228,7 +228,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
-    public String addPokojnik(Pokojnik pokojnik) {
+    public Integer addPokojnik(Pokojnik pokojnik) {
         String sql = "INSERT INTO public.\"pokojnici\"(\n" +
             "\tfid, fk, \"IME I PREZIME\", \"Prezime djevojačko\", \"IME OCA\", \"NADIMAK\", \"OIB\", \"SPOL\", \"DATU ROĐENJA\", \"Bračno stanje\", " +
             "\"MJESTO STANOVANJA\", \"ADRESA STANOVANJA\", \"Ime i prezime bračnog druga\", \"DOB\", \"UZROK SMRTI\", \"Mjesto smrti\", \"DATUM SMRTI\", " +
@@ -242,12 +242,12 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             pokojnik.getOznaka_grobnice(), pokojnik.getGroblje(), pokojnik.getNaknadni_upisi_i_biljeske(), pokojnik.getGodina_ukopa(), pokojnik.getUsluga(), pokojnik.getRacun(),
             pokojnik.getDatum_usluge(), pokojnik.getIme(), pokojnik.getPrezime());
 
-        String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
-        return json;
+//        String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
+        return numberOfAffectedRows;
     }
 
     @Override
-    public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr) {
+    public Integer addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr) {
         String sql = new StringBuilder().append("SELECT \"grobovi\".fid FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid ").append("WHERE \"groblja\".naziv ILIKE ? AND \"grobovi\".\"Rednibroj\" ILIKE ? ").toString();
 
         Optional<Integer> oFid = Optional.ofNullable(jdbcTemplateObject.queryForInt(sql, new Object[]{groblje, rbr}));
@@ -256,8 +256,10 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             pokojnik.setFk(oFid.get());
         }
 
-        String json = addPokojnik(pokojnik);
+//        String json = addPokojnik(pokojnik);
 
-        return json;
+        Integer numberOfAffectedRows = addPokojnik(pokojnik);
+
+        return numberOfAffectedRows;
     }
 }

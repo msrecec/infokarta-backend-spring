@@ -28,9 +28,9 @@ public interface PokojniciDAO {
 
     public String updatePokojnik(Pokojnik pokojnik);
 
-    public String addPokojnik(Pokojnik pokojnik);
+    public Integer addPokojnik(Pokojnik pokojnik);
 
-    public String addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr);
+    public Integer addPokojnikByGrobljeAndRbr(Pokojnik pokojnik, String groblje, String rbr);
 
     public Pokojnik getFirstPokojnik();
 

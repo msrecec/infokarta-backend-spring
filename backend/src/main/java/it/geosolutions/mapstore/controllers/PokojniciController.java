@@ -138,6 +138,7 @@ public class PokojniciController {
     ) throws IOException {
 
         String outJson;
+        Integer numberOfAffectedRows;
 
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<String> oRbr = Optional.ofNullable(rbr);
@@ -148,7 +149,7 @@ public class PokojniciController {
 
         if(oGroblje.isPresent() && oRbr.isPresent()) {
 
-            outJson = pokojniciDAO.addPokojnikByGrobljeAndRbr(
+            numberOfAffectedRows = pokojniciDAO.addPokojnikByGrobljeAndRbr(
                 pokojnik,
                 EncodingUtils.decodeISO88591(oGroblje.get()),
                 EncodingUtils.decodeISO88591(oRbr.get())
@@ -156,9 +157,17 @@ public class PokojniciController {
 
         } else {
 
-            outJson = pokojniciDAO.addPokojnik(pokojnik);
+            numberOfAffectedRows = pokojniciDAO.addPokojnik(pokojnik);
 
         }
+
+        if(numberOfAffectedRows <= 0) {
+            response.setStatus(500);
+        } else {
+            response.setStatus(200);
+        }
+
+        outJson = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
 
         HeaderUtils.responseWithJSON(response, outJson);
     }
