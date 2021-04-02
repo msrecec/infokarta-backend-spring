@@ -120,12 +120,11 @@ export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
                             clearGravePickerToolStore(),
                             insertSuccessful("Unos potvrđen", "Nova stavka je uspješno pohranjena u bazu podataka.")
                         );
-                    } else {
-                        return Rx.Observable.of(
-                            hideInsertConfirmationModal(),
-                            insertUnsuccessful("Došlo je do greške", "Nova stavka nije pohranjena u bazu. Error: " + response.status)
-                        );
                     }
+                    return Rx.Observable.of(
+                        hideInsertConfirmationModal(),
+                        insertUnsuccessful("Došlo je do greške", "Nova stavka nije pohranjena u bazu. Error: " + response.status)
+                    );
                 })
                 .catch((error) => {
                     return Rx.Observable.of(

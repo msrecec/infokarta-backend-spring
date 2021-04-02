@@ -11,7 +11,6 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { beautifyHeader } from "../../utils/infokarta/BeautifyUtil";
-import { buildDynamicForm } from "../../utils/infokarta/ComponentConstructorUtil";
 
 const formStyle = {
     overflow: "auto",
@@ -59,7 +58,7 @@ class BaseModalComponent extends React.Component {
               </Modal.Header>
               <Modal.Body style={formStyle}>
                   <Form>
-                      {this.props.extraForm ? buildDynamicForm(this.props.extraForm) : null}
+                      {this.props.extraForm ? this.props.extraForm : null}
                       <hr/>
                       {Object.entries(this.state).map((entry) => {
                           if (!this.props.fieldsToExclude.includes(entry[0])) {
