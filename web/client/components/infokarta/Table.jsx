@@ -57,7 +57,7 @@ class TableComponent extends React.Component {
                       {this.props.items.map((item) =>
                           <tr>
                               <td>
-                                  <OverlayTrigger placement="top" overlay={editTooltip}>
+                                  <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={editTooltip}>
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.sendDataToEdit(item)}

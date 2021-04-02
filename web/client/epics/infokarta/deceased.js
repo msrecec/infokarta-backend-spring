@@ -27,13 +27,17 @@ import {
     hideEditModal,
     hideInsertModal,
     showInsertModal,
-    clearAllDynamicForms
+    clearDynamicComponentStore,
+    insertSuccessful,
+    insertUnsuccessful,
+    hideInsertConfirmationModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
 import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
 import { zoomToPoint } from '../../actions/map';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
+
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
@@ -110,9 +114,16 @@ export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
                 .mergeMap((response) => {
                     console.log('insert response: ', response);
                     return Rx.Observable.of(
-                        clearAllDynamicForms(),
-                        clearGravePickerToolStore()
+                        sendSearchRequestForDeceased(),
+                        clearDynamicComponentStore(),
+                        clearGravePickerToolStore(),
+                        insertSuccessful("Unos potvrđen", "Nova stavka je uspješno pohranjena u bazu podataka.")
                     );
+                    // TODO dodat provjeru je li response true ili false
+                    // return Rx.Observable.of(
+                    //     hideInsertConfirmationModal(),
+                    //     insertUnsuccessful(Došlo je do greške", "Nova stavka nije pohranjena u bazu.")
+                    // );
                 })
                 .catch((error) => {
                     return Rx.Observable.of(

@@ -7,7 +7,7 @@ import { get, isEmpty } from "lodash";
 import {
     showInsertModal,
     showInsertConfirmationModal,
-    clearAllDynamicForms
+    clearDynamicComponentStore
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { beautifyHeader } from "../../utils/infokarta/BeautifyUtil";
@@ -115,7 +115,7 @@ const ModalComponent = connect((state) => {
     };
 }, {
     showModal: showInsertModal,
-    hideModal: clearAllDynamicForms,
+    hideModal: clearDynamicComponentStore,
     sendToConfirmationForm: showInsertConfirmationModal
 })(BaseModalComponent);
 
