@@ -34,7 +34,8 @@ import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 
 // epics
-import * as epics from '../../epics/infokarta/deceased';
+import * as deceasedEpics from '../../epics/infokarta/deceased';
+import * as fileManagementEpics from '../../epics/infokarta/fileManagement';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
@@ -44,6 +45,7 @@ import InsertConfirmationModal from '../../components/infokarta/InsertConfirmati
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
+import FileContainer from '../../components/infokarta/fileUpload/FileContainer';
 
 const style = {
     padding: 10
@@ -94,15 +96,6 @@ const Pokojnici = ({
             type: "select",
             value: "graveyard",
             selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
-        }
-    ];
-
-    const insertFormData = [
-        {
-            label: "Odaberite grobnicu klikom na kartu",
-            type: "button",
-            bsStyle: "success",
-            onClickfunction: startChooseMode
         }
     ];
 
@@ -164,6 +157,10 @@ const Pokojnici = ({
     const gravePickerModal = (<GravePickerModal
     />);
 
+    //
+    const fileContainer = (<FileContainer/>);
+    //
+
     return (
         <div style={style}>
             {search}
@@ -173,6 +170,9 @@ const Pokojnici = ({
             {insertModal}
             {insertConfirmationModal}
             {gravePickerModal}
+
+            {fileContainer}
+
         </div>
     );
 };
@@ -205,7 +205,10 @@ export default createPlugin('Pokojnici', {
             doNotHide: true
         }
     },
-    epics,
+    epics: {
+        deceasedEpics,
+        fileManagementEpics
+    },
     reducers: {
         deceased,
         dynamicModalControl,

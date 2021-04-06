@@ -6,8 +6,7 @@ const Api = {
 
         const body = {
             name: fileName,
-            file: file,
-            fk: entityFid
+            file: file
         };
 
         const header = {
@@ -24,14 +23,14 @@ const Api = {
                 console.log(response.data);
                 return response;
             }).catch(function(error) {
-            /* eslint-disable no-console */
+                /* eslint-disable no-console */
                 console.error(error);
             });
     },
     getFile: function(entityName, documentType, fid, thumbnail) {
         let url = '';
         if (thumbnail) {
-            url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/${fid}&thumbnail=${thumbnail}`;
+            url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/${fid}?thumbnail=${thumbnail}`;
         } else {
             url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/${fid}`;
         }
@@ -40,7 +39,7 @@ const Api = {
                 console.log(response.data);
                 return response;
             }).catch(function(error) {
-            /* eslint-disable no-console */
+                /* eslint-disable no-console */
                 console.error(error);
             });
     },
@@ -51,7 +50,7 @@ const Api = {
                 console.log(response.data);
                 return response;
             }).catch(function(error) {
-            /* eslint-disable no-console */
+                /* eslint-disable no-console */
                 console.error(error);
             });
     },
@@ -62,7 +61,7 @@ const Api = {
                 console.log(response.data);
                 return response;
             }).catch(function(error) {
-            /* eslint-disable no-console */
+                /* eslint-disable no-console */
                 console.error(error);
             });
     }
