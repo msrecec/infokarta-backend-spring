@@ -9,7 +9,6 @@ const fileManagement = (
 ) => {
     switch (action.type) {
     case FILES_LOADED_BY_ENTITY_ID: {
-        console.log('!!! reducer', action.response);
         return {
             ...state,
             files: action.response

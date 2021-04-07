@@ -221,22 +221,3 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
                 // workaround da ne baca errore bezveze
             );
         });
-
-export const loadFileMetadataByEntityId = (action$) =>
-    action$.ofType(GET_FILES_BY_ENTITY_ID)
-        .switchMap(({ entityName, documentType, entityFid }) => {
-            return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, documentType, entityFid)
-                .then(data => data))
-                .switchMap((response) => {
-                    console.log('!!! epic', response.data);
-                    return Rx.Observable.of(
-                        filesLoadedByEntityId(response.data)
-                    );
-                })
-                .catch((error) => {
-                    return Rx.Observable.of(
-                        /* eslint-disable no-console */
-                        console.error('error while fetching entity data', error)
-                    );
-                });
-        });

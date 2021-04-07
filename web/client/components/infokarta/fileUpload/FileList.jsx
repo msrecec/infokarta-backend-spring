@@ -24,7 +24,6 @@ class FileListComponent extends React.Component {
           <div>
               <Button bsStyle="success" onClick={() => this.props.getFilesMeta("pokojnici", "slika", 1)}>get</Button>
               {this.props.files.length !== 0 ? Object.entries(this.props.files).map((file) => {
-                  console.log(file[1], '!!! file');
                   return (
                       <FileContainer file={file[1]} />
                   );

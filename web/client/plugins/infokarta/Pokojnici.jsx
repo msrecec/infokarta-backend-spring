@@ -35,8 +35,7 @@ import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 import fileManagement from '../../reducers/infokarta/fileManagement';
 
 // epics
-import * as deceasedEpics from '../../epics/infokarta/deceased';
-import * as fileManagementEpics from '../../epics/infokarta/fileManagement';
+import { deceasedAndFileManagementEpic } from '../../epics/infokarta/combinedEpics';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
@@ -204,7 +203,7 @@ export default createPlugin('Pokojnici', {
             doNotHide: true
         }
     },
-    epics: deceasedEpics, fileManagementEpics,
+    epics: deceasedAndFileManagementEpic,
     reducers: {
         deceased,
         dynamicModalControl,

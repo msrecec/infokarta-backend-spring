@@ -12,7 +12,6 @@ class FileContainer extends React.Component {
   };
 
   render() {
-      console.log(this.props.file);
       const containerStyle = {
           display: "flex",
           flexDirection: "row",

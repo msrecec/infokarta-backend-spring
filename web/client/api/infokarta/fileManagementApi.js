@@ -59,7 +59,6 @@ const fileManagementApi = {
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
         return axios.get(url)
             .then(function(response) {
-                console.log('!!!', response.data);
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
