@@ -1,9 +1,11 @@
 import {
-    FILES_LOADED_BY_ENTITY_ID
+    FILES_LOADED_BY_ENTITY_ID,
+    UPLOAD_NEW_FILE_RESPONSE
 } from "../../actions/infokarta/fileManagement";
 const fileManagement = (
     state = {
-        files: []
+        files: [],
+        uploadResponse: ''
     },
     action
 ) => {
@@ -12,6 +14,12 @@ const fileManagement = (
         return {
             ...state,
             files: action.response
+        };
+    }
+    case UPLOAD_NEW_FILE_RESPONSE: {
+        return {
+            ...state,
+            uploadResponse: action.response
         };
     }
     default:

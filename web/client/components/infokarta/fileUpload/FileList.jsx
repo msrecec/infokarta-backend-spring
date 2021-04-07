@@ -9,6 +9,12 @@ import FileContainer from "./FileContainer";
 
 import { getFilesByEntityId } from "../../../actions/infokarta/fileManagement";
 
+const style = {
+    overflow: "auto",
+    maxHeight: "600px",
+    minWidth: "580px"
+};
+
 class FileListComponent extends React.Component {
   static propTypes = {
       files: PropTypes.array,
@@ -21,7 +27,7 @@ class FileListComponent extends React.Component {
 
   render() {
       return (
-          <div>
+          <div style={style}>
               <Button bsStyle="success" onClick={() => this.props.getFilesMeta("pokojnici", "slika", 1)}>get</Button>
               {this.props.files.length !== 0 ? Object.entries(this.props.files).map((file) => {
                   return (

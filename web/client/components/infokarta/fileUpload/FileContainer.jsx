@@ -32,10 +32,11 @@ class FileContainer extends React.Component {
           display: "flex",
           flexDirection: "column"
       };
+      console.log(this.props.file);
 
       return (
           <div style={containerStyle}>
-              <img src="http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/1?thumbnail=true"  height="120px" width="auto"/>
+              <img src={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}?thumbnail=true`}  height="120px" width="auto"/>
               <div style={informationContainerStyle}>
                   <div style={fileInformationStyle}>
                       <span>Naziv dokumenta: {this.props.file.naziv}</span>
@@ -43,7 +44,12 @@ class FileContainer extends React.Component {
                       <span>Prenio/la: {/* this.props.file.uploader */} </span>
                       {/* TODO dodat uploader kad se uploada file i prikazat ovde */}
                   </div>
-                  <Button bsStyle="success" onclick="http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/1">Preuzmi original</Button>
+                  <Button
+                      bsStyle="success"
+                      href={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}`}
+                      onclick={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}`}
+                      target="_blank"
+                  >Otvori original</Button>
               </div>
           </div>
       );
