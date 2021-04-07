@@ -13,6 +13,7 @@ export default {
     plugins: {
         // infokarta plugins
         PokojniciPlugin: require('../plugins/infokarta/Pokojnici').default,
+        RasvjetaPlugin: require('../plugins/infokarta/Rasvjeta').default,
         // product plugins
         AboutPlugin: require('./plugins/About').default,
         AttributionPlugin: require('./plugins/Attribution').default,
