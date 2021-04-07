@@ -21,10 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@Controller(value = "/rasvjeta")
+@Controller
 public class RasvjetaController {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/rasvjeta", method = RequestMethod.GET)
     public void getRasvjeta(
         HttpServletRequest request,
         HttpServletResponse response
@@ -40,7 +40,7 @@ public class RasvjetaController {
 
     }
 
-    @RequestMapping(value = "/{idHist}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rasvjeta/{idHist}", method = RequestMethod.GET)
     public void getRasvjetaByIdHist(
         HttpServletRequest request,
         HttpServletResponse response,

@@ -1,12 +1,7 @@
 package it.geosolutions.mapstore.model;
 
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
-import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import it.geosolutions.mapstore.utils.serializers.PGgeometrySerializer;
-import org.postgis.Geometry;
+import it.geosolutions.mapstore.serializers.PGgeometrySerializer;
 import org.postgis.PGgeometry;
 
 import java.time.LocalDateTime;

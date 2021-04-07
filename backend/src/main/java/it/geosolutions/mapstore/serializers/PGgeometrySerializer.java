@@ -1,9 +1,8 @@
-package it.geosolutions.mapstore.utils.serializers;
+package it.geosolutions.mapstore.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import org.postgis.Geometry;
 import org.postgis.PGgeometry;
 
 import java.io.IOException;
