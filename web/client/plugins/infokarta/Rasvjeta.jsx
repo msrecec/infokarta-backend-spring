@@ -8,7 +8,8 @@ import Message from '../../components/I18N/Message';
 
 // actions
 import {
-    getLightingData
+    getLightingData,
+    setPageForLighting
 } from '../../actions/infokarta/lighting';
 
 // utils
@@ -21,6 +22,7 @@ import * as epics from '../../epics/infokarta/lighting';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
+import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
 
 const style = {
@@ -47,26 +49,39 @@ const fieldsToExclude = ["geom", "mjernoMjesto",
 
 const Rasvjeta = ({
     data,
-    loadData = () => {}
+    page,
+    totalNumber,
+    loadData = () => {},
+    sendPageNumber = () => {}
 }) => {
     const table = (<TableComponent
         items ={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
+    const pagination = (<PaginationComponent
+        totalNumber={totalNumber}
+        setPageNumber={sendPageNumber}
+        active={typeof page === "number" ? page : 1}
+    />);
+
     return (
         <div style = {style}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {table}
+            {pagination}
         </div>
     );
 };
 
 export default createPlugin('Rasvjeta', {
     component: connect((state) => ({
-        data: get(state, 'lighting.data')
+        data: get(state, 'lighting.data'),
+        page: get(state, 'lighting.pageNumber'),
+        totalNumber: get(state, 'lighting.totalNumber')
     }), {
-        loadData: getLightingData
+        loadData: getLightingData,
+        sendPageNumber: setPageForLighting
     })(Rasvjeta),
     containers: {
         DrawerMenu: {
