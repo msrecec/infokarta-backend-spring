@@ -1,7 +1,6 @@
 import {
     FILES_LOADED_BY_ENTITY_ID
 } from "../../actions/infokarta/fileManagement";
-
 const fileManagement = (
     state = {
         files: []
@@ -10,6 +9,7 @@ const fileManagement = (
 ) => {
     switch (action.type) {
     case FILES_LOADED_BY_ENTITY_ID: {
+        console.log('!!! reducer', action.response);
         return {
             ...state,
             files: action.response

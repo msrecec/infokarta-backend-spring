@@ -32,6 +32,7 @@ import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUt
 import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
+import fileManagement from '../../reducers/infokarta/fileManagement';
 
 // epics
 import * as deceasedEpics from '../../epics/infokarta/deceased';
@@ -45,7 +46,7 @@ import InsertConfirmationModal from '../../components/infokarta/InsertConfirmati
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
-import FileContainer from '../../components/infokarta/fileUpload/FileContainer';
+import FileContainer from '../../components/infokarta/fileUpload/ParentComponent';
 
 const style = {
     padding: 10
@@ -170,9 +171,7 @@ const Pokojnici = ({
             {insertModal}
             {insertConfirmationModal}
             {gravePickerModal}
-
             {fileContainer}
-
         </div>
     );
 };
@@ -205,13 +204,11 @@ export default createPlugin('Pokojnici', {
             doNotHide: true
         }
     },
-    epics: {
-        deceasedEpics,
-        fileManagementEpics
-    },
+    epics: deceasedEpics, fileManagementEpics,
     reducers: {
         deceased,
         dynamicModalControl,
+        fileManagement,
         gravePickerTool
     }
 });

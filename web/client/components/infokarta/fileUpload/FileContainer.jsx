@@ -1,48 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { get } from 'lodash';
-
-import FileUploadForm from './FileUploadForm';
-import FileList from './FileList';
-
-import {
-    getFilesByEntityId
-} from "../../../actions/infokarta/fileManagement";
-
 import { Button } from 'react-bootstrap';
 
-class FileContainerComponent extends React.Component {
-    static propTypes = {
-        files: PropTypes.array,
-        getFilesMeta: PropTypes.func
-    };
+class FileContainer extends React.Component {
+  static propTypes = {
+      file: PropTypes.object
+  };
 
-    render() {
-        const fileUpload = (<FileUploadForm
-            files={this.props.files}
-        />);
+  static defaultProps = {
+      file: {}
+  };
 
-        const fileList = (<FileList
-            files={this.props.files ? this.props.files : []}
-        />);
+  render() {
+      console.log(this.props.file);
+      const containerStyle = {
+          display: "flex",
+          flexDirection: "row",
+          border: "1px solid #dddddd",
+          borderRadius: "16px",
+          padding: "10px",
+          marginBottom: "10px"
+      };
 
-        return (
-            <div>
-                <Button bsStyle="success" onClick={() => this.props.getFilesMeta(1)}>get</Button>
-                {fileUpload}
-                {fileList}
-            </div>
-        );
-    }
+      const informationContainerStyle = {
+          display: "flex",
+          flexDirection: "column",
+          paddingLeft: "10px",
+          justifyContent: "space-between"
+      };
+
+      const fileInformationStyle = {
+          display: "flex",
+          flexDirection: "column"
+      };
+
+      return (
+          <div style={containerStyle}>
+              <img src="http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/1?thumbnail=true"  height="120px" width="auto"/>
+              <div style={informationContainerStyle}>
+                  <div style={fileInformationStyle}>
+                      <span>Naziv dokumenta: {this.props.file.naziv}</span>
+                      <span>Vrsta dokumenta: {this.props.file.tip}</span>
+                      <span>Prenio/la: {/* this.props.file.uploader */} </span>
+                      {/* TODO dodat uploader kad se uploada file i prikazat ovde */}
+                  </div>
+                  <Button bsStyle="success" onclick="http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/1">Preuzmi original</Button>
+              </div>
+          </div>
+      );
+  }
 }
-
-const FileContainer = connect((state) => {
-    return {
-        files: get(state, 'fileManagement.files')
-    };
-}, {
-    getFilesMeta: getFilesByEntityId
-})(FileContainerComponent);
 
 export default FileContainer;

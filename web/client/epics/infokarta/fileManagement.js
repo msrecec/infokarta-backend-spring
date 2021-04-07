@@ -6,12 +6,12 @@ import {
     filesLoadedByEntityId
 } from "../../actions/infokarta/fileManagement";
 
-import Api from "../../api/infokarta/uploadApi";
+import fileManagementApi from "../../api/infokarta/fileManagementApi";
 
-export const loadFilesByEntityId = (action$) =>
+export const loadFileMetadataByEntityId = (action$) =>
     action$.ofType(GET_FILES_BY_ENTITY_ID)
-        .switchMap(({ entityFid = {} }) => {
-            return Rx.Observable.fromPromise(Api.getMetaByEntityFid(entityFid)
+        .switchMap(({ entityName, documentType, entityFid }) => {
+            return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, documentType, entityFid)
                 .then(data => data))
                 .switchMap((response) => {
                     return Rx.Observable.of(

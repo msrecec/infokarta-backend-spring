@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { get } from 'lodash';
+
+import { Button } from 'react-bootstrap';
 
 import FileContainer from "./FileContainer";
 
-class FileList extends React.Component {
+import { getFilesByEntityId } from "../../../actions/infokarta/fileManagement";
+
+class FileListComponent extends React.Component {
   static propTypes = {
-      files: PropTypes.array
+      files: PropTypes.array,
+      getFilesMeta: PropTypes.func
   };
 
   static defaultProps = {
@@ -15,9 +22,11 @@ class FileList extends React.Component {
   render() {
       return (
           <div>
+              <Button bsStyle="success" onClick={() => this.props.getFilesMeta("pokojnici", "slika", 1)}>get</Button>
               {this.props.files.length !== 0 ? Object.entries(this.props.files).map((file) => {
+                  console.log(file[1], '!!! file');
                   return (
-                      <FileContainer controlId={file} key={file} />
+                      <FileContainer file={file[1]} />
                   );
               }
               ) : null}
@@ -25,5 +34,13 @@ class FileList extends React.Component {
       );
   }
 }
+
+const FileList = connect((state) => {
+    return {
+        files: get(state, 'fileManagement.files')
+    };
+}, {
+    getFilesMeta: getFilesByEntityId
+})(FileListComponent);
 
 export default FileList;

@@ -1,6 +1,6 @@
 import axios from "../../libs/ajax";
 
-const Api = {
+const fileManagementApi = {
     uploadFile: function(entityName, documentType, fileName, file, entityFid) {
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/upload/media/${documentType}?entityFid=${entityFid}`;
 
@@ -55,10 +55,11 @@ const Api = {
             });
     },
     getMetaByEntityFid: function(entityName, documentType, entityFid) {
+        console.log('!!!', entityName, documentType, entityFid);
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
         return axios.get(url)
             .then(function(response) {
-                console.log(response.data);
+                console.log('!!!', response.data);
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
@@ -67,4 +68,4 @@ const Api = {
     }
 };
 
-export default Api;
+export default fileManagementApi;

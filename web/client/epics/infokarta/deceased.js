@@ -38,9 +38,15 @@ import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actio
 import { zoomToPoint } from '../../actions/map';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
 
+import {
+    GET_FILES_BY_ENTITY_ID,
+    filesLoadedByEntityId
+} from "../../actions/infokarta/fileManagement";
+
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
+import fileManagementApi from "../../api/infokarta/fileManagementApi";
 
 export const sendSearchRequestUponSearchParameterOrPageChange = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
@@ -214,4 +220,23 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
                 disableGravePickMode()
                 // workaround da ne baca errore bezveze
             );
+        });
+
+export const loadFileMetadataByEntityId = (action$) =>
+    action$.ofType(GET_FILES_BY_ENTITY_ID)
+        .switchMap(({ entityName, documentType, entityFid }) => {
+            return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, documentType, entityFid)
+                .then(data => data))
+                .switchMap((response) => {
+                    console.log('!!! epic', response.data);
+                    return Rx.Observable.of(
+                        filesLoadedByEntityId(response.data)
+                    );
+                })
+                .catch((error) => {
+                    return Rx.Observable.of(
+                        /* eslint-disable no-console */
+                        console.error('error while fetching entity data', error)
+                    );
+                });
         });
