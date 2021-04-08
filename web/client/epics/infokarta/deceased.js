@@ -38,15 +38,9 @@ import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actio
 import { zoomToPoint } from '../../actions/map';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
 
-import {
-    GET_FILES_BY_ENTITY_ID,
-    filesLoadedByEntityId
-} from "../../actions/infokarta/fileManagement";
-
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
-import fileManagementApi from "../../api/infokarta/fileManagementApi";
 
 export const sendSearchRequestUponSearchParameterOrPageChange = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
