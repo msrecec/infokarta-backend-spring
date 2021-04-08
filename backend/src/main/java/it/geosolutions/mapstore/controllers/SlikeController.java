@@ -134,7 +134,19 @@ public class SlikeController {
                     }
 
                     /**
-                     * image folder check (if !exist create)
+                     * images folder check (if !exist create)
+                     */
+
+                    f = new File(slikeFolder);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    /**
+                     * specific image folder check (if !exist create)
                      */
 
                     f = new File(slikaFolder);
