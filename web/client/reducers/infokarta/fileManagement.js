@@ -5,7 +5,7 @@ import {
 const fileManagement = (
     state = {
         files: [],
-        uploadResponse: ''
+        uploadResponse: null
     },
     action
 ) => {

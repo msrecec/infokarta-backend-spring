@@ -4,27 +4,23 @@ const fileManagementApi = {
     uploadFile: function(entityName, documentType, fileName, file, entityFid) {
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/upload/media/${documentType}?entityFid=${entityFid}`;
 
-        const body = {
-            name: fileName,
-            file: file
-        };
-
         const header = {
             "Content-Type": "multipart/form-data;"
         };
 
+        let formData = new FormData();
+        formData.append("file", file);
+
         return axios.post(
             url,
-            body,
+            formData,
             {
                 headers: header
             })
             .then(function(response) {
-                console.log(response.data);
-                return response;
-            }).catch(function(error) {
-                /* eslint-disable no-console */
-                console.error(error);
+                return response.status;
+            }).catch(function(response) {
+                return response.status;
             });
     },
     getFile: function(entityName, documentType, fid, thumbnail) {
@@ -36,7 +32,6 @@ const fileManagementApi = {
         }
         return axios.get(url)
             .then(function(response) {
-                console.log(response.data);
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
@@ -47,7 +42,6 @@ const fileManagementApi = {
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta/${fid}`;
         return axios.get(url)
             .then(function(response) {
-                console.log(response.data);
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
@@ -55,7 +49,6 @@ const fileManagementApi = {
             });
     },
     getMetaByEntityFid: function(entityName, documentType, entityFid) {
-        console.log('!!!', entityName, documentType, entityFid);
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
         return axios.get(url)
             .then(function(response) {

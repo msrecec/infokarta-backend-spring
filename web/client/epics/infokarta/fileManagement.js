@@ -31,11 +31,12 @@ export const loadFileMetadataByEntityId = (action$) =>
 export const handleImageUploadByEntityId = (action$) =>
     action$.ofType(UPLOAD_NEW_FILE_BY_ENTITY_ID)
         .switchMap(({ entityName, documentType, fileName, file, entityFid }) => {
+            console.log('epic', entityName, documentType, fileName, file, entityFid);
             return Rx.Observable.fromPromise(fileManagementApi.uploadFile(entityName, documentType, fileName, file, entityFid)
                 .then(data => data))
                 .switchMap((response) => {
                     return Rx.Observable.of(
-                        uploadNewFileResponse(response.data)
+                        uploadNewFileResponse(response)
                     );
                 })
                 .catch((error) => {
