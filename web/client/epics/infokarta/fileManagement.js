@@ -8,6 +8,8 @@ import {
     uploadNewFileResponse
 } from "../../actions/infokarta/fileManagement";
 
+import { insertSuccessful, insertUnsuccessful } from "../../actions/infokarta/dynamicModalControl";
+
 import fileManagementApi from "../../api/infokarta/fileManagementApi";
 
 export const loadFileMetadataByEntityId = (action$) =>
@@ -31,11 +33,22 @@ export const loadFileMetadataByEntityId = (action$) =>
 export const handleImageUploadByEntityId = (action$) =>
     action$.ofType(UPLOAD_NEW_FILE_BY_ENTITY_ID)
         .switchMap(({ entityName, documentType, fileName, file, entityFid }) => {
-            console.log('epic', entityName, documentType, fileName, file, entityFid);
             return Rx.Observable.fromPromise(fileManagementApi.uploadFile(entityName, documentType, fileName, file, entityFid)
                 .then(data => data))
-                .switchMap((response) => {
+                .mergeMap((response) => {
+                    if (response === 200) {
+                        return Rx.Observable.of(
+                            insertSuccessful("Prijenos uspješan", "Vaš dokument/slika je uspješno pohranjen/a u bazu podataka."),
+                            uploadNewFileResponse(response)
+                        );
+                    } else if (response === 415) {
+                        return Rx.Observable.of(
+                            insertUnsuccessful("Greška", "Format odabrane datoteke nije podržan."),
+                            uploadNewFileResponse(response)
+                        );
+                    }
                     return Rx.Observable.of(
+                        insertUnsuccessful("Greška", "Došlo je do greške prilikom prijenosa. Molimo pokušajte ponovno."),
                         uploadNewFileResponse(response)
                     );
                 })
