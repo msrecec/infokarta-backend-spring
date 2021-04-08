@@ -92,6 +92,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     /**
      * Pokojnici dynamic search
      * WARNING: NOT CLEAN -- NEEDS REFACTOR !!!
+     * WARNING: CHANGE AT YOUR OWN RISK !!!
      *
      * @param oIme name of deceased
      * @param oPrezime surname of deceased
