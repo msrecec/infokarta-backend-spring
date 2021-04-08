@@ -28,18 +28,6 @@ class FileUploadFormComponent extends React.Component {
         };
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.responseStatus !== this.props.responseStatus) {
-            if (this.props.responseStatus === 200) {
-                this.props.showSuccessMessage("Prijenos podataka uspješan", "Vaš dokument/slika je uspješno pohranjen/a u bazu podataka.");
-            } else if (this.props.responseStatus === 415) {
-                this.props.showFailureMessage("Greška", "Format odabrane datoteke nije podržan.");
-            } else {
-                this.props.showFailureMessage("Greška", "Došlo je do greške prilikom prijenosa. Molimo pokušajte ponovno.");
-            }
-        }
-    }
-
     render() {
         const saveFileToLocalState = (e) => {
             const uploadedFile = e.target.files[0];
