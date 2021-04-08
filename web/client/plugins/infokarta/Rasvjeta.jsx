@@ -9,7 +9,8 @@ import Message from '../../components/I18N/Message';
 // actions
 import {
     getLightingData,
-    setPageForLighting
+    setPageForLighting,
+    zoomToLampFromLighting
 } from '../../actions/infokarta/lighting';
 
 // utils
@@ -52,11 +53,13 @@ const Rasvjeta = ({
     page,
     totalNumber,
     loadData = () => {},
-    sendPageNumber = () => {}
+    sendPageNumber = () => {},
+    sendZoomData = () => {}
 }) => {
     const table = (<TableComponent
         items ={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        zoomToItem={sendZoomData}
     />);
 
     const pagination = (<PaginationComponent
@@ -81,7 +84,8 @@ export default createPlugin('Rasvjeta', {
         totalNumber: get(state, 'lighting.totalNumber')
     }), {
         loadData: getLightingData,
-        sendPageNumber: setPageForLighting
+        sendPageNumber: setPageForLighting,
+        sendZoomData: zoomToLampFromLighting
     })(Rasvjeta),
     containers: {
         DrawerMenu: {

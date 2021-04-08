@@ -1,6 +1,7 @@
 export const GET_LIGHTING_DATA = "GET_LIGHTING_DATA";
 export const LIGHTING_DATA_RECEIVED = "LIGHTING_DATA_RECEIVED";
 export const SET_PAGE_FOR_LIGHTING = "SET_PAGE_FOR_LIGHTING";
+export const ZOOM_TO_LAMP_FROM_LIGHTING = "ZOOM_TO_LAMP_FROM_LIGHTING";
 
 export const getLightingData = () => ({
     type: GET_LIGHTING_DATA
@@ -15,4 +16,9 @@ export const lightingDataReceived = (lighting, totalNumber) => ({
 export const setPageForLighting = (pageNumber) => ({
     type: SET_PAGE_FOR_LIGHTING,
     pageNumber
+});
+
+export const zoomToLampFromLighting = (geom) => ({
+    type: ZOOM_TO_LAMP_FROM_LIGHTING,
+    geom
 });

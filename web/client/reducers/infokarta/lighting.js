@@ -1,5 +1,6 @@
 import {
-    LIGHTING_DATA_RECEIVED
+    LIGHTING_DATA_RECEIVED,
+    SET_PAGE_FOR_LIGHTING
 } from '../../actions/infokarta/lighting';
 
 const lighting = (
@@ -14,6 +15,12 @@ const lighting = (
         return {
             ...state,
             data: action.lighting
+        };
+    }
+    case SET_PAGE_FOR_LIGHTING: {
+        return {
+            ...state,
+            pageNumber: action.pageNumber
         };
     }
     default: {
