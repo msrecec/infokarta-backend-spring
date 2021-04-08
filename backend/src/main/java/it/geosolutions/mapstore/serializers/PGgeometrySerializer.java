@@ -13,19 +13,19 @@ public class PGgeometrySerializer extends JsonSerializer<PGgeometry> {
 
         json.writeStartObject();
 
-        json.writeStringField("type", geom.getType());
+        json.writeStringField("type", geom.getGeometry().getTypeString());
 
         json.writeFieldName("crs");
 
         json.writeStartObject();
 
-        json.writeStringField("type", geom.getGeometry().getTypeString());
+        json.writeStringField("type", "name");
 
         json.writeFieldName("properties");
 
         json.writeStartObject();
 
-        json.writeStringField("name", geom.getGeometry().getValue());
+        json.writeStringField("name", "EPSG:"+geom.getGeometry().getSrid());
 
         json.writeEndObject();
 

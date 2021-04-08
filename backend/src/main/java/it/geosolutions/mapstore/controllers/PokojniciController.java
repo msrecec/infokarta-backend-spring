@@ -19,6 +19,20 @@ import java.util.Optional;
 @Controller
 public class PokojniciController {
 
+    /**
+     * Pokojnici dynamic search controller
+     *
+     * @param request
+     * @param response
+     * @param ime
+     * @param prezime
+     * @param pocGodinaUkopa
+     * @param konGodinaUkopa
+     * @param groblje
+     * @param page
+     * @throws IOException
+     */
+
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
     @ResponseBody

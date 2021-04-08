@@ -1,6 +1,7 @@
 package it.geosolutions.mapstore.dao.grob;
 
 import it.geosolutions.mapstore.model.Grob;
+import org.postgis.PGgeometry;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -14,5 +15,5 @@ public interface GrobDAO {
 
     public List<Grob> getRbrByGroblje(String groblje);
 
-    public String getGeomByFid(Integer fid);
+    public PGgeometry getGrobByFid(Integer fid);
 }

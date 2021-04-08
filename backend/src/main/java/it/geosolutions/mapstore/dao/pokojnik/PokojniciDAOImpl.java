@@ -87,6 +87,23 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         return pokojnik;
     }
 
+
+
+    /**
+     * Pokojnici dynamic search
+     * WARNING: NOT CLEAN -- NEEDS REFACTOR !!!
+     *
+     * @param oIme name of deceased
+     * @param oPrezime surname of deceased
+     * @param oPocGodinaUkopa start year of deceased entities that area being searched
+     * @param oKonGodinaUkopa end year of deceased entities that area being searched -- start and end refer to the
+     *                        year of death
+     * @param oGroblje graveyard
+     * @param oPage pagination (page number)
+     * @return json string
+     * @throws UnsupportedEncodingException
+     */
+
     @Override
     public String searchPokojnici(Optional<String> oIme,
                                           Optional<String> oPrezime,

@@ -1,7 +1,12 @@
 package it.geosolutions.mapstore.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import it.geosolutions.mapstore.serializers.PGgeometrySerializer;
+import org.postgis.PGgeometry;
+
 public class Grob {
-    private String geom;
+    @JsonSerialize(using = PGgeometrySerializer.class)
+    private PGgeometry geom;
     private Integer fid;
     private String source;
     private String source1;
@@ -36,11 +41,11 @@ public class Grob {
             '}';
     }
 
-    public String getGeom() {
+    public PGgeometry getGeom() {
         return geom;
     }
 
-    public void setGeom(String geom) {
+    public void setGeom(PGgeometry geom) {
         this.geom = geom;
     }
 

@@ -1,11 +1,14 @@
 package it.geosolutions.mapstore.controllers;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.model.Grob;
+import it.geosolutions.mapstore.serializers.PGgeometrySerializer;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
+import org.postgis.PGgeometry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +33,7 @@ public class GroboviController {
 
         GrobDAO grobDAO = new GrobDAOImpl();
         List<Grob> grobovi;
+        PGgeometry geometry = null;
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<Boolean> oGeom = Optional.ofNullable(geom);
         Optional<Integer> oFid = Optional.ofNullable(fid);
@@ -42,7 +46,10 @@ public class GroboviController {
         } else if (oGeom.isPresent() && oFid.isPresent() && !oGroblje.isPresent()) {
 
             if(oFid.get() > 0) {
-                json = grobDAO.getGeomByFid(oFid.get());
+
+                geometry = grobDAO.getGrobByFid(oFid.get());
+                json = JSONUtils.fromGeomToJSON(geometry);
+
             } else {
                 return;
             }

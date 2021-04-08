@@ -34,8 +34,6 @@ public class RasvjetaController {
 
         List<Rasvjeta> rasvjeta = rasvjetaDAO.findAll();
 
-        System.out.println(rasvjeta.get(0).getGeom().getType());
-
         HeaderUtils.responseWithJSON(response, JSONUtils.fromListToJSON(rasvjeta));
 
     }
