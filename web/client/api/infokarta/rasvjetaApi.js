@@ -20,6 +20,23 @@ const LighingApi = {
             }).catch(function(error) {
                 console.error(error);
             });
+    },
+
+    editLightingData: function(lighting) {
+        let url = ''; // Dodaj url iz backenda
+        let header = { "Content-Type": "application/json;charset=UTF-8" };
+
+        return axios.put(
+            url,
+            lighting,
+            {
+                headers: header
+            })
+            .then(function(response) {
+                return response.data;
+            }).catch(function(error) {
+                console.error(error);
+            });
     }
 };
 

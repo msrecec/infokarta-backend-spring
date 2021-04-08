@@ -33,6 +33,7 @@ class TableComponent extends React.Component {
   };
 
   render() {
+
       return (
           <div style={style}>
               <Table striped bordered condensed hover>
@@ -61,7 +62,7 @@ class TableComponent extends React.Component {
                                   <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={editTooltip}>
                                       <Button
                                           bsStyle="primary"
-                                          onClick={() => this.props.sendDataToEdit(item)}
+                                          onClick={() => this.editHandler(item)}
                                       >
                                           <Glyphicon glyph="pencil"/>
                                       </Button>
@@ -97,6 +98,14 @@ class TableComponent extends React.Component {
           </div>
       );
   }
+
+  editHandler = (item) => {
+      if (item.geom) {
+          delete item.geom;
+      }
+      this.props.sendDataToEdit(item);
+  };
 }
+
 
 export default TableComponent;

@@ -8,15 +8,21 @@ import Message from '../../components/I18N/Message';
 
 // actions
 import {
+    editLighting,
     getLightingData,
     setPageForLighting,
     zoomToLampFromLighting
 } from '../../actions/infokarta/lighting';
 
+import {
+    showEditModal
+} from "../../actions/infokarta/dynamicModalControl";
+
 // utils
 
 // reducers
 import lighting from '../../reducers/infokarta/lighting';
+import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 
 // epics
 import * as epics from '../../epics/infokarta/lighting';
@@ -25,6 +31,7 @@ import * as epics from '../../epics/infokarta/lighting';
 import TableComponent from '../../components/infokarta/Table';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
+import EditModal from '../../components/infokarta/EditModal';
 
 const style = {
     padding: 10
@@ -47,19 +54,28 @@ const fieldsToExclude = ["geom", "mjernoMjesto",
     "timeStart",
     "timeEnd",
     "userRole"];
-
+const readOnlyFields = [];
 const Rasvjeta = ({
     data,
     page,
     totalNumber,
     loadData = () => {},
     sendPageNumber = () => {},
-    sendZoomData = () => {}
+    sendZoomData = () => {},
+    setupEditModal = () => {},
+    sendEditedData = () => {}
 }) => {
     const table = (<TableComponent
         items ={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        sendDataToEdit={setupEditModal}
         zoomToItem={sendZoomData}
+    />);
+
+    const editModal = (<EditModal
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        editItem = {sendEditedData}
+        readOnlyFields={readOnlyFields ? readOnlyFields : []}
     />);
 
     const pagination = (<PaginationComponent
@@ -73,6 +89,7 @@ const Rasvjeta = ({
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {table}
             {pagination}
+            {editModal}
         </div>
     );
 };
@@ -85,7 +102,9 @@ export default createPlugin('Rasvjeta', {
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
-        sendZoomData: zoomToLampFromLighting
+        sendZoomData: zoomToLampFromLighting,
+        sendEditedData: editLighting,
+        setupEditModal: showEditModal
     })(Rasvjeta),
     containers: {
         DrawerMenu: {
@@ -100,6 +119,7 @@ export default createPlugin('Rasvjeta', {
     },
     epics,
     reducers: {
-        lighting
+        lighting,
+        dynamicModalControl
     }
 });

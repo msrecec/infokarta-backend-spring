@@ -2,11 +2,11 @@ import Rx from 'rxjs';
 import { get } from 'lodash';
 
 import {
-    getLightingData,
     GET_LIGHTING_DATA,
     lightingDataReceived,
     SET_PAGE_FOR_LIGHTING,
-    ZOOM_TO_LAMP_FROM_LIGHTING
+    ZOOM_TO_LAMP_FROM_LIGHTING,
+    EDIT_LIGHTING
 } from '../../actions/infokarta/lighting';
 
 import lightingApi from '../../api/infokarta/rasvjetaApi';
@@ -15,6 +15,18 @@ import { zoomToPoint, CLICK_ON_MAP } from '../../actions/map';
 import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
 
 import { defaultIconStyle } from '../../utils/SearchUtils';
+
+import {
+    SHOW_INSERT_MODAL,
+    generateInsertForm,
+    hideEditModal,
+    hideInsertModal,
+    showInsertModal,
+    clearDynamicComponentStore,
+    insertSuccessful,
+    insertUnsuccessful,
+    hideInsertConfirmationModal
+} from "../../actions/infokarta/dynamicModalControl";
 
 
 export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) =>
@@ -63,4 +75,23 @@ export const removeLightingPinLayer = (action$) =>
             return Rx.Observable.of(
                 removeAdditionalLayer({id: 'lighting', owner: 'lighting'})
             );
+        });
+
+export const sendEditDataForLighting = (action$) =>
+    action$.ofType(EDIT_LIGHTING)
+        .switchMap(({ itemToEdit }) => {
+            return Rx.Observable.fromPromise(lightingApi.editLightingData(itemToEdit)
+                .then(data => data))
+                .mergeMap((response) => {
+                    console.log('lampa edit', response);
+                    return Rx.Observable.of(
+                        hideEditModal()
+                    );
+                })
+                .catch((error) => {
+                    return Rx.Observable.of(
+                        /* eslint-disable no-console */
+                        console.error('error while editing deceased', error)
+                    );
+                });
         });
