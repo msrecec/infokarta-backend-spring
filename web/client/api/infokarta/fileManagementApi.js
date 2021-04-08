@@ -19,8 +19,8 @@ const fileManagementApi = {
             })
             .then(function(response) {
                 return response.status;
-            }).catch(function(response) {
-                return response.status;
+            }).catch(function(error) {
+                return error.status;
             });
     },
     getFile: function(entityName, documentType, fid, thumbnail) {
