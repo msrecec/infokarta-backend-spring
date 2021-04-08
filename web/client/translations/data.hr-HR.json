@@ -85,8 +85,8 @@
             "propertiesFormatDescription": "Prikaz informacija o objektu kao lista svojstava",
             "templateFormatTitle": "PREDLOŽAK",
             "templateFormatDescription": "Prilagodba prikaza informacija o objektu",
-            "hideFormatTitle": "DÉSACTIVER L'IDENTIFICATION",
-            "hideFormatDescription": "Tiltsa le a funkció információit ehhez a réteghez",
+            "hideFormatTitle": "NEISPRAVNA IDENTIFIKACIJA",
+            "hideFormatDescription": "Onemogućite informacije o značajkama za ovaj sloj",
             "templateFormatInfoAlert1": "Klikni na dugme za editiranje za dodavanje novog predloška.",
             "templateFormatInfoAlert2": "Koristi ${ attribute } za označavanje atributa za prikaz",
             "templateFormatInfoAlertExample": "Id objekta je ${ properties }",
@@ -102,37 +102,37 @@
                 "bottom": "Dno",
                 "top": "Vrh",
                 "left": "Left",
-                "editLayerName": "Edit layer name",
-                "confirmLayerName": "Confirm layer name change"
+                "editLayerName": "Uredite naziv sloja",
+                "confirmLayerName": "Potvrdite izmjenu naziva sloja"
             },
             "visibilityLimits": {
-                "title": "Visibility limits",
-                "serverValuesUpdateUndefined": "The server did not provided scale visibility limits for this layer",
-                "serverValuesUpdate": "The server provided minimum and maximum scale visibility limits for this layer",
-                "serverValuesUpdateMinScale": "The server provided only minimum scale visibility limit for this layer",
-                "serverValuesUpdateMaxScale": "The server provided only maximum scale visibility limit for this layer",
-                "rangeError": "The minimum value is greater than the maximum value. Please provide a range where the maximum value is greater than the minimum value",
-                "serverValuesError": "It is not possible to request minimum and maximum scale visibility limits to the server. Probably due to error in the network connection or missing capability endpoint",
-                "updateWMSCapabilities": "Request minimum and maximum scale visibility limits to the server",
-                "maxValue": "Max value (excluded)",
-                "maxValuePlaceholder": "Select max value",
-                "valueNoResultsText": "No options match the input value",
-                "createOption": "Add new value {label}",
-                "minValue": "Min value (included)",
-                "minValuePlaceholder": "Select min value",
-                "type": "Limits type",
-                "scale": "Scale",
-                "resolution": "Resolution"
+                "title": "Ograničenja vidljivosti",
+                "serverValuesUpdateUndefined": "Server nije pružio razmjer ograničenja vidljivosti za ovaj sloj",
+                "serverValuesUpdate": "Server je pružio donju i gornju granicu skale ograničenja vidljivosti za ovaj sloj",
+                "serverValuesUpdateMinScale": "Server je pružio samo donju granicu skale vidljivosti za ovaj sloj",
+                "serverValuesUpdateMaxScale": "Server je pružio samo gornju granicu skale vidljivosti za ovaj sloj",
+                "rangeError": "Minimalna vrijednost veća je od maksimalne vrijednosti. Navedite raspon u kojem je maksimalna vrijednost veća od minimalne vrijednosti",
+                "serverValuesError": "Nije moguće zatražiti minimalna i maksimalna ograničenja vidljivosti skale za poslužitelj. Vjerojatno zbog pogreške u mrežnoj vezi ili nedostajuće krajnje točke mogućnosti",
+                "updateWMSCapabilities": "Zatražite minimalno i maksimalno ograničenje vidljivosti skale za poslužitelj",
+                "maxValue": "Maksimalna vrijednost (isključena)",
+                "maxValuePlaceholder": "Odaberite maksimalnu vrijednost",
+                "valueNoResultsText": "Nijedna opcija ne podudara se s ulaznom vrijednošću",
+                "createOption": "Dodaj novu vrijednost {label}",
+                "minValue": "Minimalna vrijednost (uključena)",
+                "minValuePlaceholder": "Odaberi minimalnz vrijednost",
+                "type": "Vrsta ograničenja",
+                "scale": "Skala",
+                "resolution": "Rezolucija"
             },
             "legendOptions": {
-                "title": "Legend",
-                "legendWidth": "Width",
-                "legendHeight": "Height",
-                "legendPreview": "Preview"
+                "title": "Legenda",
+                "legendWidth": "Širina",
+                "legendHeight": "Visina",
+                "legendPreview": "Pregled"
             },
             "enableLocalizedLayerStyles": {
-                "label": "Enable localized style",
-                "tooltip": "Note: This parameter requires specific configurations on GeoServer"
+                "label": "Omogući lokalizirani stil",
+                "tooltip": "Napomena: Ovaj parametar zahtijeva određene konfiguracije na GeoServeru"
             }
         },
         "longitude": "Geografska dužina",
