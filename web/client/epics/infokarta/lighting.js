@@ -56,3 +56,11 @@ export const zoomToLampFromRasvjetaPlugin = (action$) =>
                 zoomToPoint(geom.coordinates, 16, geom.crs.properties.name)
             ]);
         });
+
+export const removeLightingPinLayer = (action$) =>
+    action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)
+        .switchMap(({}) => {
+            return Rx.Observable.of(
+                removeAdditionalLayer({id: 'lighting', owner: 'lighting'})
+            );
+        });
