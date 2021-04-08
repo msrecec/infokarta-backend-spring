@@ -79,7 +79,7 @@ export const removeLightingPinLayer = (action$) =>
 
 export const sendEditDataForLighting = (action$) =>
     action$.ofType(EDIT_LIGHTING)
-        .switchMap(({ itemToEdit }) => {
+        .switchMap(({ itemToEdit = {} }) => {
             return Rx.Observable.fromPromise(lightingApi.editLightingData(itemToEdit)
                 .then(data => data))
                 .mergeMap((response) => {

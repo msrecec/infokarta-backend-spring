@@ -74,8 +74,8 @@ const Rasvjeta = ({
 
     const editModal = (<EditModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        editItem = {sendEditedData}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
+        editItem = {sendEditedData}
     />);
 
     const pagination = (<PaginationComponent
@@ -89,7 +89,7 @@ const Rasvjeta = ({
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {table}
             {pagination}
-            {editModal}
+            {/* editModal */}
         </div>
     );
 };
