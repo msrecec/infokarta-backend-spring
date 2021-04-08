@@ -50,7 +50,7 @@ public interface JSONUtils {
         return p;
     }
 
-    static String fromGeomToJSON(PGgeometry geom) throws JsonProcessingException {
+    static String fromPGgeometryToJSON(PGgeometry geom) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule s = new SimpleModule();
         s.addSerializer(PGgeometry.class, new PGgeometrySerializer());

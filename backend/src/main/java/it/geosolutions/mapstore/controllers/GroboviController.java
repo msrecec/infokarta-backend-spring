@@ -48,7 +48,7 @@ public class GroboviController {
             if(oFid.get() > 0) {
 
                 geometry = grobDAO.getGrobByFid(oFid.get());
-                json = JSONUtils.fromGeomToJSON(geometry);
+                json = JSONUtils.fromPGgeometryToJSON(geometry);
 
             } else {
                 return;
