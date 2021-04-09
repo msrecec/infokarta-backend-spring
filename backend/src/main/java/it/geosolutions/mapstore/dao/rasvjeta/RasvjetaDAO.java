@@ -7,8 +7,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RasvjetaDAO {
+    Integer pageSize = 5;
+
     public void setDataSource(DataSource ds);
 
-    public List<Rasvjeta> findAll();
-    public Optional<Rasvjeta> findByIdHist(Integer idHist);
+    List<Rasvjeta> findAll();
+
+    Optional<Rasvjeta> findById(Integer id);
+
+    List<Rasvjeta> findPaginated(Integer page);
+
+    Integer findCount();
 }

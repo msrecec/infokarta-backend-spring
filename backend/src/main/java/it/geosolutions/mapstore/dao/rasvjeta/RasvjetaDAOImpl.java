@@ -7,12 +7,14 @@ import it.geosolutions.mapstore.model.Rasvjeta;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+@Repository
 public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
 
@@ -27,10 +29,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
     @Override
     public List<Rasvjeta> findAll() {
-        String sql = "SELECT geom, fid, \"Materijal\", \"Stanje\", source, mjerno_mjesto, vod, kategorija, " +
-            "vrsta_rasvjetnog_mjesta, razdjelnik, trosilo, vrsta_svjetiljke, broj_svjetiljki, grlo, vrsta_stakla, " +
-            "polozaj_kabela, godina_izgradnje, oznaka_ugovora, id_hist, time_start, time_end, user_role " +
-            "FROM public.\"rasvjeta\" ORDER BY id_hist";
+        String sql = "SELECT * FROM public.\"rasvjeta\" ORDER BY id_hist";
 
         RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
 
@@ -40,7 +39,22 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     }
 
     @Override
-    public Optional<Rasvjeta> findByIdHist(Integer idHist) {
+    public List<Rasvjeta> findPaginated(Integer page) {
+        Integer limit = RasvjetaDAO.pageSize;
+
+        Integer offset = (page-1) * limit;
+
+        String sql = "SELECT * FROM public.\"rasvjeta\" ORDER BY id_hist LIMIT ? OFFSET ? ";
+
+        RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
+
+        List <Rasvjeta> rasvjeta = jdbcTemplateObject.query(sql, new Object[]{limit, offset}, rasvjetaMapper);
+
+        return rasvjeta;
+    }
+
+    @Override
+    public Optional<Rasvjeta> findById(Integer id) {
         String sql = "SELECT * FROM public.\"rasvjeta\" WHERE id_hist = ? ";
 
         RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
@@ -48,7 +62,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
         Optional<Rasvjeta> rasvjeta;
 
         try {
-             rasvjeta = Optional.ofNullable((Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{idHist}, rasvjetaMapper));
+             rasvjeta = Optional.ofNullable((Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, rasvjetaMapper));
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
             rasvjeta = Optional.ofNullable(null);
@@ -57,10 +71,18 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
         return rasvjeta;
     }
 
-    public Integer findCountByIdHist(Integer idHist) {
-        String sql = "SELECT COUNT(*) FROM public.\"rasvjeta\" WHERE id_hist = ?";
+    public Integer findCount() {
 
-        Integer count = jdbcTemplateObject.queryForInt(sql, new Object[]{idHist});
+        String sql = "SELECT COUNT(*) FROM public.\"rasvjeta\" ";
+        Integer count;
+
+        try {
+            count = jdbcTemplateObject.queryForInt(sql);
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            count = 0;
+        }
+
 
         return count;
     }

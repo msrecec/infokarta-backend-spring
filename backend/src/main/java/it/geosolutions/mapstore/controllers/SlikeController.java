@@ -3,7 +3,7 @@ package it.geosolutions.mapstore.controllers;
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAO;
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.config.FileSystemConfig;
-import it.geosolutions.mapstore.dto.SlikaMetaDTO;
+import it.geosolutions.mapstore.dto.slika.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import it.geosolutions.mapstore.service.slike.SlikaMetaService;
 import it.geosolutions.mapstore.service.slike.SlikaMetaServiceImpl;

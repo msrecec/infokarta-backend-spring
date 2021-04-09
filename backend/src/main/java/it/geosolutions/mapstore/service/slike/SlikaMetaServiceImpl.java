@@ -2,7 +2,7 @@ package it.geosolutions.mapstore.service.slike;
 
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAO;
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
-import it.geosolutions.mapstore.dto.SlikaMetaDTO;
+import it.geosolutions.mapstore.dto.slika.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
 import org.imgscalr.Scalr;
 import org.springframework.web.multipart.MultipartFile;

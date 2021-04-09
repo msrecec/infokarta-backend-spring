@@ -1,14 +1,17 @@
-package it.geosolutions.mapstore.dto;
+package it.geosolutions.mapstore.dto.rasvjeta;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.geosolutions.mapstore.model.Rasvjeta;
+import it.geosolutions.mapstore.serializers.RasvjetaListDTOSerializer;
 
 import java.util.List;
 
-public class RasvjetaDTO {
+@JsonSerialize(using = RasvjetaListDTOSerializer.class)
+public class RasvjetaListDTO {
     private List<Rasvjeta> rasvjeta;
     private Integer count;
 
-    public RasvjetaDTO(List<Rasvjeta> rasvjeta, Integer count) {
+    public RasvjetaListDTO(List<Rasvjeta> rasvjeta, Integer count) {
         this.rasvjeta = rasvjeta;
         this.count = count;
     }

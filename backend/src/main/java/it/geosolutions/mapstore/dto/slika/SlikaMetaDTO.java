@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.dto;
+package it.geosolutions.mapstore.dto.slika;
 
 public class SlikaMetaDTO {
     private Integer fid;
