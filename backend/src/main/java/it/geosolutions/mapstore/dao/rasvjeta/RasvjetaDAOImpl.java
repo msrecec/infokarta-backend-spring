@@ -1,6 +1,7 @@
 package it.geosolutions.mapstore.dao.rasvjeta;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
+import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.dao.groblje.GrobljeMapper;
 import it.geosolutions.mapstore.model.Groblje;
 import it.geosolutions.mapstore.model.Rasvjeta;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @Repository
-public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
+public class RasvjetaDAOImpl implements DAO<Rasvjeta>, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
 
     public RasvjetaDAOImpl() {
@@ -40,7 +41,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
     @Override
     public List<Rasvjeta> findPaginated(Integer page) {
-        Integer limit = RasvjetaDAO.pageSize;
+        Integer limit = DAO.pageSize;
 
         Integer offset = (page-1) * limit;
 
@@ -51,6 +52,16 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
         List <Rasvjeta> rasvjeta = jdbcTemplateObject.query(sql, new Object[]{limit, offset}, rasvjetaMapper);
 
         return rasvjeta;
+    }
+
+    @Override
+    public void save(Rasvjeta rasvjeta) {
+
+    }
+
+    @Override
+    public void update(Rasvjeta rasvjeta) {
+
     }
 
     @Override
