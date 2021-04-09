@@ -5,6 +5,7 @@ import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAOImpl;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
 import it.geosolutions.mapstore.model.Rasvjeta;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +13,8 @@ import java.util.Optional;
 
 @Service
 public class RasvjetaServiceImpl implements RasvjetaService {
+    @Autowired
     private RasvjetaDAO rasvjetaDAO;
-
-    public RasvjetaServiceImpl() {
-        this.rasvjetaDAO = new RasvjetaDAOImpl();
-    }
 
     @Override
     public Optional<Rasvjeta> findById(Integer id) {
