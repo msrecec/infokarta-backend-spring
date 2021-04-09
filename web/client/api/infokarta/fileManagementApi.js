@@ -1,7 +1,7 @@
 import axios from "../../libs/ajax";
 
 const fileManagementApi = {
-    uploadFile: function(entityName, documentType, fileName, file, entityFid) {
+    uploadFile: function(entityName, documentType, file, entityFid) {
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/upload/media/${documentType}?entityFid=${entityFid}`;
 
         const header = {

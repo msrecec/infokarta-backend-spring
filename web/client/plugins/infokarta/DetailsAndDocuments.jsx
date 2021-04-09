@@ -6,81 +6,42 @@ import Message from '../../components/I18N/Message';
 import { Glyphicon, Button, ControlLabel } from 'react-bootstrap';
 
 // actions
-import {
-    setSearchParametersForDeceased,
-    resetSearchParametersForDeceased,
-    editDeceased,
-    insertDeceased,
-    zoomToGraveFromDeceased,
-    setPageForDeceased
-} from "../../actions/infokarta/deceased";
-
-import {
-    enableGravePickMode
-} from "../../actions/infokarta/gravePickerTool";
-
-import {
-    showEditModal,
-    showInsertModal
-} from "../../actions/infokarta/dynamicModalControl";
 
 // utils
 import { createPlugin } from '../../utils/PluginsUtils';
 import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
 
 // reducers
-import deceased from '../../reducers/infokarta/deceased';
-import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
-import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
 import fileManagement from '../../reducers/infokarta/fileManagement';
+import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
 
 // epics
-import { deceasedAndFileManagementEpic } from '../../epics/infokarta/combinedEpics';
+import * as epics from '../../epics/infokarta/fileManagement';
 
 // components
-import TableComponent from '../../components/infokarta/Table';
-import EditModal from '../../components/infokarta/EditModal';
-import InsertModal from '../../components/infokarta/InsertModal';
-import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
-import SearchComponent from '../../components/infokarta/SearchForm';
-import PaginationComponent from "../../components/infokarta/Pagination";
-import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
 import FileContainer from '../../components/infokarta/fileUpload/ParentComponent';
 
 const style = {
     padding: 10
 };
 
-const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
-const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
-const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
-
-const Pokojnici = ({
-    data,
-    page,
-    totalNumber,
-    chosenGrave,
-    sendSearchParameters = () => {},
-    resetSearchParameters = () => {},
-    sendPageNumber = () => {},
-    setupEditModal = () => {},
-    sendEditedData = () => {},
-    sendNewData = () => {},
-    setupInsertModal = () => {},
-    sendZoomData = () => {},
-    startChooseMode = () => {}
+const DetailsAndDocumentsPlugin = ({
 }) => {
+
+    const fileContainer = (<FileContainer/>);
 
     return (
         <div style={style}>
+            {fileContainer}
         </div>
     );
 };
 
 export default createPlugin('DetailsAndDocuments', {
     component: connect((state) => ({
+        item: get(state, "detailsAndDocuments.item")
     }), {
-    })(Pokojnici),
+    })(DetailsAndDocumentsPlugin),
     containers: {
         DrawerMenu: {
             name: "DetailsAndDocuments",
@@ -92,8 +53,9 @@ export default createPlugin('DetailsAndDocuments', {
             doNotHide: true
         }
     },
-    epics: {},
+    epics,
     reducers: {
-        fileManagement
+        fileManagement,
+        detailsAndDocuments
     }
 });

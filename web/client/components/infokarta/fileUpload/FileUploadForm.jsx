@@ -13,11 +13,13 @@ class FileUploadFormComponent extends React.Component {
         responseStatus: PropTypes.number,
         showSuccessMessage: PropTypes.func,
         showFailureMessage: PropTypes.func,
-        uploadFile: PropTypes.func
+        uploadFile: PropTypes.func,
+        itemId: PropTypes.number
     };
 
     static defaultProps = {
-        responseStatus: null
+        responseStatus: null,
+        itemId: null
     };
 
     constructor(props) {
@@ -36,12 +38,11 @@ class FileUploadFormComponent extends React.Component {
 
         const handleUpload = () => {
             if (this.state.file) {
-                this.props.uploadFile("pokojnici", "slika", "", this.state.file, 1);
+                this.props.uploadFile("pokojnici", "slika", this.state.file, this.props.itemId);
                 this.setState({ "fileChosen": false });
             } else {
                 this.props.showFailureMessage("Greška", "Niste odabrali dokument/sliku za prijenos.");
             }
-
         };
 
         return (

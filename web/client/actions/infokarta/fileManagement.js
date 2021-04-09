@@ -15,11 +15,10 @@ export const filesLoadedByEntityId = (response) => ({
     response
 });
 
-export const uploadNewFileByEntityId = (entityName, documentType, fileName, file, entityFid) => ({
+export const uploadNewFileByEntityId = (entityName, documentType, file, entityFid) => ({
     type: UPLOAD_NEW_FILE_BY_ENTITY_ID,
     entityName,
     documentType,
-    fileName,
     file,
     entityFid
 });

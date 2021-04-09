@@ -24,12 +24,19 @@ let zoomTooltip = (fid) => {
     );
 };
 
+let detailsTooltip = (
+    <Tooltip id="tooltip-top">
+        Pregledaj detalje i dokumente vezane uz stavku
+    </Tooltip>
+);
+
 class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
       fieldsToExclude: PropTypes.array,
       sendDataToEdit: PropTypes.func,
-      zoomToItem: PropTypes.func
+      zoomToItem: PropTypes.func,
+      sendDataToDetailsPlugin: PropTypes.func
   };
 
   render() {
@@ -40,6 +47,7 @@ class TableComponent extends React.Component {
                       <tr>
                           <th key="#" />
                           <th key="##" />
+                          <th key="###" />
                           {/* koristi se tako da botuni ne pomaknu sve udesno za jedno misto */}
                           {this.props.items[0] ?
                               Object.keys(this.props.items[0]).map((header) => {
@@ -57,8 +65,17 @@ class TableComponent extends React.Component {
                       {this.props.items.map((item) =>
                           <tr>
                               <td>
-                                  {/* glyphicon-eye-open za details/document view */}
-                                  <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={editTooltip}>
+                                  <OverlayTrigger placement="top" overlay={detailsTooltip}>
+                                      <Button
+                                          bsStyle="primary"
+                                          onClick={() => this.props.sendDataToDetailsPlugin(item.fid)}
+                                      >
+                                          <Glyphicon glyph="eye-open"/>
+                                      </Button>
+                                  </OverlayTrigger>
+                              </td>
+                              <td>
+                                  <OverlayTrigger placement="top" overlay={editTooltip}>
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.sendDataToEdit(item)}

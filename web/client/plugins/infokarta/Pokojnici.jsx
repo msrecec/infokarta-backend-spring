@@ -24,6 +24,10 @@ import {
     showInsertModal
 } from "../../actions/infokarta/dynamicModalControl";
 
+import {
+    loadDataForDetailsPlugin
+} from "../../actions/infokarta/detailsAndDocuments";
+
 // utils
 import { createPlugin } from '../../utils/PluginsUtils';
 import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
@@ -32,10 +36,9 @@ import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUt
 import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
-import fileManagement from '../../reducers/infokarta/fileManagement';
 
 // epics
-import { deceasedAndFileManagementEpic } from '../../epics/infokarta/combinedEpics';
+import * as epics from '../../epics/infokarta/deceased';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
@@ -45,15 +48,38 @@ import InsertConfirmationModal from '../../components/infokarta/InsertConfirmati
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
-import FileContainer from '../../components/infokarta/fileUpload/ParentComponent';
-
-const style = {
-    padding: 10
-};
 
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
+const searchFormData = [
+    {
+        label: "Ime",
+        type: "text",
+        value: "name"
+    },
+    {
+        label: "Prezime",
+        type: "text",
+        value: "surname"
+    },
+    {
+        label: "Godina smrti od",
+        type: "text",
+        value: "yearOfDeathFrom"
+    },
+    {
+        label: "Godina smrti do",
+        type: "text",
+        value: "yearOfDeathTo"
+    },
+    {
+        label: "Groblje",
+        type: "select",
+        value: "graveyard",
+        selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
+    }
+];
 
 const Pokojnici = ({
     data,
@@ -68,36 +94,27 @@ const Pokojnici = ({
     sendNewData = () => {},
     setupInsertModal = () => {},
     sendZoomData = () => {},
-    startChooseMode = () => {}
+    startChooseMode = () => {},
+    sendDataToDetailsPlugin = () => {}
 }) => {
-    const searchFormData = [
-        {
-            label: "Ime",
-            type: "text",
-            value: "name"
-        },
-        {
-            label: "Prezime",
-            type: "text",
-            value: "surname"
-        },
-        {
-            label: "Godina smrti od",
-            type: "text",
-            value: "yearOfDeathFrom"
-        },
-        {
-            label: "Godina smrti do",
-            type: "text",
-            value: "yearOfDeathTo"
-        },
-        {
-            label: "Groblje",
-            type: "select",
-            value: "graveyard",
-            selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
-        }
-    ];
+    // custom komponente
+    const gravePickerButtonStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    };
+    const insertModalGravePickerModeButton = (<div style={gravePickerButtonStyle}>
+        <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
+    </div>);
+
+    const graveConfirmationForm = (<div>
+        <h3>Odabrana grobnica</h3>
+        {chosenGrave ? displayFeatureInfo(chosenGrave) : <ControlLabel>Nije odabrana grobnica.</ControlLabel>}
+        <hr/>
+        <h3>Pokojnikovi podaci</h3>
+    </div>
+    );
+    // kraj custom komponenti
 
     const search = (<SearchComponent
         buildData={searchFormData}
@@ -111,6 +128,7 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         sendDataToEdit={setupEditModal}
         zoomToItem={sendZoomData}
+        sendDataToDetailsPlugin={sendDataToDetailsPlugin}
     />);
 
     const pagination = (<PaginationComponent
@@ -125,27 +143,10 @@ const Pokojnici = ({
         editItem={sendEditedData}
     />);
 
-    const gravePickerButtonStyle = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-    };
-    const insertModalGravePickerModeButton = (<div style={gravePickerButtonStyle}>
-        <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
-    </div>);
-
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertModalGravePickerModeButton}
     />);
-
-    const graveConfirmationForm = (<div>
-        <h3>Odabrana grobnica</h3>
-        {chosenGrave ? displayFeatureInfo(chosenGrave) : <ControlLabel>Nije odabrana grobnica.</ControlLabel>}
-        <hr/>
-        <h3>Pokojnikovi podaci</h3>
-    </div>
-    );
 
     const insertConfirmationModal = (<InsertConfirmationModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
@@ -157,12 +158,8 @@ const Pokojnici = ({
     const gravePickerModal = (<GravePickerModal
     />);
 
-    //
-    const fileContainer = (<FileContainer/>);
-    //
-
     return (
-        <div style={style}>
+        <div style={{"padding": "10px"}}>
             {search}
             {table}
             {pagination}
@@ -170,7 +167,6 @@ const Pokojnici = ({
             {insertModal}
             {insertConfirmationModal}
             {gravePickerModal}
-            {fileContainer}
         </div>
     );
 };
@@ -190,7 +186,8 @@ export default createPlugin('Pokojnici', {
         sendEditedData: editDeceased,
         sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,
-        startChooseMode: enableGravePickMode
+        startChooseMode: enableGravePickMode,
+        sendDataToDetailsPlugin: loadDataForDetailsPlugin
     })(Pokojnici),
     containers: {
         DrawerMenu: {
@@ -203,11 +200,10 @@ export default createPlugin('Pokojnici', {
             doNotHide: true
         }
     },
-    epics: deceasedAndFileManagementEpic,
+    epics,
     reducers: {
         deceased,
         dynamicModalControl,
-        fileManagement,
         gravePickerTool
     }
 });

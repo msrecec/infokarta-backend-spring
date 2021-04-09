@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 
-import { Button } from 'react-bootstrap';
-
 import FileContainer from "./FileContainer";
 
 import { getFilesByEntityId } from "../../../actions/infokarta/fileManagement";
@@ -17,18 +15,27 @@ const style = {
 
 class FileListComponent extends React.Component {
   static propTypes = {
+      itemId: PropTypes.number,
       files: PropTypes.array,
       getFilesMeta: PropTypes.func
   };
 
   static defaultProps = {
-      files: []
+      files: [],
+      itemId: null
   };
+
+  componentDidUpdate(prevProps) {
+      if (prevProps.itemId !== this.props.itemId) {
+          this.props.getFilesMeta("pokojnici", "slika", this.props.itemId);
+          // this.props.getFilesMeta("pokojnici", "dokument", this.props.itemId);
+          // TODO dodat dva polja, tj. niza od kojih jedan prikazuje slike a drugi dokumente
+      }
+  }
 
   render() {
       return (
           <div style={style}>
-              <Button bsStyle="success" onClick={() => this.props.getFilesMeta("pokojnici", "slika", 1)}>get</Button>
               {this.props.files.length !== 0 ? Object.entries(this.props.files).map((file) => {
                   return (
                       <FileContainer file={file[1]} />

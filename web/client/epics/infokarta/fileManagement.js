@@ -32,8 +32,8 @@ export const loadFileMetadataByEntityId = (action$) =>
 
 export const handleImageUploadByEntityId = (action$) =>
     action$.ofType(UPLOAD_NEW_FILE_BY_ENTITY_ID)
-        .switchMap(({ entityName, documentType, fileName, file, entityFid }) => {
-            return Rx.Observable.fromPromise(fileManagementApi.uploadFile(entityName, documentType, fileName, file, entityFid)
+        .switchMap(({ entityName, documentType, file, entityFid }) => {
+            return Rx.Observable.fromPromise(fileManagementApi.uploadFile(entityName, documentType, file, entityFid)
                 .then(data => data))
                 .mergeMap((response) => {
                     if (response === 200) {

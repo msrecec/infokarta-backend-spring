@@ -4,14 +4,9 @@ import PropTypes from 'prop-types';
 import FileUploadForm from './FileUploadForm';
 import FileList from './FileList';
 
-// const style = {
-//     display: "flex",
-//     flexDirection: "column",
-//     alignItems: "center"
-// };
-
 class ParentComponent extends React.Component {
     static propTypes = {
+        itemId: PropTypes.number,
         files: PropTypes.array
     };
 
@@ -21,9 +16,11 @@ class ParentComponent extends React.Component {
 
     render() {
         const fileUpload = (<FileUploadForm
+            itemId={this.props.itemId}
         />);
 
         const fileList = (<FileList
+            itemId={this.props.itemId}
         />);
 
         return (

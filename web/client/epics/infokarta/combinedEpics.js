@@ -1,4 +1,6 @@
-import * as deceasedEpics from '../../epics/infokarta/deceased';
-import * as fileManagementEpics from '../../epics/infokarta/fileManagement';
+// import * as deceasedEpics from './deceased';
+// import * as fileManagementEpics from './fileManagement';
 
-export const deceasedAndFileManagementEpic = Object.assign(deceasedEpics, fileManagementEpics);
+// export const deceasedAndFileManagementEpic = Object.assign(deceasedEpics, fileManagementEpics);
+
+// PRIMJER KOMBINIRANJA VISE EPICA U JEDAN EPIC
