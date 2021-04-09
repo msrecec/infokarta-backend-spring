@@ -36,6 +36,7 @@ import EditModal from '../../components/infokarta/EditModal';
 const style = {
     padding: 10
 };
+const editModalName = "rasvjetaEdit";
 
 const fieldsToExclude = ["geom", "mjernoMjesto",
     "vod",
@@ -59,6 +60,7 @@ const Rasvjeta = ({
     data,
     page,
     totalNumber,
+    editModalShow,
     loadData = () => {},
     sendPageNumber = () => {},
     sendZoomData = () => {},
@@ -69,14 +71,15 @@ const Rasvjeta = ({
         items ={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         sendDataToEdit={setupEditModal}
+        editModalName = {editModalName}
         zoomToItem={sendZoomData}
     />);
-    const editModalName = "rasvjetaEdit";
+
     const editModal = (<EditModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
         editItem = {sendEditedData}
-        editModalName = {editModalName}
+        show = {editModalShow}
     />);
 
     const pagination = (<PaginationComponent
@@ -99,7 +102,8 @@ export default createPlugin('Rasvjeta', {
     component: connect((state) => ({
         data: get(state, 'lighting.data'),
         page: get(state, 'lighting.pageNumber'),
-        totalNumber: get(state, 'lighting.totalNumber')
+        totalNumber: get(state, 'lighting.totalNumber'),
+        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName)
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,

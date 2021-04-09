@@ -17,10 +17,6 @@ const dynamicModalControl = (state = {
     itemToEdit: {},
     itemToCheck: {},
     modals: {},
-    modalName: {},
-    nameToShow: {},
-    nameToHide: {},
-    additionalObject: {},
     editModalVisible: false,
     insertModalVisible: false,
     insertConfirmationModalVisible: false
@@ -29,12 +25,11 @@ const dynamicModalControl = (state = {
     case SHOW_DYNAMIC_MODAL: {
         let temp = state.modals;
         temp[action.modalName] = true;
-        console.log(action.modalName);
-        console.log(action.modalName.toUppercase.includes("EDIT"));
+        console.log(action.modalName.includes("Edit"));
         return {
             ...state,
             modals: temp,
-            itemToEdit: action.modalName.toUppercase.includes("EDIT") ? action.additionalObject : {}
+            itemToEdit: action.modalName.includes("Edit") ? action.additionalObject : {}
         };
 
     }

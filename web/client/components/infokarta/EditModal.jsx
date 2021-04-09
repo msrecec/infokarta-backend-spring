@@ -9,7 +9,6 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
-import { preventDefault } from 'ol/events/event';
 
 const formStyle = {
     overflow: "auto",
@@ -100,8 +99,7 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToEdit: get(state, 'dynamicModalControl.itemToEdit'),
-        show: get(state, 'dynamicModalControl.editModalVisible')
+        itemToEdit: get(state, 'dynamicModalControl.itemToEdit')
     };
 }, {
     hideModal: hideDynamicModal
