@@ -290,7 +290,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "Pokojnici",
+        "desktop": ["Details", "Pokojnici", "DetailsAndDocuments",
           {
             "name": "Map",
             "cfg": {

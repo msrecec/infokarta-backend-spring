@@ -11,7 +11,7 @@ const detailsAndDocuments = (
     case LOAD_DATA_FOR_DETAILS_PLUGIN: {
         return {
             ...state,
-            files: action.response
+            item: action.item
         };
     }
     default:

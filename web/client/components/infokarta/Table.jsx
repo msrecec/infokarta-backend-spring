@@ -68,7 +68,7 @@ class TableComponent extends React.Component {
                                   <OverlayTrigger placement="top" overlay={detailsTooltip}>
                                       <Button
                                           bsStyle="primary"
-                                          onClick={() => this.props.sendDataToDetailsPlugin(item.fid)}
+                                          onClick={() => this.props.sendDataToDetailsPlugin(item)}
                                       >
                                           <Glyphicon glyph="eye-open"/>
                                       </Button>

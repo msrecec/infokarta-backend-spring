@@ -11,12 +11,13 @@ const fileManagementApi = {
         let formData = new FormData();
         formData.append("file", file);
 
-        return axios.post(
-            url,
-            formData,
-            {
-                headers: header
-            })
+        return axios({
+            method: "post",
+            url: url,
+            data: formData,
+            timeout: 8000,
+            headers: header
+        })
             .then(function(response) {
                 return response.status;
             }).catch(function(error) {

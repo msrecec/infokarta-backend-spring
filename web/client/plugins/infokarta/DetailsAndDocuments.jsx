@@ -19,20 +19,29 @@ import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
 import * as epics from '../../epics/infokarta/fileManagement';
 
 // components
-import FileContainer from '../../components/infokarta/fileUpload/ParentComponent';
+import FileComponentParent from '../../components/infokarta/fileUpload/ParentComponent';
 
 const style = {
-    padding: 10
+    padding: 16,
+    overflow: "auto",
+    maxHeight: "800px",
+    minWidth: "580px"
 };
 
 const DetailsAndDocumentsPlugin = ({
+    item
 }) => {
 
-    const fileContainer = (<FileContainer/>);
+    const fileComponentParent = (<FileComponentParent
+        itemId={item.fid ? item.fid : null}
+    />);
 
     return (
         <div style={style}>
-            {fileContainer}
+            <h2>Detalji stavke</h2>
+            {displayFeatureInfo(item)}
+            <hr />
+            {fileComponentParent}
         </div>
     );
 };
