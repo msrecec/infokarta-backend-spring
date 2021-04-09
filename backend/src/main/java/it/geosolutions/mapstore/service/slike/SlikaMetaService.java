@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.service;
+package it.geosolutions.mapstore.service.slike;
 
 import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;

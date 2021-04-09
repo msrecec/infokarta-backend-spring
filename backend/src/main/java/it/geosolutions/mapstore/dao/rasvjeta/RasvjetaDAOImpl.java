@@ -4,10 +4,14 @@ import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.dao.groblje.GrobljeMapper;
 import it.geosolutions.mapstore.model.Groblje;
 import it.geosolutions.mapstore.model.Rasvjeta;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
@@ -36,16 +40,29 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     }
 
     @Override
-    public Rasvjeta findByIdHist(Integer idHist) {
-        String sql = "SELECT geom, fid, \"Materijal\", \"Stanje\", source, mjerno_mjesto, vod, kategorija, " +
-            "vrsta_rasvjetnog_mjesta, razdjelnik, trosilo, vrsta_svjetiljke, broj_svjetiljki, grlo, vrsta_stakla, " +
-            "polozaj_kabela, godina_izgradnje, oznaka_ugovora, id_hist, time_start, time_end, user_role " +
-            "FROM public.\"rasvjeta\" WHERE id_hist = ?";
+    public Optional<Rasvjeta> findByIdHist(Integer idHist) {
+        String sql = "SELECT * FROM public.\"rasvjeta\" WHERE id_hist = ? ";
 
         RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
 
-        Rasvjeta rasvjeta = (Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{idHist}, rasvjetaMapper);
+        Optional<Rasvjeta> rasvjeta;
+
+        try {
+             rasvjeta = Optional.ofNullable((Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{idHist}, rasvjetaMapper));
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            rasvjeta = Optional.ofNullable(null);
+        }
 
         return rasvjeta;
     }
+
+    public Integer findCountByIdHist(Integer idHist) {
+        String sql = "SELECT COUNT(*) FROM public.\"rasvjeta\" WHERE id_hist = ?";
+
+        Integer count = jdbcTemplateObject.queryForInt(sql, new Object[]{idHist});
+
+        return count;
+    }
+
 }

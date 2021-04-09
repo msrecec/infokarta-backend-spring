@@ -5,12 +5,11 @@ import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.config.FileSystemConfig;
 import it.geosolutions.mapstore.dto.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.SlikaMeta;
-import it.geosolutions.mapstore.service.SlikaMetaService;
-import it.geosolutions.mapstore.service.SlikaMetaServiceImpl;
+import it.geosolutions.mapstore.service.slike.SlikaMetaService;
+import it.geosolutions.mapstore.service.slike.SlikaMetaServiceImpl;
 import it.geosolutions.mapstore.utils.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Controller

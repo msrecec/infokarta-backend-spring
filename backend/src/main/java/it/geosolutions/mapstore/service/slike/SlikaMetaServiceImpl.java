@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.service;
+package it.geosolutions.mapstore.service.slike;
 
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAO;
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
