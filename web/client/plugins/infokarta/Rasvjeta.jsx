@@ -15,7 +15,7 @@ import {
 } from '../../actions/infokarta/lighting';
 
 import {
-    showEditModal
+    showDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 // utils
@@ -71,11 +71,12 @@ const Rasvjeta = ({
         sendDataToEdit={setupEditModal}
         zoomToItem={sendZoomData}
     />);
-
+    const editModalName = "rasvjetaEdit";
     const editModal = (<EditModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
         editItem = {sendEditedData}
+        editModalName = {editModalName}
     />);
 
     const pagination = (<PaginationComponent
@@ -89,7 +90,7 @@ const Rasvjeta = ({
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {table}
             {pagination}
-            {/* editModal */}
+            {editModal}
         </div>
     );
 };
@@ -104,7 +105,7 @@ export default createPlugin('Rasvjeta', {
         sendPageNumber: setPageForLighting,
         sendZoomData: zoomToLampFromLighting,
         sendEditedData: editLighting,
-        setupEditModal: showEditModal
+        setupEditModal: showDynamicModal
     })(Rasvjeta),
     containers: {
         DrawerMenu: {

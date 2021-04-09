@@ -1,3 +1,4 @@
+import { mapValues } from 'lodash';
 import {
     SHOW_EDIT_MODAL,
     SHOW_INSERT_MODAL,
@@ -6,17 +7,54 @@ import {
     GENERATE_INSERT_FORM,
     SHOW_INSERT_CONFIRMATION_MODAL,
     HIDE_INSERT_CONFIRMATION_MODAL,
-    CLEAR_DYNAMIC_COMPONENT_STORE
+    CLEAR_DYNAMIC_COMPONENT_STORE,
+    SHOW_DYNAMIC_MODAL,
+    HIDE_DYNAMIC_MODAL,
+    ALTERNATE_MODAL_VISIBILITY
 } from '../../actions/infokarta/dynamicModalControl';
 
 const dynamicModalControl = (state = {
     itemToEdit: {},
     itemToCheck: {},
+    modals: {},
+    modalName: {},
+    nameToShow: {},
+    nameToHide: {},
+    additionalObject: {},
     editModalVisible: false,
     insertModalVisible: false,
     insertConfirmationModalVisible: false
 }, action) => {
     switch (action.type) {
+    case SHOW_DYNAMIC_MODAL: {
+        let temp = state.modals;
+        temp[action.modalName] = true;
+        console.log(action.modalName);
+        console.log(action.modalName.toUppercase.includes("EDIT"));
+        return {
+            ...state,
+            modals: temp,
+            itemToEdit: action.modalName.toUppercase.includes("EDIT") ? action.additionalObject : {}
+        };
+
+    }
+    case HIDE_DYNAMIC_MODAL: {
+        let temp = state.modals;
+        return {
+            ...state,
+            modals: mapValues(temp, () => false)
+        };
+    }
+    case ALTERNATE_MODAL_VISIBILITY: {
+        let temp = state.modals;
+        temp[action.nameToShow] = true;
+        temp[action.nameToHide] = false;
+        return {
+            ...state,
+            modals: temp,
+            itemToCheck: action.additionalObject
+        };
+    }
     case SHOW_EDIT_MODAL: {
         return {
             ...state,

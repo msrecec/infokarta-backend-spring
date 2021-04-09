@@ -6,6 +6,26 @@ export const GENERATE_INSERT_FORM = 'GENERATE_INSERT_FORM';
 export const SHOW_INSERT_CONFIRMATION_MODAL = 'SHOW_INSERT_CONFIRMATION_MODAL';
 export const HIDE_INSERT_CONFIRMATION_MODAL = 'HIDE_INSERT_CONFIRMATION_MODAL';
 export const CLEAR_DYNAMIC_COMPONENT_STORE = 'CLEAR_DYNAMIC_COMPONENT_STORE';
+export const SHOW_DYNAMIC_MODAL = 'SHOW_DYNAMIC_MODAL';
+export const HIDE_DYNAMIC_MODAL = 'HIDE_DYNAMIC_MODAL';
+export const ALTERNATE_MODAL_VISIBILITY = 'ALTERNATE_MODAL_VISIBILITY';
+
+export const showDynamicModal = (modalName, additionalObject = {}) => ({
+    type: SHOW_DYNAMIC_MODAL,
+    modalName,
+    additionalObject
+});
+
+export const hideDynamicModal = () => ({
+    type: HIDE_DYNAMIC_MODAL
+});
+
+export const alternateModalVisibility = (nameToShow, nameToHide, additionalObject = {}) => ({
+    type: ALTERNATE_MODAL_VISIBILITY,
+    nameToShow,
+    nameToHide,
+    additionalObject
+});
 
 export const showEditModal = (itemToEdit) => ({
     type: SHOW_EDIT_MODAL,

@@ -29,7 +29,8 @@ class TableComponent extends React.Component {
       items: PropTypes.array,
       fieldsToExclude: PropTypes.array,
       sendDataToEdit: PropTypes.func,
-      zoomToItem: PropTypes.func
+      zoomToItem: PropTypes.func,
+      editModalName: PropTypes.string
   };
 
   render() {
@@ -62,7 +63,7 @@ class TableComponent extends React.Component {
                                   <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }} overlay={editTooltip}>
                                       <Button
                                           bsStyle="primary"
-                                          onClick={() => this.editHandler(item)}
+                                          onClick={() => this.editHandler(this.props.editModalName, item)}
                                       >
                                           <Glyphicon glyph="pencil"/>
                                       </Button>
@@ -99,11 +100,11 @@ class TableComponent extends React.Component {
       );
   }
 
-  editHandler = (item) => {
+  editHandler = (modalName, item) => {
       if (item.geom) {
           delete item.geom;
       }
-      this.props.sendDataToEdit(item);
+      this.props.sendDataToEdit(modalName, item);
   };
 }
 

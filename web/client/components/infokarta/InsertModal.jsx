@@ -7,7 +7,8 @@ import { get, isEmpty } from "lodash";
 import {
     showInsertModal,
     showInsertConfirmationModal,
-    clearDynamicComponentStore
+    clearDynamicComponentStore,
+    alternateModalVisibility
 } from "../../actions/infokarta/dynamicModalControl";
 
 import { beautifyHeader } from "../../utils/infokarta/BeautifyUtil";
@@ -26,7 +27,9 @@ class BaseModalComponent extends React.Component {
       show: PropTypes.bool,
       extraForm: PropTypes.array,
       sendToConfirmationForm: PropTypes.func,
-      itemToCheck: PropTypes.object
+      itemToCheck: PropTypes.object,
+      insertModalName: PropTypes.string,
+      confirmationModalName: PropTypes.string
   };
 
   static defaultProps = {
@@ -115,7 +118,7 @@ const ModalComponent = connect((state) => {
 }, {
     showModal: showInsertModal,
     hideModal: clearDynamicComponentStore,
-    sendToConfirmationForm: showInsertConfirmationModal
+    sendToConfirmationForm: alternateModalVisibility
 })(BaseModalComponent);
 
 export default ModalComponent;
