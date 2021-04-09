@@ -17,12 +17,11 @@ const fileManagementApi = {
             data: formData,
             timeout: 8000,
             headers: header
-        })
-            .then(function(response) {
-                return response.status;
-            }).catch(function(error) {
-                return error.status;
-            });
+        }).then(function(response) {
+            return response.status;
+        }).catch(function(error) {
+            return error.status;
+        });
     },
     getFile: function(entityName, documentType, fid, thumbnail) {
         let url = '';

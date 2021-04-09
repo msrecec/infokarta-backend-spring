@@ -21,21 +21,27 @@ class FileContainer extends React.Component {
               border: "1px solid #dddddd",
               borderRadius: "16px",
               padding: "10px",
-              marginBottom: "10px"
+              marginBottom: "10px",
+              maxWidth: "500px"
           },
           informationContainer: {
               display: "flex",
               flexDirection: "column",
               paddingLeft: "10px",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
+              maxWidth: "500px"
           },
           fileInformation: {
               display: "flex",
-              flexDirection: "column"
+              flexDirection: "column",
+              maxWidth: "300px"
           },
           imageBorder: {
               border: "1px solid #dddddd",
               borderRadius: "8px"
+          },
+          wrap: {
+              wordWrap: "break-word"
           }
       };
 
@@ -44,8 +50,8 @@ class FileContainer extends React.Component {
               <img src={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}?thumbnail=true`} style={styles.imageBorder} height="150px" width="150px"/>
               <div style={styles.informationContainer}>
                   <div style={styles.fileInformation}>
-                      <span><b>Naziv dokumenta: </b>{this.props.file.naziv}</span>
-                      <span><b>Vrsta dokumenta: </b>{this.props.file.tip}</span>
+                      <span><b>Naziv dokumenta: </b><i style={styles.wrap}>{this.props.file.naziv}</i></span>
+                      <span><b>Vrsta dokumenta: </b><i style={styles.wrap}>{this.props.file.tip}</i></span>
                       <span><b>Prenio/la: </b>{/* this.props.file.uploader */} </span>
                       {/* TODO dodat uploader kad se uploada file i prikazat ovde */}
                   </div>

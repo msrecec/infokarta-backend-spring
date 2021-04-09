@@ -46,7 +46,7 @@ class FileUploadFormComponent extends React.Component {
         };
 
         return (
-            <form>
+            <form style={{maxWidth: "500px"}}>
                 <FormGroup
                     key="uploadForm"
                     controlId="uploadForm"
