@@ -17,15 +17,7 @@ import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actio
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import {
-    SHOW_INSERT_MODAL,
-    generateInsertForm,
-    hideEditModal,
-    hideInsertModal,
-    showInsertModal,
-    clearDynamicComponentStore,
-    insertSuccessful,
-    insertUnsuccessful,
-    hideInsertConfirmationModal
+    hideDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 
@@ -85,7 +77,7 @@ export const sendEditDataForLighting = (action$) =>
                 .mergeMap((response) => {
                     console.log('lampa edit', response);
                     return Rx.Observable.of(
-                        hideEditModal()
+                        hideDynamicModal()
                     );
                 })
                 .catch((error) => {

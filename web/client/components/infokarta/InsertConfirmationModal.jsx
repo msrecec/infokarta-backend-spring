@@ -26,7 +26,7 @@ class BaseModalComponent extends React.Component {
       insertItem: PropTypes.func,
       extraForm: PropTypes.object,
       insertModalName: PropTypes.string,
-      confirmationModalName: PropTypes.string
+      insertConfirmationModalName: PropTypes.string
   };
 
   static defaultProps = {
@@ -48,7 +48,7 @@ class BaseModalComponent extends React.Component {
               </Modal.Body>
               <Modal.Footer>
                   <Button onClick={() => this.props.returnToInsertModal(
-                      this.props.confirmationModalName,
+                      this.props.insertConfirmationModalName,
                       this.props.insertModalName
                   )}>
                   Povratak

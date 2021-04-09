@@ -119,7 +119,7 @@ class SearchComponent extends React.Component {
   }
 
   insertNew() {
-      this.props.openInsertForm(this.props.insertModalName);
+      this.props.openInsertForm();
   }
 }
 

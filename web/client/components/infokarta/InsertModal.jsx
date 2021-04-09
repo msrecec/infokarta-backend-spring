@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
-import { get, isEmpty } from "lodash";
+import { get, isEmpty, isArray } from "lodash";
 
 import {
     /* showInsertModal, */
@@ -28,7 +28,7 @@ class BaseModalComponent extends React.Component {
       sendToConfirmationForm: PropTypes.func,
       itemToCheck: PropTypes.object,
       insertModalName: PropTypes.string,
-      confirmationModalName: PropTypes.string
+      insertConfirmationModalName: PropTypes.string
   };
 
   static defaultProps = {
@@ -85,7 +85,7 @@ class BaseModalComponent extends React.Component {
                   </Button>
                   <Button bsStyle="success" onClick={() => this.props.sendToConfirmationForm(
                       this.props.insertModalName,
-                      this.props.confirmationModalName,
+                      this.props.insertConfirmationModalName,
                       this.state)}>
                   Unesi stavku
                   </Button>
@@ -99,7 +99,7 @@ class BaseModalComponent extends React.Component {
   }
 
   updateState = () => {
-      if (isEmpty(this.props.itemToCheck)) {
+      if (isEmpty(this.props.itemToCheck) && isArray(this.props.itemToInsert)) {
           const obj = this.props.itemToInsert.reduce((accumulator, currentValue) => {
               accumulator[currentValue] = "";
               return accumulator;
@@ -114,8 +114,7 @@ class BaseModalComponent extends React.Component {
 const ModalComponent = connect((state) => {
     return {
         itemToInsert: get(state, 'dynamicModalControl.itemToInsert'),
-        itemToCheck: get(state, 'dynamicModalControl.itemToCheck'),
-        show: get(state, 'dynamicModalControl.insertModalVisible')
+        itemToCheck: get(state, 'dynamicModalControl.itemToCheck')
     };
 }, {
     /* showModal: showInsertModal, */

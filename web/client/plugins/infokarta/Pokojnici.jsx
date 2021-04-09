@@ -20,7 +20,8 @@ import {
 } from "../../actions/infokarta/gravePickerTool";
 
 import {
-    showDynamicModal
+    showDynamicModal,
+    getColumnsForInsertFromDatabase
 } from "../../actions/infokarta/dynamicModalControl";
 
 // utils
@@ -102,20 +103,12 @@ const Pokojnici = ({
         }
     ];
 
-    const insertFormData = [
-        {
-            label: "Odaberite grobnicu klikom na kartu",
-            type: "button",
-            bsStyle: "success",
-            onClickfunction: startChooseMode
-        }
-    ];
-
     const search = (<SearchComponent
         buildData={searchFormData}
         search={sendSearchParameters}
         openInsertForm={setupInsertModal}
         resetSearchParameters={resetSearchParameters}
+        insertModalName = {insertModalName}
     />);
 
     const table = (<TableComponent
@@ -153,6 +146,7 @@ const Pokojnici = ({
         extraForm={insertModalGravePickerModeButton}
         insertModalName = {insertModalName}
         insertConfirmationModalName={insertConfirmationModalName}
+        show={insertModalShow}
     />);
 
     const graveConfirmationForm = (<div>
@@ -170,6 +164,7 @@ const Pokojnici = ({
         startChooseGraveMode={startChooseMode}
         insertModalName = {insertModalName}
         insertConfirmationModalName={insertConfirmationModalName}
+        show={insertConfirmationModalShow}
     />);
 
     const gravePickerModal = (<GravePickerModal
@@ -202,7 +197,7 @@ export default createPlugin('Pokojnici', {
         resetSearchParameters: resetSearchParametersForDeceased,
         sendPageNumber: setPageForDeceased,
         setupEditModal: showDynamicModal,
-        setupInsertModal: showDynamicModal,
+        setupInsertModal: getColumnsForInsertFromDatabase,
         sendEditedData: editDeceased,
         sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,
