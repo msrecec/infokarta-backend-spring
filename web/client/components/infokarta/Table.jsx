@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Table, Button, Glyphicon, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { cloneDeep } from 'lodash';
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
@@ -101,10 +102,11 @@ class TableComponent extends React.Component {
   }
 
   editHandler = (modalName, item) => {
-      if (item.geom) {
-          delete item.geom;
+      const temp = cloneDeep(item);
+      if (temp.geom) {
+          delete temp.geom;
       }
-      this.props.sendDataToEdit(modalName, item);
+      this.props.sendDataToEdit(modalName, temp);
   };
 }
 
