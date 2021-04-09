@@ -22,7 +22,8 @@ class SearchComponent extends React.Component {
       buildData: PropTypes.array,
       search: PropTypes.func,
       resetSearchParameters: PropTypes.func,
-      openInsertForm: PropTypes.func
+      openInsertForm: PropTypes.func,
+      insertModalName: PropTypes.string
   };
 
   static defaultProps = {
@@ -118,7 +119,7 @@ class SearchComponent extends React.Component {
   }
 
   insertNew() {
-      this.props.openInsertForm();
+      this.props.openInsertForm(this.props.insertModalName);
   }
 }
 

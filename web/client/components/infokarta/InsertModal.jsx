@@ -5,8 +5,7 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get, isEmpty } from "lodash";
 
 import {
-    showInsertModal,
-    showInsertConfirmationModal,
+    /* showInsertModal, */
     clearDynamicComponentStore,
     alternateModalVisibility
 } from "../../actions/infokarta/dynamicModalControl";
@@ -84,7 +83,10 @@ class BaseModalComponent extends React.Component {
                   <Button onClick={this.props.hideModal}>
                   Zatvori
                   </Button>
-                  <Button bsStyle="success" onClick={() => this.props.sendToConfirmationForm(this.state)}>
+                  <Button bsStyle="success" onClick={() => this.props.sendToConfirmationForm(
+                      this.props.insertModalName,
+                      this.props.confirmationModalName,
+                      this.state)}>
                   Unesi stavku
                   </Button>
               </Modal.Footer>
@@ -116,7 +118,7 @@ const ModalComponent = connect((state) => {
         show: get(state, 'dynamicModalControl.insertModalVisible')
     };
 }, {
-    showModal: showInsertModal,
+    /* showModal: showInsertModal, */
     hideModal: clearDynamicComponentStore,
     sendToConfirmationForm: alternateModalVisibility
 })(BaseModalComponent);

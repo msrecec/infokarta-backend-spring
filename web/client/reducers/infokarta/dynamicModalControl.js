@@ -42,8 +42,8 @@ const dynamicModalControl = (state = {
     }
     case ALTERNATE_MODAL_VISIBILITY: {
         let temp = state.modals;
-        temp[action.nameToShow] = true;
         temp[action.nameToHide] = false;
+        temp[action.nameToShow] = true;
         return {
             ...state,
             modals: temp,
@@ -97,13 +97,12 @@ const dynamicModalControl = (state = {
         };
     }
     case CLEAR_DYNAMIC_COMPONENT_STORE: {
+        let temp = state.modals;
         return {
             ...state,
             itemToEdit: {},
             itemToCheck: {},
-            editModalVisible: false,
-            insertModalVisible: false,
-            insertConfirmationModalVisible: false
+            modals: mapValues(temp, () => false)
         };
     }
     default:

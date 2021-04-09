@@ -20,8 +20,7 @@ import {
 } from "../../actions/infokarta/gravePickerTool";
 
 import {
-    showEditModal,
-    showInsertModal
+    showDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 // utils
@@ -48,16 +47,22 @@ import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerMo
 const style = {
     padding: 10
 };
-
+const insertModalName = "pokojniciInsert";
+const insertConfirmationModalName = "pokojniciConfirmation";
+const editModalName = "pokojniciEdit";
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
+
 
 const Pokojnici = ({
     data,
     page,
     totalNumber,
     chosenGrave,
+    editModalShow,
+    insertConfirmationModalShow,
+    insertModalShow,
     sendSearchParameters = () => {},
     resetSearchParameters = () => {},
     sendPageNumber = () => {},
@@ -117,6 +122,7 @@ const Pokojnici = ({
         items={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         sendDataToEdit={setupEditModal}
+        editModalName = {editModalName}
         zoomToItem={sendZoomData}
     />);
 
@@ -130,6 +136,7 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
         editItem={sendEditedData}
+        show = {editModalShow}
     />);
 
     const gravePickerButtonStyle = {
@@ -144,6 +151,8 @@ const Pokojnici = ({
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertModalGravePickerModeButton}
+        insertModalName = {insertModalName}
+        insertConfirmationModalName={insertConfirmationModalName}
     />);
 
     const graveConfirmationForm = (<div>
@@ -159,6 +168,8 @@ const Pokojnici = ({
         extraForm={graveConfirmationForm}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
+        insertModalName = {insertModalName}
+        insertConfirmationModalName={insertConfirmationModalName}
     />);
 
     const gravePickerModal = (<GravePickerModal
@@ -182,13 +193,16 @@ export default createPlugin('Pokojnici', {
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
         totalNumber: get(state, "deceased.totalNumber"),
-        chosenGrave: get(state, 'gravePickerTool.graveData')
+        chosenGrave: get(state, 'gravePickerTool.graveData'),
+        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName),
+        insertModalShow: get(state, 'dynamicModalControl.modals.' + insertModalName),
+        insertConfirmationModalShow: get(state, 'dynamicModalControl.modals.' + insertConfirmationModalName)
     }), {
         sendSearchParameters: setSearchParametersForDeceased,
         resetSearchParameters: resetSearchParametersForDeceased,
         sendPageNumber: setPageForDeceased,
-        setupEditModal: showEditModal,
-        setupInsertModal: showInsertModal,
+        setupEditModal: showDynamicModal,
+        setupInsertModal: showDynamicModal,
         sendEditedData: editDeceased,
         sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 
-import { Glyphicon, Button, ControlLabel } from 'react-bootstrap';
+import { Glyphicon, Button } from 'react-bootstrap';
 
 import Message from '../../components/I18N/Message';
 

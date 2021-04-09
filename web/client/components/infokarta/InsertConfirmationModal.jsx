@@ -6,7 +6,8 @@ import { get } from "lodash";
 
 import {
     showInsertConfirmationModal,
-    hideInsertConfirmationModal
+    hideInsertConfirmationModal,
+    alternateModalVisibility
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {displayFeatureInfo} from "../../utils/infokarta/ComponentConstructorUtil";
@@ -23,7 +24,9 @@ class BaseModalComponent extends React.Component {
       show: PropTypes.bool,
       returnToInsertModal: PropTypes.func,
       insertItem: PropTypes.func,
-      extraForm: PropTypes.object
+      extraForm: PropTypes.object,
+      insertModalName: PropTypes.string,
+      confirmationModalName: PropTypes.string
   };
 
   static defaultProps = {
@@ -44,7 +47,10 @@ class BaseModalComponent extends React.Component {
                   </Form>
               </Modal.Body>
               <Modal.Footer>
-                  <Button onClick={() => this.props.returnToInsertModal(this.props.itemToCheck)}>
+                  <Button onClick={() => this.props.returnToInsertModal(
+                      this.props.confirmationModalName,
+                      this.props.insertModalName
+                  )}>
                   Povratak
                   </Button>
                   <Button bsStyle="success" onClick={() => this.props.insertItem(this.props.itemToCheck)}>
@@ -58,12 +64,10 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToCheck: get(state, 'dynamicModalControl.itemToCheck'),
-        show: get(state, 'dynamicModalControl.insertConfirmationModalVisible')
+        itemToCheck: get(state, 'dynamicModalControl.itemToCheck')
     };
 }, {
-    showModal: showInsertConfirmationModal,
-    returnToInsertModal: hideInsertConfirmationModal
+    returnToInsertModal: alternateModalVisibility
 })(BaseModalComponent);
 
 export default ModalComponent;

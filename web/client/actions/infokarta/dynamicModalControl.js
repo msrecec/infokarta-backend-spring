@@ -20,10 +20,10 @@ export const hideDynamicModal = () => ({
     type: HIDE_DYNAMIC_MODAL
 });
 
-export const alternateModalVisibility = (nameToShow, nameToHide, additionalObject = {}) => ({
+export const alternateModalVisibility = (nameToHide, nameToShow, additionalObject = {}) => ({
     type: ALTERNATE_MODAL_VISIBILITY,
-    nameToShow,
     nameToHide,
+    nameToShow,
     additionalObject
 });
 
