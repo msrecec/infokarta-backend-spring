@@ -33,7 +33,7 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public List<Grob> getGroboviByGroblje(String groblje) {
-        String sql = new StringBuilder().append("SELECT \"grobovi\".* FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid ").append("WHERE \"groblja\".\"naziv\" ILIKE ? ORDER BY \"grobovi\".\"Rednibroj\"").toString();
+        String sql = new StringBuilder().append("SELECT \"grobovi\".* FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid ").append("WHERE \"groblja\".\"naziv\" ILIKE ? ORDER BY \"grobovi\".\"redni_broj\"").toString();
         GrobMapper grobMapper = new GrobMapper();
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje} , grobMapper);
         return grobovi;
@@ -41,7 +41,7 @@ public class GrobDAOImpl implements GrobDAO {
 
     @Override
     public List<Grob> getRbrByGroblje(String groblje) {
-        String sql = new StringBuilder().append("SELECT DISTINCT \"grobovi\".\"Rednibroj\" FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid\n").append("WHERE \"groblja\".naziv ILIKE ?").toString();
+        String sql = new StringBuilder().append("SELECT DISTINCT \"grobovi\".\"redni_broj\" FROM \"grobovi\" INNER JOIN \"groblja\" ON \"grobovi\".fk = \"groblja\".fid\n").append("WHERE \"groblja\".naziv ILIKE ?").toString();
 
         List<Grob> grobovi = jdbcTemplateObject.query(sql, new Object[]{groblje}, new RowMapper() {
             @Override

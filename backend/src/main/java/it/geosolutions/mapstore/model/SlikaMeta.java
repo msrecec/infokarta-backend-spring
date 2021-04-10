@@ -1,7 +1,5 @@
 package it.geosolutions.mapstore.model;
 
-import java.util.Arrays;
-
 public class SlikaMeta {
     private Integer fid;
     private String naziv;

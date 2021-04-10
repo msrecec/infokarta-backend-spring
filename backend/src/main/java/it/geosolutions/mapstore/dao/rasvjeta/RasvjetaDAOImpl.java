@@ -2,10 +2,7 @@ package it.geosolutions.mapstore.dao.rasvjeta;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.dao.DAO;
-import it.geosolutions.mapstore.dao.groblje.GrobljeMapper;
-import it.geosolutions.mapstore.model.Groblje;
 import it.geosolutions.mapstore.model.Rasvjeta;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,10 +10,9 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 @Repository
-public class RasvjetaDAOImpl implements DAO<Rasvjeta>, JDBCConfig {
+public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
 
     public RasvjetaDAOImpl() {
