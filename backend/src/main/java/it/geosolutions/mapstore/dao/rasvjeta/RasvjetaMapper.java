@@ -1,8 +1,6 @@
 package it.geosolutions.mapstore.dao.rasvjeta;
 
-import it.geosolutions.mapstore.model.Pokojnik;
-import it.geosolutions.mapstore.model.Rasvjeta;
-import org.postgis.Geometry;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import org.postgis.PGgeometry;
 import org.springframework.jdbc.core.RowMapper;
 

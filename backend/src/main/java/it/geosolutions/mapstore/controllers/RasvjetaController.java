@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
-import it.geosolutions.mapstore.model.Rasvjeta;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;

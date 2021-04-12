@@ -2,7 +2,7 @@ package it.geosolutions.mapstore.dao.rasvjeta;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.dao.DAO;
-import it.geosolutions.mapstore.model.Rasvjeta;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

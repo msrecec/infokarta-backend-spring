@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.dto.rasvjeta;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import it.geosolutions.mapstore.model.Rasvjeta;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.serializers.RasvjetaListDTOSerializer;
 
 import java.util.List;

@@ -1,10 +1,7 @@
 package it.geosolutions.mapstore.dao.rasvjeta;
 
 import it.geosolutions.mapstore.dao.DAO;
-import it.geosolutions.mapstore.model.Rasvjeta;
-
-import java.util.List;
-import java.util.Optional;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 
 public interface RasvjetaDAO extends DAO<Rasvjeta> {
 

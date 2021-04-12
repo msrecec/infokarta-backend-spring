@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Controller
 public class SlikeController {
@@ -61,6 +62,10 @@ public class SlikeController {
                 byte[] bytes = file.getBytes();
 
                 if(MIMETypeUtil.isImage(extension)) {
+
+                    InputStream stream = file.getInputStream();
+
+                    String contentType = MIMETypeUtil.mimeTypes.get(extension);
 
                     SlikaMetaDTO slikaMetaDTO;
 
@@ -195,7 +200,7 @@ public class SlikeController {
                      * write thumbnail file to folder 'thumbnail'
                      */
 
-                    ByteArrayOutputStream thumbnailArr = slikaMetaService.createThumbnail(file, 100);
+                    ByteArrayOutputStream thumbnailArr = slikaMetaService.createThumbnail(stream, contentType,100);
 
                     fos = new FileOutputStream(thumbnailFolder + "\\" + slikaMetaDTO.getFid() + "." + extension);
 

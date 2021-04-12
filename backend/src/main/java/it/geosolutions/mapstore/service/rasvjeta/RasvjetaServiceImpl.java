@@ -1,9 +1,8 @@
 package it.geosolutions.mapstore.service.rasvjeta;
 
-import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAO;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
-import it.geosolutions.mapstore.model.Rasvjeta;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

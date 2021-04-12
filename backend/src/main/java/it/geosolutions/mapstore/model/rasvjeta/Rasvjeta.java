@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.model;
+package it.geosolutions.mapstore.model.rasvjeta;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.geosolutions.mapstore.serializers.PGgeometrySerializer;

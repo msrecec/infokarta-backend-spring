@@ -1,4 +1,4 @@
-package it.geosolutions.mapstore.dto.rasvjeta;
+package it.geosolutions.mapstore.model.rasvjeta;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.geosolutions.mapstore.serializers.PGgeometrySerializer;
@@ -6,10 +6,7 @@ import org.postgis.PGgeometry;
 
 import java.time.LocalDateTime;
 
-public class RasvjetaDTO {
-
-    @JsonSerialize(using = PGgeometrySerializer.class)
-    private PGgeometry geom;
+public class RasvjetaPutCommand {
     private Integer fid;
     private String materijal;
     private String stanje;
@@ -32,11 +29,11 @@ public class RasvjetaDTO {
     private LocalDateTime timeEnd;
     private String userRole;
 
+
     @Override
     public String toString() {
-        return "RasvjetaDTO{" +
-            "geom=" + geom +
-            ", fid=" + fid +
+        return "RasvjetaPutCommand{" +
+            "fid=" + fid +
             ", materijal='" + materijal + '\'' +
             ", stanje='" + stanje + '\'' +
             ", source='" + source + '\'' +
@@ -58,14 +55,6 @@ public class RasvjetaDTO {
             ", timeEnd=" + timeEnd +
             ", userRole='" + userRole + '\'' +
             '}';
-    }
-
-    public PGgeometry getGeom() {
-        return geom;
-    }
-
-    public void setGeom(PGgeometry geom) {
-        this.geom = geom;
     }
 
     public Integer getFid() {
