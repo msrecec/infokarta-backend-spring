@@ -75,8 +75,8 @@ class TableComponent extends React.Component {
                                       <Button
                                           bsStyle="primary"
                                           onClick={() => this.props.zoomToItem(item.geom || item.fk)}
-                                          // TODO prominit zoom funkciju da prima dodatan parametar
-                                          // po kojemu se razlikuje koji api poziv se salje
+                                          // Zoom funkcija provjerava postoji li geom element
+                                          // ako ne, traži foreign key element
                                           disabled={(item.geom || item.fk && item.fk > 0) ? false : true}
                                       >
                                           <Glyphicon glyph="zoom-to"/>
@@ -108,6 +108,9 @@ class TableComponent extends React.Component {
       }
       this.props.sendDataToEdit(modalName, temp);
   };
+
+    // Briše geom komponentu pri slanju bazi
+    // Bitno zbog data managmenta na strani baze i backenda
 }
 
 

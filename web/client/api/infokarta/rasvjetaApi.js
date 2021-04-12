@@ -1,9 +1,22 @@
 import axios from '../../libs/ajax';
 
 const LighingApi = {
-    getLightingData: function(pageNumber) {
+    getLightingData: function(/* searchParameters ,*/pageNumber) {
         let url = 'http://localhost:8080/mapstore/rest/config/rasvjeta?';
+        /* if (searchParameters.material) {
+            url += 'materijal=' + searchParameters.material + '&';
+        }
 
+        if (searchParameters.state) {
+            url += 'stanje=' + searchParameters.state + '&';
+        }
+
+        if (searchParameters.socket) {
+            url += 'grlo=' + searchParameters.socket + '&';
+        }
+
+        //Provjeri ispravnost urla
+        */
         if (pageNumber) {
             url += 'page=' + pageNumber;
         } else {
@@ -21,10 +34,10 @@ const LighingApi = {
             }).catch(function(error) {
                 console.error(error);
             });
-    }, // dodaj za search funkciju petlje
+    },
 
     editLightingData: function(lighting) {
-        let url = ''; // Dodaj url iz backenda
+        let url = ''; // Dodaj url iz backenda!
         let header = { "Content-Type": "application/json;charset=UTF-8" };
 
         return axios.put(

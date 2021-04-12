@@ -76,17 +76,24 @@ const Rasvjeta = ({
         {
             label: "Materijal",
             type: "select",
-            value: "material"
+            value: "material",
+            selectValues: ["", "metal", "drvo", "plastika", "beton"]
         },
         {
             label: "Stanje",
             type: "select",
-            value: "state"
+            value: "state",
+            selectValues: ["", "dobro", "lose"]
         },
         {
             label: "Grlo",
             type: "select",
-            value: "socket"
+            value: "socket",
+            selectValues: [""]
+
+            //Ovih vrijednosti još nema
+            //Ova komponenta neka ostane zakomentirana
+            //Dok se ne unesu grla u db
         }
     ]; */
     const table = (<TableComponent
