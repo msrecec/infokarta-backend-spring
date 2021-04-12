@@ -20,6 +20,8 @@ const fileManagementApi = {
         }).then(function(response) {
             return response.status;
         }).catch(function(error) {
+            /* eslint-disable no-console */
+            console.error('uploadFile: ', error);
             return error.status;
         });
     },
@@ -35,7 +37,7 @@ const fileManagementApi = {
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
-                console.error(error);
+                console.error('getFile: ', error);
             });
     },
     getMeta: function(entityName, documentType, fid) {
@@ -45,17 +47,18 @@ const fileManagementApi = {
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
-                console.error(error);
+                console.error('getMeta: ', error);
             });
     },
     getMetaByEntityFid: function(entityName, documentType, entityFid) {
+        console.log(entityName, documentType, entityFid);
         const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
         return axios.get(url)
             .then(function(response) {
                 return response;
             }).catch(function(error) {
                 /* eslint-disable no-console */
-                console.error(error);
+                console.error('getMetaByEntityFid: ', error);
             });
     }
 };

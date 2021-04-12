@@ -5,12 +5,13 @@ import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUt
 
 import FileComponentParent from '../../components/infokarta/fileUpload/ParentComponent';
 
-import { Tabs, Tab } from 'react-bootstrap';
+import { Tabs, Tab, Button } from 'react-bootstrap';
 
 class PaginationComponent extends React.Component {
     static propTypes = {
         item: PropTypes.object,
-        showDetails: PropTypes.string
+        showDetails: PropTypes.string,
+        closeDetailsView: PropTypes.func
     };
 
     static defaultProps = {
@@ -38,18 +39,21 @@ class PaginationComponent extends React.Component {
 
         return (
             <div style={style}>
-                <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
-                    <Tab eventKey={1} title="Detalji stavke">
-                        <div style={tabContentStyle}>
-                            {displayFeatureInfo(this.props.item)}
-                        </div>
-                    </Tab>
-                    <Tab eventKey={2} title="Dokumenti vezani uz stavku">
-                        <div style={tabContentStyle}>
-                            {fileComponentParent}
-                        </div>
-                    </Tab>
-                </Tabs>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                    <Button bsStyle="link" onClick={() => this.props.closeDetailsView()} style={{width: "5%", margin: "0 auto"}}>Zatvori</Button>
+                    <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
+                        <Tab eventKey={1} title="Detalji stavke">
+                            <div style={tabContentStyle}>
+                                {displayFeatureInfo(this.props.item)}
+                            </div>
+                        </Tab>
+                        <Tab eventKey={2} title="Dokumenti vezani uz stavku">
+                            <div style={tabContentStyle}>
+                                {fileComponentParent}
+                            </div>
+                        </Tab>
+                    </Tabs>
+                </div>
             </div>
         );
     }

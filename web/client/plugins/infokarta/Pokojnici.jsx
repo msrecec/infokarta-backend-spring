@@ -137,6 +137,7 @@ const Pokojnici = ({
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToDetailsView={sendDataToDetailsView}
         tableHeight={tableHeight}
+        zoomToItem={sendZoomData}
     />);
 
     const pagination = (<PaginationComponent
@@ -169,6 +170,7 @@ const Pokojnici = ({
     const detailsAndDocs = (<DetailsAndDocumentsView
         item={detailViewItem}
         showDetails={showDetails}
+        closeDetailsView={closeDetailsView}
     />);
 
     return (

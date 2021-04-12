@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Table, Button, Glyphicon, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { cloneDeep } from "lodash";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
@@ -29,6 +30,7 @@ class TableComponent extends React.Component {
       items: PropTypes.array,
       fieldsToInclude: PropTypes.array,
       sendDataToDetailsView: PropTypes.func,
+      zoomToItem: PropTypes.func,
       tableHeight: PropTypes.string
   };
 
@@ -50,7 +52,6 @@ class TableComponent extends React.Component {
           background: "white",
           boxShadow: "0 2px 2px -1px #dddddd"
       };
-
       // https://css-tricks.com/position-sticky-and-table-headers/
 
       return (
@@ -72,7 +73,7 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr onClick={() => this.props.sendDataToDetailsView(item)}>
+                          <tr onClick={() => this.tableRowClickHandler(item)}>
                               {/* TODO prominit u funkciju koja salje item u details and documents */}
                               {/* <td>
                                   <OverlayTrigger placement="top" overlay={detailsTooltip}>
@@ -123,6 +124,15 @@ class TableComponent extends React.Component {
               </Table>
           </div>
       );
+  }
+
+  tableRowClickHandler(item) {
+      this.props.zoomToItem(item.geom || item.fk);
+      const temp = cloneDeep(item);
+      if (temp.geom) {
+          delete temp.geom;
+      }
+      this.props.sendDataToDetailsView(temp);
   }
 }
 

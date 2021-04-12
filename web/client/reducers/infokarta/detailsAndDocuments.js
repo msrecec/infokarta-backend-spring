@@ -22,7 +22,6 @@ const detailsAndDocuments = (
     case CLOSE_DETAILS_AND_DOCS_VIEW: {
         return {
             ...state,
-            item: {},
             tableHeight: "600px",
             showDetails: "none"
         };
