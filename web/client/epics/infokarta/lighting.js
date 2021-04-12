@@ -6,7 +6,9 @@ import {
     lightingDataReceived,
     SET_PAGE_FOR_LIGHTING,
     ZOOM_TO_LAMP_FROM_LIGHTING,
-    EDIT_LIGHTING
+    EDIT_LIGHTING,
+/*     SET_SEARCH_PARAMETERS_FOR_LIGHTING,
+    RESET_SEARCH_PARAMETERS_FOR_LIGHTING */
 } from '../../actions/infokarta/lighting';
 
 import lightingApi from '../../api/infokarta/rasvjetaApi';
@@ -24,17 +26,20 @@ import {
 export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
         GET_LIGHTING_DATA,
-        SET_PAGE_FOR_LIGHTING)
-        .switchMap(({}) => {
-            const pageNumber = get(getState(), "lighting.pageNumber");
-            return Rx.Observable.fromPromise(lightingApi.getLightingData(pageNumber)
-                .then(data => data))
-                .switchMap((response) => {
-                    return Rx.Observable.of(
-                        lightingDataReceived(response.rasvjeta, response.count)
-                    );
-                });
-        });
+        SET_PAGE_FOR_LIGHTING,
+/*         SET_SEARCH_PARAMETERS_FOR_LIGHTING,
+        RESET_SEARCH_PARAMETERS_FOR_LIGHTING */
+    ).switchMap(({}) => {
+        const pageNumber = get(getState(), "lighting.pageNumber");
+/*         const searchParameters = get(getState(), "lighting.searchParameters"); */
+        return Rx.Observable.fromPromise(lightingApi.getLightingData(/* searchParameters ,*/ pageNumber)
+            .then(data => data))
+            .switchMap((response) => {
+                return Rx.Observable.of(
+                    lightingDataReceived(response.rasvjeta, response.count)
+                );
+            });
+    });
 
 export const zoomToLampFromRasvjetaPlugin = (action$) =>
     action$.ofType(ZOOM_TO_LAMP_FROM_LIGHTING)

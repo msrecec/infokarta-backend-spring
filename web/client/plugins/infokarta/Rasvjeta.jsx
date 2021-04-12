@@ -11,7 +11,9 @@ import {
     editLighting,
     getLightingData,
     setPageForLighting,
-    zoomToLampFromLighting
+    zoomToLampFromLighting,
+    setSearchParametersForLighting,
+    resetSearchParametersForDeceased
 } from '../../actions/infokarta/lighting';
 
 import {
@@ -32,6 +34,8 @@ import TableComponent from '../../components/infokarta/Table';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
+import SearchComponent from '../../components/infokarta/SearchForm';
+
 
 const style = {
     padding: 10
@@ -65,7 +69,26 @@ const Rasvjeta = ({
     sendZoomData = () => {},
     setupEditModal = () => {},
     sendEditedData = () => {}
+/*     setSearchParametersForLighting = () => {},
+    resetSearchParametersForDeceased = () => {} */
 }) => {
+/*     const searchFormData = [
+        {
+            label: "Materijal",
+            type: "select",
+            value: "material"
+        },
+        {
+            label: "Stanje",
+            type: "select",
+            value: "state"
+        },
+        {
+            label: "Grlo",
+            type: "select",
+            value: "socket"
+        }
+    ]; */
     const table = (<TableComponent
         items ={data ? data : []}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
@@ -87,9 +110,16 @@ const Rasvjeta = ({
         active={typeof page === "number" ? page : 1}
     />);
 
+    /*     const search = (<SearchComponent
+        buildData={serchFormData}
+        search={sendSearchParameters}
+        resetSearchParameters={resetSearchParameters}
+    />); */
+
     return (
         <div style = {style}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
+            {/* {search} */}
             {table}
             {pagination}
             {editModal}
@@ -109,6 +139,8 @@ export default createPlugin('Rasvjeta', {
         sendZoomData: zoomToLampFromLighting,
         sendEditedData: editLighting,
         setupEditModal: showDynamicModal
+        /*         sendSearchParameters: setSearchParametersForLighting,
+        resetSearchparameters: resetSearchParametersForDeceased */
     })(Rasvjeta),
     containers: {
         DrawerMenu: {

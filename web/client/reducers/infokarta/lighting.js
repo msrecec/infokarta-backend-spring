@@ -1,6 +1,8 @@
 import {
     LIGHTING_DATA_RECEIVED,
-    SET_PAGE_FOR_LIGHTING
+    SET_PAGE_FOR_LIGHTING,
+    SET_SEARCH_PARAMETERS_FOR_LIGHTING,
+    RESET_SEARCH_PARAMETERS_FOR_LIGHTING
 } from '../../actions/infokarta/lighting';
 
 const lighting = (
@@ -13,7 +15,6 @@ const lighting = (
 ) => {
     switch (action.type) {
     case LIGHTING_DATA_RECEIVED: {
-        /* console.log('Hahalol1'); */
         return {
             ...state,
             data: action.lighting,
@@ -26,11 +27,26 @@ const lighting = (
             pageNumber: action.pageNumber
         };
     }
+    /*     case SET_SEARCH_PARAMETERS_FOR_LIGHTING: {
+        return {
+            ...state,
+            searchParameters: action.searchParameters,
+            pageNumber: 1
+        };
+    }
+    case RESET_SEARCH_PARAMETERS_FOR_LIGHTING: {
+        return {
+            ...state,
+            searchParameters: {},
+            pageNumber: 1
+        };
+    } */
     default: {
-        /* console.log('hahalol ali default'); */
         return state;
     }
     }
 };
+
+// SEARCH REDUCERI
 
 export default lighting;

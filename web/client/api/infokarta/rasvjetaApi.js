@@ -21,7 +21,7 @@ const LighingApi = {
             }).catch(function(error) {
                 console.error(error);
             });
-    },
+    }, // dodaj za search funkciju petlje
 
     editLightingData: function(lighting) {
         let url = ''; // Dodaj url iz backenda
