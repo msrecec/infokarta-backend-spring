@@ -54,21 +54,18 @@ public class SlikaMetaServiceImpl implements SlikaMetaService {
 
     @Override
     public ByteArrayOutputStream createThumbnail(InputStream stream, String contentType , Integer width) throws IOException {
-        System.out.println("Entered Create Thumbnail");
+
         ByteArrayOutputStream thumbOutput = new ByteArrayOutputStream();
-        System.out.println("Created ByteArrayOutputStream");
+
         BufferedImage thumbImg = null;
         BufferedImage img = ImageIO.read(stream);
-        System.out.println("Read image from stream");
+
         img = Scalr.rotate(img, Scalr.Rotation.CW_90, Scalr.OP_ANTIALIAS);
-        System.out.println("Rotated image");
+
         thumbImg = Scalr.resize(img, Scalr.Method.AUTOMATIC, Scalr.Mode.AUTOMATIC, width, Scalr.OP_ANTIALIAS);
-        System.out.println("Resized image");
-        System.out.println("Content-type - real: " + contentType);
-        System.out.println("Content-type - split: " + contentType.split("/")[1]);
+
         ImageIO.write(thumbImg, contentType.split("/")[1] , thumbOutput);
-        System.out.println("wrote to thumb output");
-        System.out.println(thumbOutput);
+
         return thumbOutput;
     }
 

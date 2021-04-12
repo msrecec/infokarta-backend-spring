@@ -1,16 +1,16 @@
 package it.geosolutions.mapstore.controllers;
 
+import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
+import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,4 +74,24 @@ public class RasvjetaController {
         HeaderUtils.responseWithJSON(response, json);
 
     }
+
+
+    //    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/rasvjeta", method = RequestMethod.PUT)
+    @ResponseBody
+    public void updateRasvjeta(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestBody String json
+    ) throws IOException {
+
+        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+
+        Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
+
+        String outJson = pokojniciDAO.updatePokojnik(pokojnik);
+
+        HeaderUtils.responseWithJSON(response, outJson);
+    }
+
 }

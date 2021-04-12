@@ -2,6 +2,7 @@ package it.geosolutions.mapstore.dao.rasvjeta;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.dao.DAO;
+import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -51,13 +52,26 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     }
 
     @Override
-    public void save(Rasvjeta rasvjeta) {
+    public Optional<Rasvjeta> save(Rasvjeta rasvjeta) {
+//        String sql = "UPDATE \"pokojnici\" SET \"IME I PREZIME\" = ?, \"Prezime djevojačko\" = ?, \"IME OCA\" = ?, \"NADIMAK\" = ?, \"OIB\" = ?, \"SPOL\" = ?, \"DATU ROĐENJA\" = ?, \n" +
+//            "\"Bračno stanje\" = ?, \"MJESTO STANOVANJA\" = ?, \"ADRESA STANOVANJA\" = ?, \"Ime i prezime bračnog druga\" = ?, \"DOB\" = ?, \"UZROK SMRTI\" = ?,\n" +
+//            "\"Mjesto smrti\" = ?, \"DATUM SMRTI\" = ?, \"DATUM KREMIRANJA\" = ?, \"DATUM UKOPA\" = ?, \"oznaka grobnice\" = ?, \"groblje\" = ?, \"Naknadni upisi i bilješke\" = ?,\n" +
+//            "\"Godina ukopa\" = ?, \"USLUGA\" = ?, \"RAČUN\" = ?, \"DATUM USLUGE\" = ?, \"IME\" = ?, \"PREZIME\" = ? WHERE fid = ? RETURNING *";
+//
+//        Rasvjeta rasvjeta = jdbcTemplateObject.update(sql, pokojnik.getIme_i_prezime(), pokojnik.getPrezime_djevojacko(), pokojnik.getIme_oca(), pokojnik.getNadimak(), pokojnik.getOib(),
+//            pokojnik.getSpol(), pokojnik.getDatum_rodjenja(), pokojnik.getBracno_stanje(), pokojnik.getMjesto_stanovanja(), pokojnik.getAdresa_stanovanja(), pokojnik.getIme_i_prezime_bracnog_druga(),
+//            pokojnik.getDob(), pokojnik.getUzrok_smrti(), pokojnik.getMjesto_smrti(), pokojnik.getDatum_smrti(), pokojnik.getDatum_kremiranja(), pokojnik.getDatum_ukopa(),
+//            pokojnik.getOznaka_grobnice(), pokojnik.getGroblje(), pokojnik.getNaknadni_upisi_i_biljeske(), pokojnik.getGodina_ukopa(), pokojnik.getUsluga(), pokojnik.getRacun(),
+//            pokojnik.getDatum_usluge(), pokojnik.getIme(), pokojnik.getPrezime(), pokojnik.getFid());
+//
+//        String json = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
 
+        return null;
     }
 
     @Override
-    public void update(Rasvjeta rasvjeta) {
-
+    public Optional<Rasvjeta> update(Rasvjeta rasvjeta) {
+        return null;
     }
 
     @Override

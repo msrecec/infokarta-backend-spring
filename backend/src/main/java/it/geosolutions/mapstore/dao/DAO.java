@@ -14,8 +14,8 @@ public interface DAO<T> {
 
     List<T> findPaginated(Integer page);
 
-    void save(T t);
+    Optional<T> save(T t);
 
-    void update(T t);
+    Optional<T> update(T t);
 
 }
