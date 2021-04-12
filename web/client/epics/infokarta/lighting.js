@@ -31,7 +31,7 @@ export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) 
                 .then(data => data))
                 .switchMap((response) => {
                     return Rx.Observable.of(
-                        lightingDataReceived(response)
+                        lightingDataReceived(response.rasvjeta, response.count)
                     );
                 });
         });

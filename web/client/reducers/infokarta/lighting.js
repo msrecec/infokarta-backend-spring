@@ -5,7 +5,9 @@ import {
 
 const lighting = (
     state = {
-        data: []
+        data: [],
+        totalNumber: null,
+        pageNumber: 1
     },
     action
 ) => {
@@ -14,7 +16,8 @@ const lighting = (
         /* console.log('Hahalol1'); */
         return {
             ...state,
-            data: action.lighting
+            data: action.lighting,
+            totalNumber: action.totalNumber
         };
     }
     case SET_PAGE_FOR_LIGHTING: {

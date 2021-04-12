@@ -37,7 +37,6 @@ const style = {
     padding: 10
 };
 const editModalName = "rasvjetaEdit";
-
 const fieldsToExclude = ["geom", "mjernoMjesto",
     "vod",
     "kategorija",

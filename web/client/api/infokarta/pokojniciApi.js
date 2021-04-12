@@ -50,6 +50,7 @@ const Api = {
                 headers: header
             })
             .then(function(response) {
+                console.log(response.data);
                 return response.data;
             }).catch(function(error) {
             /* eslint-disable no-console */

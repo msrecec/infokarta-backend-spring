@@ -16,6 +16,7 @@ const LighingApi = {
                 headers: header
             })
             .then(function(response) {
+                console.log(response.data);
                 return response.data;
             }).catch(function(error) {
                 console.error(error);
