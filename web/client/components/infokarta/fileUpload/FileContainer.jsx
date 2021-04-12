@@ -58,7 +58,6 @@ class FileContainer extends React.Component {
                   <Button
                       bsStyle="success"
                       href={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}`}
-                      onClick={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}`}
                       target="_blank"
                       style={{width: "300px"}}
                   >Otvori original</Button>

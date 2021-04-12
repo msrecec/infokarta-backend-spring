@@ -24,7 +24,7 @@ class BaseModalComponent extends React.Component {
       showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
-      extraForm: PropTypes.array,
+      extraForm: PropTypes.object,
       sendToConfirmationForm: PropTypes.func,
       itemToCheck: PropTypes.object
   };

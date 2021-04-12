@@ -63,7 +63,7 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr>
+                          <tr onClick={() => this.props.zoomToItem(item.fk)}>
                               <td>
                                   <OverlayTrigger placement="top" overlay={detailsTooltip}>
                                       <Button

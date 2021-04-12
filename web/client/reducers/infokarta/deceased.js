@@ -31,14 +31,14 @@ const deceased = (
     case SET_PAGE_FOR_DECEASED: {
         return {
             ...state,
-            pageNumber: action.pageNumber
+            pageNumber: parseInt(action.pageNumber, 10)
         };
     }
     case DECEASED_RESPONSE_RECEIVED: {
         return {
             ...state,
             data: action.deceased,
-            totalNumber: action.totalNumber
+            totalNumber: parseInt(action.totalNumber, 10)
         };
     }
     default:

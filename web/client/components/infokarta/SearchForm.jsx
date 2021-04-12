@@ -36,6 +36,10 @@ class SearchComponent extends React.Component {
       this.state = {};
   }
 
+  componentDidMount() {
+      this.props.search({});
+  }
+
   render() {
       return (
           <div>
