@@ -579,11 +579,6 @@
       "glyph": "user",
       "title": "plugins.Pokojnici.title",
       "description": "plugins.Pokojnici.description"
-    }, {
-      "name": "DetailsAndDocuments",
-      "glyph": "eye-open",
-      "title": "plugins.DetailsAndDocuments.title",
-      "description": "plugins.DetailsAndDocuments.description"
     }
   ]
 }

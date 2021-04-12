@@ -9,8 +9,8 @@ import { getFilesByEntityId } from "../../../actions/infokarta/fileManagement";
 
 const style = {
     overflow: "auto",
-    maxHeight: "600px",
-    minWidth: "580px"
+    maxHeight: "600px"
+    // minWidth: "580px"
 };
 
 class FileListComponent extends React.Component {

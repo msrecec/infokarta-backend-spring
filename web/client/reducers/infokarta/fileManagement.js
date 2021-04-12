@@ -11,12 +11,14 @@ const fileManagement = (
 ) => {
     switch (action.type) {
     case FILES_LOADED_BY_ENTITY_ID: {
+        console.log(action);
         return {
             ...state,
             files: action.response
         };
     }
     case UPLOAD_NEW_FILE_RESPONSE: {
+        console.log(action);
         return {
             ...state,
             uploadResponse: action.response

@@ -5,7 +5,8 @@ import { Pagination } from "react-bootstrap";
 const style = {
     display: "flex",
     width: "100%",
-    justifyContent: "center"
+    justifyContent: "center",
+    margin: "10px 0"
 };
 
 class PaginationComponent extends React.Component {

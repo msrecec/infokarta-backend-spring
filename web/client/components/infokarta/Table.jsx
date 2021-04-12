@@ -4,56 +4,65 @@ import {Table, Button, Glyphicon, Tooltip, OverlayTrigger} from 'react-bootstrap
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
-const style = {
-    overflow: "auto",
-    maxHeight: "600px",
-    minWidth: "580px"
-};
+// let editTooltip = (
+//     <Tooltip id="tooltip-top">
+//         Uredi stavku
+//     </Tooltip>
+// );
 
-let editTooltip = (
-    <Tooltip id="tooltip-top">
-        Uredi stavku
-    </Tooltip>
-);
+// let zoomTooltip = (fid) => {
+//     return (
+//         <Tooltip id="tooltip-top">
+//             {fid > 0 ? "Pronađi stavku na karti" : "Koordinate stavke ne postoje."}
+//         </Tooltip>
+//     );
+// };
 
-let zoomTooltip = (fid) => {
-    return (
-        <Tooltip id="tooltip-top">
-            {fid > 0 ? "Pronađi stavku na karti" : "Koordinate stavke ne postoje."}
-        </Tooltip>
-    );
-};
-
-let detailsTooltip = (
-    <Tooltip id="tooltip-top">
-        Pregledaj detalje i dokumente vezane uz stavku
-    </Tooltip>
-);
+// let detailsTooltip = (
+//     <Tooltip id="tooltip-top">
+//         Pregledaj detalje i dokumente vezane uz stavku
+//     </Tooltip>
+// );
 
 class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
-      fieldsToExclude: PropTypes.array,
-      sendDataToEdit: PropTypes.func,
-      zoomToItem: PropTypes.func,
-      sendDataToDetailsPlugin: PropTypes.func
+      fieldsToInclude: PropTypes.array,
+      sendDataToDetailsView: PropTypes.func,
+      tableHeight: PropTypes.string
+  };
+
+  static defaultProps = {
+      tableHeight: "600px"
   };
 
   render() {
+      const style = {
+          overflow: "auto",
+          maxHeight: this.props.tableHeight,
+          minWidth: "580px",
+          transition: "all .2s linear",
+          border: "1px solid #dddddd"
+      };
+      const thStyle = {
+          position: "sticky",
+          top: "0",
+          background: "white",
+          boxShadow: "0 2px 2px -1px #dddddd"
+      };
+
+      // https://css-tricks.com/position-sticky-and-table-headers/
+
       return (
           <div style={style}>
-              <Table striped bordered condensed hover>
+              <Table condensed hover style={{margin: "0"}}>
                   <thead>
                       <tr>
-                          <th key="#" />
-                          <th key="##" />
-                          <th key="###" />
-                          {/* koristi se tako da botuni ne pomaknu sve udesno za jedno misto */}
                           {this.props.items[0] ?
                               Object.keys(this.props.items[0]).map((header) => {
-                                  if (!this.props.fieldsToExclude.includes(header)) {
+                                  if (this.props.fieldsToInclude.includes(header)) {
                                       return (
-                                          <th key={header}>{beautifyHeader(header)}</th>
+                                          <th style={thStyle}>{beautifyHeader(header)}</th>
                                       );
                                   }
                                   return null;
@@ -63,12 +72,13 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr onClick={() => this.props.zoomToItem(item.fk)}>
-                              <td>
+                          <tr onClick={() => this.props.sendDataToDetailsView(item)}>
+                              {/* TODO prominit u funkciju koja salje item u details and documents */}
+                              {/* <td>
                                   <OverlayTrigger placement="top" overlay={detailsTooltip}>
                                       <Button
                                           bsStyle="primary"
-                                          onClick={() => this.props.sendDataToDetailsPlugin(item)}
+                                          onClick={() => this.props.sendDataToDetailsView(item)}
                                       >
                                           <Glyphicon glyph="eye-open"/>
                                       </Button>
@@ -93,13 +103,13 @@ class TableComponent extends React.Component {
                                           // po kojemu se razlikuje koji api poziv se salje
                                           disabled={item.fk > 0 ? false : true}
                                       >
-                                          <Glyphicon glyph="zoom-to"/>
+                                          <Glyphicon glyph="map-marker"/>
                                       </Button>
                                   </OverlayTrigger>
-                              </td>
+                              </td> */}
                               {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
                               {Object.entries(item).map((field) => {
-                                  if (!this.props.fieldsToExclude.includes(field[0])) {
+                                  if (this.props.fieldsToInclude.includes(field[0])) {
                                       return (
                                           <td>{field[1]}</td>
                                       );

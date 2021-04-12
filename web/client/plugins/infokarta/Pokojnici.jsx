@@ -25,7 +25,8 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
-    loadDataForDetailsPlugin
+    loadDataIntoDetailsAndDocsView,
+    closeDetailsAndDocsView
 } from "../../actions/infokarta/detailsAndDocuments";
 
 // utils
@@ -36,9 +37,11 @@ import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUt
 import deceased from '../../reducers/infokarta/deceased';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
 import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
+import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
+import fileManagement from '../../reducers/infokarta/fileManagement';
 
 // epics
-import * as epics from '../../epics/infokarta/deceased';
+import { deceasedAndFileManagementEpics } from '../../epics/infokarta/combinedEpics';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
@@ -48,7 +51,9 @@ import InsertConfirmationModal from '../../components/infokarta/InsertConfirmati
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
+import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
 
+const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
@@ -86,6 +91,9 @@ const Pokojnici = ({
     page,
     totalNumber,
     chosenGrave,
+    tableHeight,
+    detailViewItem,
+    showDetails,
     sendSearchParameters = () => {},
     resetSearchParameters = () => {},
     sendPageNumber = () => {},
@@ -95,7 +103,8 @@ const Pokojnici = ({
     setupInsertModal = () => {},
     sendZoomData = () => {},
     startChooseMode = () => {},
-    sendDataToDetailsPlugin = () => {}
+    sendDataToDetailsView = () => {},
+    closeDetailsView = () => {}
 }) => {
     // custom komponente
     const gravePickerButtonStyle = {
@@ -125,10 +134,9 @@ const Pokojnici = ({
 
     const table = (<TableComponent
         items={data ? data : []}
-        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        sendDataToEdit={setupEditModal}
-        zoomToItem={sendZoomData}
-        sendDataToDetailsPlugin={sendDataToDetailsPlugin}
+        fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
+        sendDataToDetailsView={sendDataToDetailsView}
+        tableHeight={tableHeight}
     />);
 
     const pagination = (<PaginationComponent
@@ -158,11 +166,17 @@ const Pokojnici = ({
     const gravePickerModal = (<GravePickerModal
     />);
 
+    const detailsAndDocs = (<DetailsAndDocumentsView
+        item={detailViewItem}
+        showDetails={showDetails}
+    />);
+
     return (
         <div style={{"padding": "10px"}}>
             {search}
             {table}
             {pagination}
+            {detailsAndDocs}
             {editModal}
             {insertModal}
             {insertConfirmationModal}
@@ -176,18 +190,22 @@ export default createPlugin('Pokojnici', {
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
         totalNumber: get(state, "deceased.totalNumber"),
-        chosenGrave: get(state, 'gravePickerTool.graveData')
+        chosenGrave: get(state, "gravePickerTool.graveData"),
+        tableHeight: get(state, "detailsAndDocuments.tableHeight"),
+        detailViewItem: get(state, "detailsAndDocuments.item"),
+        showDetails: get(state, "detailsAndDocuments.showDetails")
     }), {
         sendSearchParameters: setSearchParametersForDeceased,
         resetSearchParameters: resetSearchParametersForDeceased,
         sendPageNumber: setPageForDeceased,
         setupEditModal: showEditModal,
-        setupInsertModal: showInsertModal,
         sendEditedData: editDeceased,
+        setupInsertModal: showInsertModal,
         sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,
         startChooseMode: enableGravePickMode,
-        sendDataToDetailsPlugin: loadDataForDetailsPlugin
+        sendDataToDetailsView: loadDataIntoDetailsAndDocsView,
+        closeDetailsView: closeDetailsAndDocsView
     })(Pokojnici),
     containers: {
         DrawerMenu: {
@@ -200,10 +218,12 @@ export default createPlugin('Pokojnici', {
             doNotHide: true
         }
     },
-    epics,
+    epics: deceasedAndFileManagementEpics,
     reducers: {
         deceased,
         dynamicModalControl,
-        gravePickerTool
+        gravePickerTool,
+        detailsAndDocuments,
+        fileManagement
     }
 });

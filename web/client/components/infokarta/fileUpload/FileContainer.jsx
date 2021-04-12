@@ -12,8 +12,6 @@ class FileContainer extends React.Component {
   };
 
   render() {
-
-
       const styles = {
           mainContainer: {
               display: "flex",

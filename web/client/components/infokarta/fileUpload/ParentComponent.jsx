@@ -25,10 +25,6 @@ class ParentComponent extends React.Component {
 
         return (
             <div>
-                <div>
-                    <h2>Datoteke vezane uz ovu stavku</h2>
-                    <hr />
-                </div>
                 {fileUpload}
                 <hr />
                 {fileList}

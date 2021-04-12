@@ -88,7 +88,7 @@ class SearchComponent extends React.Component {
                       style={formStyle}
                   >
                       <Button bsStyle="success" onClick={() => this.search()} style={buttonStyle}>Pretraži</Button>
-                      <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši podatke</Button>
+                      <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši parametre</Button>
                       <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
                   </FormGroup>
               </form>

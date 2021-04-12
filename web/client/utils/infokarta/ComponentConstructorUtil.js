@@ -4,45 +4,55 @@ import parse from 'html-react-parser';
 
 import { beautifyHeader } from "./BeautifyUtil";
 
-const style = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
-};
-
-// Svrha funkcije: prikaz singularnog feature info-a u bilo kojoj komponenti
+// Svrha funkcije: lijep prikaz objekta, moze i feature info
 export const displayFeatureInfo = (item) => {
+    const style = {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    };
+
     // const grbUrl = 'https://primosten.hr/wp-content/uploads/2015/12/rsz_789398738793.png';
+    // if (property[0].includes('grb')) {
+    //     item.properties.grb = `<img src='${grbUrl}' />`;
+
+
     let elementList = Object.entries(item).map((property) => {
-        // if (property[0].includes('grb')) {
-        //     item.properties.grb = `<img src='${grbUrl}' />`;
         if (property[0].includes('source') && property[1]) {
             return (
-                <div>
-                    <hr />
-                    <div style={style}>
-                        <span><b>{beautifyHeader(property[0])}</b></span>
-                        {parse(property[1])}
-                    </div>
+                <div style={style}>
+                    <span><b>{beautifyHeader(property[0])}</b></span>
+                    {parse(property[1])}
                 </div>
             );
         } else if (property[1]) {
             return (
-                <div>
-                    <hr />
-                    <div style={style}>
-                        <span><b>{beautifyHeader(property[0])}</b></span>
-                        <span>{property[1]}</span>
-                    </div>
+                <div style={style}>
+                    <span><b>{beautifyHeader(property[0])}</b></span>
+                    <span>{property[1]}</span>
                 </div>
             );
         }
         return null;
     });
-    elementList.push(<br />); // da zadnji entry nije spojen na footer
+
+    elementList = elementList.filter(function(el) {
+        return el !== null;
+    });
+
+    // insertira hr izmedu svakog elementa
+    elementList = elementList.flatMap(
+        (value, index, array) =>
+            array.length - 1 !== index // check for the last item
+                ? [value, (<hr style={{margin: "2px"}}/>)]
+                : value,
+    );
+
     return elementList;
 };
 
+// TODO: rework/reuse za nesto drugo ili delete.
+// Nazalost kako react radi, nije moguce vezivat ovako kreiranu formu na lokalni state
 /*
 Svrha funkcije: gradi grupe unutar forme. Prima listu objekata:
     - text field:

@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import {
     GET_FILES_BY_ENTITY_ID,
     UPLOAD_NEW_FILE_BY_ENTITY_ID,
+    getFilesByEntityId,
     filesLoadedByEntityId,
     uploadNewFileResponse
 } from "../../actions/infokarta/fileManagement";
