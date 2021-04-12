@@ -11,7 +11,8 @@ class PaginationComponent extends React.Component {
     static propTypes = {
         item: PropTypes.object,
         showDetails: PropTypes.string,
-        closeDetailsView: PropTypes.func
+        closeDetailsView: PropTypes.func,
+        editItem: PropTypes.func
     };
 
     static defaultProps = {
@@ -39,11 +40,16 @@ class PaginationComponent extends React.Component {
 
         return (
             <div style={style}>
-                <div style={{display: "flex", flexDirection: "column"}}>
+                <div style={{margin: "0 auto"}}>
                     <Button bsStyle="link" onClick={() => this.props.closeDetailsView()} style={{width: "5%", margin: "0 auto"}}>Zatvori</Button>
                     <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
                         <Tab eventKey={1} title="Detalji stavke">
                             <div style={tabContentStyle}>
+                                <div style={{display: "flex", alignItems: "center"}}>
+                                    <Button bsStyle="success" onClick={() => this.props.editItem(this.props.item)}>Uredi stavku</Button>
+                                </div>
+                                {/* TODO dodat nacin da se osvjezi details tab nakon edita */}
+                                <hr />
                                 {displayFeatureInfo(this.props.item)}
                             </div>
                         </Tab>

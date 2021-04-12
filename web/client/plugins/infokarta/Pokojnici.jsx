@@ -171,6 +171,7 @@ const Pokojnici = ({
         item={detailViewItem}
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
+        editItem={setupEditModal}
     />);
 
     return (
