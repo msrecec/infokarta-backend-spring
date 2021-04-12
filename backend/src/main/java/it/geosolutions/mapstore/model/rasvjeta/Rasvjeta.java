@@ -7,6 +7,152 @@ import org.postgis.PGgeometry;
 import java.time.LocalDateTime;
 
 public class Rasvjeta {
+
+    public static class Builder {
+        @JsonSerialize(using = PGgeometrySerializer.class)
+        private PGgeometry geom;
+        private Integer fid;
+        private String materijal;
+        private String stanje;
+        private String source;
+        private String mjernoMjesto;
+        private String vod;
+        private String kategorija;
+        private String vrstaRasvjetnogMjesta;
+        private String razdjelnik;
+        private String trosilo;
+        private String vrstaSvjetiljke;
+        private String brojSvjetiljki;
+        private String grlo;
+        private String vrstaStakla;
+        private String polozajKabela;
+        private String godinaIzgradnje;
+        private String oznakaUgovora;
+        private Integer idHist;
+        private LocalDateTime timeStart;
+        private LocalDateTime timeEnd;
+        private String userRole;
+
+        public Builder(Integer idHist) { this.idHist = idHist; }
+
+        public Builder geom(PGgeometry geom) {
+            this.geom = geom;
+            return this;
+        }
+
+        public Builder materijal(String materijal) {
+            this.materijal = materijal;
+            return this;
+        }
+        public Builder stanje(String stanje) {
+            this.stanje = stanje;
+            return this;
+        }
+        public Builder source(String source) {
+            this.source = source;
+            return this;
+        }
+        public Builder mjernoMjesto(String mjernoMjesto) {
+            this.mjernoMjesto = mjernoMjesto;
+            return this;
+        }
+        public Builder vod(String vod) {
+            this.vod = vod;
+            return this;
+        }
+        public Builder kategorija(String kategorija) {
+            this.kategorija = kategorija;
+            return this;
+        }
+        public Builder vrstaRasvjetnogMjesta(String vrstaRasvjetnogMjesta) {
+            this.vrstaRasvjetnogMjesta = vrstaRasvjetnogMjesta;
+            return this;
+        }
+        public Builder razdjelnik(String razdjelnik) {
+            this.razdjelnik = razdjelnik;
+            return this;
+        }
+        public Builder trosilo(String trosilo) {
+            this.trosilo = trosilo;
+            return this;
+        }
+        public Builder vrstaSvjetiljke(String vrstaSvjetiljke) {
+            this.vrstaSvjetiljke = vrstaSvjetiljke;
+            return this;
+        }
+        public Builder brojSvjetiljki(String brojSvjetiljki) {
+            this.brojSvjetiljki = brojSvjetiljki;
+            return this;
+        }
+        public Builder grlo(String grlo) {
+            this.grlo = grlo;
+            return this;
+        }
+        public Builder vrstaStakla(String vrstaStakla) {
+            this.vrstaStakla = vrstaStakla;
+            return this;
+        }
+        public Builder polozajKabela(String polozajKabela) {
+            this.polozajKabela = polozajKabela;
+            return this;
+        }
+        public Builder godinaIzgradnje(String godinaIzgradnje) {
+            this.godinaIzgradnje = godinaIzgradnje;
+            return this;
+        }
+        public Builder oznakaUgovora(String oznakaUgovora) {
+            this.oznakaUgovora = oznakaUgovora;
+            return this;
+        }
+        public Builder fid(Integer fid) {
+            this.fid = fid;
+            return this;
+        }
+        public Builder timeStart(LocalDateTime timeStart) {
+            this.timeStart = timeStart;
+            return this;
+        }
+        public Builder timeEnd(LocalDateTime timeEnd) {
+            this.timeEnd = timeEnd;
+            return this;
+        }
+        public Builder userRole(String userRole) {
+            this.userRole = userRole;
+            return this;
+        }
+
+        public Rasvjeta build() {
+            Rasvjeta rasvjeta = new Rasvjeta();
+
+            rasvjeta.geom = this.geom;
+            rasvjeta.fid = this.fid;
+            rasvjeta.materijal = this.materijal;
+            rasvjeta.stanje = this.stanje;
+            rasvjeta.source = this.source;
+            rasvjeta.mjernoMjesto = this.mjernoMjesto;
+            rasvjeta.vod = this.vod;
+            rasvjeta.kategorija = this.kategorija;
+            rasvjeta.vrstaRasvjetnogMjesta = this.vrstaRasvjetnogMjesta;
+            rasvjeta.razdjelnik = this.razdjelnik;
+            rasvjeta.trosilo = this.trosilo;
+            rasvjeta.vrstaSvjetiljke = this.vrstaSvjetiljke;
+            rasvjeta.brojSvjetiljki = this.brojSvjetiljki;
+            rasvjeta.grlo = this.grlo;
+            rasvjeta.vrstaStakla = this.vrstaStakla;
+            rasvjeta.polozajKabela = this.polozajKabela;
+            rasvjeta.godinaIzgradnje = this.godinaIzgradnje;
+            rasvjeta.oznakaUgovora = this.oznakaUgovora;
+            rasvjeta.idHist = this.idHist;
+            rasvjeta.timeStart = this.timeStart;
+            rasvjeta.timeEnd = this.timeEnd;
+            rasvjeta.userRole = this.userRole;
+
+            return rasvjeta;
+
+        }
+
+    }
+
     @JsonSerialize(using = PGgeometrySerializer.class)
     private PGgeometry geom;
     private Integer fid;
@@ -30,6 +176,10 @@ public class Rasvjeta {
     private LocalDateTime timeStart;
     private LocalDateTime timeEnd;
     private String userRole;
+
+    public Rasvjeta() {
+
+    }
 
     @Override
     public String toString() {

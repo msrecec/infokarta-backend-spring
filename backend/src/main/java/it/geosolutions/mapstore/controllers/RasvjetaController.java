@@ -5,6 +5,7 @@ import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
 import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
@@ -85,13 +86,26 @@ public class RasvjetaController {
         @RequestBody String json
     ) throws IOException {
 
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
+        String oJSON;
 
-        Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
+        RasvjetaPutCommand command = JSONUtils.fromJSONtoPOJO(json, RasvjetaPutCommand.class);
 
-        String outJson = pokojniciDAO.updatePokojnik(pokojnik);
+        Optional<Rasvjeta> rasvjeta = rasvjetaService.update(command);
 
-        HeaderUtils.responseWithJSON(response, outJson);
+        if(rasvjeta.isPresent()) {
+
+            oJSON = JSONUtils.fromPOJOToJSON(rasvjeta.get());
+
+        } else {
+
+            oJSON = "{}";
+
+            response.setStatus(500);
+
+        }
+
+        HeaderUtils.responseWithJSON(response, oJSON);
+
     }
 
 }
