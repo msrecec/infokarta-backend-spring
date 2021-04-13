@@ -41,7 +41,7 @@ import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
 import fileManagement from '../../reducers/infokarta/fileManagement';
 
 // epics
-import { deceasedAndFileManagementEpics } from '../../epics/infokarta/combinedEpics';
+import { completeDeceasedEpic } from '../../epics/infokarta/combinedEpics';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
@@ -61,27 +61,22 @@ const searchFormData = [
     {
         label: "Ime",
         type: "text",
-        value: "name"
+        value: "ime"
     },
     {
         label: "Prezime",
         type: "text",
-        value: "surname"
+        value: "prezime"
     },
     {
-        label: "Godina smrti od",
+        label: "Godina smrti",
         type: "text",
-        value: "yearOfDeathFrom"
-    },
-    {
-        label: "Godina smrti do",
-        type: "text",
-        value: "yearOfDeathTo"
+        value: "godina_ukopa"
     },
     {
         label: "Groblje",
         type: "select",
-        value: "graveyard",
+        value: "groblje",
         selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
     }
 ];
@@ -223,7 +218,7 @@ export default createPlugin('Pokojnici', {
             doNotHide: true
         }
     },
-    epics: deceasedAndFileManagementEpics,
+    epics: completeDeceasedEpic,
     reducers: {
         deceased,
         dynamicModalControl,

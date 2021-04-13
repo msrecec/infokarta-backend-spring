@@ -41,25 +41,32 @@ const fileManagementApi = {
             });
     },
     getMeta: function(entityName, documentType, fid) {
-        const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta/${fid}`;
-        return axios.get(url)
-            .then(function(response) {
-                return response;
-            }).catch(function(error) {
-                /* eslint-disable no-console */
-                console.error('getMeta: ', error);
-            });
+        if (entityName && documentType && fid) {
+            const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta/${fid}`;
+            return axios.get(url)
+                .then(function(response) {
+                    return response;
+                }).catch(function(error) {
+                    /* eslint-disable no-console */
+                    console.error('getMeta: ', error);
+                });
+        }
+        return null;
     },
     getMetaByEntityFid: function(entityName, documentType, entityFid) {
         console.log(entityName, documentType, entityFid);
-        const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
-        return axios.get(url)
-            .then(function(response) {
-                return response;
-            }).catch(function(error) {
-                /* eslint-disable no-console */
-                console.error('getMetaByEntityFid: ', error);
-            });
+        if (entityName && documentType && entityFid) {
+            const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
+            return axios.get(url)
+                .then(function(response) {
+                    return response;
+                }).catch(function(error) {
+                    /* eslint-disable no-console */
+                    console.error('getMetaByEntityFid: ', error);
+                });
+        }
+        return null;
+
     }
 };
 

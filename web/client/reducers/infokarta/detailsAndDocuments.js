@@ -1,6 +1,7 @@
 import {
     LOAD_DATA_INTO_DETAILS_AND_DOCS_VIEW,
-    CLOSE_DETAILS_AND_DOCS_VIEW
+    CLOSE_DETAILS_AND_DOCS_VIEW,
+    CLEAR_DETAILS_AND_DOCS_VIEW
 } from "../../actions/infokarta/detailsAndDocuments";
 const detailsAndDocuments = (
     state = {
@@ -24,6 +25,14 @@ const detailsAndDocuments = (
             ...state,
             tableHeight: "600px",
             showDetails: "none"
+        };
+    }
+    case CLEAR_DETAILS_AND_DOCS_VIEW: {
+        return {
+            ...state,
+            tableHeight: "600px",
+            showDetails: "none",
+            item: {}
         };
     }
     default:
