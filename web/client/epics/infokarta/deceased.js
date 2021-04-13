@@ -33,6 +33,8 @@ import {
     hideInsertConfirmationModal
 } from "../../actions/infokarta/dynamicModalControl";
 
+import { closeDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
+
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
 import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
 import { zoomToPoint } from '../../actions/map';
@@ -53,9 +55,10 @@ export const sendSearchRequestUponSearchParameterOrPageChange = (action$, {getSt
         const pageNumber = get(getState(), "deceased.pageNumber");
         return Rx.Observable.fromPromise(pokojniciApi.searchPokojnici(searchParameters, pageNumber)
             .then(data => data))
-            .switchMap((response) => {
+            .mergeMap((response) => {
                 return Rx.Observable.of(
-                    deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount)
+                    deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount),
+                    closeDetailsAndDocsView()
                 );
             })
             .catch((error) => {

@@ -24,6 +24,17 @@ class TableComponent extends React.Component {
       this.state = {};
   }
 
+  componentDidUpdate(prevProps) {
+      if ((prevProps.tableHeight !== this.props.tableHeight) && (this.props.tableHeight === "600px")) {
+          // kad se ugasi details view, makni boju sa odabranog rowa
+          let tableRow = document.getElementById(this.state.prevActiveRow);
+          if (tableRow) {
+              tableRow.style.background = "";
+          }
+          this.setState({});
+      }
+  }
+
   render() {
       const style = {
           overflow: "auto",
@@ -87,23 +98,22 @@ class TableComponent extends React.Component {
   }
 
   setActiveRow(key) {
-      console.log('!!!', this.state.prevActiveRow, key);
-      let temp;
+      let tableRow;
       if (this.state.prevActiveRow) {
-          // ako postoji aktivni kljuc, postavi ga u bijelo i obojaj sljedeci
-          temp = document.getElementById(this.state.prevActiveRow);
-          console.log(temp, '!!!');
-          temp.style.background = "white";
+          // ako postoji aktivni kljuc, postavi mu boju na prazan string (potrebno da bootstrap hover radi)
+          // i obojaj sljedeci
+          tableRow = document.getElementById(this.state.prevActiveRow);
+          if (tableRow) {
+              tableRow.style.background = "";
+          } // fix ako se promijeni stranica
           this.setState({ prevActiveRow: key });
-          temp = document.getElementById(key);
-          console.log(temp, '!!!');
-          temp.style.background = "green";
+          tableRow = document.getElementById(key);
+          tableRow.style.background = "green";
       } else {
           // ako ne postoji, postavi novi kljuc u zelenu
           this.setState({ prevActiveRow: key });
-          temp = document.getElementById(key);
-          console.log(temp, '!!!');
-          temp.style.background = "green";
+          tableRow = document.getElementById(key);
+          tableRow.style.background = "green";
       }
   }
 }
