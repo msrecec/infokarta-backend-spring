@@ -3141,196 +3141,196 @@
         },
         "contextCreator": {
             "generalSettings": {
-                "label": "General Settings",
-                "title": "Create new app context",
-                "name": "Name",
-                "namePlaceholder": "Enter app context name...",
-                "windowTitle": "Window title",
-                "windowTitlePlaceholder": "Enter window title..."
+                "label": "Opće postavke",
+                "title": "Izradite novi kontekst aplikacije",
+                "name": "Ime",
+                "namePlaceholder": "Unesite naziv konteksta aplikacije ...",
+                "windowTitle": "Naslov prozora",
+                "windowTitlePlaceholder": "Unesite naslov prozora ..."
             },
             "configurePlugins": {
-                "label": "Configure Plugins",
-                "pluginsFilterPlaceholder": "Filter plugins by name...",
-                "availablePlugins": "Available Plugins",
+                "label": "Konfigurirajte dodatke",
+                "pluginsFilterPlaceholder": "Filtriraj dodatke prema imenu ...",
+                "availablePlugins": "Dostupni dodaci",
                 "enabledPlugins": "Enabled Plugins",
-                "availablePluginsEmpty": "All available plugins are enabled",
-                "enabledPluginsEmpty": "Add plugins to configuration from list of available plugins",
-                "searchResultsEmpty": "No plugins found that satisfy the search criteria",
+                "availablePluginsEmpty": "Omogućeni su svi dostupni dodaci",
+                "enabledPluginsEmpty": "Dodavanje dodataka u konfiguraciju s popisa dostupnih dodataka",
+                "searchResultsEmpty": "Nije pronađen nijedan dodatak koji zadovoljava kriterije pretraživanja",
                 "cfgParsingError": {
-                    "title": "Configuration Error",
-                    "body": "Configuration JSON parsing failed.\nThe following error occurred:\n\"{error}\""
+                    "title": "Pogreška u konfiguraciji",
+                    "body": "Konfiguracija JSON raščlanjivanje nije uspjelo.\nDogodila se sljedeća pogreška:\n\"{error}\""
                 },
-                "uploadLabel": "Drag an extension bundle or click to browse and upload it",
-                "uploadTitle": "Install a MapStore plugin",
-                "uploadParseError": "index.json file index.json has a wrong format",
-                "uploadMissingIndexError": "index.json file missing in zip",
-                "uploadMissingPluginError": "No plugins defined in index.json",
-                "uploadMissingBundleError": "No javascript bundle in uploaded file",
-                "uploadTooManyBundlesError": "Too many javascript bundles in the zip package",
-                "uploadWrongFileFormatError": "Wrong file format, zip file expected",
-                "uploadAlreadyInstalledError": "Extension already installed. Removing current extension before reinstalling",
-                "confirmRemovePlugin": "Are you sure you want to remove the extension?",
-                "cancelUpload": "Close",
-                "install": "Install",
-                "uploadError": "Error while installing: ",
-                "uploadOk": "Extension has been installed correctly",
+                "uploadLabel": "Povucite paket proširenja ili kliknite da biste ga pregledali i prenijeli",
+                "uploadTitle": "Instalirajte dodatak MapStore",
+                "uploadParseError": "datoteka index.json je pogrešnog formata",
+                "uploadMissingIndexError": "datoteka index.json nedostaje u zip datoteci",
+                "uploadMissingPluginError": "U index.json nisu definirani dodaci",
+                "uploadMissingBundleError": "U prenesenoj datoteci nema paketa javascripta",
+                "uploadTooManyBundlesError": "Previše snopova javascripta u zip paketu",
+                "uploadWrongFileFormatError": "Pogrešan format datoteke, očekuje se zip datoteka",
+                "uploadAlreadyInstalledError": "Proširenje je već instalirano. Uklanjanje trenutnog proširenja prije ponovne instalacije",
+                "confirmRemovePlugin": "Jeste li sigurni da želite ukloniti proširenje?",
+                "cancelUpload": "Zatvori",
+                "install": "Instaliraj",
+                "uploadError": "Pogreška prilikom instalacije: ",
+                "uploadOk": "Proširenje je ispravno instalirano",
                 "tooltips": {
-                    "enableUserPlugin": "Enable selection of current plugin for user",
-                    "disableUserPlugin": "Disable selection of current plugin for user",
-                    "activatePlugin": "Enable loading this plugin on startup",
-                    "deactivatePlugin": "Disable loading this plugin on startup",
-                    "editConfiguration": "Edit plugin configuration",
-                    "pluginDocumentation": "Open plugin configuration documentation",
-                    "uploadPlugin": "Add an extension to MapStore",
-                    "removePlugin": "Remove this extension from MapStore",
+                    "enableUserPlugin": "Omogućite odabir trenutnog dodatka za korisnika",
+                    "disableUserPlugin": "Onemogući odabir trenutnog dodatka za korisnika",
+                    "activatePlugin": "Omogućite učitavanje ovog dodatka pri pokretanju",
+                    "deactivatePlugin": "Onemogućite učitavanje ovog dodatka pri pokretanju",
+                    "editConfiguration": "Uredi konfiguraciju dodatka",
+                    "pluginDocumentation": "Otvorite dokumentaciju o konfiguraciji dodatka",
+                    "uploadPlugin": "Dodajte proširenje za MapStore",
+                    "removePlugin": "Uklonite ovo proširenje iz MapStore",
                     "mapTemplatesConfig": "Configure templates"
                 },
                 "tutorialPlugins": {
-                    "availableTitle": "Available Plugin",
-                    "availableDescription": "This plugin is disabled",
-                    "enabledTitle": "Enabled Plugin",
-                    "enabledDescription": "This plugin is enabled"
+                    "availableTitle": "Dostupni dodatak",
+                    "availableDescription": "Ovaj dodatak je onemogućen",
+                    "enabledTitle": "Omogućeni dodatak",
+                    "enabledDescription": "Ovaj dodatak je omogućen"
                 },
                 "saveCfgErrorNotification": {
-                    "title": "Syntax error in plugin configuration",
-                    "message": "Plugin \"{pluginName}\" contains an error in configuration. Please fix before proceeding"
+                    "title": "Sintaksna pogreška u konfiguraciji dodatka",
+                    "message": "Dodatak \"{pluginName}\" sadrži pogrešku u konfiguraciji. Ispravite prije nastavka"
                 }
             },
             "configureTemplates": {
-                "title": "Configure Templates",
-                "availableTemplates": "Available Templates",
-                "enabledTemplates": "Enabled Templates",
-                "templatesFilterPlaceholder": "Filter templates by name...",
-                "availableTemplatesEmpty": "All available templates are enabled",
-                "enabledTemplatesEmpty": "Add templates to configuration from list of available templates",
-                "searchResultsEmpty": "No templates found that satisfy the search criteria",
+                "title": "Konfigurirajte predloške",
+                "availableTemplates": "Dostupni predlošci",
+                "enabledTemplates": "Omogućeni predlošci",
+                "templatesFilterPlaceholder": "Filtriraj predloške po imenu ...",
+                "availableTemplatesEmpty": "Omogućeni su svi dostupni predlošci",
+                "enabledTemplatesEmpty": "Dodajte predloške u konfiguraciju s popisa dostupnih predložaka",
+                "searchResultsEmpty": "Nisu pronađeni predlošci koji udovoljavaju kriterijima pretraživanja",
                 "fileDrop": {
-                    "label": "Template",
-                    "clear": "Drop or click to select a map template file (exported JSON MapStore maps or WMC files are supported)"
+                    "label": "Predložak",
+                    "clear": "Ispustite ili kliknite da biste odabrali datoteku predloška karte (podržane su izvezene JSON MapStore karte ili WMC datoteke)"
                 },
                 "uploadDialog": {
-                    "title": "Upload Map Template",
-                    "save": "Upload",
-                    "jsonParsingError": "JSON parsing failed: \"{error}\"",
-                    "fileReadError": "Unexpected file reading error occurred"
+                    "title": "Učitaj predložak karte",
+                    "save": "Učitaj",
+                    "jsonParsingError": "Analiza JSON-a nije uspjela: \"{error}\"",
+                    "fileReadError": "Došlo je do neočekivane pogreške čitanja datoteke"
                 },
                 "tooltips": {
-                    "uploadTool": "Upload new template",
-                    "editTemplate": "Edit template properties",
-                    "deleteTemplate": "Delete template"
+                    "uploadTool": "Učitajte novi predložak",
+                    "editTemplate": "Uredi svojstva predloška",
+                    "deleteTemplate": "Izbriši predložak"
                 },
-                "deleteError": "Couldn't delete the template, an error occurred",
-                "deleteConfirm": "Are you sure you want to delete template \"{templateName}\"?"
+                "deleteError": "Predložak nije izbrisan, dogodila se pogreška",
+                "deleteConfirm": "Jeste li sigurni da želite izbrisati predložak \"{templateName}\"?"
             },
             "configureMap": {
-                "label": "Configure Map",
-                "reload": "Reload Map",
-                "confirm": "This is going to discard all current map changes. Proceed?"
+                "label": "Konfiguriraj kartu",
+                "reload": "Ponovno učitaj kartu",
+                "confirm": "Ovo će odbaciti sve trenutne promjene karte. Nastaviti?"
             },
             "saveErrorNotification": {
-                "titleContext": "Context saving failed",
-                "titleTemplate": "Template saving failed",
-                "conflict": "A resource with this name already exists",
-                "defaultMessage": "Unknown error",
-                "categoryError": "Creating missing category \"{categoryName}\" failed"
+                "titleContext": "Spremanje konteksta nije uspjelo",
+                "titleTemplate": "Spremanje predloška nije uspjelo",
+                "conflict": "Resurs s ovim imenom već postoji",
+                "defaultMessage": "Nepoznata pogreška",
+                "categoryError": "Stvaranje kategorije koja nedostaje \"{categoryName}\" neuspjelo"
             },
             "loadTemplateErrorNotification": {
-                "forbidden": "Couldn't access the template data, the user lacks necessary permissions!",
-                "defaultMessage": "Unexpected error occured"
+                "forbidden": "Ne mogu pristupiti podacima predloška, korisniku nedostaju potrebna dopuštenja!",
+                "defaultMessage": "Došlo je do neočekivane pogreške"
             },
             "contextNameErrorNotification": {
-                "title": "Bad context name",
-                "unknownError": "Unexpected error occurred"
+                "title": "Loš naziv konteksta",
+                "unknownError": "Došlo je do neočekivane pogreške"
             },
-            "undo": "Are you sure you want to abandon the context editing session?",
-            "showTutorial": "Show Tutorial"
+            "undo": "Jeste li sigurni da želite napustiti sesiju za uređivanje konteksta?",
+            "showTutorial": "Prikaži vodič"
         },
         "contextManager": {
-            "title": "Manage Contexts",
-            "gridTitle": "Contexts",
-            "searchPlaceholder": "search...",
-            "newContext": "New Context",
-            "editContextTooltip": "Edit context"
+            "title": "Upravljanje kontekstima",
+            "gridTitle": "Konteksti",
+            "searchPlaceholder": "pretraga...",
+            "newContext": "Novi kontekst",
+            "editContextTooltip": "Uredi kontekst"
         },
         "userExtensions": {
-            "title": "User Extensions",
-            "emptyTitle": "No Result",
-            "emptyDescription": "Entered filter does not match name or description of any of extensions",
+            "title": "Korisnička proširenja",
+            "emptyTitle": "Nema rezultata",
+            "emptyDescription": "Uneseni filtar ne odgovara nazivu ili opisu bilo kojeg proširenja",
             "filterPlaceholder": "Filter...",
-            "addExtension": "Add Extension",
-            "removeExtension": "Remove Extension"
+            "addExtension": "Dodaj proširenje",
+            "removeExtension": "Uklonite ekstenziju"
         },
         "mapTemplates": {
-            "title": "Map Templates",
-            "favouritesTitle": "Favourites",
-            "allTitle": "All",
-            "filterPlaceholder": "Filter map templates...",
-            "transfer": "Replace map with this template",
-            "merge": "Add this template to map",
-            "favouriteAdd": "Add to favourites",
-            "favouriteRemove": "Remove from favourites",
-            "emptyTitle": "No Result",
-            "emptyDescription": "Entered filter does not match name or description of any of templates",
-            "noTemplatesTitle": "No templates found",
-            "noTemplatesDescription": "Current context contains no templates",
-            "confirmReplaceTitle": "Replace map content",
-            "confirmReplaceMessage": "You will replace all layers and map configuration with the selected template by clicking on replace button",
-            "confirmReplaceConfirmButton": "Replace"
+            "title": "Predlošci karte",
+            "favouritesTitle": "Favoriti",
+            "allTitle": "Svi",
+            "filterPlaceholder": "Filtriraj predloške mapa ...",
+            "transfer": "Zamijenite kartu ovim predloškom",
+            "merge": "Dodajte ovaj predložak na kartu",
+            "favouriteAdd": "Dodaj u favorite",
+            "favouriteRemove": "Ukloni iz favorita",
+            "emptyTitle": "Nema rezultata",
+            "emptyDescription": "Uneseni filtar ne odgovara nazivu ili opisu bilo kojeg predloška",
+            "noTemplatesTitle": "Nisu pronađeni predlošci",
+            "noTemplatesDescription": "Trenutni kontekst ne sadrži predloške",
+            "confirmReplaceTitle": "Zamijenite sadržaj karte",
+            "confirmReplaceMessage": "Klikom na gumb za zamjenu zamijenit ćete sve slojeve i konfiguraciju karte odabranim predloškom",
+            "confirmReplaceConfirmButton": "Zamijeniti"
         },
         "mapCatalog": {
-            "title": "Map Catalog",
-            "filterPlaceholder": "Search maps...",
-            "deleteConfirmContent": "Are you sure you want to delete \"{mapName}\" map?",
+            "title": "Katalog karata",
+            "filterPlaceholder": "Pretraži karte ...",
+            "deleteConfirmContent": "Jeste li sigurni da želite izbrisati \"{mapName}\" kartu?",
             "tooltips": {
-                "edit": "Edit properties",
-                "delete": "Delete resource",
-                "share": "Share"
+                "edit": "Uredi svojstva",
+                "delete": "Izbriši resurs",
+                "share": "Podijeli"
             },
             "deletedMap": {
-                "title": "Deleted Map",
-                "message": "The map was successfully deleted"
+                "title": "Izbrisana karta",
+                "message": "Karta je uspješno izbrisana"
             },
             "updatedMap": {
-                "title": "Saved Map",
-                "message": "The map was successfully saved"
+                "title": "Spremljena karta",
+                "message": "Karta je uspješno spremljena"
             },
-            "deleteError": "Unexpected error occurred while deleting the map",
-            "updateError": "Unexpected error occurred while saving the map"
+            "deleteError": "Došlo je do neočekivane pogreške prilikom brisanja karte",
+            "updateError": "Došlo je do neočekivane pogreške prilikom spremanja karte"
         },
         "layerInfo": {
-            "title": "Update layers titles and descriptions",
-            "noLayers": "No layers found",
-            "syncButton": "Sync titles and descriptions",
-            "selectAll": "Select all",
-            "deselectAll": "Deselect all",
-            "updatingLayers": "Updating layers {updatedCount}/{totalCount}",
+            "title": "Ažurirajte naslove i opise slojeva",
+            "noLayers": "Nije pronađen nijedan sloj",
+            "syncButton": "Sinkronizirajte naslove i opise",
+            "selectAll": "Odaberi sve",
+            "deselectAll": "Odznači sve",
+            "updatingLayers": "Ažuriranje slojeva {updatedCount}/{totalCount}",
             "tooltips": {
-                "syncSuccess": "Title and description were successfully updated for this layer",
-                "syncError": "It's not possible to update the title and description of this layer. You could verify if all layer options are correct in the settings panel"
+                "syncSuccess": "Naslov i opis su uspješno ažurirani za ovaj sloj",
+                "syncError": "Nije moguće ažurirati naslov i opis ovog sloja. Možete provjeriti jesu li sve opcije sloja točne na ploči s postavkama"
             },
             "syncingLayersSavingToServerError": {
-                "title": "Server Saving Error",
-                "message": "An unexpected error occurred when saving updated layers to server"
+                "title": "Pogreška spremanja poslužitelja",
+                "message": "Došlo je do neočekivane pogreške prilikom spremanja ažuriranih slojeva na poslužitelj"
             },
             "syncingLayersGeneralError": {
-                "title": "General Error",
-                "message": "An unexpected error occurred during layers syncing. There is probably a bug in MapStore"
+                "title": "Opća pogreška",
+                "message": "Tijekom sinkronizacije slojeva dogodila se neočekivana pogreška. Vjerojatno postoji greška u MapStoreu"
             },
-            "layerType": "type: {type}"
+            "layerType": "vrsta: {type}"
         },
         "userSession": {
             "saveErrorNotification": {
-                "titleContext": "User session saving failed",
-                "categoryError": "Creating missing category \"{categoryName}\" failed",
-                "defaultMessage": "Unknown error"
+                "titleContext": "Spremanje korisničke sesije nije uspjelo",
+                "categoryError": "Stvaranje kategorije koja nedostaje \"{categoryName}\" neuspješno",
+                "defaultMessage": "Nepoznata pogreška"
             },
             "removeErrorNotification": {
-                "titleContext": "User session removing failed",
-                "defaultMessage": "Unknown error"
+                "titleContext": "Uklanjanje korisničke sesije nije uspjelo",
+                "defaultMessage": "Nepoznata pogreška"
             },
-            "successRemoved": "User session removed",
-            "remove": "Reset User Session",
-            "confirmRemove": "Are you sure you want to restore the default configuration?"
+            "successRemoved": "Korisnička sesija uklonjena",
+            "remove": "Resetiraj korisničku sesiju",
+            "confirmRemove": "Jeste li sigurni da želite vratiti zadanu konfiguraciju?"
         }
     }
 }
