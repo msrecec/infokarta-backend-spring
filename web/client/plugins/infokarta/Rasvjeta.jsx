@@ -152,7 +152,7 @@ export default createPlugin('Rasvjeta', {
     containers: {
         DrawerMenu: {
             name: "Rasvjeta",
-            position: 3,
+            position: 4,
             text: <Message msgId="rasvjeta"/>,
             icon: <Glyphicon glyph="asterisk"/>,
             action: () => ({type: ''}),
