@@ -7,7 +7,8 @@ import { Glyphicon, Button, ControlLabel } from 'react-bootstrap';
 
 // actions
 import {
-
+    setSearchParametersForGraves,
+    resetSearchParametersForGraves
 } from "../../actions/infokarta/graves";
 
 import {
@@ -21,7 +22,7 @@ import {
 
 // utils
 import { createPlugin } from '../../utils/PluginsUtils';
-import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
+// import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
 
 // reducers
 import graves from '../../reducers/infokarta/graves';
@@ -35,40 +36,24 @@ import { completeGravesEpic } from '../../epics/infokarta/combinedEpics';
 // components
 import TableComponent from '../../components/infokarta/Table';
 import EditModal from '../../components/infokarta/EditModal';
-// import InsertModal from '../../components/infokarta/InsertModal';
-// import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
-// import SearchComponent from '../../components/infokarta/SearchForm';
+import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
-// import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
 import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
 
-const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
-const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
-// const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
-const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
-// const searchFormData = [
-//     {
-//         label: "Ime",
-//         type: "text",
-//         value: "ime"
-//     },
-//     {
-//         label: "Prezime",
-//         type: "text",
-//         value: "prezime"
-//     },
-//     {
-//         label: "Godina smrti",
-//         type: "text",
-//         value: "godina_ukopa"
-//     },
-//     {
-//         label: "Groblje",
-//         type: "select",
-//         value: "groblje",
-//         selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
-//     }
-// ];
+// modal names
+const editModalName = "groboviEdit";
+
+const fieldsToInclude = ["fid", "brojLezaja", "grobnica", "redniBroj", "groblje"];
+const fieldsToExclude = [];
+const readOnlyFields = [];
+const searchFormData = [
+    {
+        label: "Groblje",
+        type: "select",
+        value: "groblje",
+        selectValues: ["", "Primošten", "Prhovo", "Široke", "Kruševo"]
+    }
+];
 
 const Grobovi = ({
     data,
@@ -77,8 +62,8 @@ const Grobovi = ({
     tableHeight,
     detailViewItem,
     showDetails,
-    // sendSearchParameters = () => {},
-    // resetSearchParameters = () => {},
+    sendSearchParameters = () => {},
+    resetSearchParameters = () => {},
     sendPageNumber = () => {},
     setupEditModal = () => {},
     sendEditedData = () => {},
@@ -90,18 +75,19 @@ const Grobovi = ({
     closeDetailsView = () => {}
 }) => {
 
-    // const search = (<SearchComponent
-    //     buildData={searchFormData}
-    //     search={sendSearchParameters}
-    //     openInsertForm={setupInsertModal}
-    //     resetSearchParameters={resetSearchParameters}
-    // />);
+    const search = (<SearchComponent
+        buildData={searchFormData}
+        search={sendSearchParameters}
+        // openInsertForm={setupInsertModal}
+        resetSearchParameters={resetSearchParameters}
+    />);
 
     const table = (<TableComponent
         items={data ? data : []}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToDetailsView={sendDataToDetailsView}
         tableHeight={tableHeight}
+        editModalName={editModalName}
         zoomToItem={sendZoomData}
     />);
 
@@ -117,30 +103,18 @@ const Grobovi = ({
         editItem={sendEditedData}
     />);
 
-    // const insertModal = (<InsertModal
-    //     fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
-    //     extraForm={insertModalGravePickerModeButton}
-    // />);
-
-    // const insertConfirmationModal = (<InsertConfirmationModal
-    //     fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
-    //     extraForm={graveConfirmationForm}
-    //     insertItem={sendNewData}
-    //     startChooseGraveMode={startChooseMode}
-    // />);
-
     const detailsAndDocs = (<DetailsAndDocumentsView
         item={detailViewItem}
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
         title={"Grobnica"}
-        fieldsToExclude={fieldsToExclude}
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
     return (
         <div style={{"padding": "10px"}}>
-            {/* {search} */}
+            {search}
             {table}
             {pagination}
             {detailsAndDocs}
@@ -160,15 +134,12 @@ export default createPlugin('Grobovi', {
         detailViewItem: get(state, "detailsAndDocuments.item"),
         showDetails: get(state, "detailsAndDocuments.showDetails")
     }), {
-        // sendSearchParameters: setSearchParametersForDeceased,
-        // resetSearchParameters: resetSearchParametersForDeceased,
+        sendSearchParameters: setSearchParametersForGraves,
+        resetSearchParameters: resetSearchParametersForGraves,
         // sendPageNumber: setPageForDeceased,
         setupEditModal: showDynamicModal,
         // sendEditedData: editDeceased,
-        // setupInsertModal: getColumnsForInsertFromDatabase,
-        // sendNewData: insertDeceased,
         // sendZoomData: zoomToGraveFromDeceased,
-        // startChooseMode: enableGravePickMode,
         sendDataToDetailsView: loadDataIntoDetailsAndDocsView,
         closeDetailsView: closeDetailsAndDocsView
     })(Grobovi),

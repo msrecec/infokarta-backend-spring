@@ -47,7 +47,7 @@ const insertModalName = "pokojniciInsert";
 const insertConfirmationModalName = "pokojniciConfirmation";
 const editModalName = "pokojniciEdit";
 
-export const sendSearchRequestUponSearchParameterOrPageChange = (action$, {getState = () => {}} = {}) =>
+export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
         SEND_SEARCH_REQUEST_FOR_DECEASED,
         SET_SEARCH_PARAMETERS_FOR_DECEASED,
