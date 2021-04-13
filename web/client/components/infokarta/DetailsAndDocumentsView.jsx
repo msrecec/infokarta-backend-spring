@@ -34,13 +34,25 @@ class PaginationComponent extends React.Component {
             maxHeight: "450px"
         };
 
+        const closeButtonStyle = {
+            position: "absolute",
+            right: "0",
+            padding: "12px"
+        };
+
         const fileComponentParent = (<FileComponentParent
             itemId={this.props.item.fid ? this.props.item.fid : null}
         />);
 
         return (
             <div style={style}>
-                <Button bsStyle="link" onClick={() => this.props.closeDetailsView()}>Zatvori</Button>
+                <Button
+                    bsStyle="link"
+                    onClick={() => this.props.closeDetailsView()}
+                    style={closeButtonStyle}
+                >
+                    <Glyphicon glyph="arrow-down" /> Zatvori
+                </Button>
                 <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
                     <Tab eventKey={1} title="Detalji stavke" style={tabContentStyle}>
                         <div>
