@@ -6,7 +6,8 @@ import {
     lightingDataReceived,
     SET_PAGE_FOR_LIGHTING,
     ZOOM_TO_LAMP_FROM_LIGHTING,
-    EDIT_LIGHTING
+    EDIT_LIGHTING,
+    setPageForLighting
 /*     SET_SEARCH_PARAMETERS_FOR_LIGHTING,
     RESET_SEARCH_PARAMETERS_FOR_LIGHTING */
 } from '../../actions/infokarta/lighting';
@@ -74,21 +75,23 @@ export const removeLightingPinLayer = (action$) =>
             );
         });
 
-export const sendEditDataForLighting = (action$) =>
+export const sendEditDataForLighting = (action$, {getState = () => {}} = {}) =>
     action$.ofType(EDIT_LIGHTING)
         .switchMap(({ itemToEdit = {} }) => {
+            let getLighting = get(getState(), "lighting");
             return Rx.Observable.fromPromise(lightingApi.editLightingData(itemToEdit)
                 .then(data => data))
                 .mergeMap((response) => {
-                    console.log('lampa edit', response);
+                    console.log('lampa edit', response.data);
                     return Rx.Observable.of(
-                        hideDynamicModal()
+                        hideDynamicModal(),
+                        setPageForLighting(getLighting.pageNumber) // added for page refresh, remove after adding search!!!
                     );
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
                         /* eslint-disable no-console */
-                        console.error('error while editing deceased', error)
+                        console.error('error while editing lighting', error)
                     );
                 });
         });

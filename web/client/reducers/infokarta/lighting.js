@@ -9,6 +9,7 @@ const lighting = (
     state = {
         data: [],
         totalNumber: null,
+        searchParameters: {},
         pageNumber: 1
     },
     action
