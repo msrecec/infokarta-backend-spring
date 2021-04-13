@@ -20,8 +20,8 @@ import {
 } from "../../actions/infokarta/gravePickerTool";
 
 import {
-    showEditModal,
-    showInsertModal
+    showDynamicModal,
+    getColumnsForInsertFromDatabase
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
@@ -54,6 +54,9 @@ import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerMo
 import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
 
 const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
+const insertModalName = "pokojniciInsert";
+const insertConfirmationModalName = "pokojniciConfirmation";
+const editModalName = "pokojniciEdit";
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
@@ -81,6 +84,7 @@ const searchFormData = [
     }
 ];
 
+
 const Pokojnici = ({
     data,
     page,
@@ -89,6 +93,9 @@ const Pokojnici = ({
     tableHeight,
     detailViewItem,
     showDetails,
+    editModalShow,
+    insertConfirmationModalShow,
+    insertModalShow,
     sendSearchParameters = () => {},
     resetSearchParameters = () => {},
     sendPageNumber = () => {},
@@ -125,14 +132,18 @@ const Pokojnici = ({
         search={sendSearchParameters}
         openInsertForm={setupInsertModal}
         resetSearchParameters={resetSearchParameters}
+        insertModalName = {insertModalName}
     />);
 
     const table = (<TableComponent
         items={data ? data : []}
-        fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
-        sendDataToDetailsView={sendDataToDetailsView}
         tableHeight={tableHeight}
+        fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        editModalName = {editModalName}
         zoomToItem={sendZoomData}
+        sendDataToEdit={setupEditModal}
+        sendDataToDetailsView={sendDataToDetailsView}
     />);
 
     const pagination = (<PaginationComponent
@@ -145,11 +156,15 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
         editItem={sendEditedData}
+        show = {editModalShow}
     />);
 
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertModalGravePickerModeButton}
+        insertModalName = {insertModalName}
+        insertConfirmationModalName={insertConfirmationModalName}
+        show={insertModalShow}
     />);
 
     const insertConfirmationModal = (<InsertConfirmationModal
@@ -157,6 +172,9 @@ const Pokojnici = ({
         extraForm={graveConfirmationForm}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
+        insertModalName = {insertModalName}
+        insertConfirmationModalName={insertConfirmationModalName}
+        show={insertConfirmationModalShow}
     />);
 
     const gravePickerModal = (<GravePickerModal
@@ -193,14 +211,17 @@ export default createPlugin('Pokojnici', {
         chosenGrave: get(state, "gravePickerTool.graveData"),
         tableHeight: get(state, "detailsAndDocuments.tableHeight"),
         detailViewItem: get(state, "detailsAndDocuments.item"),
-        showDetails: get(state, "detailsAndDocuments.showDetails")
+        showDetails: get(state, "detailsAndDocuments.showDetails"),
+        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName),
+        insertModalShow: get(state, 'dynamicModalControl.modals.' + insertModalName),
+        insertConfirmationModalShow: get(state, 'dynamicModalControl.modals.' + insertConfirmationModalName)
     }), {
         sendSearchParameters: setSearchParametersForDeceased,
         resetSearchParameters: resetSearchParametersForDeceased,
         sendPageNumber: setPageForDeceased,
-        setupEditModal: showEditModal,
+        setupEditModal: showDynamicModal,
+        setupInsertModal: getColumnsForInsertFromDatabase,
         sendEditedData: editDeceased,
-        setupInsertModal: showInsertModal,
         sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,
         startChooseMode: enableGravePickMode,

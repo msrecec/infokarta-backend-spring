@@ -5,8 +5,7 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get } from "lodash";
 
 import {
-    showEditModal,
-    hideEditModal
+    hideDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
@@ -21,7 +20,6 @@ class BaseModalComponent extends React.Component {
       itemToEdit: PropTypes.object,
       fieldsToExclude: PropTypes.array,
       readOnlyFields: PropTypes.array,
-      showModal: PropTypes.func,
       hideModal: PropTypes.func,
       show: PropTypes.bool,
       editItem: PropTypes.func
@@ -39,15 +37,16 @@ class BaseModalComponent extends React.Component {
       this.state = {};
   }
 
-  componentDidUpdate(prevProps) {
+
+  componentDidUpdate(prevProps, prevState) {
       if (prevProps.show !== this.props.show) {
+          console.log('test !!!', prevProps, this.props, prevState, this.state);
           this.updateState();
           // svaki put kad se promijeni vrijednost props.show (tj. kad se prikaze komponenta)
           // zove se funkcija za ucitat podatke u lokalni state
           // oni se kasnije salju u api poziv za edit
       }
   }
-
   render() {
       return (
           <Modal show={this.props.show} onHide={this.props.hideModal} backdrop={'static'}>
@@ -100,12 +99,10 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToEdit: get(state, 'dynamicModalControl.itemToEdit'),
-        show: get(state, 'dynamicModalControl.editModalVisible')
+        itemToEdit: get(state, 'dynamicModalControl.itemToEdit')
     };
 }, {
-    showModal: showEditModal,
-    hideModal: hideEditModal
+    hideModal: hideDynamicModal
 })(BaseModalComponent);
 
 export default ModalComponent;

@@ -584,6 +584,11 @@
       "glyph": "stop",
       "title": "plugins.Grobovi.title",
       "description": "plugins.Grobovi.description"
+    }, {
+      "name": "Rasvjeta",
+      "glyph": "asterisk",
+      "title": "plugins.Rasvjeta.title",
+      "description": "plugins.Rasvjeta.description"
     }
   ]
 }

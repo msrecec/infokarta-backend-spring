@@ -118,6 +118,7 @@ class TableComponent extends React.Component {
   }
 }
 
+
 export default TableComponent;
 
 // let editTooltip = (
