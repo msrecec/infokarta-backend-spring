@@ -1,6 +1,6 @@
 package it.geosolutions.mapstore.dao.grob;
 
-import it.geosolutions.mapstore.model.Grob;
+import it.geosolutions.mapstore.model.grob.Grob;
 import org.postgis.PGgeometry;
 
 import javax.sql.DataSource;

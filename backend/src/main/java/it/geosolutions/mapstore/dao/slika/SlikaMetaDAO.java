@@ -1,6 +1,6 @@
 package it.geosolutions.mapstore.dao.slika;
 
-import it.geosolutions.mapstore.model.SlikaMeta;
+import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 
 import javax.sql.DataSource;
 import java.util.List;

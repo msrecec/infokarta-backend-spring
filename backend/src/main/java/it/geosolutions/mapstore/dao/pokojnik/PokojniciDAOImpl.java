@@ -1,7 +1,7 @@
 package it.geosolutions.mapstore.dao.pokojnik;
 
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.model.Pokojnik;
+import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.dao.DataAccessException;

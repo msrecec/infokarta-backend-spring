@@ -2,7 +2,7 @@ package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
-import it.geosolutions.mapstore.model.Pokojnik;
+import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;

@@ -1,8 +1,7 @@
 package it.geosolutions.mapstore.service.slike;
 
 import it.geosolutions.mapstore.dto.slika.SlikaMetaDTO;
-import it.geosolutions.mapstore.model.SlikaMeta;
-import org.springframework.web.multipart.MultipartFile;
+import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

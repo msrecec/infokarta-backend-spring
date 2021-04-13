@@ -1,17 +1,13 @@
 package it.geosolutions.mapstore.dao.slika;
 
-import it.geosolutions.mapstore.config.FileSystemConfig;
 import it.geosolutions.mapstore.config.JDBCConfig;
-import it.geosolutions.mapstore.model.SlikaMeta;
+import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 import it.geosolutions.mapstore.utils.EntityUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.DataSourceUtils;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

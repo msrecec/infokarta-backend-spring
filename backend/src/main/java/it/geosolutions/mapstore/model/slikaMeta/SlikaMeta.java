@@ -1,12 +1,61 @@
-package it.geosolutions.mapstore.model;
+package it.geosolutions.mapstore.model.slikaMeta;
 
 public class SlikaMeta {
+
+    public static class Builder {
+        private Integer fid;
+        private String naziv;
+        private String original;
+        private String thumbnail;
+        private String tip;
+        private Integer fk;
+
+        public Builder(Integer fid) {
+            this.fid = fid;
+        }
+        public Builder naziv(String naziv) {
+            this.naziv = naziv;
+            return this;
+        }
+        public Builder original(String original) {
+            this.original = original;
+            return this;
+        }
+        public Builder thumbnail(String thumbnail) {
+            this.thumbnail = thumbnail;
+            return this;
+        }
+        public Builder tip(String tip) {
+            this.tip = tip;
+            return this;
+        }
+        public Builder fk(Integer fk) {
+            this.fk = fk;
+            return this;
+        }
+        public SlikaMeta build() {
+            SlikaMeta slikaMeta = new SlikaMeta();
+
+            slikaMeta.fid = this.fid;
+            slikaMeta.naziv = this.naziv;
+            slikaMeta.original = this.original;
+            slikaMeta.thumbnail = this.thumbnail;
+            slikaMeta.tip = this.tip;
+            slikaMeta.fk = this.fk;
+
+            return slikaMeta;
+        }
+
+    }
+
     private Integer fid;
     private String naziv;
     private String original;
     private String thumbnail;
     private String tip;
     private Integer fk;
+
+    public SlikaMeta() {}
 
     @Override
     public String toString() {

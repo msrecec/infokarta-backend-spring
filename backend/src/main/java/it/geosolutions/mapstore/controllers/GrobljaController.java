@@ -2,7 +2,7 @@ package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.groblje.GrobljeDAO;
 import it.geosolutions.mapstore.dao.groblje.GrobljeDAOImpl;
-import it.geosolutions.mapstore.model.Groblje;
+import it.geosolutions.mapstore.model.groblje.Groblje;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.springframework.stereotype.Controller;

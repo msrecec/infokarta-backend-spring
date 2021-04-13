@@ -1,6 +1,6 @@
 package it.geosolutions.mapstore.dao.groblje;
 
-import it.geosolutions.mapstore.model.Groblje;
+import it.geosolutions.mapstore.model.groblje.Groblje;
 
 import javax.sql.DataSource;
 import java.util.List;

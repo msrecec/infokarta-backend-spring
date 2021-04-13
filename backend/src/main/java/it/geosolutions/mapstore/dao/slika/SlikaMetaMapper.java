@@ -1,6 +1,6 @@
 package it.geosolutions.mapstore.dao.slika;
 
-import it.geosolutions.mapstore.model.SlikaMeta;
+import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

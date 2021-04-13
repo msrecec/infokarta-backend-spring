@@ -1,10 +1,8 @@
 package it.geosolutions.mapstore.controllers;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
-import it.geosolutions.mapstore.model.Grob;
-import it.geosolutions.mapstore.serializers.PGgeometrySerializer;
+import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;

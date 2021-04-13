@@ -1,9 +1,6 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
-import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
-import it.geosolutions.mapstore.model.Pokojnik;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
