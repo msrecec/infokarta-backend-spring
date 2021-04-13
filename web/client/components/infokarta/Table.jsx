@@ -1,29 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Button, Glyphicon, Tooltip, OverlayTrigger} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { cloneDeep } from "lodash";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
-
-// let editTooltip = (
-//     <Tooltip id="tooltip-top">
-//         Uredi stavku
-//     </Tooltip>
-// );
-
-// let zoomTooltip = (fid) => {
-//     return (
-//         <Tooltip id="tooltip-top">
-//             {fid > 0 ? "Pronađi stavku na karti" : "Koordinate stavke ne postoje."}
-//         </Tooltip>
-//     );
-// };
-
-// let detailsTooltip = (
-//     <Tooltip id="tooltip-top">
-//         Pregledaj detalje i dokumente vezane uz stavku
-//     </Tooltip>
-// );
 
 class TableComponent extends React.Component {
   static propTypes = {
@@ -37,6 +17,12 @@ class TableComponent extends React.Component {
   static defaultProps = {
       tableHeight: "600px"
   };
+
+  constructor(props) {
+      super(props);
+
+      this.state = {};
+  }
 
   render() {
       const style = {
@@ -73,42 +59,7 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr onClick={() => this.tableRowClickHandler(item)}>
-                              {/* TODO prominit u funkciju koja salje item u details and documents */}
-                              {/* <td>
-                                  <OverlayTrigger placement="top" overlay={detailsTooltip}>
-                                      <Button
-                                          bsStyle="primary"
-                                          onClick={() => this.props.sendDataToDetailsView(item)}
-                                      >
-                                          <Glyphicon glyph="eye-open"/>
-                                      </Button>
-                                  </OverlayTrigger>
-                              </td>
-                              <td>
-                                  <OverlayTrigger placement="top" overlay={editTooltip}>
-                                      <Button
-                                          bsStyle="primary"
-                                          onClick={() => this.props.sendDataToEdit(item)}
-                                      >
-                                          <Glyphicon glyph="pencil"/>
-                                      </Button>
-                                  </OverlayTrigger>
-                              </td>
-                              <td>
-                                  <OverlayTrigger placement="top" overlay={zoomTooltip(item.fk)}>
-                                      <Button
-                                          bsStyle="primary"
-                                          onClick={() => this.props.zoomToItem(item.fk)}
-                                          // TODO prominit zoom funkciju da prima dodatan parametar
-                                          // po kojemu se razlikuje koji api poziv se salje
-                                          disabled={item.fk > 0 ? false : true}
-                                      >
-                                          <Glyphicon glyph="map-marker"/>
-                                      </Button>
-                                  </OverlayTrigger>
-                              </td> */}
-                              {/* funkcije na botunu tribaju bit pozvane priko arrow fje inace se pozove svaka na svakom botunu kad se on rendera */}
+                          <tr key={`b-tr-${item.fid}`} id={`b-tr-${item.fid}`} onClick={() => {this.sendRowDataToDetailsView(item); this.setActiveRow(`b-tr-${item.fid}`);}}>
                               {Object.entries(item).map((field) => {
                                   if (this.props.fieldsToInclude.includes(field[0])) {
                                       return (
@@ -126,7 +77,7 @@ class TableComponent extends React.Component {
       );
   }
 
-  tableRowClickHandler(item) {
+  sendRowDataToDetailsView(item) {
       this.props.zoomToItem(item.geom || item.fk);
       const temp = cloneDeep(item);
       if (temp.geom) {
@@ -134,6 +85,81 @@ class TableComponent extends React.Component {
       }
       this.props.sendDataToDetailsView(temp);
   }
+
+  setActiveRow(key) {
+      console.log('!!!', this.state.prevActiveRow, key);
+      let temp;
+      if (this.state.prevActiveRow) {
+          // ako postoji aktivni kljuc, postavi ga u bijelo i obojaj sljedeci
+          temp = document.getElementById(this.state.prevActiveRow);
+          console.log(temp, '!!!');
+          temp.style.background = "white";
+          this.setState({ prevActiveRow: key });
+          temp = document.getElementById(key);
+          console.log(temp, '!!!');
+          temp.style.background = "green";
+      } else {
+          // ako ne postoji, postavi novi kljuc u zelenu
+          this.setState({ prevActiveRow: key });
+          temp = document.getElementById(key);
+          console.log(temp, '!!!');
+          temp.style.background = "green";
+      }
+  }
 }
 
 export default TableComponent;
+
+// let editTooltip = (
+//     <Tooltip id="tooltip-top">
+//         Uredi stavku
+//     </Tooltip>
+// );
+
+// let zoomTooltip = (fid) => {
+//     return (
+//         <Tooltip id="tooltip-top">
+//             {fid > 0 ? "Pronađi stavku na karti" : "Koordinate stavke ne postoje."}
+//         </Tooltip>
+//     );
+// };
+
+// let detailsTooltip = (
+//     <Tooltip id="tooltip-top">
+//         Pregledaj detalje i dokumente vezane uz stavku
+//     </Tooltip>
+// );
+
+/* <td>
+    <OverlayTrigger placement="top" overlay={detailsTooltip}>
+        <Button
+            bsStyle="primary"
+            onClick={() => this.props.sendDataToDetailsView(item)}
+        >
+            <Glyphicon glyph="eye-open"/>
+        </Button>
+    </OverlayTrigger>
+</td>
+<td>
+    <OverlayTrigger placement="top" overlay={editTooltip}>
+        <Button
+            bsStyle="primary"
+            onClick={() => this.props.sendDataToEdit(item)}
+        >
+            <Glyphicon glyph="pencil"/>
+        </Button>
+    </OverlayTrigger>
+</td>
+<td>
+    <OverlayTrigger placement="top" overlay={zoomTooltip(item.fk)}>
+        <Button
+            bsStyle="primary"
+            onClick={() => this.props.zoomToItem(item.fk)}
+            // TODO prominit zoom funkciju da prima dodatan parametar
+            // po kojemu se razlikuje koji api poziv se salje
+            disabled={item.fk > 0 ? false : true}
+        >
+            <Glyphicon glyph="map-marker"/>
+        </Button>
+    </OverlayTrigger>
+</td> */
