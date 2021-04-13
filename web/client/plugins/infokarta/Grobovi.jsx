@@ -11,8 +11,7 @@ import {
 } from "../../actions/infokarta/graves";
 
 import {
-    showEditModal,
-    showInsertModal
+    showDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
@@ -164,9 +163,9 @@ export default createPlugin('Grobovi', {
         // sendSearchParameters: setSearchParametersForDeceased,
         // resetSearchParameters: resetSearchParametersForDeceased,
         // sendPageNumber: setPageForDeceased,
-        setupEditModal: showEditModal,
+        setupEditModal: showDynamicModal,
         // sendEditedData: editDeceased,
-        setupInsertModal: showInsertModal,
+        // setupInsertModal: getColumnsForInsertFromDatabase,
         // sendNewData: insertDeceased,
         // sendZoomData: zoomToGraveFromDeceased,
         // startChooseMode: enableGravePickMode,
