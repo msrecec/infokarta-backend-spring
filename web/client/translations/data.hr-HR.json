@@ -392,17 +392,17 @@
                 "unsavedMapConfirmButtonText": "Napustiti",
                 "unsavedMapCancelButtonText": "Zatvori"
             },
-            "successSaved": "This resource has been saved correctly",
-            "savingError": "There was an error saving the resource",
+            "successSaved": "Resurs je ispravno pohranjen",
+            "savingError": "Dišlo je do greške pri pohrani resursa",
             "geostories": {
-                "newGeostory": "New GeoStory",
+                "newGeostory": "Novi GeoStory",
                 "title": "GeoStories ({count})",
                 "titleNoCount": "GeoStories",
-                "create": "Create GeoStory",
-                "noGeostoryAvailable": "No GeoStory available",
-                "createANewOne": "Create a new GeoStory",
-                "deleteError": "There was an error deleting the GeoStory",
-                "errorLoadingGeostories": "There was an error loading GeoStories"
+                "create": "Izradi GeoStory",
+                "noGeostoryAvailable": "Nema dostupnoga GeoStory-a",
+                "createANewOne": "Izradi novi GeoStory",
+                "deleteError": "Došlo je do greške pri brisanju GeoStory-a",
+                "errorLoadingGeostories": "Došlo je do greške pri učitavanju GeoStory-a"
             }
         },
         "map": {
@@ -462,8 +462,8 @@
                 "titleUnsavedChanges": "Jeste li sigurni da želite zatvoriti bez spremanja promjena?",
                 "sureToClose": "Jeste li sigurni da želite zatvoriti bez spremanja promjena?",
                 "fieldsChanged": "Neka polja su izmijenjena",
-                "showAtStartup": "Show at startup",
-                "showAsModal": "Show as modal"
+                "showAtStartup": "Prikaži na pokretanju",
+                "showAsModal": "Prikaži kao modal"
             },
             "errors": {
                 "loading": {
@@ -471,10 +471,10 @@
                     "notFound": "Karta nije pronađena",
                     "notAccessible": "Karta nije dostupna",
                     "unknownError": "<p><small>Jedan od slijedećih razloga može biti uzrok:</small> <ul><li>nemate dozvole za pristup</li> <li>pokušavate pristupiti karti koja ne postoji</li> <li>karta je uklonjena</li> <li>projekcija karte nije prilagođena</li></ul><p>",
-                    "projectionError": "The projection {projection} of the map is not configured"
+                    "projectionError": "Projekcija {projection} karte nije konfigurirana"
                 }
             },
-            "errorCustomSize": "Max allowed size: {maxFileSize}"
+            "errorCustomSize": "Maksimalna dozvoljena veličina: {maxFileSize}"
         },
         "floatinglegend": {
             "showTOC": "Prikaži slojeve",
@@ -546,30 +546,30 @@
                 "notification": {
                     "warnigGetMetadataRecordById": "Greška u pretrazi metapodataka"
                 },
-                "purpose": "Purpose",
-                "source": "Source",
-                "createdDate": "Creation date",
-                "lastRevisionDate": "Last revision date",
-                "pointsOfContact": "Points of contact",
-                "individualName": "Individual name",
-                "organisationName": "Organisation name",
-                "contactInfo": "Contact info",
-                "phone": "Phone number",
-                "deliveryPoints": "Delivery points",
-                "city": "City",
-                "postalCode": "Postal code",
-                "country": "Country",
+                "purpose": "Svrha",
+                "source": "Izvor",
+                "createdDate": "Datum izrade",
+                "lastRevisionDate": "Datum zadnje revizije",
+                "pointsOfContact": "Kontaktna mjesta",
+                "individualName": "Ime pojedinca",
+                "organisationName": "Ime organizacije",
+                "contactInfo": "Podaci za kontakt",
+                "phone": "Telefonski broj",
+                "deliveryPoints": "Mjesta dostave",
+                "city": "Grad",
+                "postalCode": "Poštanski kod",
+                "country": "Država",
                 "URL": "URL",
-                "metadataUrl": "Metadata URL",
-                "role": "Role",
-                "hoursOfService": "Hours of service",
-                "electronicMailAddress": "Email address",
-                "defaultPropName": "Property=\"{propName}\"",
+                "metadataUrl": "URL metapodataka",
+                "role": "Uloga",
+                "hoursOfService": "Sati službe",
+                "electronicMailAddress": "Adresa elektronske pošte",
+                "defaultPropName": "Svojstvo=\"{propName}\"",
                 "itemTitles": {
-                    "pointsOfContact": "Contact",
-                    "default": "Item"
+                    "pointsOfContact": "Kontakt",
+                    "default": "Predmet"
                 },
-                "emptyMetadata": "No metadata available"
+                "emptyMetadata": "Metapodatci nisu dostupni"
             },
             "thematic": {
                 "classification_field": "Klasifikacijsko polje:",
@@ -606,20 +606,20 @@
                 "invalid_geometry": "Tip geometrije nije ispravan - nije točka, linija ili poligon",
                 "invalid_classes": "Maksimum mora biti veći od minimuma u svim klasama"
             },
-            "toolTrashGroupTooltip": "Remove selected group",
-            "compareTool": "Compare tool",
-            "configureTool": "Configure",
-            "spyconfiguration": "Spyglass configuration",
-            "swipeconfiguration": "Swipe configuration",
+            "toolTrashGroupTooltip": "Ukloni odabranu grrupu",
+            "compareTool": "Alat za usporedbu",
+            "configureTool": "Alat za konfiguraciju",
+            "spyconfiguration": "Spyglass konfiguracija",
+            "swipeconfiguration": "Swipe konfiguracija",
             "swipe": "Swipe",
             "spyGlass": "Spy glass",
             "direction": "Swipe direction",
             "radius": "Radius",
-            "notVisibleZoomIn": "The layer is not visible because it is outside the resolution limits. Zoom in to show the layer",
-            "notVisibleZoomOut": "The layer is not visible because it is outside the resolution limits. Zoom out to show the layer",
-            "layerInfoTooltip": "Update layer title and description",
+            "notVisibleZoomIn": "Sloj nije vidljiv jer je van ograničenja razlučivosti. Povećajte za prikaz sloja",
+            "notVisibleZoomOut": "Sloj nije vidljiv jer je van ograničenja razlučivosti. Smanjite za prikaz sloja",
+            "layerInfoTooltip": "Ažuriranje naslova i opisa sloja",
             "error": {
-                "defaultGroupOnTop": "The {groupTitle} group is set as default target group, therefore it must remain on top"
+                "defaultGroupOnTop": "{groupTitle} grupa je postavljena kao ciljana grupa, stoga mora ostati na vrhu"
             }
         },
         "print": {
@@ -710,10 +710,10 @@
             "addAsAnnotation": "Dodaj kao pribilješku",
             "newMeasure": "Nova pribilješka",
             "selectTool": "Odaberi alat za mjerenje",
-            "saveMeasure": "Save measurements to annotation",
-            "exportToGeoJSON": "Export to GeoJSON",
-            "resetTooltip": "Clear measures",
-            "addAsLayer": "Add as layer"
+            "saveMeasure": "Spremite mjerenja u bilješke",
+            "exportToGeoJSON": "Izvezi u GeoJSON",
+            "resetTooltip": "Očisti mjere",
+            "addAsLayer": "Dodaj kao sloj"
         },
         "search": {
             "decimal": "Decimalne",
@@ -749,58 +749,58 @@
             "service_missing": "{serviceType} servis nije konfiguriran",
             "generic_error": "Došlo je do greške prilikom pretrage. Detalji greške: {message}",
             "errors": {
-                "nonQueriableLayers": "The layer provided in the url is not queriable or not visible in map",
-                "serverError": "The server has return an error when performing the GetFeatureInfo request. Check if the params are correct"
+                "nonQueriableLayers": "Sloj naveden u URL-u ne pože se potražiti ili nije vidljiv na mapi",
+                "serverError": "Poslužitelj je vratio pogrešku prilikom izvođenja zahtjeva GetFeatureInfo. Provjerite jesu li parametri točni"
             },
             "s_launch_info_panel": {
-                "label": "Launch Info panel",
-                "no_info": "No Info",
-                "all_layers": "All Layers",
-                "single_layer": "Search Layer",
-                "no_info_description": "Identify panel will not show up on search",
-                "all_layers_description": "Identify panel will show up displaying information of all layers visible in map",
-                "single_layer_description": "Identify panel will show up with the data already available through the WFS search",
-                "openFeatureInfoButtonCheckbox": "Use button to open feature info",
-                "forceSearchLayerVisibility": "Force search layer visibility"
+                "label": "Pokreni ploču s informacijama",
+                "no_info": "Nema informacija",
+                "all_layers": "Svi slojevi",
+                "single_layer": "Sloj za pretraživanje",
+                "no_info_description": "Ploča za identifikaciju neće se pojaviti tijekom pretraživanja",
+                "all_layers_description": "Ploča za identifikaciju će prikazati informacije o svim slojevima vidljivima na karti",
+                "single_layer_description": "Ploča za identifikaciju će prikazati podatke koji su več dostupni pretraživanjem WFS-a",
+                "openFeatureInfoButtonCheckbox": "Pomoću gumba otvorite informacije o značajci",
+                "forceSearchLayerVisibility": "Prisilna vidljivost sloja pretraživanja"
             },
-            "layerMustBeVisible": "The target layer is inactive",
-            "searchByBookmark": "Search by bookmark",
-            "bookmarksettings": "Bookmark settings",
-            "zoomToBookmark": "Zoom to selected bookmark",
-            "bookmarkFilter": "Filter bookmarks",
-            "editBookmark": "Edit bookmark",
-            "deleteBookmark": "Delete bookmark",
-            "b_listpaneltitle": "View bookmarks",
-            "b_newpaneltitle": "Add new bookmark",
+            "layerMustBeVisible": "Odabrani sloj nije vidljiv",
+            "searchByBookmark": "Pretraživanje po oznakama",
+            "bookmarksettings": "Postavke oznaka",
+            "zoomToBookmark": "Zumiranje odabrane oznake",
+            "bookmarkFilter": "Filtriraj oznake",
+            "editBookmark": "Uredi oznaku",
+            "deleteBookmark": "Izbriši oznaku",
+            "b_listpaneltitle": "Pogledajte oznake",
+            "b_newpaneltitle": "Dodaj novu oznaku",
             "latitude": "Lat",
             "longitude": "Lon",
-            "b_title": "Title",
-            "b_layer_tooltip": "Toggle layer visibility reload",
-            "b_bbox": "Bounding Box",
-            "b_bbox_tooltip": "Use current view as bounding box",
-            "b_bbox_south": "South",
-            "b_bbox_south_placeholder": "Enter South",
-            "b_bbox_west": "West",
-            "b_bbox_west_placeholder": "Enter West",
-            "b_bbox_east": "East",
-            "b_bbox_east_placeholder": "Enter East",
-            "b_bbox_north": "North",
-            "b_bbox_north_placeholder": "Enter North",
-            "bookmarkslistempty": "No bookmark defined",
-            "b_placeholder": "Select a bookmark...",
-            "b_clearvalue": "Clear bookmark",
-            "b_noresult": "No bookmarks found",
-            "s_max_zoom": "Max zoom level",
-            "showGFI": "Show GFI",
+            "b_title": "Naslov",
+            "b_layer_tooltip": "Uključi / isključi ponovno učitavanje vidljivosti sloja",
+            "b_bbox": "Kutija za ograničavanje",
+            "b_bbox_tooltip": "Koristite trenutni prikaz kao okvir za ograničavanje",
+            "b_bbox_south": "Jug",
+            "b_bbox_south_placeholder": "Unesite jug",
+            "b_bbox_west": "Zapad",
+            "b_bbox_west_placeholder": "Unesite zapad",
+            "b_bbox_east": "Istok",
+            "b_bbox_east_placeholder": "Unesite istok",
+            "b_bbox_north": "Sjever",
+            "b_bbox_north_placeholder": "Unesite sjever",
+            "bookmarkslistempty": "Nije definirana oznaka",
+            "b_placeholder": "Odaberite oznaku ...",
+            "b_clearvalue": "Izbriši oznaku",
+            "b_noresult": "Nisu pronađene oznake",
+            "s_max_zoom": "Maksimalna razina zumiranja",
+            "showGFI": "Prikaži GFI",
             "advancedSearchPanel": {
-                "title": "Advanced search filters",
+                "title": "Filtri za napredno pretraživanje",
                 "context": {
-                    "title": "Context"
+                    "title": "Kontekst"
                 },
-                "showTooltip": "Show advanced filters",
-                "showTooltipActive": "Show advanced filters (active)",
-                "hideTooltip": "Hide advanced filters",
-                "hideTooltipActive": "Hide advanced filters (active)"
+                "showTooltip": "Prikaži napredne filtre",
+                "showTooltipActive": "Prikaži napredne filtre (aktivno)",
+                "hideTooltip": "Sakrij napredne filtre",
+                "hideTooltipActive": "Sakrij napredne filtre (aktivno)"
             }
         },
         "draw": {
@@ -926,7 +926,7 @@
             "feetUnit": "stopa",
             "popup": "Nalazite se unutar {distance} {unit} od ove točke",
             "outsideMapBoundsMsg": "Čini se da se nalazite izvan granica ove karte",
-            "tooltipDeactivate": "Stop showing my position"
+            "tooltipDeactivate": "Prestani pokazivati moj položaj"
         },
         "zoombuttons": {
             "zoomInTooltip": "Približi",
@@ -1135,22 +1135,22 @@
                 "notValidPolyline": "Sve koordinate moraju biti ispravne (+|- 90° lat, +|-180° lon)",
                 "notValidText": "Unesi tekstualnu vrijednost i ispravne koordinate (+|- 90° lat, +|-180° lon)",
                 "notValidCircle": "Unesi vrijednost radijusa i ispravne koordinate (+|- 90° lat, +|-180° lon)",
-                "newFeature": "New"
+                "newFeature": "Novo"
             },
-            "saveGeometry": "Save geometry",
-            "geometries": "Geometries",
-            "empty": "No annotations yet, click on [+] to add annotations",
-            "enableEdit": "Enable edit",
-            "editMeasurement": "Edit measurement",
-            "zoomToGeometry": "Zoom to geometry",
-            "removeGeometry": "Remove",
-            "hide": "Hide annotation",
-            "show": "Show annotation",
-            "tabCoordinates": "Coordinates",
-            "warning": "Warning!",
-            "measureWarningText": "Navigating to edit measurement panel will remove any styling applied",
-            "notShowAgain": "Don't show this message again",
-            "tabStyle": "Style"
+            "saveGeometry": "Pohrani geomertiju",
+            "geometries": "Geometrije",
+            "empty": "Još nema napomena, kliknite [+] da biste dodali napomene",
+            "enableEdit": "Omogući uređivanje",
+            "editMeasurement": "Uredi mjerenje",
+            "zoomToGeometry": "Zumirajte na geometriju",
+            "removeGeometry": "Ukloniti",
+            "hide": "Sakrij bilješku",
+            "show": "Prikaži bilješku",
+            "tabCoordinates": "Koordinate",
+            "warning": "Upozorenje!",
+            "measureWarningText": "Navigacija na ploču za izmjenu mjerenja će ukloniti sve primijenjene stilove",
+            "notShowAgain": "Ne prikazuj više ovu poruku",
+            "tabStyle": "Stil"
         },
         "user": {
             "login": "Prijava",
@@ -1181,7 +1181,7 @@
             "detailsEmail": "E-mail",
             "detailsCompany": "Tvrtka",
             "detailsNotes": "Bilješke",
-            "passwordInvalidChar": "The password must not contain these characters: {data}"
+            "passwordInvalidChar": "Lozinka ne smije sadržavati ove znakove: {data}"
         },
         "users": {
             "title": "Upravljaj korisničkim računima",
@@ -1253,20 +1253,20 @@
             "addBboxParam": "Dodaj bbox parametar na poveznicu za dijeljenje",
             "wrongBboxParamTitle": "Neispravan bbox parametar",
             "wrongBboxParamMessage": "bbox parametri moraju biti u EPSG:4326 i napisani kao bbox=minx,miny,maxx,maxy",
-            "addCenterAndZoomParam": "Add center and zoom to sharing link",
-            "addMarkerAndZoomParam": "Add placemark and zoom to sharing link",
+            "addCenterAndZoomParam": "Dodajte središte i zumiranje za dijeljenje poveznica",
+            "addMarkerAndZoomParam": "Dodajte oznaku mjesta i zumirajte vezu za dijeljenje",
             "zoom": "Zoom",
-            "marker": "Add marker on loaded map",
-            "coordinate": "Coordinate",
-            "coordTooltip": "Click on map to grab the coordinates",
-            "zoomToolTip": "Min: 1 and Max: 35",
-            "wrongCenterAndZoomParamTitle": "Invalid center and zoom param",
-            "wrongCenterAndZoomParamMessage": "Center and Zoom param must be center=lon,lat&zoom=value and (+|- 90° lat, +|-180° lon, <=+35 zoom)",
-            "wrongMarkerAndZoomParamTitle": "Invalid marker and zoom param",
-            "wrongMarkerAndZoomParamMessage": "Marker and Zoom param must be marker=lon,lat&zoom=value and (+|- 90° lat, +|-180° lon, <=+35 zoom)",
-            "showHomeButton": "Link to MapStore home",
-            "showSectionId": "Include scroll position",
-            "showConnections": "Show connections"
+            "marker": "Dodajte oznaku na učitanu kartu",
+            "coordinate": "Koordinate",
+            "coordTooltip": "Kliknite na kartu da biste dohvatili koordinate",
+            "zoomToolTip": "Minimalno: 1 i Maksimalno: 35",
+            "wrongCenterAndZoomParamTitle": "Nevažeći parametar centra i zumiranja",
+            "wrongCenterAndZoomParamMessage": "Parametri Center i Zoom moraju biti center=lon,lat&zoom=value and (+|- 90° lat, +|-180° lon, <=+35 zoom)",
+            "wrongMarkerAndZoomParamTitle": "Nevažeći parametar oznake i zuma",
+            "wrongMarkerAndZoomParamMessage": "Parametri Marker i Zoom marker=lon,lat&zoom=value and (+|- 90° lat, +|-180° lon, <=+35 zoom)",
+            "showHomeButton": "Poveznica do početne stranice MapStore-a",
+            "showSectionId": "Uključite položaj pomicanja",
+            "showConnections": "Prikaži veze"
         },
         "snapshot": {
             "title": "Pregled snimke",
@@ -1295,12 +1295,12 @@
             "add": "Dodaj",
             "cancel": "Odustani",
             "success": " ispravno uvezeno",
-            "merge": "Merge with the existing annotation layer",
-            "replace": "Replace the existing annotation layer",
-            "next": "Next",
-            "skip": "Skip",
-            "finish": "Finish",
-            "layerOf": "Layer {count} of {total}:"
+            "merge": "Spoji se sa postojećim slojem bilješki",
+            "replace": "Zamijenite postojeći sloj bilješki",
+            "next": "Dalje",
+            "skip": "Preskoči",
+            "finish": "Završi",
+            "layerOf": "Sloj {count} od {total}:"
         },
         "mapImport": {
             "title": "Uvezi",
@@ -1312,29 +1312,29 @@
             },
             "errors": {
                 "fileNotSupported": "Datoteka nije podržana",
-                "unknownError": "došlo je do nepoznate greške tijekom uvoza",
-                "projectionNotSupported": "The projection of the file(s) you're trying to import is not supported"
+                "unknownError": "Došlo je do nepoznate greške tijekom uvoza",
+                "projectionNotSupported": "Projekcija datoteka koje pokušavate uvesti nije podržana"
             }
         },
         "mapExport": {
             "title": "Izvezi kartu",
             "exportPanel": {
-                "title": "<p><h4>Select your format</h4></p>",
-                "exportButtonLabel": "Export"
+                "title": "<p><h4>Odaberite svoj format</h4></p>",
+                "exportButtonLabel": "Izvezi"
             },
             "formats": {
                 "mapstore2": {
                     "label": "MapStore",
-                    "description": "<p><small>MapStore map configuration format</small></p>"
+                    "description": "<p><small>Format konfiguracije karte MapStore</small></p>"
                 },
                 "wmc": {
                     "label": "WMC",
                     "description": "<p><small>OGC Web Map Context format</small></p>",
-                    "note": "<p><small><i><strong>note</strong>: WMC format supports <strong>only WMS layers</strong></i></small></p>"
+                    "note": "<p><small><i><strong>note</strong>: WMC format podržava <strong>samo WMS slojeve</strong></i></small></p>"
                 }
             },
-            "errorTitle": "Map Export failed",
-            "wmcNoLayersError": "At least one WMS layer needed to export to WMC, found zero"
+            "errorTitle": "Izvoz karte nije uspio",
+            "wmcNoLayersError": "Barem jedan WMS sloj potreban za izvoz u WMC, pronađeno je nula"
         },
         "catalog": {
             "start": "Početni datum ",
@@ -1362,7 +1362,7 @@
             "delete": "Izbriši",
             "reset": "Očisti",
             "options": "Mogućnosti",
-            "srs_not_allowed": "Projekcija karte nije podržane od strane ovoga servisa",
+            "srs_not_allowed": "Projekcija karte nije podržana od strane ovoga servisa",
             "add": "Dodaj",
             "service": "Servis",
             "servicePlaceholder": "unesi servis",
@@ -1380,8 +1380,8 @@
             "advancedSettings": "Napredne mogućnosti",
             "templateMetadataAvailable": "Metapodaci distupni iz Dublin Core formata: abstract, boundingBox, contributor, creator, description, format, identifier, references, rights, source, subject, temporal, title, type, uri",
             "notification": {
-                "errorTitle": "Error",
-                "errorSearchingRecords": "Some records have not been found: {records} Please check the query param url",
+                "errorTitle": "Greška",
+                "errorSearchingRecords": "Neki zapisi nisu pronađeni: {records} Molimo provjerite URL parametra upita",
                 "warningAddCatalogService": "Unesi ispravni url i naslov",
                 "addCatalogService": "Servis je dodan ispravno",
                 "duplicatedServiceTitle": "Servis sa tim naslovom već postoji. Molim, promijenite naslov",
@@ -1389,21 +1389,21 @@
                 "errorServiceUrl": "Servis nije dostupan. Molim, provjerite uneseni url"
             },
             "tms": {
-                "provider": "Provider",
-                "urlTemplate": "URL Template",
-                "urlTemplateHint": "<p>Template URL for your custom TMS service, with the possibility to insert variables (expressed using curly braces, e.g. <code>{var_name}</code>) that will be replaced by the application.<br/>. The <code>{x}</code>, <code>{y}</code> and <code>{z}</code> variables are reserved for tile grid coordinate values. You can also use variable <code>{s}</code> for subdomains. Any other variable specified in the URL must be specified also in options inside \"Custom TMS Configuration\" (Advanced Settings)</p>",
-                "customTMSConfiguration": "Custom TMS Configuration",
-                "customTMSConfigurationHint": "<p>Options can contain:<br/><ul><li><code>\"subdomains\": ['a', 'b']</code>: used for multiple domains, replacingthe <code>{s}</code> in URL template</li><li><code>\"maxNativeZoom\": 20</code>: max zoom from the server</li></ul></p>",
-                "forceDefaultTileGrid": "Force default tile grid",
-                "forceDefaultTileGridDescription": "Use the global projection's tile grid instead of the origin and resolutions provided by the server. This is useful for some TMS services that advertise wrong origin or resolutions."
+                "provider": "Pružatelj usluga",
+                "urlTemplate": "Predložak URL-a",
+                "urlTemplateHint": "<p>Predložak URRL-a za vašu prilagođenu TMS uslugu, s mogućnošću umetanja varrijabli (izraženo pomoću kovrčavih zagrada, npr. <code>{var_name}</code>) koju će zamijeniti aplikacija.<br/>. The <code>{x}</code>, <code>{y}</code> and <code>{z}</code> varijable su rezervirane za vrijednosti koordinata mreže pločica. Također možete koristiti varijablu <code>{s}</code> za poddomene. Bilo koja druga varijabla navedena u URL-u mora biti navedena i unutar opcija \"Custom TMS Configuration\" (Advanced Settings)</p>",
+                "customTMSConfiguration": "Prilagođena TMS konfiguracija",
+                "customTMSConfigurationHint": "<p>Opcije mogu sadržavati:<br/><ul><li><code>\"subdomains\": ['a', 'b']</code>: koristi se za više domena, zamjenjujući <code>{s}</code> u predlošku URL-a</li><li><code>\"maxNativeZoom\": 20</code>: maksimalni zoom od servera</li></ul></p>",
+                "forceDefaultTileGrid": "Prisiliti zadanu mrežu pločica",
+                "forceDefaultTileGridDescription": "Upotrijebite mrežu pločica globalne projekcije umjesto izvora i razlučivosti koje pruža poslužitelj. Ovo je korisno za neke TMS usluge koje oglašavaju pogrešno podrijetlo ili rezolucije."
             },
             "tileprovider": {
-                "tooltip": "x,y,z are tile position, s is the sub-domain (default)"
+                "tooltip": "x,y,z su položaji pločice, s je poddomena (zadano)"
             },
-            "backgroundAlreadyAdded": "Added to background selector",
+            "backgroundAlreadyAdded": "Dodano u birač pozadine",
             "enableLocalizedLayerStyles": {
-                "label": "Enable localized styles",
-                "tooltip": "Note: This parameter requires specific configurations on GeoServer"
+                "label": "Omogućite lokalizirane stilove",
+                "tooltip": "Napomena: Ovaj parametar zahtijeva određene konfiguracije na GeoServeru"
             }
         },
         "uploader": {
@@ -1580,9 +1580,9 @@
                     "number": "Unesi vrijednost ili izraz. Primjeri: 10, > 2, < 10",
                     "date": "Unesi datum ili izraz. Koristi {format} za datum.",
                     "geometry": {
-                        "disabled": "Filter clicking on map / Alt + mouse drag to draw a box filter. Hold also ctrl to add more features to the current filter",
-                        "enabled": "Click on map to select a feature / Alt + mouse drag to draw a box filter. Hold ctrl and click to select multiple features",
-                        "applied": "Clean the selection"
+                        "disabled": "Filtar klikom na kartu / Alt + povlačenje miša izvlači okvir okvira. Držite i ctrl da biste dodali više značajki trenutnom filtru",
+                        "enabled": "Kliknite na kartu za odabir značajke / Alt + povlačenje miša za crtanje filtra okvira. Držite ctrl i kliknite za odabir više značajki",
+                        "applied": "Očistite odabir"
                     }
                 }
             },
@@ -1622,30 +1622,30 @@
             "error": {
                 "title": "Greška prilikom izvoza",
                 "invalidOutputFormat": "Odabrani format nije podržan",
-                "downloadEstimatorTitle": "DownloadEstimator error",
-                "downloadEstimatorFailed": "DownloadEstimator request failed which means that exported file exceeds configured server limits. Try to change download options or add filter to your layer and try again."
+                "downloadEstimatorTitle": "Greška DownloadEstimator-a",
+                "downloadEstimatorFailed": "Zahtjev DownloadEstimator-a nije uspio, što znači da izvezena datoteka premašuje konfigurirana ograničenja poslužitelja. Pokušajte promijeniti opcije preuzimanja ili dodajte filtar u svoj sloj i pokušajte ponovo."
             },
-            "cropDataSet": "Crop dataset to current viewport",
-            "downloadFilteredDataSet": "Download filtered dataset",
-            "advancedOptions": "Advanced options",
-            "compression": "Compression",
-            "tileWidth": "Tile width",
-            "tileHeight": "Tile height",
-            "quality": "Quality",
+            "cropDataSet": "Odrežite skup podataka u trenutni prikaz",
+            "downloadFilteredDataSet": "Preuzmi filtrirani skup podataka",
+            "advancedOptions": "Napredne opcije",
+            "compression": "Kompresija",
+            "tileWidth": "Širina pločice",
+            "tileHeight": "Visina pločice",
+            "quality": "Kvaliteta",
             "exportResultsMessages": {
-                "newExport": "The file will be available here when the export completes",
-                "exportFailure": "Export for layer \"{layerTitle}\" failed! Open export results dialog for more information.",
-                "exportSuccess": "Export for layer \"{layerTitle}\" finished successfully.",
-                "invalidHref": "The response from server did not contain a valid url address for exported files!"
+                "newExport": "Datoteka će biti dostupna ovdje kada se izvoz dovrši",
+                "exportFailure": "Izvoz za sloj \"{layerTitle}\" neuspješno! Otvorite dijaloški okvir rezultata izvoza za više informacija.",
+                "exportSuccess": "Izvoz za sloj \"{layerTitle}\" uspješno završeno.",
+                "invalidHref": "Odgovor poslužitelja nije sadržavao valjanu URL adresu za izvezene datoteke!"
             },
             "wpsExecuteError": {
-                "processFailed": "Download process failed! The server has returned the following exception report: \"{exceptionReport}\"",
-                "badResponse": "Download process failed! The server has returned incorrect data, error code: \"{errorCode}\"",
-                "executeProcessXhrFailed": "ExecuteProcess request failed! The server might be misconfigured or it has become unreachable",
-                "getExecutionStatusXhrFailed": "GetExecutionStatus request failed! The server might be misconfigured or it has become unreachable",
-                "unexpectedError": "Unexpected error occurred"
+                "processFailed": "Postupak preuzimanja neuspješan! Poslužitelj je vratio sljedeće izvješće o iznimci: \"{exceptionReport}\"",
+                "badResponse": "Postupak preuzimanja nije uspio! Poslužitelj je vratio netočne podatke, kôd pogreške: \"{errorCode}\"",
+                "executeProcessXhrFailed": "ExecuteProcess zahtjev nije uspio! Poslužitelj je možda pogrešno konfiguriran ili je postao nedostupan",
+                "getExecutionStatusXhrFailed": "GetExecutionStatus zahtjev nije uspio! Poslužitelj je možda pogrešno konfiguriran ili je postao nedostupan",
+                "unexpectedError": "Došlo je do neočekivane pogreške"
             },
-            "noSupportedServiceFound": "The server doesn't support WFS or WPS download for this layer!"
+            "noSupportedServiceFound": "Poslužitelj ne podržava WFS ili WPS preuzimanje za ovaj sloj!"
         },
         "widgets": {
             "types": {
@@ -1698,7 +1698,7 @@
                 "nodatainviewport": "Nema podataka na trenutnom prikazu",
                 "timeoutExpired": "Servisu je potrebno previše vremena za odziv. Moguće je da je upit presložen ili je poslužitelj prezauzet",
                 "genericError": "Došlo je do greške prilikom dohvata podataka",
-                "genericErrorWithMessage": "There was an error during data retrieval: \"{message}\""
+                "genericErrorWithMessage": "Došlo je do pogreške tijekom dohvaćanja podataka: \"{message}\""
             },
             "builder": {
                 "header": {
@@ -1732,8 +1732,8 @@
                     "connectToTheMap": "Spojite se na drugi widget",
                     "selectMapToConnect": "Odaberite widget za povezivanje",
                     "clearConnection": "Izbriši vezu",
-                    "enableIdentifyTool": "Enable identify tool",
-                    "disableIdentifyTool": "Disable identify tool"
+                    "enableIdentifyTool": "Omogući alat za prepoznavanje",
+                    "disableIdentifyTool": "Onemogući alat za prepoznavanje"
                 },
                 "errors": {
                     "noAttributesTitle": "Nema atributa za prikaz",
@@ -1883,31 +1883,31 @@
                 "NONE": "No Operation"
             },
             "advanced": {
-                "displayCartesian": "Hide Grid",
-                "xAxis": "X axis",
-                "xAxisAngle": "Label rotation",
-                "hideLabels": "Hide labels",
+                "displayCartesian": "Sakrij mrežu",
+                "xAxis": "X os",
+                "xAxisAngle": "Rotacija oznaka",
+                "hideLabels": "Sakrij oznake",
                 "format": "Format",
-                "prefix": "Prefix",
-                "suffix": "Suffix",
-                "examples": "Examples",
-                "formatExamples": "<div><ul><li><code>.0%</code>: rounded percentage, '12%'</li><li><code>.2s</code>:SI-prefix with two significant digits, '42M'</li><li><code>,.2r</code>: grouped thousands with two significant digits '4,200'</li></ul><em>More information about formatting syntax <a target=\"_blank\" href=\"https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/\">here</a>.</em></div>",
+                "prefix": "Prefiks",
+                "suffix": "Sufiks",
+                "examples": "Primjeri",
+                "formatExamples": "<div><ul><li><code>.0%</code>: zaokruženi postotak, '12%'</li><li><code>.2s</code>:SI-prefiks s dvije značajne znamenke, '42M'</li><li><code>,.2r</code>: grupirane tisuće s dvije značajne znamenke '4,200'</li></ul><em>Više informacija o sintaksi oblikovanja <a target=\"_blank\" href=\"https://d3-wiki.readthedocs.io/zh_CN/master/Formatting/\">ovdje</a>.</em></div>",
                 "formula": "Formula",
                 "formulaExamples": "<div>Transform the value using a formula. Use the variable <code>value</code> in the expression:<h5>Examples</h5><ul><li><code>value + 2</code></li><li><code>value / 100</code></li></ul><em>More information about the syntax <a target=\"_blank\" href=\"https://github.com/m93a/filtrex#expressions\">here</a>.</em></div>",
-                "xAxisType": "Type",
-                "forceTicks": "Never skip labels",
-                "maxXAxisLabels": "The labels can not anyway be more than {max}",
-                "yAxis": "Y axis",
-                "yAxisType": "Type",
-                "yAxisLabel": "Legend Label",
-                "title": "Advanced Options",
-                "legend": "Legend",
+                "xAxisType": "Tip",
+                "forceTicks": "Nikad ne preskačite naljepnice",
+                "maxXAxisLabels": "Oznake ionako ne mogu biti veće od {max}",
+                "yAxis": "Y os",
+                "yAxisType": "Tip",
+                "yAxisLabel": "Oznaka legende",
+                "title": "Napredne postavke",
+                "legend": "Legenda",
                 "axisTypes": {
                     "auto": "Auto",
-                    "linear": "Linear",
-                    "category": "Category",
-                    "log": "Log",
-                    "date": "Date"
+                    "linear": "Linearno",
+                    "category": "kategorija",
+                    "log": "Dnevnik",
+                    "date": "Datum"
                 }
             }
         },
@@ -1938,8 +1938,8 @@
                     "notAccessible": "Kontrolna ploča nije dostupna"
                 },
                 "resourceAlreadyExists": "Resurs sa ovim imenom već postoji",
-                "forbidden": "An unexpected error occured (403 Forbidden). Please contact the Administrator",
-                "forbidden405": "An unexpected error occured (405 Forbidden). Please contact the Administrator"
+                "forbidden": "Dogodila se neočekivana pogreška (403 Forbidden). Molimo kontaktirajte administratora",
+                "forbidden405": "Dogodila se neočekivana pogreška (405 Forbidden). Molimo kontaktirajte administratora"
             },
             "editor": {
                 "save": "Spremi kontrolnu ploču",
@@ -2036,135 +2036,135 @@
             "setDefaultStyleSuccessMessage": "Zadani stil je uspješno postavljen",
             "setDefaultStyleErrorTitle": "Greška pri postavljanju zadanog stila",
             "setDefaultStyleErrorMessage": "Nije moguće postaviti odabrani stil kao zadani",
-            "errorTitle": "StyleEditor error",
-            "parsingCapabilitiesError": "<h4>Possible causes:</h4> it was not possible parse the capabilities and retrieve the styles",
-            "globalError": "<h4>Possible causes:</h4> it was not possible to connect to the service",
-            "enterLegendLabelPlaceholder": "Enter legend label",
-            "addMarkSymbolizer": "Add mark symbolizer",
-            "addMarkRule": "Add mark rule",
-            "shape": "Shape",
-            "fill": "Fill color",
-            "strokeColor": "Stroke color",
-            "strokeWidth": "Stroke width",
+            "errorTitle": "Greška StyleEditor-a",
+            "parsingCapabilitiesError": "<h4>Mogući uzroci:</h4> nije bilo moguće raščlaniti mogućnosti i dohvatiti stilove",
+            "globalError": "<h4>Mogući uzroci:</h4> nije bilo moguće povezati se sa uslugom",
+            "enterLegendLabelPlaceholder": "Unesite oznaku legende",
+            "addMarkSymbolizer": "Dodaj oznaku simbolizatora",
+            "addMarkRule": "Dodaj oznaku pravila",
+            "shape": "Oblik",
+            "fill": "Boja ispune",
+            "strokeColor": "Boja poteza",
+            "strokeWidth": "Širina poteza",
             "radius": "Radius",
-            "rotation": "Rotation",
-            "addIconSymbolizer": "Add icon symbolizer",
-            "addIconRule": "Add icon rule",
-            "image": "Image",
-            "opacity": "Opacity",
-            "size": "Size",
-            "addLineSymbolizer": "Add line symbolizer",
-            "addLineRule": "Add line rule",
-            "lineStyle": "Line style",
-            "lineCap": "Line cap",
-            "lineJoin": "Line join",
-            "addFillSymbolizer": "Add fill symbolizer",
-            "addFillRule": "Add fill rule",
-            "outlineColor": "Outline color",
+            "rotation": "Rotacija",
+            "addIconSymbolizer": "Dodaj ikonu simbolizatora",
+            "addIconRule": "Dodaj ikonu pravila",
+            "image": "Slika",
+            "opacity": "Neprozirnost",
+            "size": "Veličina",
+            "addLineSymbolizer": "Dodajte simbolizator crte",
+            "addLineRule": "Dodaj pravilo retka",
+            "lineStyle": "Stil linije",
+            "lineCap": "Kapacitet linije",
+            "lineJoin": "Pridruživanje linije",
+            "addFillSymbolizer": "Dodajte simbol za popunjavanje",
+            "addFillRule": "Dodaj pravilo popunjavanja",
+            "outlineColor": "Boja obrisa",
             "outlineWidth": "Outline width",
-            "addTextSymbolizer": "Add text symbolizer",
-            "addTextRule": "Add text rule",
-            "label": "Label",
-            "fontFamily": "Font family",
-            "fontColor": "Font color",
-            "fontSize": "Font size",
-            "fontStyle": "Font style",
-            "fontWeight": "Font weight",
-            "haloColor": "Halo color",
-            "haloWidth": "Halo width",
-            "offsetX": "Offset x",
-            "offsetY": "Offset y",
-            "addRasterSymbolizer": "Add raster symbolizer",
-            "addRasterRule": "Add raster rule",
-            "colorRamp": "Color ramp",
-            "reverse": "Reverse order",
-            "attribute": "Attribute",
-            "method": "Method",
-            "intervals": "Intervals",
-            "continuous": "Continuous colors",
-            "lineCapButt": "Butt",
-            "lineCapRound": "Round",
-            "lineCapSquare": "Square",
-            "lineJoinBevel": "Bevel",
-            "lineJoinRound": "Round",
-            "lineJoinMiter": "Miter",
+            "addTextSymbolizer": "Dodajte simbolizator teksta",
+            "addTextRule": "Dodaj pravilo teksta",
+            "label": "Oznaka",
+            "fontFamily": "Obitelj fonta",
+            "fontColor": "Boja fonta",
+            "fontSize": "Veličina fonta",
+            "fontStyle": "Stil fonta",
+            "fontWeight": "Težina fonta",
+            "haloColor": "Boja vijenca",
+            "haloWidth": "Širina vijenca",
+            "offsetX": "Pomak x",
+            "offsetY": "Pomak y",
+            "addRasterSymbolizer": "Dodajte rasterski simbolizator",
+            "addRasterRule": "Dodaj rastersko pravilo",
+            "colorRamp": "Rampa u boji",
+            "reverse": "Obrnuti redoslijed",
+            "attribute": "Atribut",
+            "method": "Metoda",
+            "intervals": "Intervali",
+            "continuous": "Neprekidne boje",
+            "lineCapButt": "Kundak",
+            "lineCapRound": "Krug",
+            "lineCapSquare": "Kvadrat",
+            "lineJoinBevel": "Kosina",
+            "lineJoinRound": "Krug",
+            "lineJoinMiter": "Mitra",
             "fontStyleNormal": "Normal",
-            "fontStyleItalic": "Italic",
+            "fontStyleItalic": "Kurziv",
             "fontWeightNormal": "Normal",
-            "fontWeightBold": "Bold",
-            "boolTrue": "True",
-            "boolFalse": "False",
-            "circle": " Circle",
-            "square": "Square",
-            "triangle": "Triangle",
-            "star": "Star",
-            "cross": "Cross",
+            "fontWeightBold": "Podebljano",
+            "boolTrue": "Istinito",
+            "boolFalse": "Lažno",
+            "circle": " Krug",
+            "square": "Kvadrat",
+            "triangle": "Trokut",
+            "star": "Zvijezda",
+            "cross": "Križ",
             "x": "X",
-            "verticalLine": "Vertical line",
-            "horizontalLine": "Horizontal line",
-            "slash": "Slash",
-            "backslash": "Backslash",
-            "dot": "Dot",
+            "verticalLine": "Vertikalna linija",
+            "horizontalLine": "Vodoravna linija",
+            "slash": "Kosa crta",
+            "backslash": "Povratna kosa crta",
+            "dot": "Točka",
             "plus": "Plus",
-            "times": "Times",
-            "openArrow": "Open arrow",
-            "closedArrow": "Closed arrow",
-            "band": "Band",
+            "times": "Puta",
+            "openArrow": "Otvorena strelica",
+            "closedArrow": "Zatvorena strelica",
+            "band": "Opseg",
             "none": "None",
-            "normalize": "Normalize",
+            "normalize": "Normalizirati",
             "histogram": "Histogram",
-            "contrastEnhancement": "Contrast enhancement",
-            "placeholderInput": "Enter value",
-            "placeholderEnterImageUrl": "Enter image url",
-            "selectPlaceholder": "Select value",
-            "noResultsSelectInput": "No results",
+            "contrastEnhancement": "Poboljšanje kontrasta",
+            "placeholderInput": "Unesite vrijednost",
+            "placeholderEnterImageUrl": "Unesite URL slike",
+            "selectPlaceholder": "Odaberite vrijednost",
+            "noResultsSelectInput": "Nema rezultata",
             "channelAuto": "Auto",
-            "openFilterBuilder": "Open filter builder",
-            "removeRule": "Remove rule",
-            "openScaleDenominator": "Open scale denominator filter",
-            "selectScale": "Select scale",
-            "noResultScales": "No scale match your filter",
-            "maxScaleDenominator": "Max scale",
-            "minScaleDenominator": "Min scale",
-            "simpleStyle": "Simple style",
-            "classificationStyle": "Classification style",
-            "patternMarkStyle": "Pattern mark style",
-            "patternIconStyle": "Pattern icon style",
-            "singleBand": "Single band",
-            "rgbaBands": "RGB bands",
-            "pseudoColor": "Pseudo color",
-            "undoStyle": "Undo style",
-            "redoStyle": "Redo style",
-            "equalInterval": "Equal interval",
-            "quantile": "Quantile",
-            "jenks": "Natural breaks (Jenks)",
-            "standardDeviation": "Standard deviation",
-            "switchToTextareaEditor": "Switch to text editor",
-            "switchToVisualEditor": "Switch to visual editor",
-            "alertForceTranslate": "You will lose all the changes added in the text mode by switching to visual editor. Are you sure to switch to visual style editor mode?",
-            "stayInTextareaEditor": "No, continue with text editor",
-            "useLatestValidStyle": "Yes, switch to visual editor",
-            "validationError": "Validation error",
-            "incorrectPropertyInputError": "This is probably due to missing or invalid value in the property inputs of the style editor.",
-            "emptyRuleEditorTitle": "Add new rules",
-            "emptyRuleEditor": "There are not rules for this style. Add a new rule by clicking on the desidered symbolizer type in the toolbar",
-            "classificationError": "Service unavailable. Currently it is not possible to create a classification",
-            "classificationRasterError": "Service unavailable. Currently it is not possible to create a raster classification",
-            "redChannel": "Red channel",
-            "greenChannel": "Green channel",
-            "blueChannel": "Blue channel",
-            "grayChannel": "Channel",
-            "ruleClassification": "Classification",
+            "openFilterBuilder": "Otvorite graditelj filtra",
+            "removeRule": "Ukloni pravilo",
+            "openScaleDenominator": "Otvori filtar nazivnika razmjera",
+            "selectScale": "Odaberite mjerilo",
+            "noResultScales": "Nijedna ljestvica ne odgovara vašem filtru",
+            "maxScaleDenominator": "Maksimalna skala",
+            "minScaleDenominator": "Minimalna skala",
+            "simpleStyle": "Jednostavni stil",
+            "classificationStyle": "Klasifikacijski stil",
+            "patternMarkStyle": "Stil oznake uzorka",
+            "patternIconStyle": "Stil ikone uzorka",
+            "singleBand": "Jednopojasni",
+            "rgbaBands": "RGB opsezi",
+            "pseudoColor": "Pseudo boja",
+            "undoStyle": "Poništi stil",
+            "redoStyle": "Ponovi stil",
+            "equalInterval": "Jednaki interval",
+            "quantile": "Kvantilan",
+            "jenks": "Prirodne pauze (Jenks)",
+            "standardDeviation": "Standardno odstupanje",
+            "switchToTextareaEditor": "Prebacite se na uređivač teksta",
+            "switchToVisualEditor": "Prebacite se na vizualni uređivač",
+            "alertForceTranslate": "Sve promjene napravljene u tekstualnom uređivaču izgubiti ćete prebacivanjem na vizualni uređivač. Jeste li sigurni da želite preći na način uređivanja vizualnog stila?",
+            "stayInTextareaEditor": "Ne, nastavite s uređivačem teksta",
+            "useLatestValidStyle": "Da, prebacite se na vizualni uređivač",
+            "validationError": "Pogreška provjere",
+            "incorrectPropertyInputError": "To je vjerojatno zbog nedostajuće ili nevaljane vrijednosti u ulazima svojstava uređivača stilova.",
+            "emptyRuleEditorTitle": "Dodaj nova pravila",
+            "emptyRuleEditor": "Ne postoje pravila za ovaj stil. Dodajte novo pravilo klikom na željenu vrstu simbolizatora na alatnoj traci",
+            "classificationError": "Usluga nedostupna. Trenutno nije moguće stvoriti klasifikaciju",
+            "classificationRasterError": "Usluga nedostupna. Trenutno nije moguće stvoriti rastersku klasifikaciju",
+            "redChannel": "Crveni kanal",
+            "greenChannel": "Zeleni kanal",
+            "blueChannel": "Plavi kanal",
+            "grayChannel": "Kanal",
+            "ruleClassification": "Klasifikacija",
             "ruleRaster": "Raster",
-            "customInterval": "Custom Interval",
-            "styleEmpty": "This style has no rules",
-            "incompleteClassification": "The classification is incomplete bacause the entries are not available. Ensure all properties are corretly provided",
-            "imageSrcEmpty": "Missing image source url in the icon style",
-            "imageSrcLoadError": "The provided image source could not be loaded. Try with a different url or ensure the source is reachable by MapStore",
-            "imageSrcInvalidBase64": "This is not a valid base64 image. Some style renderer does not support this type of source, you could use an external url source instead",
-            "imageSrcNotSupportedBase64Image": "Some style renderer does not support base64 images even if the current source is valid",
-            "warningTextOrderTitle": "Warning",
-            "warningTextOrder": "The order of rule containing text style could not match the rendering order on map. This behaviour is related to some rendering engine that draw label on top of other rules"
+            "customInterval": "Prilagođeni interval",
+            "styleEmpty": "Ovaj stil nema pravila",
+            "incompleteClassification": "Klasifikacija je nepotpuna jer unosi nisu dostupni. Provjerite jesu li sva svojstva ispravno navedena",
+            "imageSrcEmpty": "Nedostaje URL izvora slike u stilu ikone",
+            "imageSrcLoadError": "Navedeni izvor slike nije moguće učitati. Pokušajte s drugim URL-om ili osigurajte da je MapStore dostupan do izvora",
+            "imageSrcInvalidBase64": "Ovo nije valjana slika base64. Neki render za stilove ne podržava ovu vrstu izvora, umjesto toga možete upotrijebiti vanjski URL izvor",
+            "imageSrcNotSupportedBase64Image": "Neki render za stilove ne podržava base64 slike čak i ako je trenutni izvor valjan",
+            "warningTextOrderTitle": "Upozorenje",
+            "warningTextOrder": "Redoslijed pravila koji sadrži stil teksta ne može se podudarati s redoslijedom prikazivanja na karti. Ovo se ponašanje odnosi na neki mehanizam za prikazivanje koji crta oznaku povrh ostalih pravila"
         },
         "playback": {
             "settings": {
@@ -2451,567 +2451,567 @@
             "contextCreator": {
                 "generalSettings": {
                     "intro": {
-                        "title": "Context Creation Tutorial",
-                        "text": "This is a step-by-step wizard to create and edit MapStore contexts"
+                        "title": "Vodič za stvaranje konteksta",
+                        "text": "Ovo su korak-po-korak upute za stvaranje i uređivanje MapStore konteksta"
                     },
                     "stepsOverview": {
-                        "title": "Context Creator Steps",
-                        "text": "<p>Every context is created in three steps:</p><p><ul><li>General Settings</li><li>Configure Map</li><li>Configure Plugins</li></ul></p>"
+                        "title": "Koraci stvaratelja konteksta",
+                        "text": "<p>Svaki se kontekst stvara u tri koraka:</p><p><ul><li>Opće postavke</li><li>Konfiguriraj kartu</li><li>Konfigurirajte dodatke</li></ul></p>"
                     },
                     "navigation": {
                         "next": {
-                            "title": "Navigation: Next",
-                            "text": "<p>Press this button to go to the next step. If the button is disabled, it means that either the data you configured is being validated, or it is invalid.</p>"
+                            "title": "Navigacija: Dalje",
+                            "text": "<p>Pritisnite ovaj gumb za prelazak na sljedeći korak. Ako je gumb onemogućen, to znači da se podaci koje ste konfigurirali provjeravaju ili su nevaljani.</p>"
                         },
                         "back": {
-                            "title": "Navigation: Back",
-                            "text": "<p>Press this button to go to the previous step.</p>"
+                            "title": "Navigacija: Natrag",
+                            "text": "<p>Pritisnite ovaj gumb da biste se vratili na prethodni korak.</p>"
                         },
                         "close": {
-                            "title": "Navigation: Close",
-                            "text": "<p>Press this button to leave the context creation process without saving. This can be done at any point in the creation process.</p>"
+                            "title": "Navigacija: Zatvori",
+                            "text": "<p>Pritisnite ovaj gumb da biste napustili postupak stvaranja konteksta bez spremanja. To se može učiniti u bilo kojem trenutku procesa stvaranja.</p>"
                         }
                     },
                     "fields": {
-                        "title": "General Settings",
-                        "text": "<p>The first creation step requires to specify name of the context, that defines also its unique URL, and title that will be used as the title of the browser's window when context is opened and active. Note: The context name can only contain latin letters, digits 0-9 and underscore character. The window title cannot be empty.</p>"
+                        "title": "Opće postavke",
+                        "text": "<p>Prvi korak izrade zahtijeva navođenje naziva konteksta, koji definira i njegov jedinstveni URL, i naslov koji će se koristiti kao naslov prozora preglednika kada se kontekst otvori i aktivira. Napomena: Naziv konteksta može sadržavati samo latinična slova, znamenke 0-9 i povlaku. Naslov prozora ne može biti prazan.</p>"
                     },
                     "showTutorial": {
-                        "title": "Show Tutorial",
-                        "text": "<p>If you wish to go through the tutorial for a step again, you can do it at any time by pressing this button.</p>"
+                        "title": "Prikaži vodič",
+                        "text": "Ako želite ponovo proći kroz vodič kroz korak, to možete učiniti u bilo kojem trenutku pritiskom na ovaj gumb.</p>"
                     }
                 },
                 "configureMap": {
                     "intro": {
-                        "title": "Configure Map",
-                        "text": "<p>In this step, using MapStore map viewer tools you can configure the default map that will be opened upon accessing the context.</p>"
+                        "title": "Konfiguriraj kartu",
+                        "text": "<p>U ovom koraku, pomoću alata MapStore Map Viewer možete konfigurirati zadanu kartu koja će se otvoriti nakon pristupanja kontekstu.</p>"
                     },
                     "reloadMap": {
-                        "title": "Reload Map Button",
-                        "text": "<p>If you wish to discard all the changes you've made to the map so far and start over, you can do so by pressing this button.</p>"
+                        "title": "Ponovo učitaj gumb karte",
+                        "text": "<p>Ako želite odbaciti sve promjene koje ste do sada napravili na karti i započeti ispočetka, to možete učiniti pritiskom na ovaj gumb.</p>"
                     }
                 },
                 "configurePlugins": {
                     "intro": {
-                        "title": "Configure Plugins",
-                        "text": "<p>This step allows you to configure plugins that will be present in the context.</p>"
+                        "title": "Konfigurirajte dodatke",
+                        "text": "<p>Ovaj vam korak omogućuje konfiguriranje dodataka koji će biti prisutni u kontekstu.</p>"
                     },
                     "availablePlugins": {
-                        "title": "Available Plugins",
-                        "text": "<p>This list contains MapStore plugins that can be added to a context. To select a plugin simply click on it's card. Also, if you hold down your CTRL key, you can select multiple plugins.</p>"
+                        "title": "Dostupni dodaci",
+                        "text": "<p>Ovaj popis sadrži dodatke MapStore koji se mogu dodati u kontekst. Da biste odabrali dodatak, jednostavno kliknite njegovu karticu. Također, ako držite tipku CTRL, možete odabrati više dodataka.</p>"
                     },
                     "pluginManipulation": {
-                        "title": "Moving Plugins",
-                        "text": "<p>Once selected, available plugins can be moved into the right column, making them enabled in the context. Some plugins require other plugins to function, in that case they will be enabled automatically alongside plugins you explicitly enabled.</p><p>Plugins can also be moved from \"enabled\" column to \"available\" column to remove plugins from the context. If you remove a plugin, all the plugins it requires to function will be disabled as well, unless there are currently enabled plugins that also require such a plugin.</p>"
+                        "title": "Premještanje dodataka",
+                        "text": "<p>Jednom odabrani dostupni dodaci mogu se premjestiti u desni stupac, čineći ih omogućenima u kontekstu. Neki dodaci zahtijevaju da drugi dodaci funkcioniraju, u tom će slučaju biti automatski omogućeni uz dodatke koje ste izričito omogućili.</p><p>Dodaci se također mogu premjestiti iz \"enabled\" column to \"available\" stupac za uklanjanje dodataka iz konteksta. Ako uklonite dodatak, onemogućit će se i svi dodaci potrebni za njegovo funkcioniranje, osim ako trenutno postoje omogućeni dodaci koji također zahtijevaju takav dodatak.</p>"
                     },
                     "enabledPlugins": {
-                        "title": "Enabled Plugins",
-                        "text": "<p>This list contains MapStore plugins that are in the context. Each plugin here can be further configured using tool buttons.</p>"
+                        "title": "Omogućeni dodaci",
+                        "text": "<p>Ovaj popis sadrži dodatke MapStore koji su u kontekstu. Svaki se dodatak ovdje može dodatno konfigurirati pomoću gumba alata.</p>"
                     },
                     "userPlugin": {
-                        "title": "Plugin Tools: User Plugins",
-                        "text": "<p>By pressing this button, you can allow a plugin to be enabled/disabled by users, making it a user plugin. Such plugins will be shown within User Extensions plugin. This plugin is automatically added to the context if there is at least one enabled user plugin.</p>"
+                        "title": "Alati dodataka: Korisnički dodaci",
+                        "text": "<p>Pritiskom na ovaj gumb možete dopustiti da korisnici omoguće / onemoguće dodatak, čineći ga korisničkim dodatkom. Takvi će se dodaci prikazivati u dodatku za korisnička proširenja. Ovaj se dodatak automatski dodaje u kontekst ako postoji barem jedan omogućeni korisnički dodatak.</p>"
                     },
                     "userPluginCheckbox": {
-                        "title": "Plugin Tools: User Plugins",
-                        "text": "<p>If a plugin is a user plugin, then this checkbox controls whether a user plugin should be enabled automatically on context load.</p>"
+                        "title": "Alati dodataka: Korisnički dodaci",
+                        "text": "<p>Ako je dodatak korisnički dodatak, tada ovaj potvrdni okvir kontrolira treba li korisnički dodatak automatski omogućiti pri učitavanju konteksta.</p>"
                     },
                     "cfgTool": {
-                        "title": "Plugin Tools: Configuration Tool",
-                        "text": "<p>Pressing this button makes an editor appear, where you can edit the plugin's default configuration.</p>"
+                        "title": "Alati dodataka: Alat za konfiguraciju",
+                        "text": "<p>Pritiskom na ovaj gumb pojavit će se uređivač u kojem možete urediti zadanu konfiguraciju dodatka.</p>"
                     },
                     "cfgEditor": {
-                        "title": "Plugin Tools: Configuration Editor",
-                        "text": "<p>The editor supports syntax highlight. All your changes will be saved continuously as you edit. If the configuration contains a syntax error, you will be informed appropriately. The error must be fixed before proceeding.</p>"
+                        "title": "Alati dodataka: Uređivač konfiguracije",
+                        "text": "<p>Uređivač podržava isticanje sintakse. Sve vaše promjene neprekidno će se spremati dok ih uređujete. Ako konfiguracija sadrži sintaksnu pogrešku, o tome ćete biti obaviješteni na odgovarajući način. Prije nastavka pogreška mora biti ispravljena.</p>"
                     },
                     "documentationTool": {
-                        "title": "Plugin Tools: Documentation",
-                        "text": "<p>Pressing this button will take you to the plugin's documentation page where you can look up info on what the plugin does and what configuration parameters it supports.</p>"
+                        "title": "Alati dodataka: Dokumentacija",
+                        "text": "<p>Pritiskom na ovaj gumb otvorit će se stranica s dokumentacijom dodatka na kojoj možete potražiti informacije o tome što dodatak radi i koje konfiguracijske parametre podržava.</p>"
                     },
                     "mapTemplatesTool": {
-                        "title": "Plugin Tools: Map Templates",
-                        "text": "<p>Map Templates plugin also has a special tool that allows you to configure map templates that will be accessible within the context.</p>"
+                        "title": "Alati dodataka: Predlošci karte",
+                        "text": "<p>Dodatak predložaka karte također ima poseban alat koji vam omogućuje da konfigurirate predloške karata koji će biti dostupni u kontekstu.</p>"
                     },
                     "extensions": {
-                        "title": "Extensions",
-                        "text": "<p>MapStore also supports uploading custom extenion bundles. You can do so by clicking this button.</p>"
+                        "title": "Proširenja",
+                        "text": "<p>MapStore također podržava prijenos prilagođenih snopova proširenja. To možete učiniti klikom na ovaj gumb.</p>"
                     },
                     "extensionsDelete": {
-                        "title": "Extensions",
-                        "text": "<p>Already uploaded extensions can be deleted at any time by pressing this button.</p>"
+                        "title": "Proširenja",
+                        "text": "<p>Već prenesena proširenja možete u bilo kojem trenutku izbrisati pritiskom na ovaj gumb.</p>"
                     }
                 }
             },
             "geostoryIntro": {
-                "title": "Story Tutorial",
-                "text": "<p>Overview of story functionalities</p><p> Explore the related user guide <a target='_blank' href='https://mapstore.readthedocs.io/en/latest/user-guide/exploring-stories/'>here</a>"
+                "title": "Priručnik za priču",
+                "text": "<p>Pregled funkcionalnosti priče</p><p> Istražite povezani korisnički vodič <a target='_blank' href='https://mapstore.readthedocs.io/en/latest/user-guide/exploring-stories/'>ovdje</a>"
             },
             "geostoryViewHeader": {
-                "title": "Header",
-                "text": "Here you can find language selector, login, homepage link and options menu"
+                "title": "Zaglavlje",
+                "text": "Ovdje možete pronaći birač jezika, prijavu, vezu na početnu stranicu i izbornik opcija"
             },
             "geostoryViewNavItems": {
-                "title": "Navigable items",
-                "text": "Here you can find items present in the story that you can use to navigate/jump to. It shows also the current position in the story"
+                "title": "Upravljivi predmeti",
+                "text": "Ovdje možete pronaći predmete prisutne u priči pomoću kojih se možete kretati / prelaziti do njih. To pokazuje i trenutni položaj u priči"
             },
             "geostoryViewNavTitle": {
-                "title": "Story Title",
-                "text": "Here you can see the story title"
+                "title": "Naslov priče",
+                "text": "Ovdje možete vidjeti naslov priče"
             },
             "geostoryViewNavLogo": {
-                "title": "Story Logo",
-                "text": "Here you can see the story logo"
+                "title": "Logotip priče",
+                "text": "Ovdje možete vidjeti logotip priče"
             },
             "geostoryViewContent": {
-                "title": "Story Content",
-                "text": "This will be the content of the story"
+                "title": "Sadržaj priče",
+                "text": "Ovo će biti sadržaj priče"
             },
             "geostoryViewEditButton": {
-                "title": "Edit Story",
-                "text": "By clicking here you can edit the story content and settings"
+                "title": "Uredi priču",
+                "text": "Klikom ovdje možete urediti sadržaj i postavke priče"
             },
             "geostoryEditSidebar": {
-                "title": "Sidebar",
-                "text": "<p>In the Sidebar you can see an overview of the story where each item is identified by a different icon or with a preview in case of images or maps</p><p>Here you can:</p><ul><li>Change title to each section or content title</li><li>Reorder by with drag drop sections and its content</li><li>Zoom to a specific content with the hourglass button</li></ul>"
+                "title": "Bočna traka",
+                "text": "<p>Na bočnoj traci možete vidjeti pregled priče gdje je svaka stavka identificirana drugom ikonom ili s pregledom u slučaju slika ili mapa</p><p>Ovdje možete:</p><ul><li>Promijenite naslov u svaki odjeljak ili naslov sadržaja</li><li>Preuredite po odjeljcima za povlačenje i njihovom sadržaju</li><li>Zumirajte određeni sadržaj gumbom pješčanog sata</li></ul>"
             },
             "geostoryEditSidebarToolbar": {
-                "title": "Tools",
-                "text": "<p>From left to right:</p><ul><li>Delete a selected section</li><li>Go in view mode</li><li>Edit settings</li><li>Collapse/expand all</li></ul>"
+                "title": "Alati",
+                "text": "<p>S lijeva na desno:</p><ul><li>Izbrišite odabrani odjeljak</li><li>Go in view mode</li><li>Idite u način prikaza</li><li>Sažmi / proširi sve</li></ul>"
             },
             "geostoryEditSidebarSettings": {
-                "title": "Story Settings",
-                "text": "<p>Here you can:</p><ul><li>Show/hide/edit the story title</li><li>Edit the theme of the story</li><li>Show/hide/edit the story logo</li><li>Customize the navigation bar in view mode</li></ul><p> For more info see the related user guide <a target='_blank' href='https://mapstore.readthedocs.io/en/latest/user-guide/story-setting/'>here</a>"
+                "title": "Postavke priče",
+                "text": "<p>Ovdje možete:</p><ul><li>Pokažite / sakrijte / uredite naslov priče</li><li>Uredite temu priče</li><li>Pokažite / sakrijte / uredite logotip priče</li><li>Prilagodite navigacijsku traku u načinu prikaza</li></ul><p> Za više informacija pogledajte povezani korisnički vodič <a target='_blank' href='https://mapstore.readthedocs.io/en/latest/user-guide/story-setting/'>ovdje</a>"
             },
             "geostoryEditContainer": {
-                "title": "Story Content",
-                "text": "<p>Here you can see the content of the story, edit it by adding or removing sections, paragraphs etc.</p><p>Each toolbar allows you to manipulate the story content, for example:</p><img src='data:image/png;base64,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'/><ul><li>change media source</li><li>make the section to adapt to content height or to fit the view vertically</li><li>make the background to cover or not the container space</li><li>change size</li><li>align the container (available if size is not full)</li><li>change theme</li></ul><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAgCAYAAAB3j6rJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAASdEVYdFNvZnR3YXJlAEdyZWVuc2hvdF5VCAUAAAIwSURBVFhHY/wPBAyDADBB6QEHow5BB1R3yIWX7xiOP30N5REPqJJY/wKN2HLnCYMwBztD+YGzYLF+F1OGV19/MHgqSzMwMzKCxfABqjjk4ccvDJ6r9jLc+/AZKgIBSgK8DNvDnBnk+XmgIrgBVaKGg4WZgYuVmYGfnZWh39mUYbanJYMQJzsDEzAgWJiIs4KgKlCwf/z5G8rDBM++fGOwWbKD4crrDwzOCpIMGYbqDLE6ygzO8hIMd95/ZnBYthOshhAg6JCXX78zmCzYwiA/bS1D3OYjDPsfvmD49vsPw4ZbjxjqDl1gYGdmZljgbc0gxs3BcPr5W4bzr94xXHvzgeHci3dgMZCcODcn1DTcgOioATlo1Y0HDPMu3Wa4ArQofcdxhp5TVxmmnrvBoC7ExyABtOzxp68MVou2MRjN38JwF5heQGIgOWISK0Vp5B8w2q69+cjAycrC4KMsw9BsZ8ggw8sFxiC2jYwYAwszldIIIbD59mOGiWeuM1Rb6zGUmmsDsQ5Dg40BmN0HTLgC7GxQlfgBxQ4BJeb5l+4w3H73CewgN0UpBmtgSIDYn37hTuTogGKHIANQAtacvQGMQWxSAFUdQgkYdQg6GDoOYQOWnLJ83DgLJS5gGWIkLgSsZ9iAtDDR2RUdEF37/vr7j+HG24/gElNfTJDhyONX4LpFioeLAd2NL4ClMKjuAWVjTmCFSAwYbTyjg1GHoINRh6CDUYegg1GHoINB4hAGBgDB977viofL1wAAAABJRU5ErkJggg=='/><p>this icon will allow you to edit the related map</p><img src=''/><b>Tip: </b>Each tool has a tooltip, hover on it with the mouse to see more"
+                "title": "Sadržaj priče",
+                "text": "<p>Ovdje možete vidjeti sadržaj priče, urediti je dodavanjem ili uklanjanjem odjeljaka, odlomaka itd.</p><p>Svaka alatna traka omogućuje vam manipuliranje sadržajem priče, na primjer:</p><img src='data:image/png;base64,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'/><ul><li>change media source</li><li>make the section to adapt to content height or to fit the view vertically</li><li>make the background to cover or not the container space</li><li>change size</li><li>align the container (available if size is not full)</li><li>change theme</li></ul><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAgCAYAAAB3j6rJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAASdEVYdFNvZnR3YXJlAEdyZWVuc2hvdF5VCAUAAAIwSURBVFhHY/wPBAyDADBB6QEHow5BB1R3yIWX7xiOP30N5REPqJJY/wKN2HLnCYMwBztD+YGzYLF+F1OGV19/MHgqSzMwMzKCxfABqjjk4ccvDJ6r9jLc+/AZKgIBSgK8DNvDnBnk+XmgIrgBVaKGg4WZgYuVmYGfnZWh39mUYbanJYMQJzsDEzAgWJiIs4KgKlCwf/z5G8rDBM++fGOwWbKD4crrDwzOCpIMGYbqDLE6ygzO8hIMd95/ZnBYthOshhAg6JCXX78zmCzYwiA/bS1D3OYjDPsfvmD49vsPw4ZbjxjqDl1gYGdmZljgbc0gxs3BcPr5W4bzr94xXHvzgeHci3dgMZCcODcn1DTcgOioATlo1Y0HDPMu3Wa4ArQofcdxhp5TVxmmnrvBoC7ExyABtOzxp68MVou2MRjN38JwF5heQGIgOWISK0Vp5B8w2q69+cjAycrC4KMsw9BsZ8ggw8sFxiC2jYwYAwszldIIIbD59mOGiWeuM1Rb6zGUmmsDsQ5Dg40BmN0HTLgC7GxQlfgBxQ4BJeb5l+4w3H73CewgN0UpBmtgSIDYn37hTuTogGKHIANQAtacvQGMQWxSAFUdQgkYdQg6GDoOYQOWnLJ83DgLJS5gGWIkLgSsZ9iAtDDR2RUdEF37/vr7j+HG24/gElNfTJDhyONX4LpFioeLAd2NL4ClMKjuAWVjTmCFSAwYbTyjg1GHoINRh6CDUYegg1GHoINB4hAGBgDB977viofL1wAAAABJRU5ErkJggg=='/><p>ova ikona omogućit će vam uređivanje povezane mape</p><img src=''/><b>Tip: </b>Svaki alat ima opis, lebdite na njemu mišem da biste vidjeli više"
             },
             "geostoryEditAddbar": {
-                "title": "Add New Content",
-                "text": "<p>Here you can add different kind of scetions:</p><p><img src='data:image/png;base64,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'/></p><ul><li>Title section</li><li>Paragraph section</li><li>Immersive Section</li><li>Media Section</li><li>Web Page Section</li></ul>"
+                "title": "Dodajte novi sadržaj",
+                "text": "<p>Ovdje možete dodati različite vrste odjeljaka:</p><p><img src='data:image/png;base64,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'/></p><ul><li>Naslovni odjeljak</li><li>Paragraph section</li><li>Odjeljak stavka</li><li>Odjel za medije</li><li>Odjeljak web stranica</li></ul>"
             },
             "geostoryEditMediaEditor": {
-                "title": "Media Editor",
-                "text": "<p>Using the the Media Editor you can include in the story different kind of media contents like: <ul> <li>images</li><li>videos</li><li>maps</li></ul></p><p> For more info see the related user guide <a target='_blank' href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/'>here</a>"
+                "title": "Uređivač medija",
+                "text": "<p>Korištenjem uređivača medija u priču možete uključiti različite vrste medijskih sadržaja poput: <ul> <li>slike</li><li>videi</li><li>mape</li></ul></p><p> Za više informacija pogledajte povezani korisnički vodič <a target='_blank' href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/'>ovdje</a>"
             }
         },
-        "Links": "Links",
-        "Forbidden": "Forbidden",
+        "Links": "Linkovi",
+        "Forbidden": "Zabranjeno",
         "layerNameChangeError": {
-            "title": "Name change error",
-            "message": "The layer failed to reload with a changed name"
+            "title": "Pogreška pri promjeni imena",
+            "message": "Sloj se nije uspio ponovo učitati s promijenjenim imenom"
         },
         "errorPage": {
-            "title": "Ops, Something has gone wrong.",
-            "subtitle": "Please click the icon below to reload MapStore",
-            "description": "If you want to report this error you can send an email our mailing list",
-            "descriptionAdmin": "Please contact the administrator"
+            "title": "Ops, nešto je pošlo po zlu.",
+            "subtitle": "Kliknite ikonu u nastavku da biste ponovo učitali MapStore",
+            "description": "Ako želite prijaviti ovu pogrešku, možete poslati poruku na elektroničku poštu na naš popis za slanje",
+            "descriptionAdmin": "Molimo kontaktirajte administratora"
         },
-        "removeThumbnail": "Remove thumbnail",
-        "newMapEmpty": "Empty map",
-        "newMapContext": "Existing context",
-        "identifyChangeCoordinateFormat": "Change coordinate format",
-        "identifyEdit": "Edit",
-        "identifyLayerSelectNoResult": "No layers found",
-        "infoTriggerLabel": "Trigger event for the display of the information sheet",
-        "click": "On click on the feature",
-        "hover": "Hover the feature",
+        "removeThumbnail": "Ukloni minijaturu slike",
+        "newMapEmpty": "Prazna karta",
+        "newMapContext": "Postojeći kontekst",
+        "identifyChangeCoordinateFormat": "Promijenite format koordinata",
+        "identifyEdit": "Uredi",
+        "identifyLayerSelectNoResult": "Nije pronađen nijedan sloj",
+        "infoTriggerLabel": "Okidački događaj za prikaz informativnog lista",
+        "click": "Nakon klika na značajku",
+        "hover": "Zadržite pokazivač iznad značajke",
         "exportDataResults": {
-            "title": "Export data results",
-            "emptyStateMessage": "Export list is empty"
+            "title": "Izvoz rezultata podataka",
+            "emptyStateMessage": "Izvozni popis je prazan"
         },
         "dashboardEmbedded": {
-            "loadingSpinner": "Loading Dashboard",
+            "loadingSpinner": "Učitavanje nadzorne ploče",
             "errors": {
                 "loading": {
-                    "title": "Error loading dashboard",
+                    "title": "Pogreška prilikom učitavanja nadzorne ploče",
                     "dashboardNotAccessible": "You don't have permission to access this dashboard",
-                    "pleaseLogin": "This dashboard is not public",
-                    "dashboardDoesNotExist": "The dashboard you are trying to access doesn't exist",
-                    "unknownError": "There was an error loading the dashboard",
-                    "notFound": "Dashboard not found",
-                    "notAccessible": "Dashboard not accessible"
+                    "pleaseLogin": "Ova nadzorna ploča nije javna",
+                    "dashboardDoesNotExist": "Nadzorna ploča kojoj pokušavate pristupiti ne postoji",
+                    "unknownError": "Došlo je do pogreške prilikom učitavanja nadzorne ploče",
+                    "notFound": "Nadzorna ploča nije pronađena",
+                    "notAccessible": "Nadzorna ploča nije dostupna"
                 }
             },
-            "emptyTitle": "The dashboard is empty"
+            "emptyTitle": "Nadzorna ploča je prazna"
         },
         "context": {
-            "loadingSpinner": "Loading Context",
+            "loadingSpinner": "Učitavanje konteksta",
             "errors": {
                 "loading": {
-                    "title": "Error loading context",
-                    "notAccessible": "Resource not accessible",
-                    "pleaseLogin": "Some resource may not be public. Please try to login",
-                    "unknownError": "There was an error loading the map or the context. Please contact the administrator",
-                    "notFound": "Resource not found"
+                    "title": "Pogreška prilikom učitavanja konteksta",
+                    "notAccessible": "Resurs nije dostupan",
+                    "pleaseLogin": "Neki resursi možda nisu javni. Pokušajte se prijaviti",
+                    "unknownError": "Došlo je do pogreške prilikom učitavanja karte ili konteksta. Molimo kontaktirajte administratora",
+                    "notFound": "Resurs nije pronađen"
                 },
                 "context": {
-                    "notAccessible": "You don't have the right permission to access to this context. Please contact the administrator to get access",
-                    "pleaseLogin": "This context is not public. Please try to login",
-                    "unknownError": "There was an error loading the context. Please contact the administrator",
-                    "notFound": "The context you are trying to access doesn't exist"
+                    "notAccessible": "Nemate pravo dopuštenje za pristup ovom kontekstu. Za pristup kontaktirajte administratora",
+                    "pleaseLogin": "Ovaj kontekst nije javan. Pokušajte se prijaviti",
+                    "unknownError": "Došlo je do pogreške prilikom učitavanja konteksta. Molimo kontaktirajte administratora",
+                    "notFound": "Kontekst kojem pokušavate pristupiti ne postoji"
                 },
                 "template": {
-                    "title": "Error loading template",
-                    "notAccessible": "You don't have permission to access this template. Please contact the resource owner",
-                    "pleaseLogin": "This template is not public. Please try to login",
-                    "unknownError": "There was an error loading the template. Please contact the administrator",
-                    "notFound": "The template you are trying to access doesn't exist"
+                    "title": "Pogreška prilikom učitavanja predloška",
+                    "notAccessible": "Nemate dozvolu za pristup ovom predlošku. Molimo kontaktirajte vlasnika resursa",
+                    "pleaseLogin": "Ovaj predložak nije javan. Pokušajte se prijaviti",
+                    "unknownError": "Došlo je do pogreške prilikom učitavanja predloška. Molimo kontaktirajte administratora",
+                    "notFound": "Predložak kojem pokušavate pristupiti ne postoji"
                 },
                 "map": {
-                    "notAccessible": "You don't have the right permission to access to this map. Please contact the administrator to get access",
-                    "pleaseLogin": "This map or the map is not public. Please try to login",
-                    "unknownError": "There was an error loading the map. Please contact the administrator",
-                    "notFound": "The map you are trying to access doesn't exist"
+                    "notAccessible": "Nemate pravo dopuštenje za pristup ovoj karti. Za pristup kontaktirajte administratora",
+                    "pleaseLogin": "Ova karta ili karta nije javna. Pokušajte se prijaviti",
+                    "unknownError": "Došlo je do pogreške prilikom učitavanja karte. Molimo kontaktirajte administratora",
+                    "notFound": "Karta kojoj pokušavate pristupiti ne postoji"
                 },
                 "plugins": {
-                    "upload": "Error during plugin upload",
-                    "uninstall": "Error during plugin uninstall"
+                    "upload": "Pogreška tijekom prijenosa dodatka",
+                    "uninstall": "Pogreška tijekom deinstalacije dodatka"
                 },
-                "resourceAlreadyExists": "A resource with this name already exists"
+                "resourceAlreadyExists": "Resurs s ovim imenom već postoji"
             }
         },
         "geostory": {
-            "storyResources": "Story Resources",
-            "geostoreMap": "MapStore Maps",
-            "loadingSpinner": "Loading Story",
-            "addTitleSection": "Add Title Section",
-            "addBannerSection": "Add Banner Section",
-            "addParagraphSection": "Add Paragraph Section",
-            "addImmersiveSection": "Add Immersive Section",
-            "addMediaSection": "Add Media Section",
-            "addWebPageSection": "Add Web Page Section",
-            "addImmersiveContent": "Add Immersive Content",
-            "addTextContent": "Add Text Content",
-            "addMediaContent": "Add Media Content",
-            "addWebPageContent": "Add Web Page Content",
-            "zoomToContent": "Zoom to content",
-            "emptyTitle": "This story is empty",
-            "emptyDescription": "Start creating an awesome geostory by adding new content",
-            "closeFullscreenMap": "Close fullscreen map",
-            "showFullscreenMap": "Show fullscreen map",
+            "storyResources": "Resursi priče",
+            "geostoreMap": "MapsStore mape",
+            "loadingSpinner": "Učitavanje priče",
+            "addTitleSection": "Dodaj naslovni odjeljak",
+            "addBannerSection": "Dodaj natpisni odjeljak",
+            "addParagraphSection": "Dodaj odlomak odjeljka",
+            "addImmersiveSection": "Dodajte zadubljujući odjeljak",
+            "addMediaSection": "Dodaj odjeljak za medije",
+            "addWebPageSection": "Dodaj odjeljak web stranice",
+            "addImmersiveContent": "Dodajte zadubljujući sadržaj",
+            "addTextContent": "Dodajte tekstualni sadržaj",
+            "addMediaContent": "Dodajte medijski sadržaj",
+            "addWebPageContent": "Dodajte sadržaj web stranice",
+            "zoomToContent": "Zumirajte na sadržaj",
+            "emptyTitle": "Ova priča je prazna",
+            "emptyDescription": "Počnite stvarati sjajnu geopriču dodavanjem novog sadržaja",
+            "closeFullscreenMap": "Zatvorite prikaz karte preko cijelog zaslona",
+            "showFullscreenMap": "Prikaži kartu preko cijelog zaslona",
             "contentToolbar": {
-                "contentSize": "Change size",
-                "contentHeightAuto": "Make this section to adapt to the content height",
-                "contentHeightView": "Make this section to fit the view vertically",
-                "smallSizeLabel": "Small",
-                "mediumSizeLabel": "Medium",
-                "largeSizeLabel": "Large",
-                "fullSizeLabel": "Full",
-                "contentAlign": "Align content",
-                "leftAlignLabel": "Left",
-                "centerAlignLabel": "Center",
-                "rightAlignLabel": "Right",
-                "contentTheme": "Change field theme",
-                "brightThemeLabel": "Bright",
-                "brightTextThemeLabel": "Bright text",
-                "darkThemeLabel": "Dark",
-                "darkTextThemeLabel": "Dark text",
-                "defaultThemeLabel": "Default",
-                "customizeThemeLabel": "Customize",
-                "customizeThemeRemoveLabel": "Remove customization",
-                "cover": "Make the background cover the whole container space",
-                "fit": "Make the whole background visible inside the container",
-                "editMedia": "Change media source",
-                "remove": "Remove",
-                "removeConfirmTitle": "Are you sure?",
-                "removeConfirmContent": "Do you want to remove this content from the story?",
-                "editMap": "Edit map configuration",
-                "resetMap": "Reset the map to its original configuration",
-                "resetMapConfirm": "Reset Map Configuration",
-                "resetConfirmContent": "Restore the map configuration to the original one?",
-                "saveChanges": "Save changes",
-                "closeMapEditing": "Close",
-                "confirmCloseMapEditing": "Close Map Editing",
-                "pendingChangesDiscardConfirm": "Discard current map changes?",
-                "editURL": "Edit web page URL",
-                "advancedMapEditor": "Open advanced map editor",
-                "enableAudio": "Enable audio",
-                "disableAudio": "Mute video",
-                "enableAutoplay": "Enable autoplay",
-                "disableAutoplay": "Disable autoplay",
-                "enableLoop": "Enable loop",
-                "disableLoop": "Disable loop",
-                "hideCaption": "Hide caption",
-                "showCaption": "Use description as caption"
+                "contentSize": "Promijenite veličinu",
+                "contentHeightAuto": "Prilagodite odjeljak visini sadržaja",
+                "contentHeightView": "Prilagodite odjeljak da vertikalno odgovara pogledu",
+                "smallSizeLabel": "Mali",
+                "mediumSizeLabel": "Srednji",
+                "largeSizeLabel": "Veliki",
+                "fullSizeLabel": "Puna",
+                "contentAlign": "Poravnajte sadržaj",
+                "leftAlignLabel": "Lijevo",
+                "centerAlignLabel": "Centar",
+                "rightAlignLabel": "Desno",
+                "contentTheme": "Promijenite temu polja",
+                "brightThemeLabel": "Svijetlo",
+                "brightTextThemeLabel": "Svijetli tekst",
+                "darkThemeLabel": "Tamno",
+                "darkTextThemeLabel": "Tamni tekst",
+                "defaultThemeLabel": "Zadano",
+                "customizeThemeLabel": "Prilagodi",
+                "customizeThemeRemoveLabel": "Uklonite prilagodbu",
+                "cover": "Neka pozadina pokrije cijeli prostor spremnika",
+                "fit": "Neka cijela pozadina bude vidljiva unutar spremnika",
+                "editMedia": "Promijenite izvor medija",
+                "remove": "Ukloniti",
+                "removeConfirmTitle": "Jeste li sigurni?",
+                "removeConfirmContent": "Želite li ukloniti ovaj sadržaj iz priče?",
+                "editMap": "Uredi konfiguraciju karte",
+                "resetMap": "Vratite kartu na izvornu konfiguraciju",
+                "resetMapConfirm": "Resetiraj konfiguraciju karte",
+                "resetConfirmContent": "Vratiti konfiguraciju karte na izvornu?",
+                "saveChanges": "Spremi promjene",
+                "closeMapEditing": "Zatvoriti",
+                "confirmCloseMapEditing": "Zatvorite uređivanje karte",
+                "pendingChangesDiscardConfirm": "Odbaciti trenutne promjene karte?",
+                "editURL": "Uredite URL web stranice",
+                "advancedMapEditor": "Otvorite napredni uređivač karata",
+                "enableAudio": "Omogući zvuk",
+                "disableAudio": "Isključi zvuk videozapisa",
+                "enableAutoplay": "Omogući automatsku reprodukciju",
+                "disableAutoplay": "Onemogući automatsku reprodukciju",
+                "enableLoop": "Omogući petlju",
+                "disableLoop": "Onemogući petlju",
+                "hideCaption": "Sakrij naslov",
+                "showCaption": "Koristite opis kao naslov"
             },
             "navigation": {
-                "edit": "Edit story"
+                "edit": "Uredi priču"
             },
             "builder": {
                 "defaults": {
-                    "htmlTitlePlaceholder": "Insert title",
-                    "htmlPlaceholder": "Insert text here...",
-                    "titleTitle": "Title Section",
-                    "titleBanner": "Banner Section",
-                    "titleParagraph": "Paragraph Section",
-                    "titleImmersive": "Immersive Section",
-                    "titleImmersiveContent": "Immersive Content",
-                    "titleMedia": "Media Section",
-                    "titleImage": "Image",
-                    "titleText": "Text",
-                    "titleWebPage": "Web Page",
-                    "titleWebPageSection": "Web Page Section",
-                    "titleUnknown": "UNKNOWN"
+                    "htmlTitlePlaceholder": "Umetnite naslov",
+                    "htmlPlaceholder": "Ovdje umetnite tekst ...",
+                    "titleTitle": "Naslovni odjeljak",
+                    "titleBanner": "Odjeljak za natpise",
+                    "titleParagraph": "Stavak odjeljak",
+                    "titleImmersive": "Zadubljujući odjeljak",
+                    "titleImmersiveContent": "Zadubljujući sadržaj",
+                    "titleMedia": "Odjel za medije",
+                    "titleImage": "Slika",
+                    "titleText": "Tekst",
+                    "titleWebPage": "Web stranica",
+                    "titleWebPageSection": "Odjeljak web stranice",
+                    "titleUnknown": "NEPOZNATO"
                 },
-                "delete": "Remove selected section",
-                "preview": "Show preview",
-                "edit": "Edit story",
-                "noContents": "No Contents Available",
-                "collapseAll": "Collapse all",
-                "expandAll": "Expand all",
-                "fullscreen": "Show preview in fullscreen",
+                "delete": "Uklonite odabrani odjeljak",
+                "preview": "Prikaži pretpregled",
+                "edit": "Uredi priču",
+                "noContents": "Sadržaj nije dostupan",
+                "collapseAll": "Sažmi sve",
+                "expandAll": "Proširi sve",
+                "fullscreen": "Prikaži pregled na cijelom zaslonu",
                 "settings": {
-                    "tooltip": "Settings",
-                    "back": "Back to builder",
-                    "backConfirmTitle": "Settings Changed",
-                    "backConfirmBody": "Are you sure to close the settings panel without saving your changes",
-                    "backConfirmNo": "No",
-                    "backConfirmYes": "Yes",
-                    "save": "Save settings",
-                    "storyTheme": "Story theme",
-                    "storyHeader": "Story Header",
-                    "title": "Title",
-                    "titlePlaceholder": "Enter Title",
-                    "logo": "Logo",
-                    "logoPlaceholder": "Drop your logo image here or click to select an image file (supported formats are png and jpeg)",
-                    "autoplay": "Autoplay",
-                    "enableAutoplay": "Enable autoplay",
-                    "autoplayInterval": "Autoplay interval (seconds)",
-                    "autoplayIntervalPlaceholder": "Enable autoplay interval",
-                    "navbar": "Navigation bar",
-                    "showNavbar": "Show navbar",
-                    "theme": "Default Theme",
-                    "fontFamily": "Font Family",
-                    "webFontLoadError": "Failed to load some fonts from local configuration",
-                    "fontSize": "Font size",
-                    "overlay": "Overlay",
-                    "templateTooltip": "This setting allows you to enable the Identify function on the map by defining a generic format for all the layers. It is possible to configure a different format for each single layer using the advanced map editor (pencil icon). For more information, see the <a href='https://mapstore.readthedocs.io/en/latest/user-guide/layer-settings/#templates' target='_blank'> user guide </a>. If a layer has defined its own Identify format, it will be used instead of the generic one set at the map level."
+                    "tooltip": "Postavke",
+                    "back": "Natrag graditelju",
+                    "backConfirmTitle": "Postavke promijenjene",
+                    "backConfirmBody": "Jeste li sigurni da želite zatvoriti ploču s postavkama bez spremanja promjena",
+                    "backConfirmNo": "Ne",
+                    "backConfirmYes": "Da",
+                    "save": "Spremi postavke",
+                    "storyTheme": "Tema priče",
+                    "storyHeader": "Zaglavlje priče",
+                    "title": "Naslov",
+                    "titlePlaceholder": "Unesi naslov",
+                    "logo": "Logotip",
+                    "logoPlaceholder": "Ovdje ispustite sliku logotipa ili kliknite da biste odabrali datoteku slike (podržani formati su png i jpeg)",
+                    "autoplay": "Automatska reprodukcija",
+                    "enableAutoplay": "Omogući automatsku reprodukciju",
+                    "autoplayInterval": "Interrval automatske reprodukcije (sekunde)",
+                    "autoplayIntervalPlaceholder": "Omogući interval automatske reprodukcije",
+                    "navbar": "Navigacijska traka",
+                    "showNavbar": "Prikaži navigacijsku traku",
+                    "theme": "Zadana tema",
+                    "fontFamily": "Obitelj fontova",
+                    "webFontLoadError": "Učitavanje nekih fontova iz lokalne konfiguracije nije uspjelo",
+                    "fontSize": "Veličina fonta",
+                    "overlay": "Gornji sloj",
+                    "templateTooltip": "Ova postavka omogućuje vam da na karti omogućite funkciju 'Identificiraj' definiranjem generičkog formata za sve slojeve. Pomoću naprednog uređivača karata (ikona olovke) moguće je konfigurirati drugačiji format za svaki pojedini sloj. Za više informacija pogledajte <a href='https://mapstore.readthedocs.io/en/latest/user-guide/layer-settings/#templates' target='_blank'> korisnički vodič </a>. Ako je sloj definirao vlastiti format identifikacije, on će se koristiti umjesto generičkog na razini karte."
                 }
             },
             "errors": {
                 "loading": {
-                    "notFound": "Geostory not found",
-                    "title": "Error",
-                    "unknownError": "Unknown error",
-                    "pleaseLogin": "Please login",
-                    "notAccessible": "This story is not accessible",
-                    "geostoryNotAccessible": "You don't have permission to access this story. Please contact the resource owner",
-                    "geostoryDoesNotExist": "This story does not exist"
+                    "notFound": "Geostory nije pronađen",
+                    "title": "Pogreška",
+                    "unknownError": "Nepoznata pogreška",
+                    "pleaseLogin": "Molimo prijavite se",
+                    "notAccessible": "Ova priča nije dostupna",
+                    "geostoryNotAccessible": "Nemate dozvolu za pristup ovoj priči. Molimo kontaktirajte vlasnika resursa",
+                    "geostoryDoesNotExist": "Ova priča ne postoji"
                 }
             },
             "mapEditor": {
-                "configureMapOptions": "Configure map",
-                "settings": "Settings",
-                "settingsSubTitle": "Manage user interactions",
-                "toc": "Layers",
-                "pan": "Pan interaction",
-                "zoom": "Zoom In/Out interactions",
-                "topLeft": "Top Left",
-                "topRight": "Top Right",
-                "bottomLeft": "Bottom Left",
-                "bottomRight": "Bottom Right",
-                "identify": "Identify"
+                "configureMapOptions": "Konfigurirajte kartu",
+                "settings": "Postavke",
+                "settingsSubTitle": "Upravljanje korisničkim interakcijama",
+                "toc": "Slojevi",
+                "pan": "Interakcija pomicanja",
+                "zoom": "Povećavanje / smanjivanje interakcija",
+                "topLeft": "Gore lijevo",
+                "topRight": "Gore desno",
+                "bottomLeft": "Dolje lijevo",
+                "bottomRight": "Dolje desno",
+                "identify": "Identificiranje"
             },
             "webPageCreator": {
-                "title": "Web page",
-                "saveButton": "Save",
-                "error": "Please provide valid web page URL",
+                "title": "Web stranica",
+                "saveButton": "Spremi",
+                "error": "Navedite valjani URL web stranice",
                 "url": {
                     "label": "URL"
                 }
             },
             "customizeTheme": {
-                "backgroundColorLabel": "Background",
-                "textColorLabel": "Text",
-                "shadowLabel": "Shadow",
-                "useAlternativeTextColor": "Use alternative text color",
-                "alternativeTextColorPopover": "<p>Warning: the selected text color could be not readable on this background.</p><p>An alternative text color is {color} &nbsp;<span class=\"ms-custom-theme-picker-alternative-text\" style=\"background-color:{color}\"></span></p>"
+                "backgroundColorLabel": "Pozadina",
+                "textColorLabel": "Tekst",
+                "shadowLabel": "Sjena",
+                "useAlternativeTextColor": "Koristite alternativnu boju teksta",
+                "alternativeTextColorPopover": "<p>Upozorenje: odabrana boja teksta možda neće biti čitljiva na ovoj pozadini.</p><p>Alternativna boja teksta je {color} &nbsp;<span class=\"ms-custom-theme-picker-alternative-text\" style=\"background-color:{color}\"></span></p>"
             }
         },
         "geostoryEmbedded": {
-            "loadingSpinner": "Loading Story",
+            "loadingSpinner": "Učitavanje priče",
             "errors": {
                 "loading": {
-                    "notFound": "Geostory not found",
-                    "title": "Error",
-                    "unknownError": "Unknown error",
-                    "notAccessible": "This story is not accessible",
-                    "pleaseLogin": "Resource is not public",
-                    "geostoryNotAccessible": "You don't have permission to access this story",
-                    "geostoryDoesNotExist": "This story does not exist"
+                    "notFound": "Geostory nije pronađen",
+                    "title": "Pogreška",
+                    "unknownError": "Nepoznata pogreška",
+                    "notAccessible": "Ova priča nije dostupna",
+                    "pleaseLogin": "Resurs nije javan",
+                    "geostoryNotAccessible": "Nemate dozvolu za pristup ovoj priči",
+                    "geostoryDoesNotExist": "Ova priča ne postoji"
                 }
             }
         },
         "saveDialog": {
-            "title": "Edit properties",
-            "name": "Name",
-            "description": "Description",
-            "createdAt": "Created",
-            "modifiedAt": "Modified",
-            "namePlaceholder": "Type a name...",
-            "descriptionPlaceholder": "Type a description...",
-            "confirmCloseText": "There are pending changes, are you sure that you want to close without saving?",
-            "close": "Close",
-            "cancel": "Cancel",
-            "saveSuccessTitle": "Success",
-            "saveSuccessMessage": "Saved successfully"
+            "title": "Uredi svojstva",
+            "name": "Ime",
+            "description": "Opis",
+            "createdAt": "Stvoreno",
+            "modifiedAt": "Izmijenjeno",
+            "namePlaceholder": "Upišite ime ...",
+            "descriptionPlaceholder": "Upišite opis ...",
+            "confirmCloseText": "Postoje promjene na čekanju. Jeste li sigurni da želite zatvoriti bez spremanja?",
+            "close": "Zatvori",
+            "cancel": "Otkaži",
+            "saveSuccessTitle": "Uspjeh",
+            "saveSuccessMessage": "Uspješno spremljeno"
         },
         "mapEditor": {
-            "modalTitle": "Map Editor",
-            "confirmExitTitle": "Close Map Editor",
-            "confirmExitContent": "Discard pending changes?"
+            "modalTitle": "Uređivač karte",
+            "confirmExitTitle": "Zatvorite uređivač karte",
+            "confirmExitContent": "Odbaciti promjene na čekanju?"
         },
         "mediaEditor": {
             "modalTitle": "Media",
-            "images": "Images",
-            "videos": "Videos",
-            "maps": "Maps",
-            "preview": "Preview",
-            "apply": "Apply",
-            "confirmExitTitle": "Close Media Editor",
-            "confirmExitContent": "Discard pending changes?",
+            "images": "Slike",
+            "videos": "Videi",
+            "maps": "Karte",
+            "preview": "Pretpregled",
+            "apply": "Primijeni",
+            "confirmExitTitle": "Zatvorite uređivač medija",
+            "confirmExitContent": "Odbaciti promjene na čekanju?",
             "mediaPicker": {
-                "services": "Services: ",
-                "clean": "Clean results",
-                "noResults": "No results",
-                "selectService": "Select a service",
-                "add": "Add",
-                "back": "Back",
-                "save": "Save",
-                "edit": "Edit",
-                "sourcePlaceholder": "Enter a source",
-                "source": "Source",
-                "titlePlaceholder": "Enter a title",
-                "title": "Title",
-                "altTextPlaceholder": "Enter an alternative text",
-                "altText": "Alternative text",
-                "descriptionPlaceholder": "Enter a description",
-                "description": "Description",
-                "creditsPlaceholder": "Enter credits",
-                "credits": "Credits",
-                "mapFilter": "Filter maps",
-                "videoFilter": "Filter videos",
-                "imageFilter": "Filter images",
-                "import": "Import resource to local store",
-                "trash": "Remove resource",
+                "services": "Usluge: ",
+                "clean": "Očisti rezultate",
+                "noResults": "Nema rezultata",
+                "selectService": "Odaberite uslugu",
+                "add": "Dodaj",
+                "back": "Natrag",
+                "save": "Pohrani",
+                "edit": "Uredi",
+                "sourcePlaceholder": "Unesite izvor",
+                "source": "Izvor",
+                "titlePlaceholder": "Unesite naslov",
+                "title": "Naslov",
+                "altTextPlaceholder": "Unesite alternativni tekst",
+                "altText": "Alternativni tekst",
+                "descriptionPlaceholder": "Unesite opis",
+                "description": "Opis",
+                "creditsPlaceholder": "Unesite zasluge",
+                "credits": "Zasluge",
+                "mapFilter": "Filtriraj karte",
+                "videoFilter": "Filtrirajte videozapise",
+                "imageFilter": "Filtrirajte slike",
+                "import": "Uvezite resurs u lokalnu trgovinu",
+                "trash": "Uklonite resurs",
                 "videoUrl": "Video URL",
-                "videoUrlPlaceholder": "Enter a video url",
-                "thumbnail": "Add thumbnail (maximum size 500kb)",
-                "createVideoThumbnail": "Create a thumbnail from video source",
-                "thumbnailCreateError": "It's not possible to create a thumbnail from the current video source. Click or drop an image in the thumbnail input to upload it manually"
+                "videoUrlPlaceholder": "Unesite URL videozapisa",
+                "thumbnail": "Dodaj sličicu (maksimalna veličina 500kb)",
+                "createVideoThumbnail": "Stvorite sličicu iz izvora videozapisa",
+                "thumbnailCreateError": "Nije moguće stvoriti sličicu iz trenutnog izvora videozapisa. Kliknite ili ispustite sliku u unos minijatura da biste je ručno prenijeli"
             },
             "mediaform": {
-                "confirmExitTitle": "Close Media Form",
-                "confirmExitContent": "Discard pending changes?"
+                "confirmExitTitle": "Zatvorite obrazac za medije",
+                "confirmExitContent": "Odbaciti promjene na čekanju?"
             },
             "mapForm": {
-                "thumbnailMessage": "Size of images should be a square of 98px x 98px, max 100kb",
-                "confirmMapSaveTitle": "Map Update",
-                "confirmMapSaveContent": "Updating this map will reset all dependent maps in the story previously customized through the inline editor, confirm?"
+                "thumbnailMessage": "Veličina slika trebala bi biti kvadrat dimenzija 98px x 98px, max 100kb",
+                "confirmMapSaveTitle": "Ažuriranje karte",
+                "confirmMapSaveContent": "Ažuriranjem ove karte resetirat će se sve ovisne karte u priči koje su prethodno prilagođene putem umetnutog uređivača, potvrđujete?"
             },
             "mediaList": {
-                "removeResourceTitle": "Are you sure?",
-                "confirmRemoveResource": "Do you want to remove this media resource from the story?",
-                "confirmRemoveUsedResource": "This resource will also be removed from all the sections/contents where It's used leaving them empty. Do you want to remove It from the story?",
-                "resultsCount": "{count} of {total} {total, plural, one {Result} other {Results}}"
+                "removeResourceTitle": "Jeste li sigurni?",
+                "confirmRemoveResource": "Želite li ukloniti ovaj medijski resurs iz priče?",
+                "confirmRemoveUsedResource": "Ovaj će se resurs također ukloniti iz svih odjeljaka / sadržaja u kojima se koristi, ostavljajući ih praznima. Želite li to ukloniti iz priče?",
+                "resultsCount": "{count} od {total} {total, plural, one {Result} other {Results}}"
             },
             "imageList": {
-                "emptyList": "Click on the plus button to add a new image. See the user guide <a href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/#images' target='_blank'/>here</a>"
+                "emptyList": "Kliknite gumb 'plus' da biste dodali novu sliku. Pogledajte korisnički priručnik <a href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/#images' target='_blank'/>ovdje</a>"
             },
             "mapList": {
-                "emptyList": "Click on the plus button to create a map or select a different map service. See the user guide <a href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/#maps' target='_blank'/>here</a>"
+                "emptyList": "Kliknite gumb 'plus' da biste stvorili kartu ili odabrali drugu uslugu karte. Pogledajte korisnički priručnik <a href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/#maps' target='_blank'/>ovdje</a>"
             },
             "videoList": {
-                "emptyList": "Click on the plus button to add a new video. See the user guide <a href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/#videos' target='_blank'/>here</a>"
+                "emptyList": "Kliknite gumb plus da biste dodali novi videozapis. Pogledajte korisnički priručnik <a href='https://mapstore.readthedocs.io/en/latest/user-guide/media-editor-window/#videos' target='_blank'/>ovdje</a>"
             }
         },
         "backgroundDialog": {
-            "addTitle": "Add New Background",
-            "editTitle": "Edit Current Background",
-            "title": "Title",
-            "titlePlaceholder": "Enter displayed name",
-            "add": "Add",
-            "thumbnailMessage": "Size of images should be a square of 98px x 98px or 128px x 128px, max 500kb",
-            "additionalParameters": "Additional Parameters",
-            "addAdditionalParameterTooltip": "Add parameter",
-            "removeAdditionalParameterTooltip": "Remove parameter",
-            "parameter": "Parameter",
-            "value": "Value",
+            "addTitle": "Dodaj novu pozadinu",
+            "editTitle": "Uredi trenutnu pozadinu",
+            "title": "Naslov",
+            "titlePlaceholder": "Unesite prikazano ime",
+            "add": "Dodaj",
+            "thumbnailMessage": "Veličina slika treba biti kvadrat veličine 98px x 98px or 128px x 128px, max 500kb",
+            "additionalParameters": "Dodatni parametri",
+            "addAdditionalParameterTooltip": "Dodaj parametar",
+            "removeAdditionalParameterTooltip": "Ukloni parametar",
+            "parameter": "Parametar",
+            "value": "Vrijednost",
             "string": "String",
             "number": "Number",
             "boolean": "Boolean"
         },
-        "defaultMapBackgroundsServiceTitle": "Default Backgrounds",
+        "defaultMapBackgroundsServiceTitle": "Zadane pozadine",
         "backgroundSelector": {
-            "addTooltip": "Add new background",
-            "confirmDelete": "Are you sure you want to delete \"{title}\" background?"
+            "addTooltip": "Dodajte novu pozadinu",
+            "confirmDelete": "Jeste li sigurni da želite izbrisati \"{title}\" pozadinu?"
         },
         "stepper": {
-            "back": "Back",
-            "next": "Next"
+            "back": "Natrag",
+            "next": "Dalje"
         },
         "newMapDialog": {
-            "title": "Select a context",
-            "noContexts": "No contexts found",
-            "filterPlaceholder": "Search contexts..."
+            "title": "Odaberite kontekst",
+            "noContexts": "Nije pronađen nijedan kontekst",
+            "filterPlaceholder": "Pretraži kontekste."
         },
         "plugins": {
             "About": {
-                "description": "Tool that shows the About window",
-                "title": "About"
+                "description": "Alat koji prikazuje 'O stavci' prozor",
+                "title": "O stavci"
             },
             "AddGroup": {
-                "description": "Allows users to create new layer groups in the TOC",
-                "title": "Add Layer Group"
+                "description": "Omogućuje korisnicima stvaranje novih grupa slojeva u TOC-u",
+                "title": "Dodaj grupu slojeva"
             },
             "Annotations": {
-                "description": "Tool to draw annotations on map",
-                "title": "Annotations"
+                "description": "Alat za crtanje napomena na karti",
+                "title": "Napomene"
             },
             "AutoMapUpdate": {
-                "description": "Allows the user to update the map (old mapstore version)",
-                "title": "Auto Map Update"
+                "description": "Omogućuje korisniku da ažurira kartu (stara verzija mapstore-a)",
+                "title": "Automatsko ažuriranje karte"
             },
             "BackgroundSelector": {
-                "description": "Allows to select map background",
-                "title": "Background Selector"
+                "description": "Omogućuje odabir pozadine karte",
+                "title": "Birač pozadine"
             },
             "BurgerMenu": {
-                "description": "Menu on top right of the map that contains other plug-ins",
-                "title": "Burger Menu"
+                "description": "Izbornik u gornjem desnom dijelu karte koji sadrži ostale dodatke",
+                "title": "Burger izbornik"
             },
             "CRSSelector": {
-                "description": "Allows to switch map projection",
-                "title": "CRS Selector"
+                "description": "Omogućuje prebacivanje projekcije karte",
+                "title": "CRS izbornik"
             },
             "Details": {
-                "description": "Allow to show detail card for a map, if any",
-                "title": "Map Details"
+                "description": "Dopustite prikaz kartice s detaljima karte, ako postoji",
+                "title": "Detalji karte"
             },
             "Expander": {
-                "description": "Utility for Sidebar (navigation) that allows to hide some buttons",
-                "title": "Expander"
+                "description": "Uslužni program za bočnu traku (navigacija) koji omogućuje skrivanje nekih gumba",
+                "title": "Proširivač"
             },
             "FeatureEditor": {
-                "description": "Browse attributes in a table",
-                "title": "Attribute Table"
+                "description": "Pregledajte atribute u tablici",
+                "title": "Tablica atributa"
             },
             "FilterLayer": {
-                "description": "Allows to add a filter to a layer",
-                "title": "Filter Layer"
+                "description": "Omogućuje dodavanje filtra u sloj",
+                "title": "Sloj filtra"
             },
             "HelpLink": {
-                "description": "A button to access to MapStore documentation",
-                "title": "Documentation Link"
+                "description": "Gumb za pristup dokumentaciji MapStore",
+                "title": "Poveznica dokumentacije"
             },
             "Home": {
-                "description": "Link to the home page",
-                "title": "Home"
+                "description": "Link na početnu stranicu",
+                "title": "Početna stranica"
             },
             "Identify": {
-                "description": "Query the objects on map",
-                "title": "Identify"
+                "description": "Ispitajte objekte na karti",
+                "title": "Identificirati"
             },
             "Locate": {
                 "description": "Find and follow the position of the user on the map",
