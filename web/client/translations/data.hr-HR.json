@@ -3014,129 +3014,129 @@
                 "title": "Identificirati"
             },
             "Locate": {
-                "description": "Find and follow the position of the user on the map",
-                "title": "Location tool"
+                "description": "Pronađite i slijedite položaj korisnika na karti",
+                "title": "Alat za lokaciju"
             },
             "Login": {
-                "description": "Login tool",
-                "title": "Login"
+                "description": "Alat za prijavu",
+                "title": "Prijava"
             },
             "MapCatalog": {
-                "description": "Allows browsing, editing, deleting and loading of maps that are available on the server",
-                "title": "Map Catalog"
+                "description": "Omogućuje pregledavanje, uređivanje, brisanje i učitavanje karata dostupnih na poslužitelju",
+                "title": "Katalog karti"
             },
             "MapExport": {
-                "description": "Allows to export map in a file",
-                "title": "Map Export"
+                "description": "Omogućuje izvoz karte u datoteku",
+                "title": "Izvoz karte"
             },
             "MapImport": {
-                "description": "Allows to import data (SHP, KML/KMZ, GeoJSON, GPX) or reload exported maps.",
-                "title": "Import"
+                "description": "Omogućuje uvoz podataka (SHP, KML / KMZ, GeoJSON, GPX) ili ponovno učitavanje izvezenih karata.",
+                "title": "Uvoz"
             },
             "MapLoading": {
-                "description": "A spinner in the sidebar that indicates if the map is loading",
-                "title": "Map Loading Indicator"
+                "description": "Okretajuči idikator na bočnoj traci koji pokazuje da li se karta učitava",
+                "title": "Pokazatelj učitavanja karte"
             },
             "Measure": {
-                "description": "Allows to measure distances and areas on the map",
-                "title": "Measure"
+                "description": "Omogućuje mjerenje udaljenosti i područja na karti",
+                "title": "Mjera"
             },
             "MetadataExplorer": {
-                "description": "Browse services (WMS/WMTS/CSW) to add layers to the map",
-                "title": "Catalog"
+                "description": "Pregledajte usluge (WMS / WMTS / CSW) da biste dodali slojeve na kartu",
+                "title": "Katalog"
             },
             "MousePosition": {
-                "description": "Shows the coordinates of the pointed by the mouse cursor",
-                "title": "Mouse Position"
+                "description": "Prikazuje koordinate pokazivača pokazivača miša",
+                "title": "Položaj miša"
             },
             "Print": {
-                "description": "Allows to print the current map with legend",
-                "title": "Print Tool"
+                "description": "Omogućuje ispis trenutne karte s legendom",
+                "title": "Alat za ispis"
             },
             "Save": {
-                "description": "Allows to save the changes to the map on the server",
-                "title": "Save"
+                "description": "Omogućuje spremanje promjena na karti na poslužitelju",
+                "title": "Pohrani"
             },
             "SaveAs": {
-                "description": "Allows to create or clone maps on the server",
-                "title": "Save As"
+                "description": "Omogućuje stvaranje ili kloniranje karata na poslužitelju",
+                "title": "Pohrani kao"
             },
             "ScaleBox": {
-                "description": "An indicator and a selector of the current scale of the map",
-                "title": "Scale Selector"
+                "description": "Pokazatelj i birač trenutne razmjere karte",
+                "title": "Birač ljestvice"
             },
             "Search": {
-                "description": "Textual search tool (GeoCoder)",
-                "title": "Search Bar"
+                "description": "Alat za tekstualno pretraživanje (GeoCoder)",
+                "title": "Traka za pretraživanje"
             },
             "Settings": {
-                "description": "Allows to edit some settings for the map (language, default info format...)",
-                "title": "Settings"
+                "description": "Omogućuje uređivanje nekih postavki za kartu (jezik, zadani format informacija ...)",
+                "title": "Postavke"
             },
             "Share": {
-                "description": "Allows to share the map in various ways (link, QR-Code, embed, social networks...)",
-                "title": "Share Tool"
+                "description": "Omogućuje dijeljenje karte na razne načine (veza, QR-kod, ugrađivanje, društvene mreže ...)",
+                "title": "Alat za dijeljenje"
             },
             "StyleEditor": {
-                "description": "Layer's style editor",
-                "title": "Style Editor"
+                "description": "Uređivač stilova za slojeve",
+                "title": "Uređivač stilova"
             },
             "TOC": {
-                "description": "Provides a list of layers with an ability to sort them",
-                "title": "List of layers"
+                "description": "Pruža popis slojeva s mogućnošću razvrstavanja",
+                "title": "Popis slojeva"
             },
             "TOCItemsSettings": {
-                "description": "Allow to edit layer's settings",
-                "title": "Layer Settings"
+                "description": "Dopustite uređivanje postavki sloja",
+                "title": "Postavke sloja"
             },
             "Timeline": {
-                "description": "Allows time travel for data with time dimension",
-                "title": "Timeline"
+                "description": "Omogućuje putovanje kroz vrijeme za podatke s vremenskom dimenzijom",
+                "title": "Vremenska Crta"
             },
             "Tutorial": {
-                "description": "Adds a tutorial to explain the various functionalities",
-                "title": "Tutorial"
+                "description": "Dodaje vodič za objašnjavanje različitih funkcionalnosti",
+                "title": "Vodič"
             },
             "UserExtensions": {
-                "description": "Allows the user to enable/disable user extensions",
-                "title": "User Extensions"
+                "description": "Omogućuje korisniku da omogući / onemogući korisnička proširenja",
+                "title": "Korisnička proširenja"
             },
             "UserSession": {
-                "title": "User Session",
-                "description": "Enables an automatically saved user session for every context"
+                "title": "Sesija korisnika",
+                "description": "Omogućuje automatski spremljenu korisničku sesiju za svaki kontekst"
             },
             "Version": {
-                "description": "Shows the version of MapStore in map settings tool",
-                "descriptionGeorchestra": "Shows the version of GeOrchestra in map settings tool",
-                "title": "Version"
+                "description": "Prikazuje verziju MapStore-a u alatu za postavke karte",
+                "descriptionGeorchestra": "Prikazuje verziju GeOrchestra u alatu za postavke karte",
+                "title": "Verzija"
             },
             "LayerDownload": {
-                "description": "Allows to download data from the Attribute Table",
-                "title": "Download Data"
+                "description": "Omogućuje preuzimanje podataka iz tablice atributa",
+                "title": "Preuzimanje podataka"
             },
             "Widgets": {
-                "description": "Allows to add and show widgets on map",
-                "title": "Widgets"
+                "description": "Omogućuje dodavanje i prikazivanje widgeta na karti",
+                "title": "Widgeti"
             },
             "WidgetsTray": {
-                "description": "A tray to collapse and expand widgets on map. ",
-                "title": "Widgets Tray"
+                "description": "Ladica za sažimanje i proširivanje dodataka na karti. ",
+                "title": "Ladica widgeta"
             },
             "Globe": {
-                "description": "Sidebar button to toggle 3D mode on/off",
+                "description": "Gumb bočne trake za uključivanje / isključivanje 3D načina",
                 "title": "3D"
             },
             "ZoomAll": {
-                "description": "Sidebar button to zoom to the map extent of the map",
-                "title": "Zoom To Max Extent"
+                "description": "Gumb bočne trake za zumiranje do krajnjeg opsega karte",
+                "title": "Zumiranje do krajnjeg opsega"
             },
             "ZoomIn": {
-                "description": "Button that increase zoom level of the map",
-                "title": "Zoom In"
+                "description": "Gumb koji povećava razinu zumiranja karte",
+                "title": "Zumiranje"
             },
             "ZoomOut": {
-                "description": "Button that decrease zoom level of the map",
-                "title": "Zoom Out"
+                "description": "Gumb koji smanjuje razinu zumiranja karte",
+                "title": "Odzumiranje"
             }
         },
         "contextCreator": {
