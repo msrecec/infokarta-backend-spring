@@ -41,6 +41,7 @@ const style = {
     padding: 10
 };
 const editModalName = "rasvjetaEdit";
+const fieldsToInclude = ["fid", "source", "materijal", "stanje"];
 const fieldsToExclude = ["geom", "mjernoMjesto",
     "vod",
     "kategorija",
@@ -98,7 +99,7 @@ const Rasvjeta = ({
     ]; */
     const table = (<TableComponent
         items ={data ? data : []}
-        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToEdit={setupEditModal}
         editModalName = {editModalName}
         zoomToItem={sendZoomData}

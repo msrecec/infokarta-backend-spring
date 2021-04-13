@@ -13,6 +13,7 @@ class PaginationComponent extends React.Component {
         showDetails: PropTypes.string,
         closeDetailsView: PropTypes.func,
         editItem: PropTypes.func,
+        editModalName: PropTypes.string,
         title: PropTypes.string,
         fieldsToExclude: PropTypes.array
     };
@@ -60,7 +61,7 @@ class PaginationComponent extends React.Component {
                                 <h2 style={{marginBottom: "3px"}}>{this.props.title}</h2>
                                 <Button
                                     bsStyle="link"
-                                    onClick={() => this.props.editItem(this.props.item)}
+                                    onClick={() => this.props.editItem(this.props.editModalName, this.props.item)}
                                     style={{paddingBottom: "0px"}}
                                 >
                                     <Glyphicon glyph="pencil" /> Uredi podatke

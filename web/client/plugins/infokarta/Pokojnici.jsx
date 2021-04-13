@@ -139,10 +139,7 @@ const Pokojnici = ({
         items={data ? data : []}
         tableHeight={tableHeight}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
-        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
-        editModalName = {editModalName}
         zoomToItem={sendZoomData}
-        sendDataToEdit={setupEditModal}
         sendDataToDetailsView={sendDataToDetailsView}
     />);
 
@@ -185,6 +182,7 @@ const Pokojnici = ({
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
+        editModalName = {editModalName}
         title={"Umrla osoba"}
         fieldsToExclude={fieldsToExclude}
     />);
