@@ -108,12 +108,12 @@ class TableComponent extends React.Component {
           } // fix ako se promijeni stranica
           this.setState({ prevActiveRow: key });
           tableRow = document.getElementById(key);
-          tableRow.style.background = "green";
+          tableRow.style.background = "#999999";
       } else {
           // ako ne postoji, postavi novi kljuc u zelenu
           this.setState({ prevActiveRow: key });
           tableRow = document.getElementById(key);
-          tableRow.style.background = "green";
+          tableRow.style.background = "#999999";
       }
   }
 }

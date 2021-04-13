@@ -13,7 +13,8 @@ class PaginationComponent extends React.Component {
         showDetails: PropTypes.string,
         closeDetailsView: PropTypes.func,
         editItem: PropTypes.func,
-        title: PropTypes.string
+        title: PropTypes.string,
+        fieldsToExclude: PropTypes.array
     };
 
     static defaultProps = {
@@ -55,7 +56,7 @@ class PaginationComponent extends React.Component {
                             </div>
                             {/* TODO dodat nacin da se osvjezi details tab nakon edita */}
                             <hr style={{marginTop: "0px"}}/>
-                            {displayFeatureInfo(this.props.item)}
+                            {displayFeatureInfo(this.props.item, this.props.fieldsToExclude)}
                         </div>
                     </Tab>
                     <Tab eventKey={2} title="Dokumenti vezani uz stavku" style={tabContentStyle}>

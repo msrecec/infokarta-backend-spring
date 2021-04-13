@@ -172,7 +172,8 @@ const Pokojnici = ({
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
-        title={"Pokojnik"}
+        title={"Umrla osoba"}
+        fieldsToExclude={fieldsToExclude}
     />);
 
     return (
