@@ -5,14 +5,15 @@ import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUt
 
 import FileComponentParent from '../../components/infokarta/fileUpload/ParentComponent';
 
-import { Tabs, Tab, Button } from 'react-bootstrap';
+import { Tabs, Tab, Button, Glyphicon } from 'react-bootstrap';
 
 class PaginationComponent extends React.Component {
     static propTypes = {
         item: PropTypes.object,
         showDetails: PropTypes.string,
         closeDetailsView: PropTypes.func,
-        editItem: PropTypes.func
+        editItem: PropTypes.func,
+        title: PropTypes.string
     };
 
     static defaultProps = {
@@ -22,16 +23,14 @@ class PaginationComponent extends React.Component {
 
     render() {
         const style = {
-            overflow: "auto",
-            maxHeight: "600px",
-            minWidth: "580px",
-            display: this.props.showDetails
+            display: this.props.showDetails,
+            maxHeight: "520px"
         };
 
         const tabContentStyle = {
             padding: "10px",
             overflow: "auto",
-            height: "auto"
+            maxHeight: "450px"
         };
 
         const fileComponentParent = (<FileComponentParent
@@ -40,26 +39,31 @@ class PaginationComponent extends React.Component {
 
         return (
             <div style={style}>
-                <div style={{margin: "0 auto"}}>
-                    <Button bsStyle="link" onClick={() => this.props.closeDetailsView()} style={{width: "5%", margin: "0 auto"}}>Zatvori</Button>
-                    <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
-                        <Tab eventKey={1} title="Detalji stavke">
-                            <div style={tabContentStyle}>
-                                <div style={{display: "flex", alignItems: "center"}}>
-                                    <Button bsStyle="success" onClick={() => this.props.editItem(this.props.item)}>Uredi stavku</Button>
-                                </div>
-                                {/* TODO dodat nacin da se osvjezi details tab nakon edita */}
-                                <hr />
-                                {displayFeatureInfo(this.props.item)}
+                <Button bsStyle="link" onClick={() => this.props.closeDetailsView()}>Zatvori</Button>
+                <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
+                    <Tab eventKey={1} title="Detalji stavke" style={tabContentStyle}>
+                        <div>
+                            <div style={{display: "flex", alignItems: "flex-end"}}>
+                                <h2 style={{marginBottom: "3px"}}>{this.props.title}</h2>
+                                <Button
+                                    bsStyle="link"
+                                    onClick={() => this.props.editItem(this.props.item)}
+                                    style={{paddingBottom: "0px"}}
+                                >
+                                    <Glyphicon glyph="pencil" /> Uredi podatke
+                                </Button>
                             </div>
-                        </Tab>
-                        <Tab eventKey={2} title="Dokumenti vezani uz stavku">
-                            <div style={tabContentStyle}>
-                                {fileComponentParent}
-                            </div>
-                        </Tab>
-                    </Tabs>
-                </div>
+                            {/* TODO dodat nacin da se osvjezi details tab nakon edita */}
+                            <hr style={{marginTop: "0px"}}/>
+                            {displayFeatureInfo(this.props.item)}
+                        </div>
+                    </Tab>
+                    <Tab eventKey={2} title="Dokumenti vezani uz stavku" style={tabContentStyle}>
+                        <div>
+                            {fileComponentParent}
+                        </div>
+                    </Tab>
+                </Tabs>
             </div>
         );
     }

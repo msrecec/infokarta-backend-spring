@@ -7,12 +7,6 @@ import FileContainer from "./FileContainer";
 
 import { getFilesByEntityId } from "../../../actions/infokarta/fileManagement";
 
-const style = {
-    overflow: "auto",
-    maxHeight: "600px"
-    // minWidth: "580px"
-};
-
 class FileListComponent extends React.Component {
   static propTypes = {
       itemId: PropTypes.number,
@@ -35,7 +29,7 @@ class FileListComponent extends React.Component {
 
   render() {
       return (
-          <div style={style}>
+          <div>
               {this.props.files.length !== 0 ? Object.entries(this.props.files).map((file) => {
                   return (
                       <FileContainer file={file[1]} />

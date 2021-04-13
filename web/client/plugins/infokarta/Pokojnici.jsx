@@ -172,6 +172,7 @@ const Pokojnici = ({
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
+        title={"Pokojnik"}
     />);
 
     return (
