@@ -49,7 +49,7 @@ const style = {
     padding: 10
 };
 const editModalName = "rasvjetaEdit";
-const fieldsToInclude = ["fid", "materijal", "stanje"];
+const fieldsToInclude = ["fid", "idHist", "materijal", "stanje"];
 const fieldsToExclude = ["geom", "source", "mjernoMjesto",
     "vod",
     "kategorija",
@@ -63,7 +63,6 @@ const fieldsToExclude = ["geom", "source", "mjernoMjesto",
     "polozajKabela",
     "godinaIzgradnje",
     "oznakaUgovora",
-    "idHist",
     "timeStart",
     "timeEnd",
     "userRole"];
