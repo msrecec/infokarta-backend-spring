@@ -23,11 +23,13 @@ class SearchComponent extends React.Component {
       search: PropTypes.func,
       resetSearchParameters: PropTypes.func,
       openInsertForm: PropTypes.func,
-      insertModalName: PropTypes.string
+      insertModalName: PropTypes.string,
+      disableInsert: PropTypes.bool
   };
 
   static defaultProps = {
-      buildData: []
+      buildData: [],
+      disableInsert: false
   };
 
   constructor(props) {
@@ -90,7 +92,7 @@ class SearchComponent extends React.Component {
                   >
                       <Button bsStyle="success" onClick={() => this.search()} style={buttonStyle}>Pretraži</Button>
                       <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši parametre</Button>
-                      <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
+                      {this.props.disableInsert ? null : <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button> }
                   </FormGroup>
               </form>
           </div>

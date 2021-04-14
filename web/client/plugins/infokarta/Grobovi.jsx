@@ -80,6 +80,7 @@ const Grobovi = ({
         search={sendSearchParameters}
         // openInsertForm={setupInsertModal}
         resetSearchParameters={resetSearchParameters}
+        disableInsert
     />);
 
     const table = (<TableComponent
