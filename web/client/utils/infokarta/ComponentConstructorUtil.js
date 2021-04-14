@@ -17,14 +17,14 @@ export const displayFeatureInfo = (item, fieldsToExclude = []) => {
     //     item.properties.grb = `<img src='${grbUrl}' />`;
 
     let elementList = Object.entries(item).map((property) => {
-        if (!fieldsToExclude.includes(property[0]) && property[0].includes('source') && property[1]) {
+        if (!fieldsToExclude.includes(property[0]) && property[0].includes('source') && property[1] && typeof property[1] !== "object") {
             return (
                 <div style={style}>
                     <span><b>{beautifyHeader(property[0])}</b></span>
                     {parse(property[1])}
                 </div>
             );
-        } else if (!fieldsToExclude.includes(property[0]) && property[1]) {
+        } else if (!fieldsToExclude.includes(property[0]) && property[1] && typeof property[1] !== "object") {
             return (
                 <div style={style}>
                     <span><b>{beautifyHeader(property[0])}</b></span>
