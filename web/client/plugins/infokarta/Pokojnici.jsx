@@ -90,9 +90,8 @@ const Pokojnici = ({
     page,
     totalNumber,
     chosenGrave,
-    tableHeight,
-    detailViewItem,
     showDetails,
+    detailViewItem,
     editModalShow,
     insertConfirmationModalShow,
     insertModalShow,
@@ -137,10 +136,10 @@ const Pokojnici = ({
 
     const table = (<TableComponent
         items={data ? data : []}
-        tableHeight={tableHeight}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         zoomToItem={sendZoomData}
         sendDataToDetailsView={sendDataToDetailsView}
+        showDetails={showDetails}
     />);
 
     const pagination = (<PaginationComponent
@@ -188,10 +187,16 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude}
     />);
 
+    const showDetailsStyle = {
+        height: "150px"
+    };
+
     return (
         <div style={{"padding": "10px"}}>
             {search}
-            {table}
+            <div style={showDetails ? showDetailsStyle : {}}>
+                {table}
+            </div>
             {pagination}
             {detailsAndDocs}
             {editModal}
@@ -208,7 +213,7 @@ export default createPlugin('Pokojnici', {
         page: get(state, "deceased.pageNumber"),
         totalNumber: get(state, "deceased.totalNumber"),
         chosenGrave: get(state, "gravePickerTool.graveData"),
-        tableHeight: get(state, "detailsAndDocuments.tableHeight"),
+        showDetails: get(state, "detailsAndDocuments.showDetails"),
         detailViewItem: get(state, "detailsAndDocuments.item"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
         editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName),

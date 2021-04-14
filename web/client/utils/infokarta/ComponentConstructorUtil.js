@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import {Button, FormControl, FormGroup, ControlLabel, Carousel, CarouselItem} from 'react-bootstrap';
 import parse from 'html-react-parser';
 
 import { beautifyHeader } from "./BeautifyUtil";
@@ -122,4 +122,21 @@ export const buildDynamicForm = (blueprint, exclude = [], readOnly = [], handleC
         return null;
     });
     return elementList;
+};
+
+export const buildCarouselFromURLs = (sourceArray, width = 400, height = 220) => {
+    console.log('!!! sourceArray u UTIL', sourceArray);
+    return (
+        <Carousel>
+            {
+                sourceArray.map((source) => {
+                    return (
+                        <CarouselItem>
+                            <img width={width} height={height} alt={`${source}`} src={`http://213.191.153.249:8080/static/${source}`} />
+                        </CarouselItem>
+                    );
+                })
+            }
+        </Carousel>
+    );
 };

@@ -11,11 +11,11 @@ class TableComponent extends React.Component {
       fieldsToInclude: PropTypes.array,
       sendDataToDetailsView: PropTypes.func,
       zoomToItem: PropTypes.func,
-      tableHeight: PropTypes.string
+      showDetails: PropTypes.bool
   };
 
   static defaultProps = {
-      tableHeight: "600px"
+      showDetails: false
   };
 
   constructor(props) {
@@ -25,7 +25,7 @@ class TableComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-      if ((prevProps.tableHeight !== this.props.tableHeight) && (this.props.tableHeight === "600px")) {
+      if ((prevProps.showDetails !== this.props.showDetails) && this.props.showDetails) {
           // kad se ugasi details view, makni boju sa odabranog rowa
           let tableRow = document.getElementById(this.state.prevActiveRow);
           if (tableRow) {
@@ -36,12 +36,6 @@ class TableComponent extends React.Component {
   }
 
   render() {
-      const style = {
-          overflow: "auto",
-          maxHeight: this.props.tableHeight,
-          transition: "all .2s linear",
-          border: "1px solid #dddddd"
-      };
       const thStyle = {
           position: "sticky",
           top: "0",
@@ -50,7 +44,7 @@ class TableComponent extends React.Component {
       }; // https://css-tricks.com/position-sticky-and-table-headers/
 
       return (
-          <div style={style}>
+          <div style={this.props.showDetails ? {overflow: "auto", height: "150px", transition: "all .2s linear", border: "1px solid #dddddd"} : {overflow: "auto", height: "600px", transition: "all .2s linear", border: "1px solid #dddddd"}}>
               <Table condensed hover style={{margin: "0"}}>
                   <thead>
                       <tr>

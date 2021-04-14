@@ -44,7 +44,7 @@ import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocume
 const editModalName = "groboviEdit";
 
 const fieldsToInclude = ["grobnica", "redniBroj", "groblje"];
-const fieldsToExclude = [];
+const fieldsToExclude = ["fid", "source", "source1", "source2", "source3"];
 const readOnlyFields = [];
 const searchFormData = [
     {
@@ -59,9 +59,8 @@ const Grobovi = ({
     data,
     page,
     totalNumber,
-    tableHeight,
-    detailViewItem,
     showDetails,
+    detailViewItem,
     sendSearchParameters = () => {},
     resetSearchParameters = () => {},
     sendPageNumber = () => {},
@@ -87,7 +86,7 @@ const Grobovi = ({
         items={data ? data : []}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToDetailsView={sendDataToDetailsView}
-        tableHeight={tableHeight}
+        showDetails={showDetails}
         editModalName={editModalName}
         zoomToItem={sendZoomData}
     />);
@@ -114,11 +113,18 @@ const Grobovi = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
+    const showDetailsStyle = {
+        height: "0px",
+        display: "none"
+    };
+
     return (
         <div style={{"padding": "10px"}}>
-            {search}
-            {table}
-            {pagination}
+            <div style={showDetails ? showDetailsStyle : {}}>
+                {search}
+                {table}
+                {pagination}
+            </div>
             {detailsAndDocs}
             {editModal}
             {/* {insertModal}
@@ -132,9 +138,8 @@ export default createPlugin('Grobovi', {
         data: get(state, "graves.data"),
         page: get(state, "graves.pageNumber"),
         totalNumber: get(state, "graves.totalNumber"),
-        tableHeight: get(state, "detailsAndDocuments.tableHeight"),
-        detailViewItem: get(state, "detailsAndDocuments.item"),
-        showDetails: get(state, "detailsAndDocuments.showDetails")
+        showDetails: get(state, "detailsAndDocuments.showDetails"),
+        detailViewItem: get(state, "detailsAndDocuments.item")
     }), {
         sendSearchParameters: setSearchParametersForGraves,
         resetSearchParameters: resetSearchParametersForGraves,

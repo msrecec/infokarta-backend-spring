@@ -6,8 +6,7 @@ import {
 const detailsAndDocuments = (
     state = {
         item: {},
-        tableHeight: "600px",
-        showDetails: "none"
+        showDetails: false
     },
     action
 ) => {
@@ -16,22 +15,19 @@ const detailsAndDocuments = (
         return {
             ...state,
             item: action.item,
-            tableHeight: "150px",
-            showDetails: "block"
+            showDetails: true
         };
     }
     case CLOSE_DETAILS_AND_DOCS_VIEW: {
         return {
             ...state,
-            tableHeight: "600px",
-            showDetails: "none"
+            showDetails: false
         };
     }
     case CLEAR_DETAILS_AND_DOCS_VIEW: {
         return {
             ...state,
-            tableHeight: "600px",
-            showDetails: "none",
+            showDetails: false,
             item: {}
         };
     }

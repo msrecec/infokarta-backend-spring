@@ -35,10 +35,6 @@ import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 
-
-const style = {
-    padding: 10
-};
 const editModalName = "rasvjetaEdit";
 const fieldsToInclude = ["fid", "source", "materijal", "stanje"];
 const fieldsToExclude = ["geom", "mjernoMjesto",
@@ -63,6 +59,7 @@ const Rasvjeta = ({
     data,
     page,
     totalNumber,
+    showDetails,
     editModalShow,
     loadData = () => {},
     sendPageNumber = () => {},
@@ -102,6 +99,7 @@ const Rasvjeta = ({
         sendDataToEdit={setupEditModal}
         editModalName = {editModalName}
         zoomToItem={sendZoomData}
+        showDetails={showDetails}
     />);
 
     const editModal = (<EditModal
@@ -122,12 +120,18 @@ const Rasvjeta = ({
         search={sendSearchParameters}
         resetSearchParameters={resetSearchParameters}
     />); */
+    const showDetailsStyle = {
+        height: "150px",
+        display: "none"
+    };
 
     return (
-        <div style = {style}>
+        <div style={{"padding": "10px"}}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {/* {search} */}
-            {table}
+            <div style={showDetails ? showDetailsStyle : {}}>
+                {table}
+            </div>
             {pagination}
             {editModal}
         </div>
@@ -138,6 +142,7 @@ export default createPlugin('Rasvjeta', {
     component: connect((state) => ({
         data: get(state, 'lighting.data'),
         page: get(state, 'lighting.pageNumber'),
+        showDetails: get(state, "detailsAndDocuments.showDetails"),
         totalNumber: get(state, 'lighting.totalNumber'),
         editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName)
     }), {
