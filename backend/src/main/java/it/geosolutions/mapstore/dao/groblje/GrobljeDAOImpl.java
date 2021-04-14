@@ -10,6 +10,8 @@ import java.util.List;
 public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
 
+
+
     public GrobljeDAOImpl() {
         this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
     }
