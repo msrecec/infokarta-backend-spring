@@ -184,6 +184,7 @@ const Pokojnici = ({
         editItem={setupEditModal}
         editModalName = {editModalName}
         title={"Umrla osoba"}
+        additionalTitle={"ime_i_prezime"}
         fieldsToExclude={fieldsToExclude}
     />);
 

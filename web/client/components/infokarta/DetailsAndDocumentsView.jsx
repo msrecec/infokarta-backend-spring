@@ -15,12 +15,14 @@ class PaginationComponent extends React.Component {
         editItem: PropTypes.func,
         editModalName: PropTypes.string,
         title: PropTypes.string,
+        additionalTitle: PropTypes.string,
         fieldsToExclude: PropTypes.array
     };
 
     static defaultProps = {
         item: {},
-        showDetails: "none"
+        showDetails: "none",
+        additionalTitle: ""
     };
 
     render() {
@@ -58,7 +60,7 @@ class PaginationComponent extends React.Component {
                     <Tab eventKey={1} title="Detalji" style={tabContentStyle}>
                         <div>
                             <div style={{display: "flex", alignItems: "flex-end"}}>
-                                <h2 style={{marginBottom: "3px"}}>{this.props.title}</h2>
+                                {this.props.additionalTitle ? <h2 style={{marginBottom: "3px"}}>{this.props.title} - {this.props.item[this.props.additionalTitle]}</h2> : <h2 style={{marginBottom: "3px"}}>{this.props.title}</h2>}
                                 <Button
                                     bsStyle="link"
                                     onClick={() => this.props.editItem(this.props.editModalName, this.props.item)}

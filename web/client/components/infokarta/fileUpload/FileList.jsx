@@ -20,7 +20,7 @@ class FileListComponent extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-      if (prevProps.itemId !== this.props.itemId) {
+      if (this.props.itemId && prevProps.itemId !== this.props.itemId) {
           this.props.getFilesMeta("pokojnici", "slika", this.props.itemId);
           // this.props.getFilesMeta("pokojnici", "dokument", this.props.itemId);
           // TODO dodat dva polja, tj. niza od kojih jedan prikazuje slike a drugi dokumente

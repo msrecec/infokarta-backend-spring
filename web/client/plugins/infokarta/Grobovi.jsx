@@ -43,7 +43,7 @@ import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocume
 // modal names
 const editModalName = "groboviEdit";
 
-const fieldsToInclude = ["fid", "brojLezaja", "grobnica", "redniBroj", "groblje"];
+const fieldsToInclude = ["grobnica", "redniBroj", "groblje"];
 const fieldsToExclude = [];
 const readOnlyFields = [];
 const searchFormData = [
@@ -110,6 +110,7 @@ const Grobovi = ({
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
         title={"Grobnica"}
+        additionalTitle={"grobnica"}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 

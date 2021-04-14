@@ -40,7 +40,6 @@ const Api = {
             url += 'page=1';
         }
 
-        console.log(url);
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.get(
             url,
@@ -48,7 +47,6 @@ const Api = {
                 headers: header
             })
             .then(function(response) {
-                console.log(response.data);
                 return response.data;
             }).catch(function(error) {
             /* eslint-disable no-console */
