@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-class FileContainer extends React.Component {
+class ImgContainer extends React.Component {
   static propTypes = {
       file: PropTypes.object
   };
@@ -52,8 +52,8 @@ class FileContainer extends React.Component {
               <img src={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}?thumbnail=true`} style={styles.imageBorder} height="100px" width="75px"/>
               <div style={styles.informationContainer}>
                   <div style={styles.fileInformation}>
-                      <span><b>Naziv dokumenta: </b><i style={styles.wrap}>{this.props.file.naziv}</i></span>
-                      <span><b>Vrsta dokumenta: </b><i style={styles.wrap}>{this.props.file.tip}</i></span>
+                      <span><b>Naziv slike: </b><i style={styles.wrap}>{this.props.file.naziv}</i></span>
+                      <span><b>Vrsta slike: </b><i style={styles.wrap}>{this.props.file.tip}</i></span>
                       <span><b>Prenio/la: </b>{/* this.props.file.uploader */} </span>
                       {/* TODO dodat uploader kad se uploada file i prikazat ovde */}
                   </div>
@@ -71,4 +71,4 @@ class FileContainer extends React.Component {
   }
 }
 
-export default FileContainer;
+export default ImgContainer;

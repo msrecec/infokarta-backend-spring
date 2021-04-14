@@ -5,7 +5,7 @@ import { get } from 'lodash';
 
 import {Button, FormGroup, ControlLabel} from 'react-bootstrap';
 
-import { uploadNewFileByEntityId } from "../../../actions/infokarta/fileManagement";
+import { uploadNewImageByEntityId } from "../../../actions/infokarta/fileManagement";
 import { insertSuccessful, insertUnsuccessful } from "../../../actions/infokarta/dynamicModalControl";
 
 class FileUploadFormComponent extends React.Component {
@@ -65,7 +65,7 @@ const FileUploadForm = connect((state) => {
         responseStatus: get(state, 'fileManagement.uploadResponse')
     };
 }, {
-    uploadFile: uploadNewFileByEntityId,
+    uploadFile: uploadNewImageByEntityId,
     showSuccessMessage: insertSuccessful,
     showFailureMessage: insertUnsuccessful
 })(FileUploadFormComponent);

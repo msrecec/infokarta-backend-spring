@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 
-import FileContainer from "./FileContainer";
+import ImgContainer from "./ImgContainer";
 
-import { getFilesByEntityId } from "../../../actions/infokarta/fileManagement";
+import { getImagesByEntityId } from "../../../actions/infokarta/fileManagement";
 
 class FileListComponent extends React.Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class FileListComponent extends React.Component {
           <div>
               {this.props.files.length !== 0 ? Object.entries(this.props.files).map((file) => {
                   return (
-                      <FileContainer file={file[1]} />
+                      <ImgContainer file={file[1]} />
                   );
               }
               ) : null}
@@ -46,7 +46,7 @@ const FileList = connect((state) => {
         files: get(state, 'fileManagement.files')
     };
 }, {
-    getFilesMeta: getFilesByEntityId
+    getFilesMeta: getImagesByEntityId
 })(FileListComponent);
 
 export default FileList;

@@ -1,6 +1,6 @@
 import {
-    FILES_LOADED_BY_ENTITY_ID,
-    UPLOAD_NEW_FILE_RESPONSE
+    IMAGES_LOADED_BY_ENTITY_ID,
+    UPLOAD_NEW_IMAGE_RESPONSE
 } from "../../actions/infokarta/fileManagement";
 const fileManagement = (
     state = {
@@ -10,14 +10,14 @@ const fileManagement = (
     action
 ) => {
     switch (action.type) {
-    case FILES_LOADED_BY_ENTITY_ID: {
+    case IMAGES_LOADED_BY_ENTITY_ID: {
         console.log(action);
         return {
             ...state,
             files: action.response
         };
     }
-    case UPLOAD_NEW_FILE_RESPONSE: {
+    case UPLOAD_NEW_IMAGE_RESPONSE: {
         console.log(action);
         return {
             ...state,
