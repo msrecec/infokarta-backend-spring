@@ -55,7 +55,7 @@ class PaginationComponent extends React.Component {
                     <Glyphicon glyph="arrow-down" /> Zatvori
                 </Button>
                 <Tabs defaultActiveKey={1} id="detail-and-doc-tabs">
-                    <Tab eventKey={1} title="Detalji stavke" style={tabContentStyle}>
+                    <Tab eventKey={1} title="Detalji" style={tabContentStyle}>
                         <div>
                             <div style={{display: "flex", alignItems: "flex-end"}}>
                                 <h2 style={{marginBottom: "3px"}}>{this.props.title}</h2>
@@ -72,7 +72,7 @@ class PaginationComponent extends React.Component {
                             {displayFeatureInfo(this.props.item, this.props.fieldsToExclude)}
                         </div>
                     </Tab>
-                    <Tab eventKey={2} title="Dokumenti vezani uz stavku" style={tabContentStyle}>
+                    <Tab eventKey={2} title="Dokumenti" style={tabContentStyle}>
                         <div>
                             {fileComponentParent}
                         </div>

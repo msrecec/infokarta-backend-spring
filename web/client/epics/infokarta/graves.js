@@ -22,8 +22,8 @@ export const sendSearchRequestUponUponChangeForGraves = (action$, {getState = ()
         RESET_SEARCH_PARAMETERS_FOR_GRAVES
         // SET_PAGE_FOR_GRAVES
     ).switchMap(({}) => {
-        const searchParameters = get(getState(), "deceased.searchParameters");
-        const pageNumber = get(getState(), "deceased.pageNumber");
+        const searchParameters = get(getState(), "graves.searchParameters");
+        const pageNumber = get(getState(), "graves.pageNumber");
         return Rx.Observable.fromPromise(groboviApi.searchGraves(searchParameters, pageNumber)
             .then(data => data))
             .mergeMap((response) => {
@@ -35,7 +35,7 @@ export const sendSearchRequestUponUponChangeForGraves = (action$, {getState = ()
             .catch((error) => {
                 return Rx.Observable.of(
                     /* eslint-disable no-console */
-                    console.error('error while fetching deceased', error)
+                    console.error('error while fetching graves', error)
                 );
             });
     });

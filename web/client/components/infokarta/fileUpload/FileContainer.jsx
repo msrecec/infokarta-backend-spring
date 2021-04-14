@@ -20,32 +20,36 @@ class FileContainer extends React.Component {
               borderRadius: "16px",
               padding: "10px",
               marginBottom: "10px",
-              maxWidth: "500px"
+              width: "100%"
           },
           informationContainer: {
               display: "flex",
               flexDirection: "column",
               paddingLeft: "10px",
-              justifyContent: "space-between",
-              maxWidth: "500px"
+              width: "calc(100% - 75px)", // potrebno za fileove sa jako dugim nazivima
+              justifyContent: "space-between"
           },
           fileInformation: {
               display: "flex",
-              flexDirection: "column",
-              maxWidth: "300px"
+              flexDirection: "column"
+              //   maxWidth: "300px"
           },
           imageBorder: {
               border: "1px solid #dddddd",
               borderRadius: "8px"
           },
           wrap: {
-              wordWrap: "break-word"
+              overflowWrap: "break-word"
+          },
+          buttonStyle: {
+              maxWidth: "150px",
+              alignSelf: "flex-end"
           }
       };
 
       return (
           <div style={styles.mainContainer}>
-              <img src={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}?thumbnail=true`} style={styles.imageBorder} height="150px" width="150px"/>
+              <img src={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}?thumbnail=true`} style={styles.imageBorder} height="100px" width="75px"/>
               <div style={styles.informationContainer}>
                   <div style={styles.fileInformation}>
                       <span><b>Naziv dokumenta: </b><i style={styles.wrap}>{this.props.file.naziv}</i></span>
@@ -57,8 +61,10 @@ class FileContainer extends React.Component {
                       bsStyle="success"
                       href={`http://localhost:8080/mapstore/rest/config/pokojnici/download/media/slika/${this.props.file.fid}`}
                       target="_blank"
-                      style={{width: "300px"}}
-                  >Otvori original</Button>
+                      style={styles.buttonStyle}
+                  >
+                      Otvori original
+                  </Button>
               </div>
           </div>
       );

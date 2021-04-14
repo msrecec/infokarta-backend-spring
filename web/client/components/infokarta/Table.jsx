@@ -39,7 +39,6 @@ class TableComponent extends React.Component {
       const style = {
           overflow: "auto",
           maxHeight: this.props.tableHeight,
-          minWidth: "580px",
           transition: "all .2s linear",
           border: "1px solid #dddddd"
       };
@@ -48,8 +47,7 @@ class TableComponent extends React.Component {
           top: "0",
           background: "white",
           boxShadow: "0 2px 2px -1px #dddddd"
-      };
-      // https://css-tricks.com/position-sticky-and-table-headers/
+      }; // https://css-tricks.com/position-sticky-and-table-headers/
 
       return (
           <div style={style}>
