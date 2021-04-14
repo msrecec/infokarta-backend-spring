@@ -37,7 +37,7 @@ const LighingApi = {
     },
 
     editLightingData: function(lighting) {
-        let url = 'http://localhost:8080/mapstore/rest/config/rasvjeta'; // Dodaj url iz backenda!
+        let url = 'http://localhost:8080/mapstore/rest/config/rasvjeta';
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         lighting.timeStart = null; // server response: 500 error ako nije null
         console.log(lighting);

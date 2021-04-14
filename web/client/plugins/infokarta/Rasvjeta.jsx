@@ -20,20 +20,28 @@ import {
     showDynamicModal
 } from "../../actions/infokarta/dynamicModalControl";
 
+import {
+    loadDataIntoDetailsAndDocsView,
+    closeDetailsAndDocsView
+} from "../../actions/infokarta/detailsAndDocuments";
+
 // utils
 
 // reducers
 import lighting from '../../reducers/infokarta/lighting';
 import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
+import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
 
 // epics
-import * as epics from '../../epics/infokarta/lighting';
+/* import * as epics from '../../epics/infokarta/lighting'; */
+import { completeLightingEpics } from '../../epics/infokarta/combinedEpics';
 
 // components
 import TableComponent from '../../components/infokarta/Table';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
+import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
 import SearchComponent from '../../components/infokarta/SearchForm';
 
 
@@ -41,8 +49,8 @@ const style = {
     padding: 10
 };
 const editModalName = "rasvjetaEdit";
-const fieldsToInclude = ["fid", "source", "materijal", "stanje"];
-const fieldsToExclude = ["geom", "mjernoMjesto",
+const fieldsToInclude = ["fid", "materijal", "stanje"];
+const fieldsToExclude = ["geom", "source", "mjernoMjesto",
     "vod",
     "kategorija",
     "vrstaRasvjetnogMjesta",
@@ -64,12 +72,17 @@ const Rasvjeta = ({
     data,
     page,
     totalNumber,
+    tableHeight,
     editModalShow,
+    showDetails,
+    detailViewItem,
     loadData = () => {},
     sendPageNumber = () => {},
     sendZoomData = () => {},
     setupEditModal = () => {},
-    sendEditedData = () => {}
+    sendEditedData = () => {},
+    closeDetailsView = () => {},
+    sendDataToDetailsView = () => {}
 /*     setSearchParametersForLighting = () => {},
     resetSearchParametersForDeceased = () => {} */
 }) => {
@@ -99,10 +112,12 @@ const Rasvjeta = ({
     ]; */
     const table = (<TableComponent
         items ={data ? data : []}
+        tableHeight={tableHeight}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToEdit={setupEditModal}
         editModalName = {editModalName}
         zoomToItem={sendZoomData}
+        sendDataToDetailsView={sendDataToDetailsView}
     />);
 
     const editModal = (<EditModal
@@ -124,12 +139,23 @@ const Rasvjeta = ({
         resetSearchParameters={resetSearchParameters}
     />); */
 
+    const detailsAndDocs = (<DetailsAndDocumentsView
+        item={detailViewItem}
+        showDetails={showDetails}
+        closeDetailsView={closeDetailsView}
+        editItem={setupEditModal}
+        editModalName = {editModalName}
+        title={"Rasvjetni objekt"}
+        fieldsToExclude={fieldsToExclude}
+    />);
+
     return (
         <div style = {style}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {/* {search} */}
             {table}
             {pagination}
+            {detailsAndDocs}
             {editModal}
         </div>
     );
@@ -140,13 +166,18 @@ export default createPlugin('Rasvjeta', {
         data: get(state, 'lighting.data'),
         page: get(state, 'lighting.pageNumber'),
         totalNumber: get(state, 'lighting.totalNumber'),
-        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName)
+        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName),
+        tableHeight: get(state, "detailsAndDocuments.tableHeight"),
+        detailViewItem: get(state, "detailsAndDocuments.item"),
+        showDetails: get(state, "detailsAndDocuments.showDetails")
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
         sendZoomData: zoomToLampFromLighting,
         sendEditedData: editLighting,
-        setupEditModal: showDynamicModal
+        setupEditModal: showDynamicModal,
+        sendDataToDetailsView: loadDataIntoDetailsAndDocsView,
+        closeDetailsView: closeDetailsAndDocsView
         /*         sendSearchParameters: setSearchParametersForLighting,
         resetSearchparameters: resetSearchParametersForDeceased */
     })(Rasvjeta),
@@ -161,9 +192,10 @@ export default createPlugin('Rasvjeta', {
             doNotHide: true
         }
     },
-    epics,
+    epics: completeLightingEpics,
     reducers: {
         lighting,
-        dynamicModalControl
+        dynamicModalControl,
+        detailsAndDocuments
     }
 });
