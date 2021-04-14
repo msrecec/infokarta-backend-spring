@@ -70,7 +70,7 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr key={`b-tr-${item.fid}`} id={`b-tr-${item.fid}`} onClick={() => {this.sendRowDataToDetailsView(item); this.setActiveRow(`b-tr-${item.fid}`);}}>
+                          <tr key={`b-tr-${item.id_hist ? item.id_hist : item.fid}`} id={`b-tr-${item.id_hist ? item.id_hist : item.fid}`} onClick={() => {this.sendRowDataToDetailsView(item); this.setActiveRow(`b-tr-${item.id_hist ? item.id_hist : item.fid}`);}}>
                               {Object.entries(item).map((field) => {
                                   if (this.props.fieldsToInclude.includes(field[0])) {
                                       return (
