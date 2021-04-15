@@ -5,6 +5,9 @@ import {
 const fileManagement = (
     state = {
         files: [],
+        entityName: null,
+        documentType: null,
+        entityFid: null,
         uploadResponse: null
     },
     action
@@ -14,7 +17,10 @@ const fileManagement = (
         console.log(action);
         return {
             ...state,
-            files: action.response
+            files: action.response,
+            entityName: action.entityName,
+            entityFid: action.entityFid,
+            documentType: action.documentType
         };
     }
     case UPLOAD_NEW_IMAGE_RESPONSE: {

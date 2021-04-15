@@ -5,7 +5,7 @@ import { get } from 'lodash';
 
 import {Button, FormGroup, ControlLabel} from 'react-bootstrap';
 
-import { uploadNewImageByEntityId } from "../../../actions/infokarta/fileManagement";
+import { uploadNewImageByEntityId} from "../../../actions/infokarta/fileManagement";
 import { insertSuccessful, insertUnsuccessful } from "../../../actions/infokarta/dynamicModalControl";
 
 class FileUploadFormComponent extends React.Component {
