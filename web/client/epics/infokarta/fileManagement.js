@@ -6,8 +6,8 @@ import {
     imagesLoadedByEntityId,
     UPLOAD_NEW_IMAGE_BY_ENTITY_ID,
     uploadNewImageResponse,
-    UPDATE_FILE_INFO,
-    updateFileInfo
+    UPDATE_METADATA_IN_STORE_INFO,
+    updateMetadataInStoreInfo
 } from "../../actions/infokarta/fileManagement";
 
 import { insertSuccessful, insertUnsuccessful } from "../../actions/infokarta/dynamicModalControl";
@@ -16,7 +16,7 @@ import fileManagementApi from "../../api/infokarta/fileManagementApi";
 
 export const loadFileMetadataByEntityId = (action$) =>
     action$.ofType(
-        GET_IMAGES_BY_ENTITY_ID
+        GET_IMAGES_BY_ENTITY_ID,
     )
         .switchMap(({ entityName, documentType, entityFid }) => {
             return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, documentType, entityFid)
@@ -44,19 +44,19 @@ export const handleImageUploadByEntityId = (action$) =>
                         return Rx.Observable.of(
                             insertSuccessful("Prijenos uspješan", "Vaš dokument/slika je uspješno pohranjen/a u bazu podataka."),
                             uploadNewImageResponse(response),
-                            updateFileInfo()
+                            updateMetadataInStoreInfo()
                         );
                     } else if (response === 415) {
                         return Rx.Observable.of(
                             insertUnsuccessful("Greška", "Format odabrane datoteke nije podržan."),
                             uploadNewImageResponse(response),
-                            updateFileInfo()
+                            updateMetadataInStoreInfo()
                         );
                     }
                     return Rx.Observable.of(
                         insertUnsuccessful("Greška", "Došlo je do greške prilikom prijenosa. Molimo pokušajte ponovno."),
                         uploadNewImageResponse(response),
-                        updateFileInfo()
+                        updateMetadataInStoreInfo()
                     );
                 })
                 .catch((error) => {
@@ -69,7 +69,7 @@ export const handleImageUploadByEntityId = (action$) =>
 
 export const sendRequestUponFileInfoUpdateAndSuccessfulUpload = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
-        UPDATE_FILE_INFO
+        UPDATE_METADATA_IN_STORE_INFO
     ).switchMap(({}) => {
         const entityName = get(getState(), "fileManagment.entityName");
         const documentType = get(getState(), "fileManagment.documentType");
