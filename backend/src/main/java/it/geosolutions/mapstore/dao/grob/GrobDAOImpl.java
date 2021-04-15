@@ -7,6 +7,7 @@ import org.postgis.PGgeometry;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class GrobDAOImpl implements GrobDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
 

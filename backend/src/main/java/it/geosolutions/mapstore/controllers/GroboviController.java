@@ -3,10 +3,13 @@ package it.geosolutions.mapstore.controllers;
 import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.model.grob.Grob;
+import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.service.grob.GrobServiceImpl;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import org.postgis.PGgeometry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,9 @@ import java.util.Optional;
 
 @Controller
 public class GroboviController {
+    @Autowired
+    GrobServiceImpl grobService;
+
     //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/grobovi", method = RequestMethod.GET)
     @ResponseBody
@@ -61,4 +67,30 @@ public class GroboviController {
     }
 
 
+    @RequestMapping(value = "/grobovi/{fid}", method = RequestMethod.GET)
+    public void getRasvjetaByIdHist(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @PathVariable("fid") Integer fid
+    ) throws IOException {
+
+        Optional<Grob> grob = grobService.findById(fid);
+
+        String json = "{}";
+
+        if(grob.isPresent()) {
+
+            json = JSONUtils.fromPOJOToJSON(grob.get());
+
+            response.setStatus(200);
+
+        } else {
+
+            response.setStatus(404);
+
+        }
+
+        HeaderUtils.responseWithJSON(response, json);
+
+    }
 }
