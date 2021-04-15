@@ -54,7 +54,6 @@ const fileManagementApi = {
         return null;
     },
     getMetaByEntityFid: function(entityName, documentType, entityFid) {
-        console.log(entityName, documentType, entityFid);
         if (entityName && documentType && entityFid) {
             const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
             return axios.get(url)

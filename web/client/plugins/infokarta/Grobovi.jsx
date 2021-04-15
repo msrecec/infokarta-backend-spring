@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { get } from 'lodash';
 
 import Message from '../../components/I18N/Message';
-import { Glyphicon, Button, ControlLabel } from 'react-bootstrap';
+import { Glyphicon } from 'react-bootstrap';
 
 // actions
 import {
     setSearchParametersForGraves,
-    resetSearchParametersForGraves
+    resetSearchParametersForGraves,
+    zoomToGraveFromGraves
 } from "../../actions/infokarta/graves";
 
 import {
@@ -146,7 +147,7 @@ export default createPlugin('Grobovi', {
         // sendPageNumber: setPageForDeceased,
         setupEditModal: showDynamicModal,
         // sendEditedData: editDeceased,
-        // sendZoomData: zoomToGraveFromDeceased,
+        sendZoomData: zoomToGraveFromGraves,
         sendDataToDetailsView: loadDataIntoDetailsAndDocsView,
         closeDetailsView: closeDetailsAndDocsView
     })(Grobovi),

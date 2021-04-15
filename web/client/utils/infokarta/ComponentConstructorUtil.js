@@ -125,7 +125,6 @@ export const buildDynamicForm = (blueprint, exclude = [], readOnly = [], handleC
 };
 
 export const buildCarouselFromURLs = (sourceArray, width = 400, height = 220) => {
-    console.log('!!! sourceArray u UTIL', sourceArray);
     return (
         <Carousel>
             {

@@ -5,17 +5,22 @@ import {
     SEND_SEARCH_REQUEST_FOR_GRAVES,
     SET_SEARCH_PARAMETERS_FOR_GRAVES,
     RESET_SEARCH_PARAMETERS_FOR_GRAVES,
+    ZOOM_TO_GRAVE_FROM_GRAVES,
     // SET_PAGE_FOR_GRAVES,
     gravesResponseReceived
 } from "../../actions/infokarta/graves";
 
 import { closeDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
+import { zoomToPoint, CLICK_ON_MAP } from '../../actions/map';
+import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
+import { SET_CONTROL_PROPERTY, TOGGLE_CONTROL } from '../../actions/controls';
+import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import groboviApi from "../../api/infokarta/groboviApi";
 
-const editModalName = "groboviEdit";
+// const editModalName = "groboviEdit";
 
-export const sendSearchRequestUponUponChangeForGraves = (action$, {getState = () => {}} = {}) =>
+export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
         SEND_SEARCH_REQUEST_FOR_GRAVES,
         SET_SEARCH_PARAMETERS_FOR_GRAVES,
@@ -39,3 +44,36 @@ export const sendSearchRequestUponUponChangeForGraves = (action$, {getState = ()
                 );
             });
     });
+
+export const zoomToGraveFromGravesPlugin = (action$) =>
+    action$.ofType(ZOOM_TO_GRAVE_FROM_GRAVES)
+        .switchMap(({ geom = {} }) => {
+            console.log('!!! epic', geom);
+            const feature = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: geom.coordinates
+                }
+            };
+            return Rx.Observable.from([
+                updateAdditionalLayer('graves', 'graves', 'overlay', {
+                    features: [feature],
+                    type: "vector",
+                    name: "gravePoints",
+                    id: "gravePoints",
+                    visibility: true,
+                    style: defaultIconStyle,
+                    featuresCrs: "EPSG:3765"
+                }),
+                zoomToPoint(geom.coordinates, 16, geom.crs.properties.name)
+            ]);
+        });
+
+export const removeGravePinLayerFromGravesPlugin = (action$) =>
+    action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)
+        .switchMap(({}) => {
+            return Rx.Observable.of(
+                removeAdditionalLayer({id: 'graves', owner: 'graves'})
+            );
+        });

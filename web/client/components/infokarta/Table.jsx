@@ -44,7 +44,7 @@ class TableComponent extends React.Component {
       }; // https://css-tricks.com/position-sticky-and-table-headers/
 
       return (
-          <div style={this.props.showDetails ? {overflow: "auto", height: "150px", transition: "all .2s linear", border: "1px solid #dddddd"} : {overflow: "auto", height: "600px", transition: "all .2s linear", border: "1px solid #dddddd"}}>
+          <div style={{overflow: "auto", height: "inherit", border: "1px solid #dddddd"}}>
               <Table condensed hover style={{margin: "0"}}>
                   <thead>
                       <tr>
@@ -91,13 +91,12 @@ class TableComponent extends React.Component {
 
   setActiveRow(key) {
       let tableRow;
-      if (this.state.prevActiveRow) {
-          // ako postoji aktivni kljuc, postavi mu boju na prazan string (potrebno da bootstrap hover radi)
-          // i obojaj sljedeci
+      if (this.state.prevActiveRow) { // ako postoji aktivni kljuc, resetiraj mu boju postavljanjem na prazan string (potrebno da bootstrap hover radi) i obojaj sljedeci
           tableRow = document.getElementById(this.state.prevActiveRow);
           if (tableRow) {
               tableRow.style.background = "";
           } // fix ako se promijeni stranica
+
           this.setState({ prevActiveRow: key });
           tableRow = document.getElementById(key);
           tableRow.style.background = "#999999";
@@ -109,7 +108,6 @@ class TableComponent extends React.Component {
       }
   }
 }
-
 
 export default TableComponent;
 

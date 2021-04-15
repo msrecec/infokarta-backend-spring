@@ -23,7 +23,6 @@ import {
 
 import {
     GET_COLUMNS_FOR_INSERT_FROM_DATABASE,
-    generateInsertForm,
     clearDynamicComponentStore,
     insertSuccessful,
     insertUnsuccessful,
@@ -45,7 +44,7 @@ import pokojniciApi from "../../api/infokarta/pokojniciApi";
 
 const insertModalName = "pokojniciInsert";
 const insertConfirmationModalName = "pokojniciConfirmation";
-const editModalName = "pokojniciEdit";
+// const editModalName = "pokojniciEdit";
 
 export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
@@ -175,7 +174,7 @@ export const zoomToGraveFromPokojniciPlugin = (action$) =>
                 });
         });
 
-export const removeGravePinLayer = (action$) =>
+export const removeGravePinLayerFromDeceasedPlugin = (action$) =>
     action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)
         .switchMap(({}) => {
             return Rx.Observable.of(

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isEmpty } from "lodash";
 
 import { displayFeatureInfo, buildCarouselFromURLs } from "../../utils/infokarta/ComponentConstructorUtil";
 
@@ -47,13 +46,13 @@ class PaginationComponent extends React.Component {
                     sourceArray.push(value);
                 }
             }
-            console.log('!!! unutar komponente', sourceArray);
         }
 
         const tabContentStyle = {
             padding: "10px",
             overflow: "auto",
-            maxHeight: "450px"
+            maxHeight: "480px",
+            height: "auto"
         };
 
         const closeButtonStyle = {
@@ -76,7 +75,7 @@ class PaginationComponent extends React.Component {
         }; // https://css-tricks.com/position-sticky-and-table-headers/
 
         return (
-            <div style={this.props.showDetails ? {display: "block", maxHeight: "520px"} : {display: "none", maxHeight: "520px"} }>
+            <div style={this.props.showDetails ? {display: "block", transition: "all .2s linear"} : {display: "none", transition: "all .2s linear"} }>
                 <Button
                     bsStyle="link"
                     onClick={() => this.props.closeDetailsView()}
@@ -88,7 +87,7 @@ class PaginationComponent extends React.Component {
                     <Tab eventKey={1} title="Detalji" style={tabContentStyle}>
                         <div>
                             <div style={stickyTitle}>
-                                <h3 style={{marginBottom: "3px"}}>{this.props.additionalTitle ? `${this.props.title} - ${this.props.item[this.props.additionalTitle]}` : `${this.props.title}`}</h3>
+                                <h3 style={{marginBottom: "3px"}}>{(this.props.additionalTitle && this.props.item[this.props.additionalTitle]) ? `${this.props.title} - ${this.props.item[this.props.additionalTitle]}` : `${this.props.title}`}</h3>
                                 <Button
                                     bsStyle="link"
                                     onClick={() => this.props.editItem(this.props.editModalName, this.props.item)}
@@ -100,7 +99,8 @@ class PaginationComponent extends React.Component {
                             {/* TODO dodat nacin da se osvjezi details tab nakon edita */}
                             <hr style={{marginTop: "0px"}}/>
                             {displayFeatureInfo(this.props.item, this.props.fieldsToExclude)}
-                            {sourceArray ? buildCarouselFromURLs(sourceArray) : null}
+                            <hr style={{marginTop: "0px"}}/>
+                            {sourceArray.length ? buildCarouselFromURLs(sourceArray) : null}
                         </div>
                     </Tab>
                     <Tab eventKey={2} title="Dokumenti" style={tabContentStyle}>

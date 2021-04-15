@@ -188,13 +188,19 @@ const Pokojnici = ({
     />);
 
     const showDetailsStyle = {
-        height: "150px"
+        height: "150px",
+        transition: "all .2s linear"
+    };
+
+    const hideDetailsStyle = {
+        height: "600px",
+        transition: "all .2s linear"
     };
 
     return (
         <div style={{"padding": "10px"}}>
             {search}
-            <div style={showDetails ? showDetailsStyle : {}}>
+            <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
                 {table}
             </div>
             {pagination}
