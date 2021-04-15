@@ -39,7 +39,7 @@ public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
             groblje = Optional.ofNullable((Groblje) jdbcTemplateObject.queryForObject(sql,
                 new Object[]{id}, grobljeMapper));
         } catch(EmptyResultDataAccessException e) {
-            groblje = Optional.ofNullable(null);
+            groblje = Optional.empty();
         }
 
         return groblje;
@@ -105,7 +105,7 @@ public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
                 new Object[]{groblje.getNaziv()}, grobljeMapper));
         } catch(EmptyResultDataAccessException e) {
             e.printStackTrace();
-            oGroblje = Optional.ofNullable(null);
+            oGroblje = Optional.empty();
         }
 
         return oGroblje;
@@ -122,7 +122,7 @@ public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
                 new Object[]{groblje.getNaziv(), groblje.getNaziv()}, grobljeMapper));
         } catch(EmptyResultDataAccessException e) {
             e.printStackTrace();
-            oGroblje = Optional.ofNullable(null);
+            oGroblje = Optional.empty();
         }
 
         return oGroblje;

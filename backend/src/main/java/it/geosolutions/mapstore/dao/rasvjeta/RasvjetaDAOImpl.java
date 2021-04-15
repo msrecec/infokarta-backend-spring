@@ -27,7 +27,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
     @Override
     public List<Rasvjeta> findAll() {
-        String sql = "SELECT * FROM public.\"rasvjeta\" ORDER BY id_hist";
+        String sql = "SELECT * FROM public.\"rasvjeta\" ORDER BY geom";
 
         RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
 
@@ -98,7 +98,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
         } catch (EmptyResultDataAccessException e) {
 
-            oRasvjeta = Optional.ofNullable(null);
+            oRasvjeta = Optional.empty();
 
         }
 
@@ -118,7 +118,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
              rasvjeta = Optional.ofNullable((Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, rasvjetaMapper));
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
-            rasvjeta = Optional.ofNullable(null);
+            rasvjeta = Optional.empty();
         }
 
         return rasvjeta;

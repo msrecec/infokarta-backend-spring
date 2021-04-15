@@ -36,7 +36,7 @@ public class GrobDAOImpl implements GrobDAO, JDBCConfig {
         try {
              grob = Optional.ofNullable((Grob) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, grobMapper));
         } catch(EmptyResultDataAccessException e) {
-            grob = Optional.ofNullable(null);
+            grob = Optional.empty();
         }
 
         return grob;
@@ -136,7 +136,7 @@ public class GrobDAOImpl implements GrobDAO, JDBCConfig {
             oGrob = Optional.ofNullable((Grob)jdbcTemplateObject.queryForObject(sql, params, grobMapper));
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
-            oGrob = Optional.ofNullable(null);
+            oGrob = Optional.empty();
         }
 
         return oGrob;
