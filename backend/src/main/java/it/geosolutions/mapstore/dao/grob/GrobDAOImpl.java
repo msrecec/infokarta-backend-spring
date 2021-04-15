@@ -116,19 +116,30 @@ public class GrobDAOImpl implements GrobDAO, JDBCConfig {
     }
 
 
-    /**
-     * TODO - implement this later...
-     *
-     * @param grob
-     * @return
-     */
-
     @Override
     public Optional<Grob> update(Grob grob) {
+        String sql = "UPDATE public.grobovi\n" +
+            "\tSET source=?, source1=?, source2=?, source3=?, source4=?, source5=?, source6=?, source7=?, " +
+            "redni_broj=?, grobnica=?, broj_lezaja=?, groblje=?, fk=? WHERE public.grobovi.fid = ? RETURNING *";
 
+        Object[] params = new Object[] {
+          grob.getSource(),grob.getSource1(),grob.getSource2(),grob.getSource3(),grob.getSource4(),grob.getSource5(),
+            grob.getSource6(),grob.getSource7(), grob.getRedniBroj(), grob.getGrobnica(), grob.getBrojLezaja(),
+            grob.getGroblje(), grob.getFk(), grob.getFid()
+        };
 
+        GrobMapper grobMapper = new GrobMapper();
 
-        return Optional.empty();
+        Optional<Grob> oGrob;
+
+        try {
+            oGrob = Optional.ofNullable((Grob)jdbcTemplateObject.queryForObject(sql, params, grobMapper));
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            oGrob = Optional.ofNullable(null);
+        }
+
+        return oGrob;
     }
 
 

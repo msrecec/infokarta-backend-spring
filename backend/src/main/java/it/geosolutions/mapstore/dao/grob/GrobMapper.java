@@ -26,6 +26,7 @@ public class GrobMapper implements RowMapper {
         grob.setGrobnica(rs.getString(12));
         grob.setBrojLezaja(rs.getString(13));
         grob.setGroblje(rs.getString(14));
+        grob.setFk(rs.getInt(15));
 
         return grob;
     }

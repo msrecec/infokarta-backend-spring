@@ -22,6 +22,7 @@ public class Grob {
         private String Grobnica;
         private String brojLezaja;
         private String Groblje;
+        private Integer fk;
 
         public Builder(Integer fid) {
             this.fid = fid;
@@ -62,11 +63,11 @@ public class Grob {
             this.source7 = source7;
             return this;
         }
-        public Builder RedniBroj(String RedniBroj) {
+        public Builder redniBroj(String RedniBroj) {
             this.RedniBroj = RedniBroj;
             return this;
         }
-        public Builder Grobnica(String Grobnica) {
+        public Builder grobnica(String Grobnica) {
             this.Grobnica = Grobnica;
             return this;
         }
@@ -74,8 +75,12 @@ public class Grob {
             this.brojLezaja = brojLezaja;
             return this;
         }
-        public Builder Groblje(String Groblje) {
+        public Builder groblje(String Groblje) {
             this.Groblje = Groblje;
+            return this;
+        }
+        public Builder fk(Integer fk) {
+            this.fk = fk;
             return this;
         }
         public Grob build() {
@@ -95,6 +100,7 @@ public class Grob {
             grob.Grobnica = this.Grobnica;
             grob.brojLezaja = this.brojLezaja;
             grob.Groblje = this.Groblje;
+            grob.fk = this.fk;
 
             return grob;
         }
@@ -116,6 +122,7 @@ public class Grob {
     private String Grobnica;
     private String brojLezaja;
     private String Groblje;
+    private Integer fk;
 
     public Grob() {}
 
@@ -136,6 +143,7 @@ public class Grob {
             ", Grobnica='" + Grobnica + '\'' +
             ", brojLezaja='" + brojLezaja + '\'' +
             ", Groblje='" + Groblje + '\'' +
+            ", fk=" + fk +
             '}';
     }
 
@@ -249,5 +257,13 @@ public class Grob {
 
     public void setGroblje(String groblje) {
         Groblje = groblje;
+    }
+
+    public Integer getFk() {
+        return fk;
+    }
+
+    public void setFk(Integer fk) {
+        this.fk = fk;
     }
 }
