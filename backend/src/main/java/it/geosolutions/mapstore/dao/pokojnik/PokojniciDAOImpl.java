@@ -276,12 +276,14 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
             sql+=grobSQL;
             and = true;
             objArrList.add(grob);
-        } else {
-            groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
-            sql+=grobljeSQL;
-            and = true;
-            objArrList.add(groblje);
         }
+
+//        else {
+//            groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
+//            sql+=grobljeSQL;
+//            and = true;
+//            objArrList.add(groblje);
+//        }
 
 
         if(oIme.isPresent()) {
