@@ -44,7 +44,8 @@ public class PokojniciController {
         @RequestParam(value = "pocgodinaukopa", required = false) String pocGodinaUkopa,
         @RequestParam(value = "kongodinaukopa", required = false) String konGodinaUkopa,
         @RequestParam(value = "groblje", required = false) String groblje,
-        @RequestParam(value = "page", required = false) Integer page)
+        @RequestParam(value = "page", required = false) Integer page,
+        @RequestParam(value = "grobFid", required = false) Integer grobFid)
         throws IOException {
         PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         String jsonArray;
@@ -54,9 +55,10 @@ public class PokojniciController {
         Optional<String> oKonGodinaUkopa = Optional.ofNullable(konGodinaUkopa);
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<Integer> oPage = Optional.ofNullable(page);
+        Optional<Integer> oGrobFid = Optional.ofNullable(grobFid);
 
         jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
-            oKonGodinaUkopa, oGroblje, oPage);
+            oKonGodinaUkopa, oGroblje, oPage, oGrobFid);
 
         HeaderUtils.responseWithJSON(response, jsonArray);
 

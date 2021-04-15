@@ -236,15 +236,18 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
      */
 
     @Override
-    public String searchPokojnici(Optional<String> oIme,
-                                          Optional<String> oPrezime,
-                                          Optional<String> oPocGodinaUkopa,
-                                          Optional<String> oKonGodinaUkopa,
-                                          Optional<String> oGroblje,
-                                          Optional<Integer> oPage) throws UnsupportedEncodingException {
+    public String searchPokojnici(
+        Optional<String> oIme,
+        Optional<String> oPrezime,
+        Optional<String> oPocGodinaUkopa,
+        Optional<String> oKonGodinaUkopa,
+        Optional<String> oGroblje,
+        Optional<Integer> oPage,
+        Optional<Integer> oGrobFid
+    ) throws UnsupportedEncodingException {
         // input params
         String ime = "", prezime = "", pocGodinaUkopa = "", konGodinaUkopa = "", groblje = "";
-        Integer page = null, offset = null, limit = null;
+        Integer page = null, offset = null, limit = null, grob = null;
         //mapper and util properties
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
         List<Pokojnik> pokojnici;
@@ -259,6 +262,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
         String grobljeSQL = "INNER JOIN public.\"grobovi\" ON \"pokojnici\".fk = public.\"grobovi\".fid INNER JOIN public.\"groblja\" ON " +
             "public.\"grobovi\".fk = public.\"groblja\".fid WHERE public.\"groblja\".\"naziv\" ILIKE ? ";
+        String grobSQL = "INNER JOIN public.\"grobovi\" ON \"pokojnici\".fk = public.\"grobovi\".fid WHERE public.\"grobovi\".fid = ? ";
         String imeSQL = "\"IME\" ILIKE ? ";
         String prezimeSQL = "\"PREZIME\" ILIKE ? ";
         String godineSQL = "TRIM(\"Godina ukopa\") >= ? AND TRIM(\"Godina ukopa\") <= ? ";
@@ -267,11 +271,16 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
         String sql = "FROM public.\"pokojnici\" ";
 
-        if(oGroblje.isPresent()) {
+        if(oGroblje.isPresent() && !oGrobFid.isPresent()) {
             groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
             sql+=grobljeSQL;
             and = true;
             objArrList.add(groblje);
+        } else {
+            grob = oGrobFid.get();
+            sql+=grobSQL;
+            and = true;
+            objArrList.add(grob);
         }
 
         if(oIme.isPresent()) {
