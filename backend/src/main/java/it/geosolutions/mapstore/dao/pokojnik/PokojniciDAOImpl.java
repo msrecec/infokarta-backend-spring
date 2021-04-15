@@ -28,6 +28,36 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
+    public Optional<Pokojnik> findById(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Pokojnik> findAll() {
+        return null;
+    }
+
+    @Override
+    public Integer findCount() {
+        return null;
+    }
+
+    @Override
+    public List<Pokojnik> findPaginated(Integer page) {
+        return null;
+    }
+
+    @Override
+    public Optional<Pokojnik> save(Pokojnik pokojnik) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Pokojnik> update(Pokojnik pokojnik) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<String> listColumns() {
         DataSource dataSource = JDBCConfig.postgresqlDataSource();
         Connection conn = null;

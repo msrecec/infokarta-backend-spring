@@ -1,5 +1,6 @@
 package it.geosolutions.mapstore.dao.pokojnik;
 
+import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 
 import javax.sql.DataSource;
@@ -7,7 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
-public interface PokojniciDAO {
+public interface PokojniciDAO extends DAO<Pokojnik> {
 
     public void setDataSource(DataSource ds);
 

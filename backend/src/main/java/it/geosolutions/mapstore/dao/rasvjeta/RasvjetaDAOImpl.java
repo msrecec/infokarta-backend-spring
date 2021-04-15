@@ -69,7 +69,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
     @Override
     public Optional<Rasvjeta> save(Rasvjeta rasvjeta) {
-        return null;
+        return Optional.empty();
     }
 
     @Override
