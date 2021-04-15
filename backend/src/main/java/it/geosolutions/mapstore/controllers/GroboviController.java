@@ -93,4 +93,21 @@ public class GroboviController {
         HeaderUtils.responseWithJSON(response, json);
 
     }
+
+    @RequestMapping(value = "/test/grobovi", method = RequestMethod.GET)
+    public void getGrobovi(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestParam(value = "page", required = false) Integer page
+    ) {
+        List<Grob> grobovi;
+        Optional<Integer> oPage = Optional.ofNullable(page);
+        String json;
+
+        if(oPage.isPresent()) {
+//            grobovi = grobService.();
+        }
+
+    }
+
 }
