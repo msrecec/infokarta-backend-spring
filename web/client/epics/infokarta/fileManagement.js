@@ -73,9 +73,10 @@ export const sendRequestUponFileInfoUpdateAndSuccessfulUpload = (action$, {getSt
     action$.ofType(
         UPDATE_METADATA_IN_STORE_INFO
     ).switchMap(({}) => {
-        const entityName = get(getState(), "fileManagment.entityName");
-        const entityFid = get(getState(), "fileManagment.entityFid");
-        console.log("epiclog", entityName, entityName);
+        const entityName = get(getState(), "fileManagement.entityName");
+        const entityFid = get(getState(), "fileManagement.entityFid");
+        const store = get(getState(), "");
+        console.log("!!! epiclog", entityName, entityName, store);
         return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, entityFid)
             .then(data => data))
             .mergeMap((response) => {

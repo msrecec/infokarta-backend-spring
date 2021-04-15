@@ -28,7 +28,7 @@ const fileManagement = (
         };
     }
     case UPDATE_METADATA_IN_STORE_INFO: {
-        console.log("Log novog reducera: ", action);
+        console.log("!!! Log novog reducera: ", action);
         return {
             ...state,
             entityName: action.entityName,
