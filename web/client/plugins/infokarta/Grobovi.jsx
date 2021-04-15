@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { get } from 'lodash';
+import React from "react";
+import { connect } from "react-redux";
+import { get } from "lodash";
 
-import Message from '../../components/I18N/Message';
-import { Glyphicon } from 'react-bootstrap';
+import Message from "../../components/I18N/Message";
+import { Glyphicon } from "react-bootstrap";
 
 // actions
 import {
@@ -22,24 +22,24 @@ import {
 } from "../../actions/infokarta/detailsAndDocuments";
 
 // utils
-import { createPlugin } from '../../utils/PluginsUtils';
+import { createPlugin } from "../../utils/PluginsUtils";
 // import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
 
 // reducers
-import graves from '../../reducers/infokarta/graves';
-import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
-import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
-import fileManagement from '../../reducers/infokarta/fileManagement';
+import graves from "../../reducers/infokarta/graves";
+import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
+import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
+// import fileManagement from "../../reducers/infokarta/fileManagement";
 
 // epics
-import { completeGravesEpic } from '../../epics/infokarta/combinedEpics';
+import { completeGravesEpic } from "../../epics/infokarta/combinedEpics";
 
 // components
-import TableComponent from '../../components/infokarta/Table';
-import EditModal from '../../components/infokarta/EditModal';
-import SearchComponent from '../../components/infokarta/SearchForm';
+import TableComponent from "../../components/infokarta/Table";
+import EditModal from "../../components/infokarta/EditModal";
+import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
+import DetailsAndDocumentsView from "../../components/infokarta/DetailsAndDocumentsView";
 
 // modal names
 const editModalName = "groboviEdit";
@@ -134,7 +134,7 @@ const Grobovi = ({
     );
 };
 
-export default createPlugin('Grobovi', {
+export default createPlugin("Grobovi", {
     component: connect((state) => ({
         data: get(state, "graves.data"),
         page: get(state, "graves.pageNumber"),
@@ -157,7 +157,7 @@ export default createPlugin('Grobovi', {
             position: 3,
             text: <Message msgId="grobovi"/>,
             icon: <Glyphicon glyph="stop"/>,
-            action: () => ({type: ''}),
+            action: () => ({type: ""}),
             priority: 1,
             doNotHide: true
         }
@@ -166,7 +166,7 @@ export default createPlugin('Grobovi', {
     reducers: {
         graves,
         dynamicModalControl,
-        detailsAndDocuments,
-        fileManagement
+        detailsAndDocuments
+        // fileManagement
     }
 });

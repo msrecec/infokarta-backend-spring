@@ -48,7 +48,6 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
 export const zoomToGraveFromGravesPlugin = (action$) =>
     action$.ofType(ZOOM_TO_GRAVE_FROM_GRAVES)
         .switchMap(({ geom = {} }) => {
-            console.log('!!! epic', geom);
             const feature = {
                 type: "Feature",
                 geometry: {

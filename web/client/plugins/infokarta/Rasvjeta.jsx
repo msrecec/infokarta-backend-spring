@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { get } from 'lodash';
+import React from "react";
+import { connect } from "react-redux";
+import { get } from "lodash";
 
-import Message from '../../components/I18N/Message';
-import { Glyphicon, Button } from 'react-bootstrap';
+import Message from "../../components/I18N/Message";
+import { Glyphicon, Button } from "react-bootstrap";
 
 // actions
 import {
@@ -13,7 +13,7 @@ import {
     zoomToLampFromLighting,
     setSearchParametersForLighting,
     resetSearchParametersForDeceased
-} from '../../actions/infokarta/lighting';
+} from "../../actions/infokarta/lighting";
 
 import {
     showDynamicModal
@@ -22,18 +22,18 @@ import {
 // utils
 
 // reducers
-import lighting from '../../reducers/infokarta/lighting';
-import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
+import lighting from "../../reducers/infokarta/lighting";
+import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
 
 // epics
-import * as epics from '../../epics/infokarta/lighting';
+import * as epics from "../../epics/infokarta/lighting";
 
 // components
-import TableComponent from '../../components/infokarta/Table';
+import TableComponent from "../../components/infokarta/Table";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import { createPlugin } from '../../utils/PluginsUtils';
-import EditModal from '../../components/infokarta/EditModal';
-import SearchComponent from '../../components/infokarta/SearchForm';
+import { createPlugin } from "../../utils/PluginsUtils";
+import EditModal from "../../components/infokarta/EditModal";
+import SearchComponent from "../../components/infokarta/SearchForm";
 
 const editModalName = "rasvjetaEdit";
 const fieldsToInclude = ["fid", "source", "materijal", "stanje"];
@@ -143,20 +143,20 @@ const Rasvjeta = ({
     );
 };
 
-export default createPlugin('Rasvjeta', {
+export default createPlugin("Rasvjeta", {
     component: connect((state) => ({
-        data: get(state, 'lighting.data'),
-        page: get(state, 'lighting.pageNumber'),
+        data: get(state, "lighting.data"),
+        page: get(state, "lighting.pageNumber"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
-        totalNumber: get(state, 'lighting.totalNumber'),
-        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName)
+        totalNumber: get(state, "lighting.totalNumber"),
+        editModalShow: get(state, "dynamicModalControl.modals." + editModalName)
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
         sendZoomData: zoomToLampFromLighting,
         sendEditedData: editLighting,
         setupEditModal: showDynamicModal
-        /*         sendSearchParameters: setSearchParametersForLighting,
+        /* sendSearchParameters: setSearchParametersForLighting,
         resetSearchparameters: resetSearchParametersForDeceased */
     })(Rasvjeta),
     containers: {
@@ -165,7 +165,7 @@ export default createPlugin('Rasvjeta', {
             position: 4,
             text: <Message msgId="rasvjeta"/>,
             icon: <Glyphicon glyph="asterisk"/>,
-            action: () => ({type: ''}),
+            action: () => ({type: ""}),
             priority: 1,
             doNotHide: true
         }

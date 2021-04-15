@@ -1,9 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { get } from 'lodash';
+import React from "react";
+import { connect } from "react-redux";
+import { get } from "lodash";
 
-import Message from '../../components/I18N/Message';
-import { Glyphicon, Button, ControlLabel } from 'react-bootstrap';
+import Message from "../../components/I18N/Message";
+import { Glyphicon, Button, ControlLabel } from "react-bootstrap";
 
 // actions
 import {
@@ -30,28 +30,28 @@ import {
 } from "../../actions/infokarta/detailsAndDocuments";
 
 // utils
-import { createPlugin } from '../../utils/PluginsUtils';
+import { createPlugin } from "../../utils/PluginsUtils";
 import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUtil";
 
 // reducers
-import deceased from '../../reducers/infokarta/deceased';
-import dynamicModalControl from '../../reducers/infokarta/dynamicModalControl';
-import gravePickerTool from '../../reducers/infokarta/gravePickerTool';
-import detailsAndDocuments from '../../reducers/infokarta/detailsAndDocuments';
-import fileManagement from '../../reducers/infokarta/fileManagement';
+import deceased from "../../reducers/infokarta/deceased";
+import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
+import gravePickerTool from "../../reducers/infokarta/gravePickerTool";
+import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
+import fileManagement from "../../reducers/infokarta/fileManagement";
 
 // epics
-import { completeDeceasedEpic } from '../../epics/infokarta/combinedEpics';
+import { completeDeceasedEpic } from "../../epics/infokarta/combinedEpics";
 
 // components
-import TableComponent from '../../components/infokarta/Table';
-import EditModal from '../../components/infokarta/EditModal';
-import InsertModal from '../../components/infokarta/InsertModal';
-import InsertConfirmationModal from '../../components/infokarta/InsertConfirmationModal';
-import SearchComponent from '../../components/infokarta/SearchForm';
+import TableComponent from "../../components/infokarta/Table";
+import EditModal from "../../components/infokarta/EditModal";
+import InsertModal from "../../components/infokarta/InsertModal";
+import InsertConfirmationModal from "../../components/infokarta/InsertConfirmationModal";
+import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
-import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
+import GravePickerModal from "../../components/infokarta/pokojnici/GravePickerModal";
+import DetailsAndDocumentsView from "../../components/infokarta/DetailsAndDocumentsView";
 
 const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
 const insertModalName = "pokojniciInsert";
@@ -84,7 +84,6 @@ const searchFormData = [
     }
 ];
 
-
 const Pokojnici = ({
     data,
     page,
@@ -113,16 +112,20 @@ const Pokojnici = ({
         alignItems: "center",
         justifyContent: "center"
     };
-    const insertModalGravePickerModeButton = (<div style={gravePickerButtonStyle}>
-        <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
-    </div>);
 
-    const graveConfirmationForm = (<div>
-        <h3>Odabrana grobnica</h3>
-        {chosenGrave ? displayFeatureInfo(chosenGrave) : <ControlLabel>Nije odabrana grobnica.</ControlLabel>}
-        <hr/>
-        <h3>Pokojnikovi podaci</h3>
-    </div>
+    const insertModalGravePickerModeButton = (
+        <div style={gravePickerButtonStyle}>
+            <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
+        </div>
+    );
+
+    const graveConfirmationForm = (
+        <div>
+            <h3>Odabrana grobnica</h3>
+            {chosenGrave ? displayFeatureInfo(chosenGrave) : <span>Nije odabrana grobnica.</span>}
+            <hr/>
+            <h3>Pokojnikovi podaci</h3>
+        </div>
     );
     // kraj custom komponenti
 
@@ -213,7 +216,7 @@ const Pokojnici = ({
     );
 };
 
-export default createPlugin('Pokojnici', {
+export default createPlugin("Pokojnici", {
     component: connect((state) => ({
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
@@ -221,10 +224,9 @@ export default createPlugin('Pokojnici', {
         chosenGrave: get(state, "gravePickerTool.graveData"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
         detailViewItem: get(state, "detailsAndDocuments.item"),
-        showDetails: get(state, "detailsAndDocuments.showDetails"),
-        editModalShow: get(state, 'dynamicModalControl.modals.' + editModalName),
-        insertModalShow: get(state, 'dynamicModalControl.modals.' + insertModalName),
-        insertConfirmationModalShow: get(state, 'dynamicModalControl.modals.' + insertConfirmationModalName)
+        editModalShow: get(state, "dynamicModalControl.modals." + editModalName),
+        insertModalShow: get(state, "dynamicModalControl.modals." + insertModalName),
+        insertConfirmationModalShow: get(state, "dynamicModalControl.modals." + insertConfirmationModalName)
     }), {
         sendSearchParameters: setSearchParametersForDeceased,
         resetSearchParameters: resetSearchParametersForDeceased,
@@ -244,7 +246,7 @@ export default createPlugin('Pokojnici', {
             position: 2,
             text: <Message msgId="pokojnici"/>,
             icon: <Glyphicon glyph="user"/>,
-            action: () => ({type: ''}),
+            action: () => ({type: ""}),
             priority: 1,
             doNotHide: true
         }

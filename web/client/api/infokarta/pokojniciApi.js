@@ -1,16 +1,6 @@
 import axios from "../../libs/ajax";
 
 const Api = {
-    getPokojnici: function() {
-        const url = 'http://localhost:8080/mapstore/rest/config/pokojnici';
-        return axios.get(url)
-            .then(function(response) {
-                return response.data;
-            }).catch(function(error) {
-            /* eslint-disable no-console */
-                console.error(error);
-            });
-    },
     searchPokojnici: function(searchParameters, pageNumber) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
 

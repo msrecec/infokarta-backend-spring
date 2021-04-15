@@ -9,12 +9,14 @@ class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
       fieldsToInclude: PropTypes.array,
+      showDetails: PropTypes.bool,
       sendDataToDetailsView: PropTypes.func,
-      zoomToItem: PropTypes.func,
-      showDetails: PropTypes.bool
+      zoomToItem: PropTypes.func
   };
 
   static defaultProps = {
+      items: [],
+      fieldsToInclude: [],
       showDetails: false
   };
 
@@ -70,8 +72,7 @@ class TableComponent extends React.Component {
                                       );
                                   }
                                   return null;
-                              }
-                              )}
+                              })}
                           </tr>
                       )}
                   </tbody>
@@ -91,21 +92,18 @@ class TableComponent extends React.Component {
 
   setActiveRow(key) {
       let tableRow;
-      if (this.state.prevActiveRow) { // ako postoji aktivni kljuc, resetiraj mu boju postavljanjem na prazan string (potrebno da bootstrap hover radi) i obojaj sljedeci
-          tableRow = document.getElementById(this.state.prevActiveRow);
-          if (tableRow) {
-              tableRow.style.background = "";
-          } // fix ako se promijeni stranica
 
-          this.setState({ prevActiveRow: key });
-          tableRow = document.getElementById(key);
-          tableRow.style.background = "#999999";
-      } else {
-          // ako ne postoji, postavi novi kljuc u zelenu
-          this.setState({ prevActiveRow: key });
-          tableRow = document.getElementById(key);
-          tableRow.style.background = "#999999";
+      if (this.state.prevActiveRow) {
+          tableRow = document.getElementById(this.state.prevActiveRow);
       }
+
+      if (tableRow) {
+          tableRow.style.background = "";
+      }
+
+      this.setState({ prevActiveRow: key });
+      tableRow = document.getElementById(key);
+      tableRow.style.background = "#999999";
   }
 }
 
