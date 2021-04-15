@@ -22,6 +22,7 @@ export const loadFileMetadataByEntityId = (action$) =>
             return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, documentType, entityFid)
                 .then(data => data))
                 .switchMap((response) => {
+                    console.log("response data", response.data);
                     return Rx.Observable.of(
                         imagesLoadedByEntityId(response.data)
                     );
@@ -41,22 +42,23 @@ export const handleImageUploadByEntityId = (action$) =>
                 .then(data => data))
                 .mergeMap((response) => {
                     if (response === 200) {
+                        console.log("!!!!!!!!", entityName, entityFid, response.data);
                         return Rx.Observable.of(
                             insertSuccessful("Prijenos uspješan", "Vaš dokument/slika je uspješno pohranjen/a u bazu podataka."),
                             uploadNewImageResponse(response),
-                            updateMetadataInStoreInfo()
+                            updateMetadataInStoreInfo(entityName, entityFid)
                         );
                     } else if (response === 415) {
                         return Rx.Observable.of(
                             insertUnsuccessful("Greška", "Format odabrane datoteke nije podržan."),
                             uploadNewImageResponse(response),
-                            updateMetadataInStoreInfo()
+                            updateMetadataInStoreInfo(entityName, entityFid)
                         );
                     }
                     return Rx.Observable.of(
                         insertUnsuccessful("Greška", "Došlo je do greške prilikom prijenosa. Molimo pokušajte ponovno."),
                         uploadNewImageResponse(response),
-                        updateMetadataInStoreInfo()
+                        updateMetadataInStoreInfo(entityName, entityFid)
                     );
                 })
                 .catch((error) => {
@@ -72,9 +74,9 @@ export const sendRequestUponFileInfoUpdateAndSuccessfulUpload = (action$, {getSt
         UPDATE_METADATA_IN_STORE_INFO
     ).switchMap(({}) => {
         const entityName = get(getState(), "fileManagment.entityName");
-        const documentType = get(getState(), "fileManagment.documentType");
-        const entitiyFid = get(getState(), "fileManagment.entityFid");
-        return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, documentType, entitiyFid)
+        const entityFid = get(getState(), "fileManagment.entityFid");
+        console.log("epiclog", entityName, entityName);
+        return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(entityName, entityFid)
             .then(data => data))
             .mergeMap((response) => {
                 return Rx.Observable.of(

@@ -35,6 +35,34 @@ export const uploadNewImageResponse = (response) => ({
     response
 });
 
+export const updateMetadataInStoreInfo = (entityName, entityFid) => ({
+    type: UPDATE_METADATA_IN_STORE_INFO,
+    entityName,
+    entityFid
+});
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 export const getDocumentsByEntityId  = (entityName, documentType, entityFid) => ({
     type: GET_DOCUMENTS_BY_ENTITY_ID,
     entityName,
@@ -60,6 +88,4 @@ export const uploadNewDocumentResponse = (response) => ({
     response
 });
 
-export const updateMetadataInStoreInfo = () => ({
-    type: UPDATE_METADATA_IN_STORE_INFO
-});
+

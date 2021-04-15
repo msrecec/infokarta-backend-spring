@@ -1,12 +1,12 @@
 import {
     IMAGES_LOADED_BY_ENTITY_ID,
-    UPLOAD_NEW_IMAGE_RESPONSE
+    UPLOAD_NEW_IMAGE_RESPONSE,
+    UPDATE_METADATA_IN_STORE_INFO
 } from "../../actions/infokarta/fileManagement";
 const fileManagement = (
     state = {
         files: [],
         entityName: null,
-        documentType: null,
         entityFid: null,
         uploadResponse: null
     },
@@ -14,13 +14,10 @@ const fileManagement = (
 ) => {
     switch (action.type) {
     case IMAGES_LOADED_BY_ENTITY_ID: {
-        console.log(action);
+        console.log("ovo je log akcije reducera: ", action);
         return {
             ...state,
-            files: action.response,
-            entityName: action.entityName,
-            entityFid: action.entityFid,
-            documentType: action.documentType
+            files: action.response
         };
     }
     case UPLOAD_NEW_IMAGE_RESPONSE: {
@@ -28,6 +25,14 @@ const fileManagement = (
         return {
             ...state,
             uploadResponse: action.response
+        };
+    }
+    case UPDATE_METADATA_IN_STORE_INFO: {
+        console.log("Log novog reducera: ", action);
+        return {
+            ...state,
+            entityName: action.entityName,
+            entityFid: action.entityFid
         };
     }
     default:
