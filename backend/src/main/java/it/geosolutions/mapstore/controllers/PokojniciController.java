@@ -57,10 +57,26 @@ public class PokojniciController {
         Optional<Integer> oPage = Optional.ofNullable(page);
         Optional<Integer> oGrobFid = Optional.ofNullable(grobFid);
 
-        jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
-            oKonGodinaUkopa, oGroblje, oPage);
+        List<Pokojnik> pokojnici;
 
+        if(oGrobFid.isPresent()) {
+            pokojnici = pokojniciDAO.getPokojnikByGrobljeFid(oGrobFid.get());
+
+            if(pokojnici.isEmpty()) {
+                jsonArray = "[]";
+                response.setStatus(404);
+            } else {
+                jsonArray = JSONUtils.fromListToJSON(pokojnici);
+                response.setStatus(200);
+            }
+
+        } else {
+            jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
+                oKonGodinaUkopa, oGroblje, oPage);
+
+        }
         HeaderUtils.responseWithJSON(response, jsonArray);
+
 
     }
 

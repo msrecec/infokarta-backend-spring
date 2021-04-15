@@ -218,14 +218,21 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
     }
 
     @Override
-    public List<Pokojnik> getPokojnikByGrobljeFid(Optional<Integer> grobljeFid) {
+    public List<Pokojnik> getPokojnikByGrobljeFid(Integer grobljeFid) {
 
         List<Pokojnik> pokojnici;
 
-        String sql = "SELECT * FROM ";
+        String sql = "SELECT * FROM \"pokojnici\" INNER JOIN \"grobovi\" ON \"pokojnici\".fk = \"grobovi\".fid " +
+            "WHERE \"grobovi\".fid = ?";
 
-        return null;
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
 
+        try{
+            pokojnici = jdbcTemplateObject.query(sql, new Object[]{grobljeFid}, pokojnikMapper);
+        } catch(EmptyResultDataAccessException e) {
+            pokojnici = new ArrayList();
+        }
+        return pokojnici;
     }
 
 
