@@ -21,9 +21,10 @@ public interface PokojniciDAO extends DAO<Pokojnik> {
                                           Optional<String> oPocGodinaUkopa,
                                           Optional<String> oKonGodinaUkopa,
                                           Optional<String> oGroblje,
-                                          Optional<Integer> oPage,
-                                          Optional<Integer> oGrobFid
+                                          Optional<Integer> oPage
     ) throws UnsupportedEncodingException;
+
+    public List<Pokojnik> getPokojnikByGrobljeFid(Optional<Integer> grobljeFid);
 
     public List<String> listColumns();
 

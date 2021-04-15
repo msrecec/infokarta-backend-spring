@@ -58,7 +58,7 @@ public class PokojniciController {
         Optional<Integer> oGrobFid = Optional.ofNullable(grobFid);
 
         jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
-            oKonGodinaUkopa, oGroblje, oPage, oGrobFid);
+            oKonGodinaUkopa, oGroblje, oPage);
 
         HeaderUtils.responseWithJSON(response, jsonArray);
 

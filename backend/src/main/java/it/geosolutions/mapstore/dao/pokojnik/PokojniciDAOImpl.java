@@ -217,6 +217,17 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         return pokojnik;
     }
 
+    @Override
+    public List<Pokojnik> getPokojnikByGrobljeFid(Optional<Integer> grobljeFid) {
+
+        List<Pokojnik> pokojnici;
+
+        String sql = "SELECT * FROM ";
+
+        return null;
+
+    }
+
 
 
     /**
@@ -242,8 +253,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         Optional<String> oPocGodinaUkopa,
         Optional<String> oKonGodinaUkopa,
         Optional<String> oGroblje,
-        Optional<Integer> oPage,
-        Optional<Integer> oGrobFid
+        Optional<Integer> oPage
     ) throws UnsupportedEncodingException {
         // input params
         String ime = "", prezime = "", pocGodinaUkopa = "", konGodinaUkopa = "", groblje = "";
