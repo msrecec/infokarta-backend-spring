@@ -271,17 +271,18 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
         String sql = "FROM public.\"pokojnici\" ";
 
-        if(oGroblje.isPresent() && !oGrobFid.isPresent()) {
-            groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
-            sql+=grobljeSQL;
-            and = true;
-            objArrList.add(groblje);
-        } else {
+        if(oGrobFid.isPresent()) {
             grob = oGrobFid.get();
             sql+=grobSQL;
             and = true;
             objArrList.add(grob);
+        } else {
+            groblje = EncodingUtils.decodeISO88591(oGroblje.get()).trim();
+            sql+=grobljeSQL;
+            and = true;
+            objArrList.add(groblje);
         }
+
 
         if(oIme.isPresent()) {
             ime = EncodingUtils.decodeISO88591(oIme.get()).trim();
