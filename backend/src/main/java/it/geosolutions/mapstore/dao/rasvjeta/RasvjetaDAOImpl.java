@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
     @Override
     public List<Rasvjeta> findPaginated(Integer page) {
+        List<Rasvjeta> rasvjeta;
         Integer limit = DAO.pageSize;
 
         Integer offset = (page-1) * limit;
@@ -45,10 +47,25 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
         RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
 
-        List <Rasvjeta> rasvjeta = jdbcTemplateObject.query(sql, new Object[]{limit, offset}, rasvjetaMapper);
+        try {
+
+            rasvjeta = jdbcTemplateObject.query(sql, new Object[]{limit, offset}, rasvjetaMapper);
+
+        } catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            rasvjeta = new ArrayList();
+        }
 
         return rasvjeta;
     }
+
+    /**
+     * Footnote - no need to implement since this functionality
+     * is handled by GeoServer - http://geoserver.org/
+     *
+     * @param rasvjeta
+     * @return
+     */
 
     @Override
     public Optional<Rasvjeta> save(Rasvjeta rasvjeta) {
