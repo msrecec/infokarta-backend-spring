@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface GrobService {
     public Optional<Grob> findById(Integer id);
-    public EntityListDTO<Grob> findAll();
-    EntityListDTO<Grob> findPaginated(Integer page);
+    public EntityListDTO findAll();
+    EntityListDTO findPaginated(Integer page);
     Optional<Grob> update(GrobPutCommand grobCommand);
 }

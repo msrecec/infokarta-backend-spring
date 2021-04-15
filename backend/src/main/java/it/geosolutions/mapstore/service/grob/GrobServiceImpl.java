@@ -21,7 +21,7 @@ public class GrobServiceImpl implements GrobService {
     }
 
     @Override
-    public EntityListDTO<Grob> findAll() {
+    public EntityListDTO findAll() {
         List<Grob> grob = grobDAO.findAll();
         Integer count = grobDAO.findCount();
 
@@ -29,7 +29,7 @@ public class GrobServiceImpl implements GrobService {
     }
 
     @Override
-    public EntityListDTO<Grob> findPaginated(Integer page) {
+    public EntityListDTO findPaginated(Integer page) {
         List<Grob> grob = grobDAO.findPaginated(page);
         Integer count = grobDAO.findCount();
         return mapGrobToEntityListDTO(grob, count);
@@ -40,8 +40,8 @@ public class GrobServiceImpl implements GrobService {
         return Optional.empty();
     }
 
-    private EntityListDTO<Grob> mapGrobToEntityListDTO(List<Grob> grob, Integer count) {
-        return new EntityListDTO<Grob>(grob, count);
+    private EntityListDTO mapGrobToEntityListDTO(List<Grob> grob, Integer count) {
+        return new EntityListDTO(grob, count);
     }
 
 }

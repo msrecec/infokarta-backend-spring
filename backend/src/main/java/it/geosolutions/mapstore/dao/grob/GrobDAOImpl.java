@@ -64,7 +64,7 @@ public class GrobDAOImpl implements GrobDAO, JDBCConfig {
 
     @Override
     public Integer findCount() {
-        String sql = "SELECT COUNT(*) FROM public.\"grobovi\" ORDER BY fid";
+        String sql = "SELECT COUNT(*) FROM public.\"grobovi\"";
         Integer count;
 
         try {

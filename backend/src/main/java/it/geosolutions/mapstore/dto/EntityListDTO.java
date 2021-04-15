@@ -6,11 +6,11 @@ import it.geosolutions.mapstore.serializers.EntityListDTOSerializer;
 import java.util.List;
 
 @JsonSerialize(using = EntityListDTOSerializer.class)
-public class EntityListDTO<T> {
-    private List<T> entityList;
+public class EntityListDTO {
+    private List entityList;
     private Integer count;
 
-    public EntityListDTO(List<T> entityList, Integer count) {
+    public EntityListDTO(List entityList, Integer count) {
         this.entityList = entityList;
         this.count = count;
     }
@@ -23,11 +23,11 @@ public class EntityListDTO<T> {
             '}';
     }
 
-    public List<T> getEntityList() {
+    public List getEntityList() {
         return entityList;
     }
 
-    public void setEntityList(List<T> entityList) {
+    public void setEntityList(List entityList) {
         this.entityList = entityList;
     }
 

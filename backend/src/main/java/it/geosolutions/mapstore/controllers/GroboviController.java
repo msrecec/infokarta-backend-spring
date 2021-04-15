@@ -2,6 +2,7 @@ package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
+import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.service.grob.GrobServiceImpl;
@@ -99,15 +100,20 @@ public class GroboviController {
         HttpServletRequest request,
         HttpServletResponse response,
         @RequestParam(value = "page", required = false) Integer page
-    ) {
-        List<Grob> grobovi;
+    ) throws IOException {
+        EntityListDTO grobovi;
         Optional<Integer> oPage = Optional.ofNullable(page);
         String json;
 
         if(oPage.isPresent()) {
-//            grobovi = grobService.();
+            grobovi = grobService.findPaginated(1);
+        } else {
+            grobovi = grobService.findAll();
         }
 
+        json = JSONUtils.fromPOJOToJSON(grobovi);
+
+        HeaderUtils.responseWithJSON(response, json);
     }
 
 }

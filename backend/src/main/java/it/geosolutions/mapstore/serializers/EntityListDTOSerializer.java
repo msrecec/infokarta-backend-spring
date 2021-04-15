@@ -12,7 +12,7 @@ import java.util.List;
 public class EntityListDTOSerializer extends JsonSerializer<EntityListDTO> {
     @Override
     public void serialize(EntityListDTO entityListDTO, JsonGenerator json, SerializerProvider provider) throws IOException {
-        List<EntityListDTO> entityList = entityListDTO.getEntityList();
+        List entityList = entityListDTO.getEntityList();
 
         json.writeStartObject();
 
@@ -20,7 +20,7 @@ public class EntityListDTOSerializer extends JsonSerializer<EntityListDTO> {
 
         json.writeStartArray();
 
-        for(EntityListDTO temp : entityList) {
+        for(Object temp : entityList) {
 
             json.writeObject(temp);
 
