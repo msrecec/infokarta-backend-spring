@@ -81,7 +81,7 @@ public class GroboviController {
 
         String json = "{}";
 
-        if(oGeom.isPresent()) {
+        if(!oGeom.isPresent()) {
 
             Optional<GrobDTO> grob = grobService.findById(fid);
 
