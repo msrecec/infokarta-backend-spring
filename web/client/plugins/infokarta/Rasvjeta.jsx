@@ -34,6 +34,7 @@ import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
+import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 
 const style = {
@@ -117,6 +118,10 @@ const Rasvjeta = ({
         active={typeof page === "number" ? page : 1}
     />);
 
+    const pluginNameEmitter = (<PluginNameEmitter
+        pluginName={"rasvjeta"}
+    />);
+
     /*     const search = (<SearchComponent
         buildData={serchFormData}
         search={sendSearchParameters}
@@ -126,6 +131,7 @@ const Rasvjeta = ({
     return (
         <div className="lighting" style = {style}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
+            {pluginNameEmitter}
             {/* {search} */}
             {table}
             {pagination}

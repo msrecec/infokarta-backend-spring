@@ -1,14 +1,16 @@
 import {
     IMAGES_LOADED_BY_ENTITY_ID,
     UPLOAD_NEW_IMAGE_RESPONSE,
-    UPDATE_METADATA_IN_STORE_INFO
+    UPDATE_METADATA_IN_STORE_INFO,
+    AQUIRE_CURRENT_CLASS_NAME
 } from "../../actions/infokarta/fileManagement";
 const fileManagement = (
     state = {
         files: [],
         entityName: null,
         entityFid: null,
-        uploadResponse: null
+        uploadResponse: null,
+        pluginName: null
     },
     action
 ) => {
@@ -33,6 +35,13 @@ const fileManagement = (
             ...state,
             entityName: action.entityName,
             entityFid: action.entityFid
+        };
+    }
+    case AQUIRE_CURRENT_CLASS_NAME: {
+        console.log("klasa?", action);
+        return {
+            ...state,
+            pluginName: action.pluginName
         };
     }
     default:

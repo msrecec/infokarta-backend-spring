@@ -190,7 +190,7 @@ const Pokojnici = ({
     />);
 
     const pluginNameEmitter = (<PluginNameEmitter
-        pluginName={"lmao"}
+        pluginName={"pokojnici"}
     />);
 
     return (
