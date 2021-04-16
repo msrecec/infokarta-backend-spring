@@ -41,7 +41,10 @@ const fileManagement = (
         console.log("klasa?", action);
         return {
             ...state,
-            pluginName: action.pluginName
+            pluginName: action.pluginName,
+            editModalName: action.pluginName + "Edit",
+            insertModalName: action.pluginName + "Insert",
+            insertConfirmationModalName: action.pluginName + "Confirmation"
         };
     }
     default:
