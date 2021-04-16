@@ -3,6 +3,8 @@ package it.geosolutions.mapstore.controllers;
 import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.dto.EntityListDTO;
+import it.geosolutions.mapstore.dto.grobovi.GrobDTO;
+import it.geosolutions.mapstore.dto.grobovi.GrobDTOWithoutGeom;
 import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.service.grob.GrobServiceImpl;
@@ -72,24 +74,47 @@ public class GroboviController {
     public void getRasvjetaByIdHist(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("fid") Integer fid
+        @PathVariable("fid") Integer fid,
+        @RequestParam(value = "geom", required = false) Boolean geom
     ) throws IOException {
-
-        Optional<Grob> grob = grobService.findById(fid);
+        Optional<Boolean> oGeom = Optional.ofNullable(geom);
 
         String json = "{}";
 
-        if(grob.isPresent()) {
+        if(oGeom.isPresent()) {
 
-            json = JSONUtils.fromPOJOToJSON(grob.get());
+            Optional<GrobDTO> grob = grobService.findById(fid);
 
-            response.setStatus(200);
+            if(grob.isPresent()) {
+
+                json = JSONUtils.fromPOJOToJSON(grob.get());
+
+                response.setStatus(200);
+
+            } else {
+
+                response.setStatus(404);
+
+            }
 
         } else {
 
-            response.setStatus(404);
+            Optional<GrobDTOWithoutGeom> grob = grobService.findByIdWithoutGeom(fid);
+
+            if(grob.isPresent()) {
+
+                json = JSONUtils.fromPOJOToJSON(grob.get());
+
+                response.setStatus(200);
+
+            } else {
+
+                response.setStatus(404);
+
+            }
 
         }
+
 
         HeaderUtils.responseWithJSON(response, json);
 
