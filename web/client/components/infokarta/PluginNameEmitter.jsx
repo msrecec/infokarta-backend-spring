@@ -14,9 +14,7 @@ class BasePluginEmitter extends React.Component {
   }
 
   render() {
-      return {
-
-      };
+      return (<div />);
   }
 }
 
