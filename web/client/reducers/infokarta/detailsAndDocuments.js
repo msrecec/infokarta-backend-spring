@@ -1,34 +1,27 @@
 import {
-    LOAD_DATA_INTO_DETAILS_AND_DOCS_VIEW,
-    CLOSE_DETAILS_AND_DOCS_VIEW,
+    STORE_DETAILS_VIEW_RESPONSE,
     CLEAR_DETAILS_AND_DOCS_VIEW
 } from "../../actions/infokarta/detailsAndDocuments";
 const detailsAndDocuments = (
     state = {
-        item: {},
+        items: [],
         showDetails: false
     },
     action
 ) => {
     switch (action.type) {
-    case LOAD_DATA_INTO_DETAILS_AND_DOCS_VIEW: {
+    case STORE_DETAILS_VIEW_RESPONSE: {
         return {
             ...state,
-            item: action.item,
-            showDetails: true
-        };
-    }
-    case CLOSE_DETAILS_AND_DOCS_VIEW: {
-        return {
-            ...state,
-            showDetails: false
+            showDetails: true,
+            items: action.responseArray
         };
     }
     case CLEAR_DETAILS_AND_DOCS_VIEW: {
         return {
             ...state,
             showDetails: false,
-            item: {}
+            items: []
         };
     }
     default:

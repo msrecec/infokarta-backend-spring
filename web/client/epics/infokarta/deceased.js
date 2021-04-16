@@ -31,7 +31,7 @@ import {
     alternateModalVisibility
 } from "../../actions/infokarta/dynamicModalControl";
 
-import { closeDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
+import { clearDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
 
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
 import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
@@ -60,7 +60,7 @@ export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () =
             .mergeMap((response) => {
                 return Rx.Observable.of(
                     deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount),
-                    closeDetailsAndDocsView()
+                    clearDetailsAndDocsView()
                 );
             })
             .catch((error) => {

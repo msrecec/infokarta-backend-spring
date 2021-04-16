@@ -10,7 +10,7 @@ import {
     gravesResponseReceived
 } from "../../actions/infokarta/graves";
 
-import { closeDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
+import { clearDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
 import { zoomToPoint, CLICK_ON_MAP } from '../../actions/map';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
 import { SET_CONTROL_PROPERTY, TOGGLE_CONTROL } from '../../actions/controls';
@@ -34,7 +34,7 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
             .mergeMap((response) => {
                 return Rx.Observable.of(
                     gravesResponseReceived(response /* , response.totalSearchMatchCount*/),
-                    closeDetailsAndDocsView()
+                    clearDetailsAndDocsView()
                 );
             })
             .catch((error) => {

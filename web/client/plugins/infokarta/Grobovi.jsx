@@ -17,8 +17,8 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
-    loadDataIntoDetailsAndDocsView,
-    closeDetailsAndDocsView
+    getDataForDetailsView,
+    clearDetailsAndDocsView
 } from "../../actions/infokarta/detailsAndDocuments";
 
 // utils
@@ -39,13 +39,13 @@ import TableComponent from "../../components/infokarta/Table";
 import EditModal from "../../components/infokarta/EditModal";
 import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import DetailsAndDocumentsView from "../../components/infokarta/DetailsAndDocumentsView";
+import GroboviDetails from "../../components/infokarta/GroboviDetails";
 
 // modal names
 const editModalName = "groboviEdit";
 
 const fieldsToInclude = ["grobnica", "redniBroj", "groblje"];
-const fieldsToExclude = ["fid", "source", "source1", "source2", "source3"];
+const fieldsToExclude = ["fid", "source", "source1", "source2", "source3", "source4", "source5", "source6", "source7", "fk", "ime_i_prezime"];
 const readOnlyFields = [];
 const searchFormData = [
     {
@@ -61,7 +61,7 @@ const Grobovi = ({
     page,
     totalNumber,
     showDetails,
-    detailViewItem,
+    detailViewItems,
     sendSearchParameters = () => {},
     resetSearchParameters = () => {},
     sendPageNumber = () => {},
@@ -104,13 +104,11 @@ const Grobovi = ({
         editItem={sendEditedData}
     />);
 
-    const detailsAndDocs = (<DetailsAndDocumentsView
-        item={detailViewItem}
+    const detailsAndDocs = (<GroboviDetails
+        items={detailViewItems}
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
-        title={"Grobnica"}
-        additionalTitle={"grobnica"}
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
@@ -119,9 +117,14 @@ const Grobovi = ({
         display: "none"
     };
 
+    const hideDetailsStyle = {
+        height: "600px",
+        transition: "all .2s linear"
+    };
+
     return (
         <div style={{"padding": "10px"}}>
-            <div style={showDetails ? showDetailsStyle : {}}>
+            <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
                 {search}
                 {table}
                 {pagination}
@@ -140,7 +143,7 @@ export default createPlugin("Grobovi", {
         page: get(state, "graves.pageNumber"),
         totalNumber: get(state, "graves.totalNumber"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
-        detailViewItem: get(state, "detailsAndDocuments.item")
+        detailViewItems: get(state, "detailsAndDocuments.items")
     }), {
         sendSearchParameters: setSearchParametersForGraves,
         resetSearchParameters: resetSearchParametersForGraves,
@@ -148,8 +151,8 @@ export default createPlugin("Grobovi", {
         setupEditModal: showDynamicModal,
         // sendEditedData: editDeceased,
         sendZoomData: zoomToGraveFromGraves,
-        sendDataToDetailsView: loadDataIntoDetailsAndDocsView,
-        closeDetailsView: closeDetailsAndDocsView
+        sendDataToDetailsView: getDataForDetailsView,
+        closeDetailsView: clearDetailsAndDocsView
     })(Grobovi),
     containers: {
         DrawerMenu: {

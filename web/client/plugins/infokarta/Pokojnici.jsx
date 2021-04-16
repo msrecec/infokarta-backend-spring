@@ -25,8 +25,8 @@ import {
 } from "../../actions/infokarta/dynamicModalControl";
 
 import {
-    loadDataIntoDetailsAndDocsView,
-    closeDetailsAndDocsView
+    getDataForDetailsView,
+    clearDetailsAndDocsView
 } from "../../actions/infokarta/detailsAndDocuments";
 
 // utils
@@ -51,7 +51,7 @@ import InsertConfirmationModal from "../../components/infokarta/InsertConfirmati
 import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from "../../components/infokarta/pokojnici/GravePickerModal";
-import DetailsAndDocumentsView from "../../components/infokarta/DetailsAndDocumentsView";
+import PokojniciDetails from "../../components/infokarta/PokojniciDetails";
 
 const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
 const insertModalName = "pokojniciInsert";
@@ -179,15 +179,12 @@ const Pokojnici = ({
     const gravePickerModal = (<GravePickerModal
     />);
 
-    const detailsAndDocs = (<DetailsAndDocumentsView
-        item={detailViewItem}
+    const detailsAndDocs = (<PokojniciDetails
+        items={detailViewItem}
         showDetails={showDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
-        editModalName = {editModalName}
-        title={"Umrla osoba"}
-        additionalTitle={"ime_i_prezime"}
-        fieldsToExclude={fieldsToExclude}
+        fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
     const showDetailsStyle = {
@@ -223,7 +220,7 @@ export default createPlugin("Pokojnici", {
         totalNumber: get(state, "deceased.totalNumber"),
         chosenGrave: get(state, "gravePickerTool.graveData"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
-        detailViewItem: get(state, "detailsAndDocuments.item"),
+        detailViewItem: get(state, "detailsAndDocuments.items"),
         editModalShow: get(state, "dynamicModalControl.modals." + editModalName),
         insertModalShow: get(state, "dynamicModalControl.modals." + insertModalName),
         insertConfirmationModalShow: get(state, "dynamicModalControl.modals." + insertConfirmationModalName)
@@ -237,8 +234,8 @@ export default createPlugin("Pokojnici", {
         sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,
         startChooseMode: enableGravePickMode,
-        sendDataToDetailsView: loadDataIntoDetailsAndDocsView,
-        closeDetailsView: closeDetailsAndDocsView
+        sendDataToDetailsView: getDataForDetailsView,
+        closeDetailsView: clearDetailsAndDocsView
     })(Pokojnici),
     containers: {
         DrawerMenu: {

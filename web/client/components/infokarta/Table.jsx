@@ -87,7 +87,7 @@ class TableComponent extends React.Component {
       if (temp.geom) {
           delete temp.geom;
       }
-      this.props.sendDataToDetailsView(temp);
+      this.props.sendDataToDetailsView(item.fid, item.fk ? item.fk : null);
   }
 
   setActiveRow(key) {

@@ -44,7 +44,7 @@ export const displayFeatureInfo = (item, fieldsToExclude = []) => {
     elementList = elementList.flatMap(
         (value, index, array) =>
             array.length - 1 !== index // check for the last item
-                ? [value, (<hr style={{margin: "2px"}}/>)]
+                ? [value, (<hr style={{margin: "4px"}}/>)]
                 : value,
     );
 

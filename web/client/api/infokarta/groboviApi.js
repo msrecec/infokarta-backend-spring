@@ -18,7 +18,24 @@ const Api = {
             .then(function(response) {
                 return response.data;
             }).catch(function(error) {
-            /* eslint-disable no-console */
+                /* eslint-disable no-console */
+                console.error(error);
+            });
+    },
+    getGrobAndLinkedPokojnici: function(fid) {
+        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + fid + '?geom=false';
+        let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici?grobFid=' + fid;
+
+        let containerObject = {};
+        return axios.get(grobUrl)
+            .then(function(response) {
+                containerObject.grob = response.data;
+                return axios.get(pokojniciUrl);
+            }).then(function(response) {
+                containerObject.pokojnici = response.data;
+                return containerObject;
+            }).catch(function(error) {
+                /* eslint-disable no-console */
                 console.error(error);
             });
     }
