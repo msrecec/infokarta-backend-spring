@@ -52,6 +52,7 @@ import SearchComponent from '../../components/infokarta/SearchForm';
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
 import DetailsAndDocumentsView from '../../components/infokarta/DetailsAndDocumentsView';
+import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
 const insertModalName = "pokojniciInsert";
@@ -188,8 +189,13 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude}
     />);
 
+    const pluginNameEmitter = (<PluginNameEmitter
+        pluginName={"lmao"}
+    />);
+
     return (
-        <div style={{"padding": "10px"}}>
+        <div className="deceased" style={{"padding": "10px"}}>
+            {pluginNameEmitter}
             {search}
             {table}
             {pagination}
@@ -206,6 +212,7 @@ export default createPlugin('Pokojnici', {
     component: connect((state) => ({
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
+        pluginName: get(state, "pluginNameEmitter.pluginName"),
         totalNumber: get(state, "deceased.totalNumber"),
         chosenGrave: get(state, "gravePickerTool.graveData"),
         tableHeight: get(state, "detailsAndDocuments.tableHeight"),

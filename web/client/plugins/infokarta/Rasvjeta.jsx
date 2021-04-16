@@ -124,7 +124,7 @@ const Rasvjeta = ({
     />); */
 
     return (
-        <div style = {style}>
+        <div className="lighting" style = {style}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {/* {search} */}
             {table}
