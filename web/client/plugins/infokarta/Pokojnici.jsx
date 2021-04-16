@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import { get } from "lodash";
 
 import Message from "../../components/I18N/Message";
-import { Glyphicon, Button, ControlLabel } from "react-bootstrap";
+import { Glyphicon, Button } from "react-bootstrap";
 
 // actions
 import {
     setSearchParametersForDeceased,
     resetSearchParametersForDeceased,
-    editDeceased,
-    insertDeceased,
+    // editDeceased,
+    // insertDeceased,
     zoomToGraveFromDeceased,
     setPageForDeceased
 } from "../../actions/infokarta/deceased";
@@ -39,6 +39,7 @@ import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
 import gravePickerTool from "../../reducers/infokarta/gravePickerTool";
 import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
 import fileManagement from "../../reducers/infokarta/fileManagement";
+import dynamicComponentsEpic from "../../reducers/infokarta/dynamicComponentsEpic";
 
 // epics
 import { completeDeceasedEpic } from "../../epics/infokarta/combinedEpics";
@@ -237,8 +238,8 @@ export default createPlugin("Pokojnici", {
         sendPageNumber: setPageForDeceased,
         setupEditModal: showDynamicModal,
         setupInsertModal: getColumnsForInsertFromDatabase,
-        sendEditedData: editDeceased,
-        sendNewData: insertDeceased,
+        // sendEditedData: editDeceased,
+        // sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,
         startChooseMode: enableGravePickMode,
         sendDataToDetailsView: getDataForDetailsView,
@@ -261,6 +262,7 @@ export default createPlugin("Pokojnici", {
         dynamicModalControl,
         gravePickerTool,
         detailsAndDocuments,
-        fileManagement
+        fileManagement,
+        dynamicComponentsEpic
     }
 });

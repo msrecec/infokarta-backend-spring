@@ -10,20 +10,20 @@ import {
     editLighting,
     getLightingData,
     setPageForLighting,
-    zoomToLampFromLighting,
-    setSearchParametersForLighting,
-    resetSearchParametersForDeceased
+    zoomToLampFromLighting
+    // setSearchParametersForLighting,
+    // resetSearchParametersForDeceased
 } from "../../actions/infokarta/lighting";
 
 import {
     showDynamicModal
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 // utils
 
 // reducers
 import lighting from "../../reducers/infokarta/lighting";
-import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
+import dynamicModalControl from "../../reducers/infokarta/dynamicComponents";
 
 // epics
 import * as epics from "../../epics/infokarta/lighting";
@@ -33,7 +33,7 @@ import TableComponent from "../../components/infokarta/Table";
 import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
-import SearchComponent from '../../components/infokarta/SearchForm';
+// import SearchComponent from '../../components/infokarta/SearchForm';
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const editModalName = "rasvjetaEdit";

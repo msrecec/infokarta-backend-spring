@@ -3,7 +3,6 @@ export const IMAGES_LOADED_BY_ENTITY_ID = "IMAGES_LOADED_BY_ENTITY_ID";
 export const UPLOAD_NEW_IMAGE_BY_ENTITY_ID = "UPLOAD_NEW_IMAGE_BY_ENTITY_ID";
 export const UPLOAD_NEW_IMAGE_RESPONSE = "UPLOAD_NEW_IMAGE_RESPONSE";
 export const UPDATE_METADATA_IN_STORE_INFO = "UPDATE_METADATA_IN_STORE_INFO";
-export const AQUIRE_CURRENT_CLASS_NAME = "AQUIRE_CURRENT_CLASS_NAME";
 
 export const GET_DOCUMENTS_BY_ENTITY_ID = "GET_DOCUMENTS_BY_ENTITY_ID";
 export const DOCUMENTS_LOADED_BY_ENTITY_ID = "DOCUMENTS_LOADED_BY_ENTITY_ID";
@@ -42,33 +41,6 @@ export const updateMetadataInStoreInfo = (entityName, entityFid) => ({
     entityFid
 });
 
-
-export const aquireCurrentClassName = (pluginName) => ({
-    type: AQUIRE_CURRENT_CLASS_NAME,
-    pluginName
-});
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 export const getDocumentsByEntityId  = (entityName, documentType, entityFid) => ({
     type: GET_DOCUMENTS_BY_ENTITY_ID,
     entityName,

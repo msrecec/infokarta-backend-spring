@@ -14,7 +14,7 @@ import {
 
 import {
     showDynamicModal
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 import {
     getDataForDetailsView,
@@ -27,7 +27,7 @@ import { createPlugin } from "../../utils/PluginsUtils";
 
 // reducers
 import graves from "../../reducers/infokarta/graves";
-import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
+import dynamicModalControl from "../../reducers/infokarta/dynamicComponents";
 import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
 // import fileManagement from "../../reducers/infokarta/fileManagement";
 

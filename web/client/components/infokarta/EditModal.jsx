@@ -6,7 +6,7 @@ import { get } from "lodash";
 
 import {
     hideDynamicModal
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 

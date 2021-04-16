@@ -4,7 +4,7 @@ import {
 } from "../../actions/infokarta/detailsAndDocuments";
 const detailsAndDocuments = (
     state = {
-        items: [],
+        items: {},
         showDetails: false
     },
     action
@@ -21,7 +21,7 @@ const detailsAndDocuments = (
         return {
             ...state,
             showDetails: false,
-            items: []
+            items: {}
         };
     }
     default:
