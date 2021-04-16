@@ -50,8 +50,9 @@ import InsertModal from "../../components/infokarta/InsertModal";
 import InsertConfirmationModal from "../../components/infokarta/InsertConfirmationModal";
 import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import GravePickerModal from "../../components/infokarta/pokojnici/GravePickerModal";
-import PokojniciDetails from "../../components/infokarta/PokojniciDetails";
+import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
+import PokojniciDetails from '../../components/infokarta/PokojniciDetails';
+import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
 const insertModalName = "pokojniciInsert";
@@ -197,8 +198,13 @@ const Pokojnici = ({
         transition: "all .2s linear"
     };
 
+    const pluginNameEmitter = (<PluginNameEmitter
+        pluginName={"pokojnici"}
+    />);
+
     return (
-        <div style={{"padding": "10px"}}>
+        <div className="deceased" style={{"padding": "10px"}}>
+            {pluginNameEmitter}
             {search}
             <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
                 {table}
@@ -217,6 +223,7 @@ export default createPlugin("Pokojnici", {
     component: connect((state) => ({
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
+        pluginName: get(state, "pluginNameEmitter.pluginName"),
         totalNumber: get(state, "deceased.totalNumber"),
         chosenGrave: get(state, "gravePickerTool.graveData"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),

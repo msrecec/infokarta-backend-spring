@@ -31,9 +31,10 @@ import * as epics from "../../epics/infokarta/lighting";
 // components
 import TableComponent from "../../components/infokarta/Table";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import { createPlugin } from "../../utils/PluginsUtils";
-import EditModal from "../../components/infokarta/EditModal";
-import SearchComponent from "../../components/infokarta/SearchForm";
+import { createPlugin } from '../../utils/PluginsUtils';
+import EditModal from '../../components/infokarta/EditModal';
+import SearchComponent from '../../components/infokarta/SearchForm';
+import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const editModalName = "rasvjetaEdit";
 const fieldsToInclude = ["fid", "source", "materijal", "stanje"];
@@ -115,6 +116,10 @@ const Rasvjeta = ({
         active={typeof page === "number" ? page : 1}
     />);
 
+    const pluginNameEmitter = (<PluginNameEmitter
+        pluginName={"rasvjeta"}
+    />);
+
     /*     const search = (<SearchComponent
         buildData={serchFormData}
         search={sendSearchParameters}
@@ -133,6 +138,7 @@ const Rasvjeta = ({
     return (
         <div style={{"padding": "10px"}}>
             <Button onClick={() => loadData()}>Dohvati lampe</Button>
+            {pluginNameEmitter}
             {/* {search} */}
             <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
                 {table}

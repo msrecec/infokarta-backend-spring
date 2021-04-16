@@ -21,6 +21,8 @@ import {
     clearGravePickerToolStore
 } from "../../actions/infokarta/gravePickerTool";
 
+import { aquireCurrentClassName } from "../../actions/infokarta/fileManagement";
+
 import {
     GET_COLUMNS_FOR_INSERT_FROM_DATABASE,
     clearDynamicComponentStore,
@@ -41,6 +43,7 @@ import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/addi
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
+import deceased from "../../reducers/infokarta/deceased";
 
 const insertModalName = "pokojniciInsert";
 const insertConfirmationModalName = "pokojniciConfirmation";
@@ -220,3 +223,4 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
                 // workaround da ne baca errore bezveze
             );
         });
+
