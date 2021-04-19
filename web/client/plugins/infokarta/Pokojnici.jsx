@@ -20,8 +20,7 @@ import {
 } from "../../actions/infokarta/gravePickerTool";
 
 import {
-    showDynamicModal,
-    getColumnsForInsertFromDatabase
+    getItemForEditFromDatabase
 } from "../../actions/infokarta/dynamicComponents";
 
 import {
@@ -55,9 +54,6 @@ import PokojniciDetails from '../../components/infokarta/PokojniciDetails';
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const fieldsToInclude = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
-const insertModalName = "pokojniciInsert";
-const insertConfirmationModalName = "pokojniciConfirmation";
-const editModalName = "pokojniciEdit";
 const fieldsToExclude = ["fid", "fk", "ime_i_prezime", "IME I PREZIME"];
 const fieldsToExcludeInsert = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
@@ -101,7 +97,6 @@ const Pokojnici = ({
     setupEditModal = () => {},
     sendEditedData = () => {},
     sendNewData = () => {},
-    setupInsertModal = () => {},
     sendZoomData = () => {},
     startChooseMode = () => {},
     sendDataToDetailsView = () => {},
@@ -133,9 +128,7 @@ const Pokojnici = ({
     const search = (<SearchComponent
         buildData={searchFormData}
         search={sendSearchParameters}
-        openInsertForm={setupInsertModal}
         resetSearchParameters={resetSearchParameters}
-        insertModalName = {insertModalName}
     />);
 
     const table = (<TableComponent
@@ -155,15 +148,13 @@ const Pokojnici = ({
     const editModal = (<EditModal
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
         readOnlyFields={readOnlyFields ? readOnlyFields : []}
-        editItem={sendEditedData}
+        // editItem={sendEditedData}
         show = {editModalShow}
     />);
 
     const insertModal = (<InsertModal
         fieldsToExclude={fieldsToExcludeInsert ? fieldsToExcludeInsert : []}
         extraForm={insertModalGravePickerModeButton}
-        insertModalName = {insertModalName}
-        insertConfirmationModalName={insertConfirmationModalName}
         show={insertModalShow}
     />);
 
@@ -172,8 +163,6 @@ const Pokojnici = ({
         extraForm={graveConfirmationForm}
         insertItem={sendNewData}
         startChooseGraveMode={startChooseMode}
-        insertModalName = {insertModalName}
-        insertConfirmationModalName={insertConfirmationModalName}
         show={insertConfirmationModalShow}
     />);
 
@@ -188,6 +177,10 @@ const Pokojnici = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
+    const pluginNameEmitter = (<PluginNameEmitter
+        pluginName={"pokojnici"}
+    />);
+
     const showDetailsStyle = {
         height: "150px",
         transition: "all .2s linear"
@@ -198,12 +191,8 @@ const Pokojnici = ({
         transition: "all .2s linear"
     };
 
-    const pluginNameEmitter = (<PluginNameEmitter
-        pluginName={"pokojnici"}
-    />);
-
     return (
-        <div className="deceased" style={{"padding": "10px"}}>
+        <div style={{"padding": "10px"}}>
             {pluginNameEmitter}
             {search}
             <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
@@ -223,20 +212,18 @@ export default createPlugin("Pokojnici", {
     component: connect((state) => ({
         data: get(state, "deceased.data"),
         page: get(state, "deceased.pageNumber"),
-        pluginName: get(state, "pluginNameEmitter.pluginName"),
         totalNumber: get(state, "deceased.totalNumber"),
         chosenGrave: get(state, "gravePickerTool.graveData"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
         detailViewItem: get(state, "detailsAndDocuments.items"),
-        editModalShow: get(state, "dynamicModalControl.modals." + editModalName),
-        insertModalShow: get(state, "dynamicModalControl.modals." + insertModalName),
-        insertConfirmationModalShow: get(state, "dynamicModalControl.modals." + insertConfirmationModalName)
+        editModalShow: get(state, "dynamicComponents.modals.pokojniciEdit"),
+        insertModalShow: get(state, "dynamicComponents.modals.pokojniciInsert"),
+        insertConfirmationModalShow: get(state, "dynamicComponents.modals.pokojniciConfirmation")
     }), {
         sendSearchParameters: setSearchParametersForDeceased,
         resetSearchParameters: resetSearchParametersForDeceased,
         sendPageNumber: setPageForDeceased,
-        setupEditModal: showDynamicModal,
-        setupInsertModal: getColumnsForInsertFromDatabase,
+        setupEditModal: getItemForEditFromDatabase,
         // sendEditedData: editDeceased,
         // sendNewData: insertDeceased,
         sendZoomData: zoomToGraveFromDeceased,

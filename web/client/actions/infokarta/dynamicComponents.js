@@ -5,6 +5,7 @@ export const CLEAR_DYNAMIC_COMPONENT_STORE = 'CLEAR_DYNAMIC_COMPONENT_STORE';
 export const GET_COLUMNS_FOR_INSERT_FROM_DATABASE = 'GET_COLUMNS_FOR_INSERT_FROM_DATABASE';
 export const GET_ITEM_FOR_EDIT_FROM_DATABASE = 'GET_ITEM_FOR_EDIT_FROM_DATABASE';
 export const ACQUIRE_CURRENT_PLUGIN_NAME = 'ACQUIRE_CURRENT_PLUGIN_NAME';
+export const SAVE_EDITED_ITEM = 'SAVE_EDITED_ITEM';
 
 export const showDynamicModal = (modalType, additionalObject = {}) => ({
     type: SHOW_DYNAMIC_MODAL,
@@ -34,6 +35,11 @@ export const getColumnsForInsertFromDatabase = () => ({
 export const getItemForEditFromDatabase = (fid) => ({
     type: GET_ITEM_FOR_EDIT_FROM_DATABASE,
     fid
+});
+
+export const saveEditedItem = (item) => ({
+    type: SAVE_EDITED_ITEM,
+    item
 });
 
 export const acquireCurrentPluginName = (name) => ({

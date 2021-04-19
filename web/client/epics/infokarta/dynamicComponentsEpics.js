@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import {
     GET_COLUMNS_FOR_INSERT_FROM_DATABASE,
     GET_ITEM_FOR_EDIT_FROM_DATABASE,
+    SAVE_EDITED_ITEM,
     clearDynamicComponentStore,
     insertSuccessful,
     insertUnsuccessful,
@@ -13,15 +14,16 @@ import {
     acquireCurrentPluginName
 } from "../../actions/infokarta/dynamicComponents";
 
-// import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
+import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
 
 export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {}) =>
     action$.ofType(GET_ITEM_FOR_EDIT_FROM_DATABASE)
         .switchMap(({ fid = {} }) => {
-            const activePluginName = get(getState(), "dynamicComponents.activePlugin");
-            return Rx.Observable.fromPromise(dynamicComponentsApi.getItem(activePluginName, fid)
+            const activePlugin = get(getState(), "dynamicComponents.activePlugin");
+            return Rx.Observable.fromPromise(dynamicComponentsApi.getItem(activePlugin, fid)
                 .then(data => data))
-                .mergeMap((response) => {
+                .switchMap((response) => {
+                    console.log('!!!', response);
                     return Rx.Observable.of(
                         showDynamicModal("Edit", response)
                     );
@@ -37,10 +39,11 @@ export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {})
 export const fetchColumnsFromDeceasedForInsert = (action$, {getState = () => {}} = {}) =>
     action$.ofType(GET_COLUMNS_FOR_INSERT_FROM_DATABASE)
         .switchMap(({}) => {
-            const activePluginName = get(getState(), "dynamicComponents.activePlugin");
-            return Rx.Observable.fromPromise(dynamicComponentsApi.getColumns(activePluginName)
+            const activePlugin = get(getState(), "dynamicComponents.activePlugin");
+            return Rx.Observable.fromPromise(dynamicComponentsApi.getColumns(activePlugin)
                 .then(data => data))
-                .mergeMap((columns) => {
+                .switchMap((columns) => {
+                    console.log('!!!', columns);
                     return Rx.Observable.of(
                         showDynamicModal("Insert", columns)
                     );
@@ -48,6 +51,27 @@ export const fetchColumnsFromDeceasedForInsert = (action$, {getState = () => {}}
                 .catch((error) => {
                     return Rx.Observable.of(
                         /* eslint-disable no-console */
+                        console.error('Error while getting columns for insert:', error)
+                    );
+                });
+        });
+
+export const saveEditedItemToDatabase = (action$, {getState = () => {}} = {}) =>
+    action$.ofType(SAVE_EDITED_ITEM)
+        .switchMap(({ item = {} }) => {
+            const activePlugin = get(getState(), "dynamicComponents.activePlugin");
+            return Rx.Observable.fromPromise(dynamicComponentsApi.saveEdit(activePlugin, item)
+                .then(data => data))
+                .mergeMap((response) => {
+                    console.log('!!!', response);
+                    return Rx.Observable.of(
+                        clearDynamicComponentStore(),
+                        insertSuccessful("Unos potvrđen", "Vaša izmjena je uspješno pohranjena u bazu podataka.")
+                    );
+                })
+                .catch((error) => {
+                    return Rx.Observable.of(
+                    /* eslint-disable no-console */
                         console.error('Error while getting columns for insert:', error)
                     );
                 });

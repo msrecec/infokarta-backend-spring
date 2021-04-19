@@ -26,6 +26,7 @@ import {
     clearDynamicComponentStore,
     insertSuccessful,
     insertUnsuccessful,
+    showDynamicModal,
     hideDynamicModal,
     alternateModalVisibility,
     acquireCurrentPluginName
@@ -43,7 +44,7 @@ import { defaultIconStyle } from '../../utils/SearchUtils';
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
 // import deceased from "../../reducers/infokarta/deceased";
 
-// const insertModalName = "pokojniciInsert";
+const insertModalName = "pokojniciInsert";
 // const insertConfirmationModalName = "pokojniciConfirmation";
 // const editModalName = "pokojniciEdit";
 

@@ -44,7 +44,8 @@ class GroboviDetails extends React.Component {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
-                zIndex: 100
+                zIndex: 100,
+                marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
 
@@ -77,7 +78,7 @@ class GroboviDetails extends React.Component {
                                 <h3>Grobnica - {this.props.items.grob ? this.props.items.grob.grobnica : null}</h3>
                                 <Button
                                     bsStyle="link"
-                                    onClick={() => this.props.editItem('groboviEdit', this.props.items.grob)}
+                                    onClick={() => this.props.editItem(this.props.items.grob.fid)}
                                 >
                                     <Glyphicon glyph="pencil" /> Uredi podatke
                                 </Button>

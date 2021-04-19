@@ -13,13 +13,14 @@ import {
 } from "../../actions/infokarta/graves";
 
 import {
-    showDynamicModal
-} from "../../actions/infokarta/dynamicComponents";
-
-import {
     getDataForDetailsView,
     clearDetailsAndDocsView
 } from "../../actions/infokarta/detailsAndDocuments";
+
+import {
+    getItemForEditFromDatabase
+} from "../../actions/infokarta/dynamicComponents";
+
 
 // utils
 import { createPlugin } from "../../utils/PluginsUtils";
@@ -40,9 +41,7 @@ import EditModal from "../../components/infokarta/EditModal";
 import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GroboviDetails from "../../components/infokarta/GroboviDetails";
-
-// modal names
-const editModalName = "groboviEdit";
+import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const fieldsToInclude = ["grobnica", "redniBroj", "groblje"];
 const fieldsToExclude = ["fid", "source", "source1", "source2", "source3", "source4", "source5", "source6", "source7", "fk", "ime_i_prezime"];
@@ -88,7 +87,6 @@ const Grobovi = ({
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToDetailsView={sendDataToDetailsView}
         showDetails={showDetails}
-        editModalName={editModalName}
         zoomToItem={sendZoomData}
     />);
 
@@ -112,6 +110,10 @@ const Grobovi = ({
         fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
     />);
 
+    const pluginNameEmitter = (<PluginNameEmitter
+        pluginName={"grobovi"}
+    />);
+
     const showDetailsStyle = {
         height: "0px",
         display: "none"
@@ -124,6 +126,7 @@ const Grobovi = ({
 
     return (
         <div style={{"padding": "10px"}}>
+            {pluginNameEmitter}
             <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
                 {search}
                 {table}
@@ -143,12 +146,13 @@ export default createPlugin("Grobovi", {
         page: get(state, "graves.pageNumber"),
         totalNumber: get(state, "graves.totalNumber"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
-        detailViewItems: get(state, "detailsAndDocuments.items")
+        detailViewItems: get(state, "detailsAndDocuments.items"),
+        editModalShow: get(state, "dynamicComponents.modals.groboviEdit")
     }), {
         sendSearchParameters: setSearchParametersForGraves,
         resetSearchParameters: resetSearchParametersForGraves,
         // sendPageNumber: setPageForDeceased,
-        setupEditModal: showDynamicModal,
+        setupEditModal: getItemForEditFromDatabase,
         // sendEditedData: editDeceased,
         sendZoomData: zoomToGraveFromGraves,
         sendDataToDetailsView: getDataForDetailsView,

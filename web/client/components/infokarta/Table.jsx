@@ -17,7 +17,9 @@ class TableComponent extends React.Component {
   static defaultProps = {
       items: [],
       fieldsToInclude: [],
-      showDetails: false
+      showDetails: false,
+      zoomToItem: () => {},
+      sendDataToDetailsView: () => {}
   };
 
   constructor(props) {

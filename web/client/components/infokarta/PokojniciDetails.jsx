@@ -43,7 +43,8 @@ class PokojniciDetails extends React.Component {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
-                zIndex: 100
+                zIndex: 100,
+                marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
 
@@ -76,7 +77,7 @@ class PokojniciDetails extends React.Component {
                                 <h3>Umrla osoba{this.props.items.pokojnik ? ` - ${this.props.items.pokojnik.ime} ${this.props.items.pokojnik.prezime}` : ''}</h3>
                                 <Button
                                     bsStyle="link"
-                                    onClick={() => this.props.editItem('pokojniciEdit', this.props.items.pokojnik)}
+                                    onClick={() => this.props.editItem(this.props.items.pokojnik.fid)}
                                 >
                                     <Glyphicon glyph="pencil" /> Uredi podatke
                                 </Button>

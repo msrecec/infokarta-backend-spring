@@ -36,7 +36,6 @@ import EditModal from '../../components/infokarta/EditModal';
 // import SearchComponent from '../../components/infokarta/SearchForm';
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
-const editModalName = "rasvjetaEdit";
 const fieldsToInclude = ["fid", "source", "materijal", "stanje"];
 const fieldsToExclude = ["geom", "mjernoMjesto",
     "vod",
@@ -98,7 +97,6 @@ const Rasvjeta = ({
         items ={data ? data : []}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
         sendDataToEdit={setupEditModal}
-        editModalName = {editModalName}
         zoomToItem={sendZoomData}
         showDetails={showDetails}
     />);
@@ -155,7 +153,7 @@ export default createPlugin("Rasvjeta", {
         page: get(state, "lighting.pageNumber"),
         showDetails: get(state, "detailsAndDocuments.showDetails"),
         totalNumber: get(state, "lighting.totalNumber"),
-        editModalShow: get(state, "dynamicModalControl.modals." + editModalName)
+        editModalShow: get(state, "dynamicModalControl.modals.rasvjetaEdit")
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,

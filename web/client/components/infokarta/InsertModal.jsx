@@ -113,8 +113,10 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToInsert: get(state, 'dynamicModalControl.itemToInsert'),
-        itemToCheck: get(state, 'dynamicModalControl.itemToCheck')
+        itemToInsert: get(state, 'dynamicComponents.itemToInsert'),
+        itemToCheck: get(state, 'dynamicComponents.itemToCheck'),
+        insertModalName: get(state, 'dynamicComponents.activePlugin') + 'Insert',
+        insertConfirmationModalName: get(state, 'dynamicComponents.activePlugin') + 'Confirmation'
     };
 }, {
     /* showModal: showInsertModal, */

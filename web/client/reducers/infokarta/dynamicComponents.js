@@ -60,7 +60,7 @@ const dynamicComponents = (state = {
     case ACQUIRE_CURRENT_PLUGIN_NAME: {
         return {
             ...state,
-            pluginName: action.name
+            activePlugin: action.name
             // editModalName: action.name + "Edit",
             // insertModalName: action.name + "Insert",
             // insertConfirmationModalName: action.name + "Confirmation"

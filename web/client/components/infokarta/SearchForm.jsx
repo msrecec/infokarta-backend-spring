@@ -1,6 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import { get } from "lodash";
+
+import {
+    getColumnsForInsertFromDatabase
+} from "../../actions/infokarta/dynamicComponents";
 
 const styles = {
     formStyle: {
@@ -17,7 +23,7 @@ const styles = {
     }
 };
 
-class SearchComponent extends React.Component {
+class BaseSearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
       search: PropTypes.func,
@@ -124,5 +130,13 @@ class SearchComponent extends React.Component {
       this.props.search(searchParams);
   }
 }
+
+const SearchComponent = connect((state) => {
+    return {
+        insertModalName: get(state, 'dynamicComponents.activePlugin') + 'Insert'
+    };
+}, {
+    openInsertForm: getColumnsForInsertFromDatabase
+})(BaseSearchComponent);
 
 export default SearchComponent;
