@@ -4,7 +4,8 @@ import {
     SHOW_DYNAMIC_MODAL,
     HIDE_DYNAMIC_MODAL,
     ALTERNATE_MODAL_VISIBILITY,
-    ACQUIRE_CURRENT_PLUGIN_NAME
+    ACQUIRE_CURRENT_PLUGIN_NAME,
+    CLEAR_ACTIVE_PLUGIN
 } from '../../actions/infokarta/dynamicComponents';
 
 const dynamicComponents = (state = {
@@ -64,6 +65,12 @@ const dynamicComponents = (state = {
             // editModalName: action.name + "Edit",
             // insertModalName: action.name + "Insert",
             // insertConfirmationModalName: action.name + "Confirmation"
+        };
+    }
+    case CLEAR_ACTIVE_PLUGIN: {
+        return {
+            ...state,
+            activePlugin: ""
         };
     }
     default:

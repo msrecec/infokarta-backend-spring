@@ -6,6 +6,7 @@ export const GET_COLUMNS_FOR_INSERT_FROM_DATABASE = 'GET_COLUMNS_FOR_INSERT_FROM
 export const GET_ITEM_FOR_EDIT_FROM_DATABASE = 'GET_ITEM_FOR_EDIT_FROM_DATABASE';
 export const ACQUIRE_CURRENT_PLUGIN_NAME = 'ACQUIRE_CURRENT_PLUGIN_NAME';
 export const SAVE_EDITED_ITEM = 'SAVE_EDITED_ITEM';
+export const CLEAR_ACTIVE_PLUGIN = 'CLEAR_ACTIVE_PLUGIN';
 
 export const showDynamicModal = (modalType, additionalObject = {}) => ({
     type: SHOW_DYNAMIC_MODAL,
@@ -45,6 +46,10 @@ export const saveEditedItem = (item) => ({
 export const acquireCurrentPluginName = (name) => ({
     type: ACQUIRE_CURRENT_PLUGIN_NAME,
     name
+});
+
+export const clearActivePlugin = () => ({
+    type: CLEAR_ACTIVE_PLUGIN
 });
 
 import { success, error } from '../notifications';

@@ -61,6 +61,7 @@ class PokojniciDetails extends React.Component {
             }
         }
 
+        const grobFieldsToExclude = ["fid", "source", "source1", "source2", "source3", "source4", "source5", "source6", "source7", "fk", "ime_i_prezime"];
         return (
             <div style={this.props.showDetails ? {display: "block"} : {display: "none"} }>
                 <Button
@@ -85,7 +86,7 @@ class PokojniciDetails extends React.Component {
                             {this.props.items.pokojnik ? displayFeatureInfo(this.props.items.pokojnik, this.props.fieldsToExclude) : null}
                             <div>
                                 <h3>Grobnica</h3>
-                                {this.props.items.grob ? displayFeatureInfo(this.props.items.grob, this.props.fieldsToExclude) : null}
+                                {this.props.items.grob ? displayFeatureInfo(this.props.items.grob, grobFieldsToExclude) : null}
                                 <br />
                                 {sourceArray.length ? buildCarouselFromURLs(sourceArray) : null}
                             </div>
