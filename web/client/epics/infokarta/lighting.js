@@ -19,9 +19,12 @@ import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actio
 
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
+
+import { aquireCurrentClassName } from "../../actions/infokarta/fileManagement";
+
 import {
     hideDynamicModal
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 
 export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) =>

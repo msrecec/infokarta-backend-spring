@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import {Button, FormControl, FormGroup, ControlLabel, Carousel, CarouselItem} from 'react-bootstrap';
 import parse from 'html-react-parser';
 
 import { beautifyHeader } from "./BeautifyUtil";
@@ -44,7 +44,7 @@ export const displayFeatureInfo = (item, fieldsToExclude = []) => {
     elementList = elementList.flatMap(
         (value, index, array) =>
             array.length - 1 !== index // check for the last item
-                ? [value, (<hr style={{margin: "2px"}}/>)]
+                ? [value, (<hr style={{margin: "4px"}}/>)]
                 : value,
     );
 
@@ -122,4 +122,20 @@ export const buildDynamicForm = (blueprint, exclude = [], readOnly = [], handleC
         return null;
     });
     return elementList;
+};
+
+export const buildCarouselFromURLs = (sourceArray, width = 400, height = 220) => {
+    return (
+        <Carousel>
+            {
+                sourceArray.map((source) => {
+                    return (
+                        <CarouselItem>
+                            <img width={width} height={height} alt={`${source}`} src={`http://213.191.153.249:8080/static/${source}`} />
+                        </CarouselItem>
+                    );
+                })
+            }
+        </Carousel>
+    );
 };

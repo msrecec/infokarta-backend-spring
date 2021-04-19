@@ -5,8 +5,9 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get } from "lodash";
 
 import {
-    hideDynamicModal
-} from "../../actions/infokarta/dynamicModalControl";
+    hideDynamicModal,
+    saveEditedItem
+} from "../../actions/infokarta/dynamicComponents";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
@@ -99,10 +100,11 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToEdit: get(state, 'dynamicModalControl.itemToEdit')
+        itemToEdit: get(state, 'dynamicComponents.itemToEdit')
     };
 }, {
-    hideModal: hideDynamicModal
+    hideModal: hideDynamicModal,
+    editItem: saveEditedItem
 })(BaseModalComponent);
 
 export default ModalComponent;

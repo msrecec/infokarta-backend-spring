@@ -5,10 +5,10 @@ import {Button, Modal, Form, ControlLabel} from 'react-bootstrap';
 import { get } from "lodash";
 
 import {
-    showInsertConfirmationModal,
-    hideInsertConfirmationModal,
+    // showInsertConfirmationModal,
+    // hideInsertConfirmationModal,
     alternateModalVisibility
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 import {displayFeatureInfo} from "../../utils/infokarta/ComponentConstructorUtil";
 
@@ -64,7 +64,9 @@ class BaseModalComponent extends React.Component {
 
 const ModalComponent = connect((state) => {
     return {
-        itemToCheck: get(state, 'dynamicModalControl.itemToCheck')
+        itemToCheck: get(state, 'dynamicComponents.itemToCheck'),
+        insertModalName: get(state, 'dynamicComponents.activePlugin') + 'Insert',
+        insertConfirmationModalName: get(state, 'dynamicComponents.activePlugin') + 'Confirmation'
     };
 }, {
     returnToInsertModal: alternateModalVisibility

@@ -1,8 +1,9 @@
 import axios from "../../libs/ajax";
 
 const fileManagementApi = {
-    uploadFile: function(entityName, documentType, file, entityFid) {
-        const url = `http://localhost:8080/mapstore/rest/config/${entityName}/upload/media/${documentType}?entityFid=${entityFid}`;
+    uploadFile: function(pluginName, documentType, file, entityFid) {
+        const url = `http://localhost:8080/mapstore/rest/config/${pluginName}/upload/media/${documentType}?entityFid=${entityFid}`;
+        console.log("OVO JE URL", file);
 
         const header = {
             "Content-Type": "multipart/form-data;"
@@ -25,12 +26,12 @@ const fileManagementApi = {
             return error.status;
         });
     },
-    getFile: function(entityName, documentType, fid, thumbnail) {
+    getFile: function(pluginName, documentType, fid, thumbnail) {
         let url = '';
         if (thumbnail) {
-            url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/${fid}?thumbnail=${thumbnail}`;
+            url = `http://localhost:8080/mapstore/rest/config/${pluginName}/download/media/${documentType}/${fid}?thumbnail=${thumbnail}`;
         } else {
-            url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/${fid}`;
+            url = `http://localhost:8080/mapstore/rest/config/${pluginName}/download/media/${documentType}/${fid}`;
         }
         return axios.get(url)
             .then(function(response) {
@@ -40,9 +41,9 @@ const fileManagementApi = {
                 console.error('getFile: ', error);
             });
     },
-    getMeta: function(entityName, documentType, fid) {
-        if (entityName && documentType && fid) {
-            const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta/${fid}`;
+    getMeta: function(pluginName, documentType, fid) {
+        if (pluginName && documentType && fid) {
+            const url = `http://localhost:8080/mapstore/rest/config/${pluginName}/download/media/${documentType}/meta/${fid}`;
             return axios.get(url)
                 .then(function(response) {
                     return response;
@@ -53,10 +54,9 @@ const fileManagementApi = {
         }
         return null;
     },
-    getMetaByEntityFid: function(entityName, documentType, entityFid) {
-        console.log(entityName, documentType, entityFid);
-        if (entityName && documentType && entityFid) {
-            const url = `http://localhost:8080/mapstore/rest/config/${entityName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
+    getMetaByEntityFid: function(pluginName, documentType, entityFid) {
+        if (pluginName && documentType && entityFid) {
+            const url = `http://localhost:8080/mapstore/rest/config/${pluginName}/download/media/${documentType}/meta?entityFid=${entityFid}`;
             return axios.get(url)
                 .then(function(response) {
                     return response;

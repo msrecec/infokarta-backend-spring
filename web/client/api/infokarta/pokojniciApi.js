@@ -1,16 +1,6 @@
 import axios from "../../libs/ajax";
 
 const Api = {
-    getPokojnici: function() {
-        const url = 'http://localhost:8080/mapstore/rest/config/pokojnici';
-        return axios.get(url)
-            .then(function(response) {
-                return response.data;
-            }).catch(function(error) {
-            /* eslint-disable no-console */
-                console.error(error);
-            });
-    },
     searchPokojnici: function(searchParameters, pageNumber) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
 
@@ -40,7 +30,6 @@ const Api = {
             url += 'page=1';
         }
 
-        console.log(url);
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.get(
             url,
@@ -48,7 +37,6 @@ const Api = {
                 headers: header
             })
             .then(function(response) {
-                console.log(response.data);
                 return response.data;
             }).catch(function(error) {
             /* eslint-disable no-console */
@@ -140,6 +128,35 @@ const Api = {
         }
         console.error('ERROR: fid is not valid');
         return null;
+    },
+    getPokojnikAndLinkedGrob: function(pokojnikFid, grobFid) {
+        let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici/' + pokojnikFid;
+        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid + '?geom=false';
+
+        // let containerObject = {};
+        // return axios.get(pokojniciUrl)
+        //     .then(function(response) {
+        //         containerObject.pokojnik = response.data;
+        //         return axios.get(grobUrl);
+        //     }).then(function(response) {
+        //         containerObject.grob = response.data;
+        //         return containerObject;
+        //     }).catch(function(error) {
+        //         /* eslint-disable no-console */
+        //         console.error(error);
+        //     });
+        let containerObject = {};
+        return axios.get(pokojniciUrl)
+            .then(function(response) {
+                containerObject.pokojnik = response.data;
+                //     return axios.get(grobUrl);
+                // }).then(function(response) {
+                //     containerObject.grob = response.data;
+                return containerObject;
+            }).catch(function(error) {
+                /* eslint-disable no-console */
+                console.error(error);
+            });
     }
 };
 

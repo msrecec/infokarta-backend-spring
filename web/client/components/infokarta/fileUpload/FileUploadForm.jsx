@@ -5,8 +5,8 @@ import { get } from 'lodash';
 
 import {Button, FormGroup, ControlLabel} from 'react-bootstrap';
 
-import { uploadNewFileByEntityId } from "../../../actions/infokarta/fileManagement";
-import { insertSuccessful, insertUnsuccessful } from "../../../actions/infokarta/dynamicModalControl";
+import { uploadNewImageByEntityId} from "../../../actions/infokarta/fileManagement";
+import { insertSuccessful, insertUnsuccessful } from "../../../actions/infokarta/dynamicComponents";
 
 class FileUploadFormComponent extends React.Component {
     static propTypes = {
@@ -31,6 +31,7 @@ class FileUploadFormComponent extends React.Component {
     }
 
     render() {
+        /* console.log("FILE UPLOAD", this.props.itemId); */
         const saveFileToLocalState = (e) => {
             const uploadedFile = e.target.files[0];
             this.setState({ "file": uploadedFile, "fileChosen": true });
@@ -38,7 +39,7 @@ class FileUploadFormComponent extends React.Component {
 
         const handleUpload = () => {
             if (this.state.file) {
-                this.props.uploadFile("pokojnici", "slika", this.state.file, this.props.itemId);
+                this.props.uploadFile("slika", this.state.file, this.props.itemId);
                 this.setState({ "fileChosen": false });
             } else {
                 this.props.showFailureMessage("Greška", "Niste odabrali dokument/sliku za prijenos.");
@@ -65,7 +66,7 @@ const FileUploadForm = connect((state) => {
         responseStatus: get(state, 'fileManagement.uploadResponse')
     };
 }, {
-    uploadFile: uploadNewFileByEntityId,
+    uploadFile: uploadNewImageByEntityId,
     showSuccessMessage: insertSuccessful,
     showFailureMessage: insertUnsuccessful
 })(FileUploadFormComponent);

@@ -1,33 +1,41 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Button, FormControl, FormGroup, ControlLabel} from 'react-bootstrap';
+import { get } from "lodash";
 
-const formStyle = {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "center"
+import {
+    getColumnsForInsertFromDatabase
+} from "../../actions/infokarta/dynamicComponents";
+
+const styles = {
+    formStyle: {
+        display: "flex",
+        flexDirection: "row",
+        width: "100%",
+        justifyContent: "center"
+    },
+    fieldStyle: {
+        paddingRight: "5px"
+    },
+    buttonStyle: {
+        marginRight: "5px"
+    }
 };
 
-const fieldStyle = {
-    paddingRight: "5px"
-};
-
-const buttonStyle = {
-    marginRight: "5px"
-};
-
-class SearchComponent extends React.Component {
+class BaseSearchComponent extends React.Component {
   static propTypes = {
       buildData: PropTypes.array,
       search: PropTypes.func,
       resetSearchParameters: PropTypes.func,
       openInsertForm: PropTypes.func,
-      insertModalName: PropTypes.string
+      insertModalName: PropTypes.string,
+      disableInsert: PropTypes.bool
   };
 
   static defaultProps = {
-      buildData: []
+      buildData: [],
+      disableInsert: false
   };
 
   constructor(props) {
@@ -44,7 +52,7 @@ class SearchComponent extends React.Component {
   render() {
       return (
           <div>
-              <form style={formStyle} id="dynamicForm">
+              <form style={styles.formStyle} id="dynamicForm">
                   {this.props.buildData ?
                       this.props.buildData.map((field) => {
                           return field.type === "text" ?
@@ -52,7 +60,7 @@ class SearchComponent extends React.Component {
                                   <FormGroup
                                       key={field.label}
                                       controlId={field.label}
-                                      style={fieldStyle}
+                                      style={styles.fieldStyle}
                                   >
                                       <ControlLabel>{field.label}</ControlLabel>
                                       <FormControl
@@ -65,7 +73,7 @@ class SearchComponent extends React.Component {
                                   <FormGroup
                                       key={field.label}
                                       controlId={field.label}
-                                      style={fieldStyle}
+                                      style={styles.fieldStyle}
                                   >
                                       <ControlLabel>{field.label}</ControlLabel>
                                       <FormControl
@@ -86,11 +94,11 @@ class SearchComponent extends React.Component {
                   <FormGroup
                       key="searchActions"
                       controlId="searchActions"
-                      style={formStyle}
+                      style={styles.formStyle}
                   >
-                      <Button bsStyle="success" onClick={() => this.search()} style={buttonStyle}>Pretraži</Button>
-                      <Button bsStyle="info" onClick={() => this.clear()} style={buttonStyle}>Obriši parametre</Button>
-                      <Button bsStyle="info" onClick={() => this.insertNew()} style={buttonStyle}>Unesi novu stavku</Button>
+                      <Button bsStyle="success" onClick={() => this.search()} style={styles.buttonStyle}>Pretraži</Button>
+                      <Button bsStyle="info" onClick={() => this.clear()} style={styles.buttonStyle}>Obriši parametre</Button>
+                      {this.props.disableInsert ? null : <Button bsStyle="info" onClick={() => this.props.openInsertForm()} style={styles.buttonStyle}>Unesi novu stavku</Button> }
                   </FormGroup>
               </form>
           </div>
@@ -121,10 +129,14 @@ class SearchComponent extends React.Component {
   search(searchParams = this.state) {
       this.props.search(searchParams);
   }
-
-  insertNew() {
-      this.props.openInsertForm();
-  }
 }
+
+const SearchComponent = connect((state) => {
+    return {
+        insertModalName: get(state, 'dynamicComponents.activePlugin') + 'Insert'
+    };
+}, {
+    openInsertForm: getColumnsForInsertFromDatabase
+})(BaseSearchComponent);
 
 export default SearchComponent;

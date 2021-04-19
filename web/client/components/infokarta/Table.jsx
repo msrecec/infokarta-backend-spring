@@ -9,13 +9,17 @@ class TableComponent extends React.Component {
   static propTypes = {
       items: PropTypes.array,
       fieldsToInclude: PropTypes.array,
+      showDetails: PropTypes.bool,
       sendDataToDetailsView: PropTypes.func,
-      zoomToItem: PropTypes.func,
-      tableHeight: PropTypes.string
+      zoomToItem: PropTypes.func
   };
 
   static defaultProps = {
-      tableHeight: "600px"
+      items: [],
+      fieldsToInclude: [],
+      showDetails: false,
+      zoomToItem: () => {},
+      sendDataToDetailsView: () => {}
   };
 
   constructor(props) {
@@ -25,7 +29,7 @@ class TableComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-      if ((prevProps.tableHeight !== this.props.tableHeight) && (this.props.tableHeight === "600px")) {
+      if ((prevProps.showDetails !== this.props.showDetails) && this.props.showDetails) {
           // kad se ugasi details view, makni boju sa odabranog rowa
           let tableRow = document.getElementById(this.state.prevActiveRow);
           if (tableRow) {
@@ -36,23 +40,15 @@ class TableComponent extends React.Component {
   }
 
   render() {
-      const style = {
-          overflow: "auto",
-          maxHeight: this.props.tableHeight,
-          minWidth: "580px",
-          transition: "all .2s linear",
-          border: "1px solid #dddddd"
-      };
       const thStyle = {
           position: "sticky",
           top: "0",
           background: "white",
           boxShadow: "0 2px 2px -1px #dddddd"
-      };
-      // https://css-tricks.com/position-sticky-and-table-headers/
+      }; // https://css-tricks.com/position-sticky-and-table-headers/
 
       return (
-          <div style={style}>
+          <div style={{overflow: "auto", height: "inherit", border: "1px solid #dddddd"}}>
               <Table condensed hover style={{margin: "0"}}>
                   <thead>
                       <tr>
@@ -78,8 +74,7 @@ class TableComponent extends React.Component {
                                       );
                                   }
                                   return null;
-                              }
-                              )}
+                              })}
                           </tr>
                       )}
                   </tbody>
@@ -94,30 +89,25 @@ class TableComponent extends React.Component {
       if (temp.geom) {
           delete temp.geom;
       }
-      this.props.sendDataToDetailsView(temp);
+      this.props.sendDataToDetailsView(item.fid, item.fk ? item.fk : null);
   }
 
   setActiveRow(key) {
       let tableRow;
+
       if (this.state.prevActiveRow) {
-          // ako postoji aktivni kljuc, postavi mu boju na prazan string (potrebno da bootstrap hover radi)
-          // i obojaj sljedeci
           tableRow = document.getElementById(this.state.prevActiveRow);
-          if (tableRow) {
-              tableRow.style.background = "";
-          } // fix ako se promijeni stranica
-          this.setState({ prevActiveRow: key });
-          tableRow = document.getElementById(key);
-          tableRow.style.background = "#999999";
-      } else {
-          // ako ne postoji, postavi novi kljuc u zelenu
-          this.setState({ prevActiveRow: key });
-          tableRow = document.getElementById(key);
-          tableRow.style.background = "#999999";
       }
+
+      if (tableRow) {
+          tableRow.style.background = "";
+      }
+
+      this.setState({ prevActiveRow: key });
+      tableRow = document.getElementById(key);
+      tableRow.style.background = "#999999";
   }
 }
-
 
 export default TableComponent;
 
