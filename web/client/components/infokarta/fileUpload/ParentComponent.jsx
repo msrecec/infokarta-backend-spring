@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import FileUploadForm from './FileUploadForm';
 import FileList from './FileList';
 
-let fileUpload = null;
-let fileList = null;
 class ParentComponent extends React.Component {
     static propTypes = {
         itemId: PropTypes.number,
@@ -16,21 +14,16 @@ class ParentComponent extends React.Component {
         files: []
     };
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.itemId !== this.props.itemId) {
-            console.log("Parenta", this.props.itemId);
-            fileUpload = (<FileUploadForm
-                itemId={this.props.itemId}
-            />);
 
-            fileList = (<FileList
-                itemId={this.props.itemId}
-            />);
-        }
-    }
     render() {
+        console.log("Parenta", this.props.itemId);
+        const fileUpload = (<FileUploadForm
+            itemId={this.props.itemId}
+        />);
 
-
+        const fileList = (<FileList
+            itemId={this.props.itemId}
+        />);
         return (
             <div>
                 {fileUpload}
