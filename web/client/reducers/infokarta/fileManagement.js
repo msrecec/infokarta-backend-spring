@@ -6,10 +6,8 @@ import {
 const fileManagement = (
     state = {
         files: [],
-        entityName: null,
         entityFid: null,
-        uploadResponse: null,
-        pluginName: null
+        uploadResponse: null
     },
     action
 ) => {
@@ -29,7 +27,6 @@ const fileManagement = (
     case UPDATE_METADATA_IN_STORE_INFO: {
         return {
             ...state,
-            entityName: action.entityName,
             entityFid: action.entityFid
         };
     }

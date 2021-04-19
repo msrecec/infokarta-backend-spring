@@ -6,7 +6,7 @@ import FileList from './FileList';
 
 let fileUpload = null;
 let fileList = null;
-class ParentComponent extends React.Component {
+class ParentComponent2 extends React.Component {
     static propTypes = {
         itemId: PropTypes.number,
         files: PropTypes.array
@@ -41,4 +41,4 @@ class ParentComponent extends React.Component {
     }
 }
 
-export default ParentComponent;
+export default ParentComponent2;

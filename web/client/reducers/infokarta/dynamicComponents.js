@@ -12,7 +12,7 @@ const dynamicComponents = (state = {
     itemToCheck: {},
     itemToInsert: [],
     modals: {},
-    activePlugin: ""
+    activePlugin: null
     // editModalVisible: false,
     // insertModalVisible: false,
     // insertConfirmationModalVisible: false,

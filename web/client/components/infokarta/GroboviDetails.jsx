@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { displayFeatureInfo, buildCarouselFromURLs } from "../../utils/infokarta/ComponentConstructorUtil";
 
-import FileComponentParent from './fileUpload/ParentComponent';
+import FileComponentParent2 from './fileUpload/ParentComponent2';
 import Table from './Table';
 
 import { Tabs, Tab, Button, Glyphicon } from 'react-bootstrap';
@@ -49,7 +49,7 @@ class GroboviDetails extends React.Component {
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
 
-        const fileComponentParent = (<FileComponentParent
+        const fileComponentParentGraves = (<FileComponentParent2
             itemId={this.props.items.grob && this.props.items.grob.fid ? this.props.items.grob.fid : null}
         />);
 
@@ -94,7 +94,7 @@ class GroboviDetails extends React.Component {
                     </Tab>
                     <Tab eventKey={2} title="Dokumenti" style={styles.tabContentStyle}>
                         <div>
-                            {fileComponentParent}
+                            {fileComponentParentGraves}
                         </div>
                     </Tab>
                 </Tabs>

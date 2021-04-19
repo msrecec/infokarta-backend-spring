@@ -17,7 +17,7 @@ class PokojniciDetails extends React.Component {
     };
 
     static defaultProps = {
-        items: [],
+        items: {},
         showDetails: false,
         fieldsToExclude: []
     };
@@ -48,7 +48,7 @@ class PokojniciDetails extends React.Component {
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
 
-        const fileComponentParent = (<FileComponentParent
+        const fileComponentParentDeceased = (<FileComponentParent
             itemId={this.props.items.pokojnik && this.props.items.pokojnik.fid ? this.props.items.pokojnik.fid : null}
         />);
 
@@ -93,7 +93,7 @@ class PokojniciDetails extends React.Component {
                     </Tab>
                     <Tab eventKey={2} title="Dokumenti" style={styles.tabContentStyle}>
                         <div>
-                            {fileComponentParent}
+                            {fileComponentParentDeceased}
                         </div>
                     </Tab>
                 </Tabs>

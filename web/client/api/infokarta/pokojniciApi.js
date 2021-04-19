@@ -136,7 +136,6 @@ const Api = {
         let containerObject = {};
         return axios.get(pokojniciUrl)
             .then(function(response) {
-                console.log('!!! pokojnik in details', response.data);
                 containerObject.pokojnik = response.data;
                 return axios.get(grobUrl);
             }).then(function(response) {
