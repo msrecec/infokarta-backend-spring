@@ -27,7 +27,7 @@ import { createPlugin } from "../../utils/PluginsUtils";
 
 // reducers
 import graves from "../../reducers/infokarta/graves";
-import dynamicModalControl from "../../reducers/infokarta/dynamicComponents";
+import dynamicComponents from "../../reducers/infokarta/dynamicComponents";
 import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
 // import fileManagement from "../../reducers/infokarta/fileManagement";
 
@@ -168,7 +168,7 @@ export default createPlugin("Grobovi", {
     epics: completeGravesEpic,
     reducers: {
         graves,
-        dynamicModalControl,
+        dynamicComponents,
         detailsAndDocuments
         // fileManagement
     }

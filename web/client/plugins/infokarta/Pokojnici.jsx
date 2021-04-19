@@ -22,7 +22,7 @@ import {
 import {
     showDynamicModal,
     getColumnsForInsertFromDatabase
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 import {
     getDataForDetailsView,
@@ -35,11 +35,10 @@ import { displayFeatureInfo } from "../../utils/infokarta/ComponentConstructorUt
 
 // reducers
 import deceased from "../../reducers/infokarta/deceased";
-import dynamicModalControl from "../../reducers/infokarta/dynamicModalControl";
+import dynamicComponents from "../../reducers/infokarta/dynamicComponents";
 import gravePickerTool from "../../reducers/infokarta/gravePickerTool";
 import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
 import fileManagement from "../../reducers/infokarta/fileManagement";
-import dynamicComponentsEpic from "../../reducers/infokarta/dynamicComponentsEpic";
 
 // epics
 import { completeDeceasedEpic } from "../../epics/infokarta/combinedEpics";
@@ -259,10 +258,9 @@ export default createPlugin("Pokojnici", {
     epics: completeDeceasedEpic,
     reducers: {
         deceased,
-        dynamicModalControl,
         gravePickerTool,
         detailsAndDocuments,
         fileManagement,
-        dynamicComponentsEpic
+        dynamicComponents
     }
 });

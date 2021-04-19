@@ -23,7 +23,7 @@ import {
 
 // reducers
 import lighting from "../../reducers/infokarta/lighting";
-import dynamicModalControl from "../../reducers/infokarta/dynamicComponents";
+import dynamicComponents from "../../reducers/infokarta/dynamicComponents";
 
 // epics
 import * as epics from "../../epics/infokarta/lighting";
@@ -179,6 +179,6 @@ export default createPlugin("Rasvjeta", {
     epics,
     reducers: {
         lighting,
-        dynamicModalControl
+        dynamicComponents
     }
 });

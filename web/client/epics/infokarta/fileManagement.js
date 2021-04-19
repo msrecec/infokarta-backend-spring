@@ -10,7 +10,7 @@ import {
     updateMetadataInStoreInfo
 } from "../../actions/infokarta/fileManagement";
 // ../../actions/infokarta/dynamicComponents
-import { insertSuccessful, insertUnsuccessful } from "../../actions/infokarta/dynamicModalControl";
+import { insertSuccessful, insertUnsuccessful } from "../../actions/infokarta/dynamicComponents";
 
 import fileManagementApi from "../../api/infokarta/fileManagementApi";
 

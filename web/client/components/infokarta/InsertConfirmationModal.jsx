@@ -8,7 +8,7 @@ import {
     showInsertConfirmationModal,
     hideInsertConfirmationModal,
     alternateModalVisibility
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 import {displayFeatureInfo} from "../../utils/infokarta/ComponentConstructorUtil";
 

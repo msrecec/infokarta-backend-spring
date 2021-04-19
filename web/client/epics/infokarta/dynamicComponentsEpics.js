@@ -13,7 +13,7 @@ import {
     acquireCurrentPluginName
 } from "../../actions/infokarta/dynamicComponents";
 
-import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
+// import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
 
 export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {}) =>
     action$.ofType(GET_ITEM_FOR_EDIT_FROM_DATABASE)

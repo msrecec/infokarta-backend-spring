@@ -8,7 +8,7 @@ import {
     /* showInsertModal, */
     clearDynamicComponentStore,
     alternateModalVisibility
-} from "../../actions/infokarta/dynamicModalControl";
+} from "../../actions/infokarta/dynamicComponents";
 
 import { beautifyHeader } from "../../utils/infokarta/BeautifyUtil";
 

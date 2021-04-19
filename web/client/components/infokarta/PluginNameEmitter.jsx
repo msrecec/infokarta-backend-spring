@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get } from "lodash";
-import { aquireCurrentClassName } from '../../actions/infokarta/fileManagement';
+import { acquireCurrentPluginName } from '../../actions/infokarta/dynamicComponents';
 
 class BasePluginEmitter extends React.Component {
   static propTypes = {
@@ -21,11 +21,9 @@ class BasePluginEmitter extends React.Component {
   }
 }
 
-const PluginNameEmitter = connect((state) => {
-    return {
-
-    };
+const PluginNameEmitter = connect(() => {
+    return {};
 }, {
-    sendPluginName: aquireCurrentClassName
+    sendPluginName: acquireCurrentPluginName
 })(BasePluginEmitter);
 export default PluginNameEmitter;
