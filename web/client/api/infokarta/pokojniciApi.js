@@ -133,13 +133,25 @@ const Api = {
         let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici/' + pokojnikFid;
         let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid + '?geom=false';
 
+        // let containerObject = {};
+        // return axios.get(pokojniciUrl)
+        //     .then(function(response) {
+        //         containerObject.pokojnik = response.data;
+        //         return axios.get(grobUrl);
+        //     }).then(function(response) {
+        //         containerObject.grob = response.data;
+        //         return containerObject;
+        //     }).catch(function(error) {
+        //         /* eslint-disable no-console */
+        //         console.error(error);
+        //     });
         let containerObject = {};
         return axios.get(pokojniciUrl)
             .then(function(response) {
                 containerObject.pokojnik = response.data;
-                return axios.get(grobUrl);
-            }).then(function(response) {
-                containerObject.grob = response.data;
+                //     return axios.get(grobUrl);
+                // }).then(function(response) {
+                //     containerObject.grob = response.data;
                 return containerObject;
             }).catch(function(error) {
                 /* eslint-disable no-console */
