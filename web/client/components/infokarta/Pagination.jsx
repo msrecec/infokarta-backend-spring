@@ -45,7 +45,7 @@ class PaginationComponent extends React.Component {
                     prev next first last ellipsis boundaryLinks
                     bsSize="small"
                     items={numberOfPages}
-                    maxButtons={8}
+                    maxButtons={5}
                     activePage={this.props.active}
                     onSelect={this.props.setPageNumber}
                 />

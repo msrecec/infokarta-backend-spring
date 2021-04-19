@@ -15,6 +15,7 @@ import { SET_CONTROL_PROPERTY, TOGGLE_CONTROL } from '../../actions/controls';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
 import groboviApi from "../../api/infokarta/groboviApi";
+import rasvjetaApi from "../../api/infokarta/rasvjetaApi";
 
 export const clearDetailsAndDocsViewOnPluginToggle = (action$) =>
     action$.ofType(SET_CONTROL_PROPERTY, TOGGLE_CONTROL)
@@ -28,6 +29,7 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
     action$.ofType(GET_DATA_FOR_DETAILS_VIEW)
         .switchMap(({ fid, fk }) => {
             const activePlugin = get(getState(), "dynamicComponents.activePlugin");
+            console.log("!!!", activePlugin);
             switch (activePlugin) {
             case "pokojnici":
                 return Rx.Observable.fromPromise(pokojniciApi.getPokojnikAndLinkedGrob(fid, fk)
@@ -58,14 +60,24 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                         );
                     });
             case "rasvjeta":
-                // TODO
-                break;
+                return Rx.Observable.fromPromise(rasvjetaApi.getLightingForContainerObject(fid)
+                    .then(data => data))
+                    .mergeMap((response) => {
+                        console.log("Epic log from rasvjeta epic", response);
+                        return Rx.Observable.of(
+                            storeDetailsViewResponse(response)
+                        );
+                    })
+                    .catch((error) => {
+                        return Rx.Observable.of(
+                        /* eslint-disable no-console */
+                            console.error('error while fetching lighting', error)
+                        );
+                    });
             default:
                 return Rx.Observable.of(
                     insertUnsuccessful("Greška", "Došlo je do greške prilikom dohvaćanja podataka za detaljni pregled.")
                 );
             }
-            return Rx.Observable.of(
-                insertUnsuccessful("Greška", "Došlo je do greške prilikom dohvaćanja podataka za detaljni pregled.")
-            );
+
         });

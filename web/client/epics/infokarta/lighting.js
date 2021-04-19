@@ -48,7 +48,7 @@ export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) 
 export const zoomToLampFromRasvjetaPlugin = (action$) =>
     action$.ofType(ZOOM_TO_LAMP_FROM_LIGHTING)
         .switchMap(({ geom = {} }) => {
-            console.log("geom console log: ", geom);
+            /* console.log("geom console log: ", geom); */
             const feature = {
                 type: "Feature",
                 geometry: {

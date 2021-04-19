@@ -52,6 +52,20 @@ const LighingApi = {
             }).catch(function(error) {
                 console.error(error);
             });
+    },
+    getLightingForContainerObject: function(fid) {
+        console.log("This do be IdHist: ", fid);
+        let rasvjetaId = 'http://localhost:8080/mapstore/rest/config/rasvjeta/' + fid/* + '?geom=false' */;
+        console.log("Reci mislavu da doda geom=false funkcionalnost na žarulje");
+        return axios.get(rasvjetaId)
+            .then(function(response) {
+                delete response.data.geom;
+                console.log("response nakon deletea", response.data);
+                return response.data;
+            }).catch(function(error) {
+                /* eslint-disable no-console */
+                console.error(error);
+            });
     }
 };
 
