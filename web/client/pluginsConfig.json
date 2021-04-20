@@ -574,17 +574,7 @@
       "title": "plugins.UserSession.title",
       "description": "plugins.UserSession.description",
       "dependencies": ["BurgerMenu"]
-    }, {
-      "name": "Pokojnici",
-      "glyph": "user",
-      "title": "plugins.Pokojnici.title",
-      "description": "plugins.Pokojnici.description"
-    }, {
-      "name": "Grobovi",
-      "glyph": "stop",
-      "title": "plugins.Grobovi.title",
-      "description": "plugins.Grobovi.description"
-    }, {
+    },{
       "name": "Rasvjeta",
       "glyph": "asterisk",
       "title": "plugins.Rasvjeta.title",

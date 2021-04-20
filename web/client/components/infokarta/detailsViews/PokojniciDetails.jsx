@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { displayFeatureInfo, buildCarouselFromURLs } from "../../utils/infokarta/ComponentConstructorUtil";
+import { displayFeatureInfo, buildCarouselFromURLs } from "../../../utils/infokarta/ComponentConstructorUtil";
 
-import FileComponentParent from './fileUpload/ParentComponent';
+import FileComponentParent from '../fileUpload/ParentComponent';
 
 import { Tabs, Tab, Button, Glyphicon } from 'react-bootstrap';
 

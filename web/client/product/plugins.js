@@ -12,8 +12,8 @@
 export default {
     plugins: {
         // infokarta plugins
-        PokojniciPlugin: require('../plugins/infokarta/Pokojnici').default,
-        GroboviPlugin: require('../plugins/infokarta/Grobovi').default,
+        // PokojniciPlugin: require('../plugins/infokarta/Pokojnici').default,
+        // GroboviPlugin: require('../plugins/infokarta/Grobovi').default,
         RasvjetaPlugin: require('../plugins/infokarta/Rasvjeta').default,
         GrobljaPlugin: require('../plugins/infokarta/Groblja').default,
         // product plugins
