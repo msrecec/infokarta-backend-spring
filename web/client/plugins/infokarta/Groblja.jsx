@@ -250,7 +250,6 @@ const Groblja = ({
 
     const switchMode = () => {
         deceasedMode = !deceasedMode;
-        console.log(deceasedMode);
         if (deceasedMode) {
             setDeceasedSearchParameters({});
         } else {
@@ -260,7 +259,6 @@ const Groblja = ({
 
     // const switchDetailsViews = () => {
     //     deceasedMode = !deceasedMode;
-    //     console.log(deceasedMode);
     //     if (deceasedMode) {
     //         setDeceasedSearchParameters({});
     //     } else {

@@ -47,7 +47,6 @@ class RasvjetaDetails extends React.Component {
                 marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
-        /* console.log("Console log from lighting component", this.props); */
         const fileComponentParentLighting = (<FileComponentParent
             itemId={this.props.items && this.props.items.fid ? this.props.items.fid : null}
         />);

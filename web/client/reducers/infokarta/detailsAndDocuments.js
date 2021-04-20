@@ -8,7 +8,6 @@ const detailsAndDocuments = (
 ) => {
     switch (action.type) {
     case STORE_DETAILS_VIEW_RESPONSE: {
-        console.log(action.pluginName, action.response);
         const tempBoolName = action.pluginName + "Show";
         const tempItemName = action.pluginName + "Item";
         return {
@@ -18,7 +17,6 @@ const detailsAndDocuments = (
         };
     }
     case CLEAR_DETAILS_AND_DOCS_VIEW: {
-        console.log('clear action', state);
         let newState = {};
         Object.keys(state).map((variableName) => {
             if (variableName.includes("Show")) {
@@ -27,7 +25,6 @@ const detailsAndDocuments = (
                 newState[variableName] = {};
             }
         });
-        console.log('after action', newState);
         return newState;
     }
     default:

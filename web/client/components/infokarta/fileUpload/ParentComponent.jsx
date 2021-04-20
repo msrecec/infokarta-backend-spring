@@ -16,7 +16,6 @@ class ParentComponent extends React.Component {
 
 
     render() {
-        /* console.log("Parenta", this.props.itemId); */
         const fileUpload = (<FileUploadForm
             itemId={this.props.itemId}
         />);

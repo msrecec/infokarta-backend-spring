@@ -48,7 +48,6 @@ export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) 
 export const zoomToLampFromRasvjetaPlugin = (action$) =>
     action$.ofType(ZOOM_TO_LAMP_FROM_LIGHTING)
         .switchMap(({ geom = {} }) => {
-            /* console.log("geom console log: ", geom); */
             const feature = {
                 type: "Feature",
                 geometry: {
@@ -85,7 +84,6 @@ export const sendEditDataForLighting = (action$, {getState = () => {}} = {}) =>
             return Rx.Observable.fromPromise(lightingApi.editLightingData(itemToEdit)
                 .then(data => data))
                 .mergeMap((response) => {
-                    /* console.log('lampa edit', response.data); */
                     return Rx.Observable.of(
                         hideDynamicModal(),
                         setPageForLighting(getLighting.pageNumber) // added for page refresh, remove after adding search!!!

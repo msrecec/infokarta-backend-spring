@@ -31,7 +31,6 @@ class FileUploadFormComponent extends React.Component {
     }
 
     render() {
-        /* console.log("FILE UPLOAD", this.props.itemId); */
         const saveFileToLocalState = (e) => {
             const uploadedFile = e.target.files[0];
             this.setState({ "file": uploadedFile, "fileChosen": true });

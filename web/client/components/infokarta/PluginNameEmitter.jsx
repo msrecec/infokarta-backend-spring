@@ -10,13 +10,11 @@ class BasePluginEmitter extends React.Component {
   };
 
   componentDidMount() {
-      console.log('plugin emit on component mount', this.props.pluginName);
       this.props.sendPluginName(this.props.pluginName);
   }
 
   componentDidUpdate(prevProps) {
       if (prevProps.pluginName !== this.props.pluginName) {
-          console.log('plugin emit on component update', this.props.pluginName);
           this.props.sendPluginName(this.props.pluginName);
       }
   }

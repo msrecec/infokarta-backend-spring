@@ -48,7 +48,6 @@ class GroboviDetails extends React.Component {
                 marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
-        console.log("Console log from graves component", this.props);
         const fileComponentParentGraves = (<FileComponentParent
             itemId={this.props.items.grob && this.props.items.grob.fid ? this.props.items.grob.fid : null}
         />);

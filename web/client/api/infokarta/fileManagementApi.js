@@ -3,7 +3,7 @@ import axios from "../../libs/ajax";
 const fileManagementApi = {
     uploadFile: function(pluginName, documentType, file, entityFid) {
         const url = `http://localhost:8080/mapstore/rest/config/${pluginName}/upload/media/${documentType}?entityFid=${entityFid}`;
-        console.log("OVO JE URL", file);
+
 
         const header = {
             "Content-Type": "multipart/form-data;"
