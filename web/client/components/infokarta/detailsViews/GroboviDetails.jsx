@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { displayFeatureInfo, buildCarouselFromURLs } from "../../utils/infokarta/ComponentConstructorUtil";
+import { displayFeatureInfo, buildCarouselFromURLs } from "../../../utils/infokarta/ComponentConstructorUtil";
 
-import FileComponentParent from './fileUpload/ParentComponent';
+import FileComponentParent from '../fileUpload/ParentComponent';
+import Table from '../Table';
 
 import { Tabs, Tab, Button, Glyphicon } from 'react-bootstrap';
 
-class RasvjetaDetails extends React.Component {
+class GroboviDetails extends React.Component {
     static propTypes = {
         items: PropTypes.object,
         showDetails: PropTypes.bool,
@@ -27,7 +28,7 @@ class RasvjetaDetails extends React.Component {
             tabContentStyle: {
                 padding: "10px",
                 overflow: "auto",
-                maxHeight: "480px",
+                maxHeight: "780px",
                 height: "auto"
             },
             closeButtonStyle: {
@@ -47,14 +48,14 @@ class RasvjetaDetails extends React.Component {
                 marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
-        /* console.log("Console log from lighting component", this.props); */
-        const fileComponentParentLighting = (<FileComponentParent
-            itemId={this.props.items && this.props.items.fid ? this.props.items.fid : null}
+        console.log("Console log from graves component", this.props);
+        const fileComponentParentGraves = (<FileComponentParent
+            itemId={this.props.items.grob && this.props.items.grob.fid ? this.props.items.grob.fid : null}
         />);
 
         let sourceArray = [];
-        if (this.props.items) {
-            for (const [key, value] of Object.entries(this.props.items)) {
+        if (this.props.items.grob) {
+            for (const [key, value] of Object.entries(this.props.items.grob)) {
                 if (key.toUpperCase().includes('SOURCE') && value) {
                     sourceArray.push(value);
                 }
@@ -74,25 +75,26 @@ class RasvjetaDetails extends React.Component {
                     <Tab eventKey={1} title="Detalji" style={styles.tabContentStyle}>
                         <div>
                             <div style={styles.stickyTitleStyle}>
-                                <h3>Rasvjetno tijelo</h3>
+                                <h3>Grobnica - {this.props.items.grob ? this.props.items.grob.grobnica : null}</h3>
                                 <Button
                                     bsStyle="link"
-                                    onClick={() => this.props.editItem(this.props.items.fid)}
+                                    onClick={() => this.props.editItem(this.props.items.grob.fid)}
                                 >
                                     <Glyphicon glyph="pencil" /> Uredi podatke
                                 </Button>
                             </div>
-
-
-                            {this.props.items ? displayFeatureInfo(this.props.items, this.props.fieldsToExclude) : null}
-                            <br />
-                            {sourceArray.length ? buildCarouselFromURLs(sourceArray) : null}
+                            <div>
+                                {this.props.items.grob ? displayFeatureInfo(this.props.items.grob, this.props.fieldsToExclude) : null}
+                                <br />
+                                {sourceArray.length ? buildCarouselFromURLs(sourceArray) : null}
+                            </div>
+                            <h3>Umrle osobe</h3>
+                            <Table items={this.props.items.pokojnici} fieldsToInclude={["ime", "prezime"]}/>
                         </div>
-
                     </Tab>
                     <Tab eventKey={2} title="Dokumenti" style={styles.tabContentStyle}>
                         <div>
-                            {fileComponentParentLighting}
+                            {fileComponentParentGraves}
                         </div>
                     </Tab>
                 </Tabs>
@@ -101,4 +103,4 @@ class RasvjetaDetails extends React.Component {
     }
 }
 
-export default RasvjetaDetails;
+export default GroboviDetails;

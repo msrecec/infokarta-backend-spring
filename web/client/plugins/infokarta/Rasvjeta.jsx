@@ -43,7 +43,7 @@ import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
-import RasvjetaDetails from "../../components/infokarta/RasvjetaDetails";
+import RasvjetaDetails from "../../components/infokarta/detailsViews/RasvjetaDetails";
 
 const fieldsToInclude = ["fid", "materijal", "stanje"];
 const fieldsToExclude = ["fid", "geom", "source", "mjernoMjesto",
@@ -182,8 +182,8 @@ export default createPlugin("Rasvjeta", {
     containers: {
         DrawerMenu: {
             name: "Rasvjeta",
-            position: 4,
-            text: <Message msgId="rasvjeta"/>,
+            position: 3,
+            text: <Message msgId="plugins.Rasvjeta.title"/>,
             icon: <Glyphicon glyph="asterisk"/>,
             action: () => ({type: ""}),
             priority: 1,

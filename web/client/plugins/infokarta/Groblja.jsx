@@ -58,8 +58,8 @@ import InsertConfirmationModal from "../../components/infokarta/InsertConfirmati
 import SearchComponent from "../../components/infokarta/SearchForm";
 import PaginationComponent from "../../components/infokarta/Pagination";
 import GravePickerModal from '../../components/infokarta/pokojnici/GravePickerModal';
-import PokojniciDetails from '../../components/infokarta/PokojniciDetails';
-import GroboviDetails from "../../components/infokarta/GroboviDetails";
+import PokojniciDetails from '../../components/infokarta/detailsViews/PokojniciDetails';
+import GroboviDetails from "../../components/infokarta/detailsViews/GroboviDetails";
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const fieldsToIncludeGrobovi = ["grobnica", "redniBroj", "groblje"];
@@ -258,6 +258,16 @@ const Groblja = ({
         }
     };
 
+    // const switchDetailsViews = () => {
+    //     deceasedMode = !deceasedMode;
+    //     console.log(deceasedMode);
+    //     if (deceasedMode) {
+    //         setDeceasedSearchParameters({});
+    //     } else {
+    //         setGravesSearchParameters({});
+    //     }
+    // };
+
     return (
         <div style={{"padding": "10px"}}>
             {pluginNameEmitter}
@@ -331,8 +341,8 @@ export default createPlugin("Groblja", {
     containers: {
         DrawerMenu: {
             name: "Groblja",
-            position: 5,
-            text: <Message msgId="groblja"/>,
+            position: 2,
+            text: <Message msgId="plugins.Groblja.title"/>,
             icon: <Glyphicon glyph="user"/>,
             action: () => ({type: ""}),
             priority: 1,
