@@ -24,6 +24,7 @@ import java.util.Optional;
 public class SlikeController {
 
     /**
+     * TODO - Implement Buffered write instead of Write
      *
      * @param request
      * @param response
@@ -172,6 +173,8 @@ public class SlikeController {
                     }
 
                     /**
+                     * TODO - Implement Buffered write instead of Write
+                     *
                      * write original file to folder 'original'
                      */
 
@@ -184,6 +187,8 @@ public class SlikeController {
                     }
 
                     /**
+                     * TODO - Implement Buffered write instead of Write
+                     *
                      * thumbnails check (if !exist create)
                      */
 
