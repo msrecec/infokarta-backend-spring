@@ -18,7 +18,7 @@ class TableComponent extends React.Component {
       items: [],
       fieldsToInclude: [],
       showDetails: false,
-      zoomToItem: () => {},
+      /* zoomToItem: () => {}, */
       sendDataToDetailsView: () => {}
   };
 
@@ -84,12 +84,8 @@ class TableComponent extends React.Component {
   }
 
   sendRowDataToDetailsView(item) {
-      this.props.zoomToItem(item.geom || item.fk);
-      const temp = cloneDeep(item);
-      if (temp.geom) {
-          delete temp.geom;
-      }
-      this.props.sendDataToDetailsView(item.fid, item.fk ? item.fk : null);
+      this.props.sendDataToDetailsView(item.fid);
+      /* this.props.zoomToItem(item.geom || item.fk); */
   }
 
   setActiveRow(key) {

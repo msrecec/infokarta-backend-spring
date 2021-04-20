@@ -55,11 +55,10 @@ const LighingApi = {
     },
     getLightingForContainerObject: function(fid) {
 
-        let rasvjetaId = 'http://localhost:8080/mapstore/rest/config/rasvjeta/' + fid/* + '?geom=false' */;
+        let rasvjetaId = 'http://localhost:8080/mapstore/rest/config/rasvjeta/' + fid;
         console.log("Reci mislavu da doda geom=false funkcionalnost na žarulje");
         return axios.get(rasvjetaId)
             .then(function(response) {
-                delete response.data.geom;
 
                 return response.data;
             }).catch(function(error) {
