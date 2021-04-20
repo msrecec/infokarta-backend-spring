@@ -63,9 +63,9 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                 return Rx.Observable.fromPromise(rasvjetaApi.getLightingForContainerObject(fid)
                     .then(data => data))
                     .mergeMap((response) => {
-                        /* console.log("Epic log from rasvjeta epic", response); */
+                        console.log("Epic log from rasvjeta epic", response);
                         return Rx.Observable.of(
-                            storeDetailsViewResponse(response)
+                            storeDetailsViewResponse(response, "rasvjeta")
                         );
                     })
                     .catch((error) => {

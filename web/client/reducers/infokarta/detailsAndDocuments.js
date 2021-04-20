@@ -8,6 +8,7 @@ const detailsAndDocuments = (
 ) => {
     switch (action.type) {
     case STORE_DETAILS_VIEW_RESPONSE: {
+        console.log(action.pluginName, action.response);
         const tempBoolName = action.pluginName + "Show";
         const tempItemName = action.pluginName + "Item";
         return {

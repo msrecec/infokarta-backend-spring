@@ -164,10 +164,10 @@ export default createPlugin("Rasvjeta", {
     component: connect((state) => ({
         data: get(state, "lighting.data"),
         page: get(state, "lighting.pageNumber"),
-        showLightingDetails: get(state, "detailsAndDocuments.rasvjetaShow"),
+        showDetails: get(state, "detailsAndDocuments.rasvjetaShow"),
         totalNumber: get(state, "lighting.totalNumber"),
         editModalShow: get(state, "dynamicModalControl.modals.rasvjetaEdit"),
-        lightingDetailViewItems: get(state, "detailsAndDocuments.rasvjetaItem")
+        detailViewItem: get(state, "detailsAndDocuments.rasvjetaItem")
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
