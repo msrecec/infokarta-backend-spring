@@ -35,6 +35,7 @@ const graves = (
         };
     }
     case GRAVES_RESPONSE_RECEIVED: {
+        console.log('GRAVES_RESPONSE_RECEIVED', action.data, action.totalNumber);
         return {
             ...state,
             data: action.data,

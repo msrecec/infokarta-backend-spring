@@ -8,11 +8,11 @@ const Api = {
             url += key + '=' + value + '&';
         }
 
-        // if (pageNumber) {
-        //     url += 'page=' + pageNumber;
-        // } else {
-        //     url += 'page=1';
-        // }
+        if (pageNumber) {
+            url += 'page=' + pageNumber;
+        } else {
+            url += 'page=1';
+        }
 
         return axios.get(url)
             .then(function(response) {
@@ -23,7 +23,7 @@ const Api = {
             });
     },
     getGrobAndLinkedPokojnici: function(fid) {
-        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + fid + '?geom=false';
+        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + fid;
         let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici?grobFid=' + fid;
 
         let containerObject = {};

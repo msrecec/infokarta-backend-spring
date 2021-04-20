@@ -131,7 +131,7 @@ const Api = {
     },
     getPokojnikAndLinkedGrob: function(pokojnikFid, grobFid) {
         let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici/' + pokojnikFid;
-        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid + '?geom=false';
+        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid;
 
         // let containerObject = {};
         // return axios.get(pokojniciUrl)

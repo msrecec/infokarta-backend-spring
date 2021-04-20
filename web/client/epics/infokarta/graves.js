@@ -32,8 +32,9 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
         return Rx.Observable.fromPromise(groboviApi.searchGraves(searchParameters, pageNumber)
             .then(data => data))
             .mergeMap((response) => {
+                console.log('epic graves: ', response.data, response.count);
                 return Rx.Observable.of(
-                    gravesResponseReceived(response /* , response.totalSearchMatchCount*/)
+                    gravesResponseReceived(response.data, response.count)
                     // clearDetailsAndDocsView()
                 );
             })

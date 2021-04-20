@@ -187,12 +187,20 @@ const Groblja = ({
         disableInsert={!deceasedMode}
     />);
 
-    const table = (<TableComponent
-        items={deceasedMode ? deceasedData : gravesData}
-        fieldsToInclude={deceasedMode ? fieldsToIncludePokojnici : fieldsToIncludeGrobovi}
+    const deceasedTable = (<TableComponent
+        items={deceasedData}
+        fieldsToInclude={fieldsToIncludePokojnici}
         sendDataToDetailsView={sendDataToDetailsView}
-        showDetails={deceasedMode ? showDeceasedDetails : showGravesDetails}
-        zoomToItem={deceasedMode ? sendDeceasedZoomData : sendGraveZoomData}
+        showDetails={showDeceasedDetails}
+        zoomToItem={sendDeceasedZoomData}
+    />);
+
+    const gravesTable = (<TableComponent
+        items={gravesData}
+        fieldsToInclude={fieldsToIncludeGrobovi}
+        sendDataToDetailsView={sendDataToDetailsView}
+        showDetails={showGravesDetails}
+        zoomToItem={sendGraveZoomData}
     />);
 
     const pagination = (<PaginationComponent
@@ -280,7 +288,7 @@ const Groblja = ({
                 <div>
                     {search}
                     <div style={showDeceasedDetails ? styles.showDeceasedDetailsStyle : styles.hideDeceasedDetailsStyle}>
-                        {table}
+                        {deceasedTable}
                     </div>
                     {pagination}
                     {deceasedDetailsAndDocs}
@@ -289,7 +297,7 @@ const Groblja = ({
                 <div>
                     <div style={showGravesDetails ? styles.showGraveDetailsStyle : styles.hideGraveDetailsStyle}>
                         {search}
-                        {table}
+                        {gravesTable}
                         {pagination}
                     </div>
                     {gravesDetailsAndDocs}
