@@ -47,7 +47,7 @@ class PokojniciDetails extends React.Component {
                 marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
-        console.log("Console log from pokojnici component", this.props);
+        /* console.log("Console log from pokojnici component", this.props); */
         const fileComponentParentDeceased = (<FileComponentParent
             itemId={this.props.items.pokojnik && this.props.items.pokojnik.fid ? this.props.items.pokojnik.fid : null}
         />);

@@ -12,7 +12,7 @@ class BasePluginEmitter extends React.Component {
 
 
   componentDidMount() {
-      console.log(this.props.pluginName);
+      /* console.log(this.props.pluginName); */
       this.props.sendPluginName(this.props.pluginName);
   }
 

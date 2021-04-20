@@ -30,7 +30,7 @@ class PaginationComponent extends React.Component {
 
     componentDidUpdate(prevProps) {
         this.elementList = [];
-        console.log('!!! CDU items', prevProps.items, this.props.items);
+        /* console.log('!!! CDU items', prevProps.items, this.props.items); */
         if (this.props.items.length && prevProps.items !== this.props.items) {
             for (let i = 0; i < this.props.items.length; i++) {
                 let sourceArray = [];
@@ -49,7 +49,7 @@ class PaginationComponent extends React.Component {
                     </div>
                 );
             }
-            console.log('!!! element list', this.elementList);
+            /* console.log('!!! element list', this.elementList); */
             this.forceUpdate(); // toliko o reaktivnosti u reactu lol (vue: 1 | react: 0)
         }
     }
@@ -83,7 +83,7 @@ class PaginationComponent extends React.Component {
         //     itemId={this.props.items[0].fid ? this.props.items[0].fid : null}
         // />);
 
-        console.log('!!! element list in render', this.elementList);
+        /* console.log('!!! element list in render', this.elementList); */
         return (
             <div style={this.props.showDetails ? {display: "block"} : {display: "none"} }>
                 <Button

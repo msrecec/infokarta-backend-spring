@@ -27,8 +27,8 @@ export const loadFileMetadataByEntityId = (action$, {getState = () => {}} = {}) 
             return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(pluginName, documentType, entityFid)
                 .then(data => data))
                 .switchMap((response) => {
-                    console.log("response data parts", pluginName, documentType, entityFid);
-                    console.log("response data", response.data);
+                    /* console.log("response data parts", pluginName, documentType, entityFid);
+                    console.log("response data", response.data); */
                     return Rx.Observable.of(
                         imagesLoadedByEntityId(response.data)
                     );
@@ -49,7 +49,7 @@ export const handleImageUploadByEntityId = (action$, {getState = () => {}} = {})
                 .then(data => data))
                 .mergeMap((response) => {
                     if (response === 200) {
-                        console.log("!!!!!!!!", pluginName, documentType, file, entityFid);
+                        /* console.log("!!!!!!!!", pluginName, documentType, file, entityFid); */
                         return Rx.Observable.of(
                             insertSuccessful("Prijenos uspješan", "Vaš dokument/slika je uspješno pohranjen/a u bazu podataka."),
                             uploadNewImageResponse(response),
