@@ -27,12 +27,11 @@ export const clearDetailsAndDocsViewOnPluginToggle = (action$) =>
 
 export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}) =>
     action$.ofType(GET_DATA_FOR_DETAILS_VIEW)
-        .switchMap(({ fid, fk }) => {
+        .switchMap(({ fid, /* fk,*/ additionalPluginTitle }) => {
             const activePlugin = get(getState(), "dynamicComponents.activePlugin");
-            /* console.log("!!!", activePlugin); */
-            switch (activePlugin) {
+            switch (additionalPluginTitle ? additionalPluginTitle : activePlugin) {
             case "pokojnici":
-                return Rx.Observable.fromPromise(pokojniciApi.getPokojnikAndLinkedGrob(fid, fk)
+                return Rx.Observable.fromPromise(pokojniciApi.getPokojnikAndLinkedGrob(fid /* , fk*/)
                     .then(data => data))
                     .mergeMap((response) => {
                         return Rx.Observable.of(
@@ -63,7 +62,6 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                 return Rx.Observable.fromPromise(rasvjetaApi.getLightingForContainerObject(fid)
                     .then(data => data))
                     .mergeMap((response) => {
-                        console.log("Epic log from rasvjeta epic", response);
                         return Rx.Observable.of(
                             storeDetailsViewResponse(response, "rasvjeta")
                         );

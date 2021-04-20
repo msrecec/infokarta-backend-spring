@@ -13,7 +13,8 @@ class PokojniciDetails extends React.Component {
         showDetails: PropTypes.bool,
         closeDetailsView: PropTypes.func,
         editItem: PropTypes.func,
-        fieldsToExclude: PropTypes.array
+        fieldsToExclude: PropTypes.array,
+        toggleDetailViews: PropTypes.func
     };
 
     static defaultProps = {
@@ -85,7 +86,13 @@ class PokojniciDetails extends React.Component {
                             </div>
                             {this.props.items.pokojnik ? displayFeatureInfo(this.props.items.pokojnik, this.props.fieldsToExclude) : null}
                             <div>
-                                <h3>Grobnica</h3>
+                                <Button
+                                    bsStyle="link"
+                                    onClick={() => this.props.toggleDetailViews(this.props.items.pokojnik.fk)}
+                                    // style={{display: "flex"}}
+                                >
+                                    <h3><u>Grobnica</u></h3>
+                                </Button>
                                 {this.props.items.grob ? displayFeatureInfo(this.props.items.grob, grobFieldsToExclude) : null}
                                 <br />
                                 {sourceArray.length ? buildCarouselFromURLs(sourceArray) : null}

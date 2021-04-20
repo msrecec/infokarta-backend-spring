@@ -33,8 +33,8 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
             .then(data => data))
             .mergeMap((response) => {
                 return Rx.Observable.of(
-                    gravesResponseReceived(response /* , response.totalSearchMatchCount*/),
-                    clearDetailsAndDocsView()
+                    gravesResponseReceived(response /* , response.totalSearchMatchCount*/)
+                    // clearDetailsAndDocsView()
                 );
             })
             .catch((error) => {

@@ -37,8 +37,8 @@ const graves = (
     case GRAVES_RESPONSE_RECEIVED: {
         return {
             ...state,
-            data: action.data
-            // totalNumber: action.count
+            data: action.data,
+            totalNumber: action.count
         };
     }
     default:

@@ -29,14 +29,12 @@ const deceased = (
         };
     }
     case SET_PAGE_FOR_DECEASED: {
-        // console.log('!!! setPage', state);
         return {
             ...state,
             pageNumber: parseInt(action.pageNumber, 10)
         };
     }
     case DECEASED_RESPONSE_RECEIVED: {
-        // console.log('!!! responseRec', state);
         return {
             ...state,
             data: action.deceased,

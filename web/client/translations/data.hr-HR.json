@@ -3137,6 +3137,14 @@
             "ZoomOut": {
                 "description": "Gumb koji smanjuje razinu zumiranja karte",
                 "title": "Odzumiranje"
+            },
+            "Rasvjeta": {
+                "description": "Meni za pregled i uređivanje podataka o rasvjeti",
+                "title": "Rasvjeta"
+            },
+            "Groblja": {
+                "description": "Meni za pregled i uređivanje podataka o pokojnicima i grobnicama",
+                "title": "Groblja"
             }
         },
         "contextCreator": {

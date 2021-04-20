@@ -2840,6 +2840,14 @@
           "ZoomOut": {
             "description": "Button that decrease zoom level of the map",
             "title": "Zoom Out"
+          },
+          "Rasvjeta": {
+              "description": "Meni za pregled i uređivanje podataka o rasvjeti",
+              "title": "Rasvjeta"
+          },
+          "Groblja": {
+              "description": "Meni za pregled i uređivanje podataka o pokojnicima i grobnicama",
+              "title": "Groblja"
           }
         },
         "contextCreator": {

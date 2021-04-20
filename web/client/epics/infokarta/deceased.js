@@ -7,7 +7,7 @@ import {
     RESET_SEARCH_PARAMETERS_FOR_DECEASED,
     SET_PAGE_FOR_DECEASED,
     // EDIT_DECEASED,
-    // INSERT_DECEASED,
+    INSERT_DECEASED,
     ZOOM_TO_GRAVE_FROM_DECEASED,
     deceasedResponseReceived,
     sendSearchRequestForDeceased
@@ -61,8 +61,8 @@ export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () =
             .then(data => data))
             .mergeMap((response) => {
                 return Rx.Observable.of(
-                    deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount),
-                    clearDetailsAndDocsView()
+                    deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount)
+                    // clearDetailsAndDocsView()
                 );
             })
             .catch((error) => {
@@ -155,3 +155,32 @@ export const loadGraveDataIntoInsertForm = (action$, {getState = () => {}} = {})
             );
         });
 
+export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
+    action$.ofType(INSERT_DECEASED)
+        .switchMap(({ itemToInsert = {} }) => {
+            let gravePickerToolStore = get(getState(), "gravePickerTool");
+            let temp = gravePickerToolStore.chosenGrave;
+            return Rx.Observable.fromPromise(pokojniciApi.insertPokojnik(itemToInsert, temp)
+                .then(data => data))
+                .mergeMap((response) => {
+                    if (response.status === 200) {
+                        console.log('insert response: ', response.data);
+                        return Rx.Observable.of(
+                            sendSearchRequestForDeceased(),
+                            clearDynamicComponentStore(),
+                            clearGravePickerToolStore(),
+                            insertSuccessful("Unos potvrđen", "Nova stavka je uspješno pohranjena u bazu podataka.")
+                        );
+                    }
+                    return Rx.Observable.of(
+                        alternateModalVisibility("pokojniciConfirmation", "pokojniciInsert"),
+                        insertUnsuccessful("Došlo je do greške", "Nova stavka nije pohranjena u bazu. Error: " + response.status)
+                    );
+                })
+                .catch((error) => {
+                    return Rx.Observable.of(
+                    /* eslint-disable no-console */
+                        console.error('error while inserting new deceased', error)
+                    );
+                });
+        });

@@ -17,7 +17,7 @@ import {
     setSearchParametersForDeceased,
     resetSearchParametersForDeceased,
     // editDeceased,
-    // insertDeceased,
+    insertDeceased,
     zoomToGraveFromDeceased,
     setPageForDeceased
 } from "../../actions/infokarta/deceased";
@@ -64,7 +64,8 @@ import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 
 const fieldsToIncludeGrobovi = ["grobnica", "redniBroj", "groblje"];
 const fieldsToIncludePokojnici = ["ime", "prezime", "datum_rodjenja", "datum_smrti"];
-const fieldsToExcludeInsertPokojnici = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
+const fieldsToExcludeGrobovi = ["fid", "source", "source1", "source2", "source3", "source4", "source5", "source6", "source7", "fk", "ime_i_prezime"];
+const fieldsToExcludePokojnici = ["fid", "fk", "ime_i_prezime", "IME I PREZIME", "groblje", "oznaka_grobnice"];
 const readOnlyFields = ["fid", "fk", "groblje", "oznaka_grobnice"];
 const searchFormDataGrobovi = [
     {
@@ -115,8 +116,9 @@ const Groblja = ({
     gravesDetailViewItems,
     deceasedDetailViewItems,
 
-    // gravesEditModalShow,
-    // deceasedEditModalShow,
+    gravesEditModalShow,
+    deceasedEditModalShow,
+
     deceasedInsertModalShow,
     deceasedInsertConfirmationModalShow,
 
@@ -140,6 +142,42 @@ const Groblja = ({
     sendDataToDetailsView = () => {},
     closeDetailsView = () => {}
 }) => {
+    const switchMode = () => {
+        deceasedMode = !deceasedMode;
+        if (deceasedMode) {
+            setDeceasedSearchParameters({});
+        } else {
+            setGravesSearchParameters({});
+        }
+    };
+
+    const switchDetailsViews = (fid) => {
+        deceasedMode = !deceasedMode;
+        sendDataToDetailsView(fid, deceasedMode ? "pokojnici" : "grobovi");
+    };
+
+    /* --------------------------- custom komponente za pokojnike --------------------------- */
+    const gravePickerButtonStyle = {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    };
+
+    const insertModalGravePickerModeButton = (
+        <div style={gravePickerButtonStyle}>
+            <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
+        </div>
+    );
+
+    const graveConfirmationForm = (
+        <div>
+            <h3>Odabrana grobnica</h3>
+            {chosenGrave ? displayFeatureInfo(chosenGrave) : <span>Nije odabrana grobnica.</span>}
+            <hr/>
+            <h3>Pokojnikovi podaci</h3>
+        </div>
+    );
+    /* ------------------------------- kraj custom komponenti ------------------------------- */
 
     const search = (<SearchComponent
         buildData={deceasedMode ? searchFormDataPokojnici : searchFormDataGrobovi}
@@ -168,7 +206,8 @@ const Groblja = ({
         showDetails={showGravesDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
-        // fieldsToExclude={fieldsToExclude ? fieldsToExclude : []}
+        fieldsToExclude={fieldsToExcludeGrobovi}
+        toggleDetailViews={switchDetailsViews}
     />);
 
     const deceasedDetailsAndDocs = (<PokojniciDetails
@@ -176,49 +215,34 @@ const Groblja = ({
         showDetails={showDeceasedDetails}
         closeDetailsView={closeDetailsView}
         editItem={setupEditModal}
-        fieldsToExclude={fieldsToExcludeInsertPokojnici}
+        fieldsToExclude={fieldsToExcludePokojnici}
+        toggleDetailViews={switchDetailsViews}
     />);
 
-    const editModal = (<EditModal
-        fieldsToExclude={deceasedMode ? fieldsToExcludeInsertPokojnici : []}
+    const gravesEditModal = (<EditModal
+        fieldsToExclude={fieldsToExcludeGrobovi}
         readOnlyFields={readOnlyFields}
         editItem={sendEditedData}
+        show={gravesEditModalShow}
     />);
 
-    // custom komponente za pokojnike
-    const gravePickerButtonStyle = {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-    };
-
-    const insertModalGravePickerModeButton = (
-        <div style={gravePickerButtonStyle}>
-            <Button bsStyle="success" onClick={() => startChooseMode()} >Odaberite grobnicu klikom na kartu</Button>
-        </div>
-    );
-
-    const graveConfirmationForm = (
-        <div>
-            <h3>Odabrana grobnica</h3>
-            {chosenGrave ? displayFeatureInfo(chosenGrave) : <span>Nije odabrana grobnica.</span>}
-            <hr/>
-            <h3>Pokojnikovi podaci</h3>
-        </div>
-    );
-    // kraj custom komponenti
+    const deceasedEditModal = (<EditModal
+        fieldsToExclude={fieldsToExcludePokojnici}
+        readOnlyFields={readOnlyFields}
+        editItem={sendEditedData}
+        show={deceasedEditModalShow}
+    />);
 
     const insertModal = (<InsertModal
-        fieldsToExclude={fieldsToExcludeInsertPokojnici}
+        fieldsToExclude={fieldsToExcludePokojnici}
         extraForm={insertModalGravePickerModeButton}
         show={deceasedInsertModalShow}
     />);
 
     const insertConfirmationModal = (<InsertConfirmationModal
-        fieldsToExclude={fieldsToExcludeInsertPokojnici}
+        fieldsToExclude={fieldsToExcludePokojnici}
         extraForm={graveConfirmationForm}
         insertItem={sendNewData}
-        startChooseGraveMode={startChooseMode}
         show={deceasedInsertConfirmationModalShow}
     />);
 
@@ -248,26 +272,6 @@ const Groblja = ({
         }
     };
 
-    const switchMode = () => {
-        deceasedMode = !deceasedMode;
-        console.log(deceasedMode);
-        if (deceasedMode) {
-            setDeceasedSearchParameters({});
-        } else {
-            setGravesSearchParameters({});
-        }
-    };
-
-    // const switchDetailsViews = () => {
-    //     deceasedMode = !deceasedMode;
-    //     console.log(deceasedMode);
-    //     if (deceasedMode) {
-    //         setDeceasedSearchParameters({});
-    //     } else {
-    //         setGravesSearchParameters({});
-    //     }
-    // };
-
     return (
         <div style={{"padding": "10px"}}>
             {pluginNameEmitter}
@@ -291,7 +295,8 @@ const Groblja = ({
                     {gravesDetailsAndDocs}
                 </div>
             )}
-            {editModal}
+            {gravesEditModal}
+            {deceasedEditModal}
             {insertModal}
             {insertConfirmationModal}
             {gravePickerModal}
@@ -336,13 +341,16 @@ export default createPlugin("Groblja", {
         sendDeceasedZoomData: zoomToGraveFromDeceased,
 
         sendDataToDetailsView: getDataForDetailsView,
-        closeDetailsView: clearDetailsAndDocsView
+        closeDetailsView: clearDetailsAndDocsView,
+
+        startChooseMode: enableGravePickMode,
+        sendNewData: insertDeceased
     })(Groblja),
     containers: {
         DrawerMenu: {
             name: "Groblja",
             position: 2,
-            text: <Message msgId="plugins.Groblja.title"/>,
+            text: <Message msgId="Groblja"/>,
             icon: <Glyphicon glyph="user"/>,
             action: () => ({type: ""}),
             priority: 1,

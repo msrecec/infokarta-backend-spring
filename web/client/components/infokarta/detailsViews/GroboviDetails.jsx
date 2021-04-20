@@ -14,7 +14,8 @@ class GroboviDetails extends React.Component {
         showDetails: PropTypes.bool,
         closeDetailsView: PropTypes.func,
         editItem: PropTypes.func,
-        fieldsToExclude: PropTypes.array
+        fieldsToExclude: PropTypes.array,
+        toggleDetailViews: PropTypes.func
     };
 
     static defaultProps = {
@@ -89,7 +90,7 @@ class GroboviDetails extends React.Component {
                                 {sourceArray.length ? buildCarouselFromURLs(sourceArray) : null}
                             </div>
                             <h3>Umrle osobe</h3>
-                            <Table items={this.props.items.pokojnici} fieldsToInclude={["ime", "prezime"]}/>
+                            <Table items={this.props.items.pokojnici} fieldsToInclude={["ime", "prezime", "godina_ukopa"]} sendDataToDetailsView={this.props.toggleDetailViews}/>
                         </div>
                     </Tab>
                     <Tab eventKey={2} title="Dokumenti" style={styles.tabContentStyle}>
