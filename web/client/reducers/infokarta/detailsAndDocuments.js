@@ -3,26 +3,31 @@ import {
     CLEAR_DETAILS_AND_DOCS_VIEW
 } from "../../actions/infokarta/detailsAndDocuments";
 const detailsAndDocuments = (
-    state = {
-        items: {},
-        showDetails: false
-    },
+    state = {},
     action
 ) => {
     switch (action.type) {
     case STORE_DETAILS_VIEW_RESPONSE: {
+        const tempBoolName = action.pluginName + "Show";
+        const tempItemName = action.pluginName + "Item";
         return {
             ...state,
-            showDetails: true,
-            items: action.responseArray
+            [tempBoolName]: true,
+            [tempItemName]: action.response
         };
     }
     case CLEAR_DETAILS_AND_DOCS_VIEW: {
-        return {
-            ...state,
-            showDetails: false,
-            items: {}
-        };
+        console.log('clear action', state);
+        let newState = {};
+        Object.keys(state).map((variableName) => {
+            if (variableName.includes("Show")) {
+                newState[variableName] = false;
+            } else {
+                newState[variableName] = {};
+            }
+        });
+        console.log('after action', newState);
+        return newState;
     }
     default:
         return state;

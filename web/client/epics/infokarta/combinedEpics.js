@@ -7,4 +7,5 @@ import * as dynamicComponentsEpics from './dynamicComponentsEpics';
 
 export const completeDeceasedEpic = {...deceasedEpics, ...fileManagementEpics, ...detailsAndDocumentEpics, ...dynamicComponentsEpics};
 export const completeGravesEpic = {...gravesEpics, ...fileManagementEpics, ...detailsAndDocumentEpics, ...dynamicComponentsEpics};
-export const completeLightingEpics = {...lightingEpics, ...detailsAndDocumentEpics, ...fileManagementEpics, ...dynamicComponentsEpics};
+export const completeLightingEpics = {...lightingEpics, ...fileManagementEpics, ...detailsAndDocumentEpics, ...dynamicComponentsEpics};
+export const deceasedAndGravesEpic = {...deceasedEpics, ...gravesEpics, ...fileManagementEpics, ...detailsAndDocumentEpics, ...dynamicComponentsEpics };

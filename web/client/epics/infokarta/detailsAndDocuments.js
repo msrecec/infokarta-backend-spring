@@ -36,7 +36,7 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                     .then(data => data))
                     .mergeMap((response) => {
                         return Rx.Observable.of(
-                            storeDetailsViewResponse(response)
+                            storeDetailsViewResponse(response, "pokojnici")
                         );
                     })
                     .catch((error) => {
@@ -50,7 +50,7 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                     .then(data => data))
                     .mergeMap((response) => {
                         return Rx.Observable.of(
-                            storeDetailsViewResponse(response)
+                            storeDetailsViewResponse(response, "grobovi")
                         );
                     })
                     .catch((error) => {

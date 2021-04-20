@@ -11,8 +11,14 @@ import {
     showDynamicModal,
     hideDynamicModal,
     alternateModalVisibility,
-    acquireCurrentPluginName
+    acquireCurrentPluginName,
+    clearActivePlugin
 } from "../../actions/infokarta/dynamicComponents";
+
+import {
+    SET_CONTROL_PROPERTY,
+    TOGGLE_CONTROL
+} from "../../actions/controls";
 
 import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
 
@@ -76,6 +82,22 @@ export const saveEditedItemToDatabase = (action$, {getState = () => {}} = {}) =>
                     );
                 });
         });
+
+export const clearActivePluginOnDrawerMenuClose = (action$) =>
+    action$.ofType(TOGGLE_CONTROL)
+        .switchMap(({}) => {
+            return Rx.Observable.of(
+                clearActivePlugin()
+            );
+        });
+
+// export const clearActivePluginOnDrawerMenuClose = (action$) =>
+//     action$.ofType(TOGGLE_CONTROL)
+//         .switchMap(({}) => {
+//             return Rx.Observable.of(
+//                 clearActivePlugin()
+//             );
+//         });
 
 // export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
 //     action$.ofType(INSERT_DECEASED)
