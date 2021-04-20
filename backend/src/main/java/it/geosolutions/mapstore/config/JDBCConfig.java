@@ -5,8 +5,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 /**
- * Add @Configuration i @Bean for configuration of JDBC data source
- * in our project
+ * TODO - Add @Configuration i @Bean for configuration of JDBC data source in our project
+ *
+ * TODO - Add external xml configuration for Tomcat server
  *
  */
 

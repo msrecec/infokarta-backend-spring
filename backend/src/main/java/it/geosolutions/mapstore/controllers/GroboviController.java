@@ -34,39 +34,20 @@ public class GroboviController {
         HttpServletRequest req,
         HttpServletResponse response,
         @RequestParam(value = "groblje", required = false) String groblje,
-        @RequestParam(value = "geom", required = false) Boolean geom,
-        @RequestParam(value = "fid", required = false) Integer fid
+        @RequestParam(value = "page", required = false) Integer page
     ) throws IOException {
 
-        GrobDAO grobDAO = new GrobDAOImpl();
-        List<Grob> grobovi;
-        PGgeometry geometry = null;
-        Optional<String> oGroblje = Optional.ofNullable(groblje);
-        Optional<Boolean> oGeom = Optional.ofNullable(geom);
-        Optional<Integer> oFid = Optional.ofNullable(fid);
-        String json;
+        EntityListDTO groboviList;
 
-        if(oGroblje.isPresent()){
-            String decoded = EncodingUtils.decodeISO88591(oGroblje.get());
-            grobovi = grobDAO.getGroboviByGroblje(decoded);
-            json = JSONUtils.fromListToJSON(grobovi);
-        } else if (oGeom.isPresent() && oFid.isPresent() && !oGroblje.isPresent()) {
-
-            if(oFid.get() > 0) {
-
-                geometry = grobDAO.getGrobByFid(oFid.get());
-                json = JSONUtils.fromPGgeometryToJSON(geometry);
-
-            } else {
-                return;
-            }
-
+        if(groblje != null && page == null){
+            groboviList = grobService.findGroboviByGroblje(EncodingUtils.decodeISO88591(groblje));
+        } else if (groblje == null && page != null) {
+            groboviList = grobService.findPaginated(page);
         } else {
-            grobovi = grobDAO.listGrobovi();
-            json = JSONUtils.fromListToJSON(grobovi);
+            groboviList = grobService.findAll();
         }
 
-        HeaderUtils.responseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, JSONUtils.fromPOJOToJSON(groboviList));
     }
 
 

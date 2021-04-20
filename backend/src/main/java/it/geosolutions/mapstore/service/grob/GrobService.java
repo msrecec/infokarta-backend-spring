@@ -15,6 +15,7 @@ public interface GrobService {
     public Optional<GrobDTO> findById(Integer id);
     public Optional<GrobDTOWithoutGeom> findByIdWithoutGeom(Integer id);
     public EntityListDTO findAll();
+    public EntityListDTO findGroboviByGroblje(String groblje);
     EntityListDTO findPaginated(Integer page);
     Optional<GrobDTO> update(GrobPutCommand grobCommand);
 }

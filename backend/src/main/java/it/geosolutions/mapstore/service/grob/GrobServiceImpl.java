@@ -57,6 +57,13 @@ public class GrobServiceImpl implements GrobService {
     }
 
     @Override
+    public EntityListDTO findGroboviByGroblje(String groblje) {
+        List<Grob> grob = grobDAO.getGroboviByGroblje(groblje);
+        Integer count = grobDAO.findCount();
+        return mapGrobToEntityListDTO(grob, count);
+    }
+
+    @Override
     public Optional<GrobDTO> update(GrobPutCommand grobCommand) {
         return Optional.empty();
     }
