@@ -78,8 +78,8 @@ export const handleImageUploadByEntityId = (action$, {getState = () => {}} = {})
 
 export const sendRequestUponFileInfoUpdateAndSuccessfulUpload = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
-        UPDATE_METADATA_IN_STORE_INFO,
-        ACQUIRE_CURRENT_PLUGIN_NAME
+        UPDATE_METADATA_IN_STORE_INFO
+        // ACQUIRE_CURRENT_PLUGIN_NAME
     ).switchMap(({}) => {
         const pluginName = get(getState(), "dynamicComponents.activePlugin");
         const entityFid = get(getState(), "fileManagement.entityFid");
