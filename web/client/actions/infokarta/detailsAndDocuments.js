@@ -8,9 +8,10 @@ export const getDataForDetailsView = (fid, fk = null) => ({
     fk
 });
 
-export const storeDetailsViewResponse = (responseArray) => ({
+export const storeDetailsViewResponse = (response, pluginName) => ({
     type: STORE_DETAILS_VIEW_RESPONSE,
-    responseArray
+    response,
+    pluginName
 });
 
 export const clearDetailsAndDocsView = () => ({

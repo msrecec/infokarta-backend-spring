@@ -1,6 +1,7 @@
 import {
     SET_SEARCH_PARAMETERS_FOR_GRAVES,
     RESET_SEARCH_PARAMETERS_FOR_GRAVES,
+    SET_PAGE_FOR_GRAVES,
     GRAVES_RESPONSE_RECEIVED
 } from "../../actions/infokarta/graves";
 const graves = (
@@ -25,6 +26,12 @@ const graves = (
             ...state,
             searchParameters: {},
             pageNumber: 1
+        };
+    }
+    case SET_PAGE_FOR_GRAVES: {
+        return {
+            ...state,
+            pageNumber: parseInt(action.pageNumber, 10)
         };
     }
     case GRAVES_RESPONSE_RECEIVED: {

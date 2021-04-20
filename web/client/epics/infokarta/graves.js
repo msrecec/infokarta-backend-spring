@@ -6,7 +6,7 @@ import {
     SET_SEARCH_PARAMETERS_FOR_GRAVES,
     RESET_SEARCH_PARAMETERS_FOR_GRAVES,
     ZOOM_TO_GRAVE_FROM_GRAVES,
-    // SET_PAGE_FOR_GRAVES,
+    SET_PAGE_FOR_GRAVES,
     gravesResponseReceived
 } from "../../actions/infokarta/graves";
 
@@ -24,8 +24,8 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
     action$.ofType(
         SEND_SEARCH_REQUEST_FOR_GRAVES,
         SET_SEARCH_PARAMETERS_FOR_GRAVES,
-        RESET_SEARCH_PARAMETERS_FOR_GRAVES
-        // SET_PAGE_FOR_GRAVES
+        RESET_SEARCH_PARAMETERS_FOR_GRAVES,
+        SET_PAGE_FOR_GRAVES
     ).switchMap(({}) => {
         const searchParameters = get(getState(), "graves.searchParameters");
         const pageNumber = get(getState(), "graves.pageNumber");

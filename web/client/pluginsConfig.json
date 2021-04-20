@@ -589,6 +589,11 @@
       "glyph": "asterisk",
       "title": "plugins.Rasvjeta.title",
       "description": "plugins.Rasvjeta.description"
+    }, {
+      "name": "Groblja",
+      "glyph": "user",
+      "title": "plugins.Groblja.title",
+      "description": "plugins.Groblja.description"
     }
   ]
 }

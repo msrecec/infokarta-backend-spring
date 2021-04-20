@@ -290,7 +290,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "Pokojnici", "Grobovi", "Rasvjeta",
+        "desktop": ["Details", "Pokojnici", "Grobovi", "Rasvjeta", "Groblja",
           {
             "name": "Map",
             "cfg": {
