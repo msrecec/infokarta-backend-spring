@@ -31,11 +31,11 @@ export const editLighting = (itemToEdit) => ({
     itemToEdit
 });
 
-/* export const setSearchParametersForDeceased = (searchParameters) => ({
+export const setSearchParametersForLighting = (searchParameters) => ({
     type: SET_SEARCH_PARAMETERS_FOR_LIGHTING,
     searchParameters
 });
 
-export const resetSearchParametersForDeceased = () => ({
+export const resetSearchParametersForLighting = () => ({
     type: RESET_SEARCH_PARAMETERS_FOR_LIGHTING
-}); */
+});

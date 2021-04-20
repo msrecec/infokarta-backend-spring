@@ -7,9 +7,9 @@ import {
     SET_PAGE_FOR_LIGHTING,
     ZOOM_TO_LAMP_FROM_LIGHTING,
     EDIT_LIGHTING,
-    setPageForLighting
-/*     SET_SEARCH_PARAMETERS_FOR_LIGHTING,
-    RESET_SEARCH_PARAMETERS_FOR_LIGHTING */
+    setPageForLighting,
+    SET_SEARCH_PARAMETERS_FOR_LIGHTING,
+    RESET_SEARCH_PARAMETERS_FOR_LIGHTING
 } from '../../actions/infokarta/lighting';
 
 import lightingApi from '../../api/infokarta/rasvjetaApi';
@@ -31,12 +31,12 @@ export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) 
     action$.ofType(
         GET_LIGHTING_DATA,
         SET_PAGE_FOR_LIGHTING,
-        /*         SET_SEARCH_PARAMETERS_FOR_LIGHTING,
-        RESET_SEARCH_PARAMETERS_FOR_LIGHTING */
+        SET_SEARCH_PARAMETERS_FOR_LIGHTING,
+        RESET_SEARCH_PARAMETERS_FOR_LIGHTING
     ).switchMap(({}) => {
         const pageNumber = get(getState(), "lighting.pageNumber");
-        /*         const searchParameters = get(getState(), "lighting.searchParameters"); */
-        return Rx.Observable.fromPromise(lightingApi.getLightingData(/* searchParameters ,*/ pageNumber)
+        const searchParameters = get(getState(), "lighting.searchParameters");
+        return Rx.Observable.fromPromise(lightingApi.getLightingData(searchParameters, pageNumber)
             .then(data => data))
             .switchMap((response) => {
                 return Rx.Observable.of(
@@ -85,7 +85,7 @@ export const sendEditDataForLighting = (action$, {getState = () => {}} = {}) =>
             return Rx.Observable.fromPromise(lightingApi.editLightingData(itemToEdit)
                 .then(data => data))
                 .mergeMap((response) => {
-                    console.log('lampa edit', response.data);
+                    /* console.log('lampa edit', response.data); */
                     return Rx.Observable.of(
                         hideDynamicModal(),
                         setPageForLighting(getLighting.pageNumber) // added for page refresh, remove after adding search!!!

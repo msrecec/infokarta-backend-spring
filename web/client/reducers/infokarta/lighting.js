@@ -28,7 +28,7 @@ const lighting = (
             pageNumber: action.pageNumber
         };
     }
-    /*     case SET_SEARCH_PARAMETERS_FOR_LIGHTING: {
+    case SET_SEARCH_PARAMETERS_FOR_LIGHTING: {
         return {
             ...state,
             searchParameters: action.searchParameters,
@@ -41,7 +41,7 @@ const lighting = (
             searchParameters: {},
             pageNumber: 1
         };
-    } */
+    }
     default: {
         return state;
     }

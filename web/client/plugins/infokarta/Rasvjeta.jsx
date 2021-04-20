@@ -10,9 +10,9 @@ import {
     editLighting,
     getLightingData,
     setPageForLighting,
-    zoomToLampFromLighting
-    // setSearchParametersForLighting,
-    // resetSearchParametersForDeceased
+    zoomToLampFromLighting,
+    setSearchParametersForLighting,
+    resetSearchParametersForLighting
 } from "../../actions/infokarta/lighting";
 
 import {
@@ -41,7 +41,7 @@ import TableComponent from "../../components/infokarta/Table";
 import PaginationComponent from "../../components/infokarta/Pagination";
 import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
-// import SearchComponent from '../../components/infokarta/SearchForm';
+import SearchComponent from '../../components/infokarta/SearchForm';
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 import RasvjetaDetails from "../../components/infokarta/RasvjetaDetails";
 
@@ -71,17 +71,17 @@ const Rasvjeta = ({
     showDetails,
     editModalShow,
     detailViewItem,
-    loadData = () => {},
+    /* loadData = () => {}, */
     sendPageNumber = () => {},
     sendZoomData = () => {},
     setupEditModal = () => {},
     /* sendEditedData = () => {}, */
     closeDetailsView = () => {},
-    sendDataToDetailsView = () => {}
-/*     setSearchParametersForLighting = () => {},
-    resetSearchParametersForDeceased = () => {} */
+    sendDataToDetailsView = () => {},
+    sendSearchParameters = () => {},
+    resetSearchParameters = () => {}
 }) => {
-/*     const searchFormData = [
+    const searchFormData = [
         {
             label: "Materijal",
             type: "select",
@@ -93,18 +93,11 @@ const Rasvjeta = ({
             type: "select",
             value: "state",
             selectValues: ["", "dobro", "lose"]
-        },
-        {
-            label: "Grlo",
-            type: "select",
-            value: "socket",
-            selectValues: [""]
-
-            //Ovih vrijednosti još nema
-            //Ova komponenta neka ostane zakomentirana
-            //Dok se ne unesu grla u db
+            // Ovih vrijednosti još nema
+            // Ova komponenta neka ostane zakomentirana
+            // Dok se ne unesu grla u db
         }
-    ]; */
+    ];
     const table = (<TableComponent
         items ={data ? data : []}
         fieldsToInclude={fieldsToInclude ? fieldsToInclude : []}
@@ -130,11 +123,11 @@ const Rasvjeta = ({
         pluginName={"rasvjeta"}
     />);
 
-    /*     const search = (<SearchComponent
-        buildData={serchFormData}
+    const search = (<SearchComponent
+        buildData={searchFormData}
         search={sendSearchParameters}
         resetSearchParameters={resetSearchParameters}
-    />); */
+    />);
     const showDetailsStyle = {
         height: "150px",
         transition: "all .2s linear"
@@ -155,9 +148,8 @@ const Rasvjeta = ({
 
     return (
         <div style={{"padding": "10px"}}>
-            <Button onClick={() => loadData()}>Dohvati lampe</Button>
             {pluginNameEmitter}
-            {/* {search} */}
+            {search}
             <div style={showDetails ? showDetailsStyle : hideDetailsStyle}>
                 {table}
             </div>
@@ -172,18 +164,18 @@ export default createPlugin("Rasvjeta", {
     component: connect((state) => ({
         data: get(state, "lighting.data"),
         page: get(state, "lighting.pageNumber"),
-        showDetails: get(state, "detailsAndDocuments.showDetails"),
+        showLightingDetails: get(state, "detailsAndDocuments.rasvjetaShow"),
         totalNumber: get(state, "lighting.totalNumber"),
         editModalShow: get(state, "dynamicModalControl.modals.rasvjetaEdit"),
-        detailViewItem: get(state, "detailsAndDocuments.items"),
+        lightingDetailViewItems: get(state, "detailsAndDocuments.rasvjetaShow")
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
         sendZoomData: zoomToLampFromLighting,
         sendEditedData: editLighting,
         setupEditModal: showDynamicModal,
-        /* sendSearchParameters: setSearchParametersForLighting,
-        resetSearchparameters: resetSearchParametersForDeceased */
+        sendSearchParameters: setSearchParametersForLighting,
+        resetSearchparameters: resetSearchParametersForLighting,
         sendDataToDetailsView: getDataForDetailsView,
         closeDetailsView: clearDetailsAndDocsView
     })(Rasvjeta),
