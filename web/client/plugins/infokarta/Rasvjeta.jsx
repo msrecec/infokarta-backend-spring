@@ -167,7 +167,7 @@ export default createPlugin("Rasvjeta", {
         showLightingDetails: get(state, "detailsAndDocuments.rasvjetaShow"),
         totalNumber: get(state, "lighting.totalNumber"),
         editModalShow: get(state, "dynamicModalControl.modals.rasvjetaEdit"),
-        lightingDetailViewItems: get(state, "detailsAndDocuments.rasvjetaShow")
+        lightingDetailViewItems: get(state, "detailsAndDocuments.rasvjetaItem")
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
