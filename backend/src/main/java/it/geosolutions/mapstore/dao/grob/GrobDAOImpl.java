@@ -192,8 +192,14 @@ public class GrobDAOImpl implements GrobDAO, JDBCConfig {
     public Grob getGrobByPokojnikFid(Integer fid) {
         String sql = "SELECT * FROM \"grobovi\" INNER JOIN \"pokojnici\" ON \"grobovi\".fid = pokojnici.fk WHERE \"pokojnici\".fid = ?";
         GrobMapper grobMapper = new GrobMapper();
+        Grob grob;
 
-        Grob grob = (Grob)jdbcTemplateObject.queryForObject(sql, new Object[]{fid}, grobMapper);
+        try {
+            grob = (Grob)jdbcTemplateObject.queryForObject(sql, new Object[]{fid}, grobMapper);
+        } catch(EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            grob = new Grob();
+        }
 
         return grob;
     }
