@@ -13,13 +13,14 @@ import {
 } from "../../actions/infokarta/dynamicComponents";
 
 import {
-    TOGGLE_CONTROL
+    TOGGLE_CONTROL,
+    SET_CONTROL_PROPERTY
 } from "../../actions/controls";
 
 import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
-import { updateAdditionalLayer } from "../../actions/additionallayers";
+import { updateAdditionalLayer, removeAdditionalLayer } from "../../actions/additionallayers";
 import { defaultIconStyle } from '../../utils/SearchUtils';
-import { zoomToPoint } from '../../actions/map';
+import { zoomToPoint, CLICK_ON_MAP } from '../../actions/map';
 
 
 export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {}) =>
@@ -114,10 +115,11 @@ export const executeZoomToActivePluginSegment  = (action$, {getState = () => {}}
         }
         );
 
-// export const clearActivePluginOnDrawerMenuClose = (action$) =>
-//     action$.ofType(TOGGLE_CONTROL)
-//         .switchMap(({}) => {
-//             return Rx.Observable.of(
-//                 clearActivePlugin()
-//             );
-//         });
+export const removeActivePluginLayer = (action$, {getState = () => {}} = {}) =>
+    action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)
+        .switchMap(({}) => {
+            const activePlugin = get(getState(), "dynamicComponents.activePlugin");
+            return Rx.Observable.of(
+                removeAdditionalLayer({id: activePlugin, owner: activePlugin})
+            );
+        });
