@@ -15,6 +15,8 @@ const LighingApi = {
             url += 'grlo=' + searchParameters.socket + '&';
         }
 
+        // Provjeri ispravnost urla
+
         if (pageNumber) {
             url += 'page=' + pageNumber;
         } else {
@@ -27,7 +29,7 @@ const LighingApi = {
                 headers: header
             })
             .then(function(response) {
-                /* console.log(response.data); */
+
                 return response.data;
             }).catch(function(error) {
                 console.error(error);
@@ -38,7 +40,7 @@ const LighingApi = {
         let url = 'http://localhost:8080/mapstore/rest/config/rasvjeta';
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         lighting.timeStart = null; // server response: 500 error ako nije null
-        /* console.log(lighting); */
+
         return axios.put(
             url,
             lighting,
@@ -53,12 +55,12 @@ const LighingApi = {
     },
     getLightingForContainerObject: function(fid) {
         /* console.log("This do be IdHist: ", fid); */
+
         let rasvjetaId = 'http://localhost:8080/mapstore/rest/config/rasvjeta/' + fid;
         console.log("Reci mislavu da doda geom=false funkcionalnost na žarulje");
         return axios.get(rasvjetaId)
             .then(function(response) {
-                delete response.data.geom;
-                /* console.log("response nakon deletea", response.data); */
+
                 return response.data;
             }).catch(function(error) {
                 /* eslint-disable no-console */

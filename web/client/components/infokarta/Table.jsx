@@ -18,7 +18,7 @@ class TableComponent extends React.Component {
       items: [],
       fieldsToInclude: [],
       showDetails: false,
-      zoomToItem: () => {},
+      /* zoomToItem: () => {}, */
       sendDataToDetailsView: () => {}
   };
 
@@ -67,7 +67,7 @@ class TableComponent extends React.Component {
                   </thead>
                   <tbody>
                       {this.props.items.map((item) =>
-                          <tr key={`b-tr-${item.id_hist ? item.id_hist : item.fid}`} id={`b-tr-${item.id_hist ? item.id_hist : item.fid}`} onClick={() => {this.sendRowDataToDetailsView(item); this.setActiveRow(`b-tr-${item.id_hist ? item.id_hist : item.fid}`);}}>
+                          <tr key={`b-tr-${item.id_hist ? item.id_hist : item.fid}`} id={`b-tr-${item.id_hist ? item.id_hist : item.fid}`} onClick={() => {this.props.sendDataToDetailsView(item.fid); this.setActiveRow(`b-tr-${item.id_hist ? item.id_hist : item.fid}`);}}>
                               {Object.entries(item).map((field) => {
                                   if (this.props.fieldsToInclude.includes(field[0])) {
                                       return (
@@ -82,15 +82,6 @@ class TableComponent extends React.Component {
               </Table>
           </div>
       );
-  }
-
-  sendRowDataToDetailsView(item) {
-      this.props.sendDataToDetailsView(item.fid);
-      //   this.props.zoomToItem(item.geom || item.fk);
-      //   const temp = cloneDeep(item);
-      //   if (temp.geom) {
-      //       delete temp.geom;
-      //   }
   }
 
   setActiveRow(key) {

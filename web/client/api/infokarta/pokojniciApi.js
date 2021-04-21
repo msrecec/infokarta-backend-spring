@@ -102,7 +102,7 @@ const Api = {
     },
     getGraveCoordinates: function(graveId) {
         let url = 'http://localhost:8080/mapstore/rest/config/grobovi?';
-        url += 'fid=' + graveId + '&geom=true';
+        url += 'fid=' + graveId;
 
         let header = { "Content-Type": "application/json;charset=UTF-8" };
         if (graveId > 0) {

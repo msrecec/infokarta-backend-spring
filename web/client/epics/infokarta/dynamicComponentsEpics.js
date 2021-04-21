@@ -30,7 +30,6 @@ export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {})
             return Rx.Observable.fromPromise(dynamicComponentsApi.getItem(activePlugin, fid)
                 .then(data => data))
                 .switchMap((response) => {
-                    console.log('!!! edit response', response);
                     return Rx.Observable.of(
                         showDynamicModal("Edit", response)
                     );
@@ -50,7 +49,6 @@ export const fetchColumnsFromDeceasedForInsert = (action$, {getState = () => {}}
             return Rx.Observable.fromPromise(dynamicComponentsApi.getColumns(activePlugin)
                 .then(data => data))
                 .switchMap((columns) => {
-                    /* console.log('!!!', columns); */
                     return Rx.Observable.of(
                         showDynamicModal("Insert", columns)
                     );
@@ -70,7 +68,6 @@ export const saveEditedItemToDatabase = (action$, {getState = () => {}} = {}) =>
             return Rx.Observable.fromPromise(dynamicComponentsApi.saveEdit(activePlugin, item)
                 .then(data => data))
                 .mergeMap((response) => {
-                    /* console.log('!!!', response); */
                     return Rx.Observable.of(
                         clearDynamicComponentStore(),
                         insertSuccessful("Unos potvrđen", "Vaša izmjena je uspješno pohranjena u bazu podataka.")

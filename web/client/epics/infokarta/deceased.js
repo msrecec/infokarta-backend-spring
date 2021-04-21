@@ -85,7 +85,6 @@ export const zoomToGraveFromPokojniciPlugin = (action$) =>
                             coordinates: [res.coordinates.x, res.coordinates.y]
                         }
                     };
-                    /* console.log('zoom response: ', res); */
                     return Rx.Observable.from([
                         updateAdditionalLayer('graves', 'graves', 'overlay', {
                             features: [feature],
