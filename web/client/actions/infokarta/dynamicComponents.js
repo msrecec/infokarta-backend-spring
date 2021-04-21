@@ -8,6 +8,14 @@ export const ACQUIRE_CURRENT_PLUGIN_NAME = 'ACQUIRE_CURRENT_PLUGIN_NAME';
 export const SAVE_EDITED_ITEM = 'SAVE_EDITED_ITEM';
 export const CLEAR_ACTIVE_PLUGIN = 'CLEAR_ACTIVE_PLUGIN';
 
+export const ZOOM_TO_ACTIVE_PLUGIN_SEGMENT = 'ZOOM_TO_ACTIVE_PLUGIN_SEGMENT';
+
+export const zoomToActivePluginSegment = (geom, graveId) => ({
+    type: ZOOM_TO_ACTIVE_PLUGIN_SEGMENT,
+    geom,
+    graveId
+});
+
 export const showDynamicModal = (modalType, additionalObject = {}) => ({
     type: SHOW_DYNAMIC_MODAL,
     modalType,

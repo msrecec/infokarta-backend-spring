@@ -8,7 +8,8 @@ import {
     clearDynamicComponentStore,
     insertSuccessful,
     showDynamicModal,
-    clearActivePlugin
+    clearActivePlugin,
+    ZOOM_TO_ACTIVE_PLUGIN_SEGMENT
 } from "../../actions/infokarta/dynamicComponents";
 
 import {
@@ -16,6 +17,10 @@ import {
 } from "../../actions/controls";
 
 import dynamicComponentsApi from "../../api/infokarta/dynamicComponentsApi";
+import { updateAdditionalLayer } from "../../actions/additionallayers";
+import { defaultIconStyle } from '../../utils/SearchUtils';
+import { zoomToPoint } from '../../actions/map';
+
 
 export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {}) =>
     action$.ofType(GET_ITEM_FOR_EDIT_FROM_DATABASE)
@@ -82,3 +87,37 @@ export const clearActivePluginOnDrawerMenuClose = (action$) =>
                 clearActivePlugin()
             );
         });
+
+export const executeZoomToActivePluginSegment  = (action$, {getState = () => {}} = {}) =>
+    action$.ofType(ZOOM_TO_ACTIVE_PLUGIN_SEGMENT)
+        .switchMap(({ geom = {} }) => {
+            const activePlugin = get(getState(), "dynamicComponents.activePlugin");
+            const feature = {
+                type: "Feature",
+                geometry: {
+                    type: "Point",
+                    coordinates: geom.coordinates
+                }
+            };
+            return Rx.Observable.from([
+                updateAdditionalLayer(activePlugin, activePlugin, 'overlay', {
+                    features: [feature],
+                    type: "vector",
+                    name: `${activePlugin}Points`,
+                    id: `${activePlugin}Points`,
+                    visibility: true,
+                    style: defaultIconStyle,
+                    featuresCrs: "EPSG:3765"
+                }),
+                zoomToPoint(geom.coordinates, 16, geom.crs.properties.name)
+            ]);
+        }
+        );
+
+// export const clearActivePluginOnDrawerMenuClose = (action$) =>
+//     action$.ofType(TOGGLE_CONTROL)
+//         .switchMap(({}) => {
+//             return Rx.Observable.of(
+//                 clearActivePlugin()
+//             );
+//         });

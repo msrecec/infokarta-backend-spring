@@ -16,7 +16,8 @@ import {
 } from "../../actions/infokarta/lighting";
 
 import {
-    showDynamicModal
+    showDynamicModal,
+    zoomToActivePluginSegment
 } from "../../actions/infokarta/dynamicComponents";
 
 import {
@@ -180,7 +181,7 @@ export default createPlugin("Rasvjeta", {
     }), {
         loadData: getLightingData,
         sendPageNumber: setPageForLighting,
-        sendZoomData: zoomToLampFromLighting,
+        sendZoomData: zoomToActivePluginSegment,
         sendEditedData: editLighting,
         setupEditModal: showDynamicModal,
         sendSearchParameters: setSearchParametersForLighting,
