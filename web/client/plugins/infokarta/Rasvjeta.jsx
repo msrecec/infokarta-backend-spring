@@ -10,7 +10,6 @@ import {
     editLighting,
     getLightingData,
     setPageForLighting,
-    zoomToLampFromLighting,
     setSearchParametersForLighting,
     resetSearchParametersForLighting
 } from "../../actions/infokarta/lighting";
@@ -81,11 +80,9 @@ const Rasvjeta = ({
     showDetails,
     editModalShow,
     detailViewItem,
-    /* loadData = () => {}, */
     sendPageNumber = () => {},
     sendZoomData = () => {},
     setupEditModal = () => {},
-    /* sendEditedData = () => {}, */
     closeDetailsView = () => {},
     sendDataToDetailsView = () => {},
     sendSearchParameters = () => {},
@@ -137,7 +134,9 @@ const Rasvjeta = ({
         buildData={searchFormData}
         search={sendSearchParameters}
         resetSearchParameters={resetSearchParameters}
+        disableInsert
     />);
+
     const showDetailsStyle = {
         height: "150px",
         transition: "all .2s linear"
