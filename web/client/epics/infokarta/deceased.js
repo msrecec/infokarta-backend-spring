@@ -72,7 +72,7 @@ export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () =
             });
     });
 
-export const zoomToGraveFromPokojniciPlugin = (action$) =>
+/* export const zoomToGraveFromPokojniciPlugin = (action$) =>
     action$.ofType(ZOOM_TO_GRAVE_FROM_DECEASED)
         .switchMap(({ graveId = {} }) => {
             return Rx.Observable.fromPromise(pokojniciApi.getGraveCoordinates(graveId)
@@ -100,11 +100,11 @@ export const zoomToGraveFromPokojniciPlugin = (action$) =>
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
-                        /* eslint-disable no-console */
+                        // eslint-disable no-console
                         console.error('error while fetching geom for zoom function', error)
                     );
                 });
-        });
+        }); */
 
 export const removeGravePinLayerFromDeceasedPlugin = (action$) =>
     action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)

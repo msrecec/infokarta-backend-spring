@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 
 import { displayFeatureInfo, buildCarouselFromURLs } from "../../../utils/infokarta/ComponentConstructorUtil";
 import { zoomToGraveFromDeceased } from "../../../actions/infokarta/deceased";
+import { zoomToActivePluginSegment } from "../../../actions/infokarta/dynamicComponents";
 
 import FileComponentParent from '../fileUpload/ParentComponent';
 
@@ -133,7 +134,7 @@ const PokojniciDetails = connect((state) => {
 
     };
 }, {
-    zoomToItem: zoomToGraveFromDeceased
+    zoomToItem: zoomToActivePluginSegment
 })(BasePokojniciDetails);
 
 export default PokojniciDetails;

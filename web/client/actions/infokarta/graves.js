@@ -2,7 +2,7 @@ export const SEND_SEARCH_REQUEST_FOR_GRAVES = "SEND_SEARCH_REQUEST_FOR_GRAVES";
 export const SET_SEARCH_PARAMETERS_FOR_GRAVES = "SET_SEARCH_PARAMETERS_FOR_GRAVES";
 export const RESET_SEARCH_PARAMETERS_FOR_GRAVES = "RESET_SEARCH_PARAMETERS_FOR_GRAVES";
 export const GRAVES_RESPONSE_RECEIVED = "GRAVES_RESPONSE_RECEIVED";
-export const ZOOM_TO_GRAVE_FROM_GRAVES = "ZOOM_TO_GRAVE_FROM_GRAVES";
+/* export const ZOOM_TO_GRAVE_FROM_GRAVES = "ZOOM_TO_GRAVE_FROM_GRAVES"; */
 export const SET_PAGE_FOR_GRAVES = "SET_PAGE_FOR_GRAVES";
 
 export const sendSearchRequestForGraves = () => ({
@@ -29,7 +29,7 @@ export const gravesResponseReceived = (data, count) => ({
     count
 });
 
-export const zoomToGraveFromGraves = (geom) => ({
+/* export const zoomToGraveFromGraves = (geom) => ({
     type: ZOOM_TO_GRAVE_FROM_GRAVES,
     geom
-});
+}); */

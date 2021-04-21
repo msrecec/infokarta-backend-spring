@@ -46,7 +46,7 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
             });
     });
 
-export const zoomToGraveFromGravesPlugin = (action$) =>
+/* export const zoomToGraveFromGravesPlugin = (action$) =>
     action$.ofType(ZOOM_TO_GRAVE_FROM_GRAVES)
         .switchMap(({ geom = {} }) => {
             const feature = {
@@ -68,7 +68,7 @@ export const zoomToGraveFromGravesPlugin = (action$) =>
                 }),
                 zoomToPoint(geom.coordinates, 16, geom.crs.properties.name)
             ]);
-        });
+        }); */
 
 export const removeGravePinLayerFromGravesPlugin = (action$) =>
     action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)

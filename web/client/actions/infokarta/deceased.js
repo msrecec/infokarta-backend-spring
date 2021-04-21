@@ -6,7 +6,7 @@ export const SET_PAGE_FOR_DECEASED = "SET_PAGE_FOR_DECEASED";
 export const RESET_PAGE_FOR_DECEASED = "RESET_PAGE_FOR_DECEASED";
 // export const EDIT_DECEASED = "EDIT_DECEASED";
 export const INSERT_DECEASED = "INSERT_DECEASED";
-export const ZOOM_TO_GRAVE_FROM_DECEASED = "ZOOM_TO_GRAVE_FROM_DECEASED";
+/* export const ZOOM_TO_GRAVE_FROM_DECEASED = "ZOOM_TO_GRAVE_FROM_DECEASED"; */
 
 export const sendSearchRequestForDeceased = () => ({
     type: SEND_SEARCH_REQUEST_FOR_DECEASED
@@ -42,7 +42,7 @@ export const insertDeceased = (itemToInsert) => ({
     itemToInsert
 });
 
-export const zoomToGraveFromDeceased = (graveId) => ({
+/* export const zoomToGraveFromDeceased = (graveId) => ({
     type: ZOOM_TO_GRAVE_FROM_DECEASED,
     graveId
-});
+}); */

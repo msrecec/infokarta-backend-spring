@@ -4,7 +4,8 @@ import {connect} from "react-redux";
 
 import { displayFeatureInfo, buildCarouselFromURLs } from "../../../utils/infokarta/ComponentConstructorUtil";
 import { zoomToGraveFromGraves } from "../../../actions/infokarta/graves";
-
+import { zoomToActivePluginSegment } from "../../../actions/infokarta/dynamicComponents"
+;
 import FileComponentParent from '../fileUpload/ParentComponent';
 import Table from '../Table';
 
@@ -122,7 +123,7 @@ const GroboviDetails = connect((state) => {
 
     };
 }, {
-    zoomToItem: zoomToGraveFromGraves
+    zoomToItem: zoomToActivePluginSegment
 })(BaseGroboviDetails);
 
 export default GroboviDetails;

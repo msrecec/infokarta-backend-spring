@@ -45,7 +45,7 @@ export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) 
             });
     });
 
-export const zoomToLampFromRasvjetaPlugin = (action$) =>
+/* export const zoomToLampFromRasvjetaPlugin = (action$) =>
     action$.ofType(ZOOM_TO_LAMP_FROM_LIGHTING)
         .switchMap(({ geom = {} }) => {
             const feature = {
@@ -67,7 +67,7 @@ export const zoomToLampFromRasvjetaPlugin = (action$) =>
                 }),
                 zoomToPoint(geom.coordinates, 16, geom.crs.properties.name)
             ]);
-        });
+        }); */
 
 export const removeLightingPinLayer = (action$) =>
     action$.ofType(TOGGLE_CONTROL, SET_CONTROL_PROPERTY, CLICK_ON_MAP)

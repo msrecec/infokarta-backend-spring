@@ -32,7 +32,8 @@ import {
 } from "../../actions/infokarta/detailsAndDocuments";
 
 import {
-    getItemForEditFromDatabase
+    getItemForEditFromDatabase,
+    zoomToActivePluginSegment
 } from "../../actions/infokarta/dynamicComponents";
 
 // utils
@@ -345,8 +346,8 @@ export default createPlugin("Groblja", {
 
         setupEditModal: getItemForEditFromDatabase,
 
-        sendGraveZoomData: zoomToGraveFromGraves,
-        sendDeceasedZoomData: zoomToGraveFromDeceased,
+        sendGraveZoomData: zoomToActivePluginSegment,
+        sendDeceasedZoomData: zoomToActivePluginSegment,
 
         sendDataToDetailsView: getDataForDetailsView,
         closeDetailsView: clearDetailsAndDocsView,

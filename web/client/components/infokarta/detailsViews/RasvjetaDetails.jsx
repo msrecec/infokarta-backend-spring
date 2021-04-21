@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 import { displayFeatureInfo, buildCarouselFromURLs } from "../../../utils/infokarta/ComponentConstructorUtil";
 import { zoomToLampFromLighting } from '../../../actions/infokarta/lighting';
+import { zoomToActivePluginSegment } from '../../../actions/infokarta/dynamicComponents';
 
 import FileComponentParent from '../fileUpload/ParentComponent';
 
@@ -122,7 +123,7 @@ const RasvjetaDetails = connect((state) => {
 
     };
 }, {
-    zoomToItem: zoomToLampFromLighting
+    zoomToItem: zoomToActivePluginSegment
 })(BaseRasvjetaDetails);
 
 export default RasvjetaDetails;
