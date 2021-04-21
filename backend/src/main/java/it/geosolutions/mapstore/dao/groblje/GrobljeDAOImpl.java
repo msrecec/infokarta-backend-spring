@@ -7,6 +7,7 @@ import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.model.groblje.Groblje;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
 
