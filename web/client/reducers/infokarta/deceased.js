@@ -4,6 +4,7 @@ import {
     DECEASED_RESPONSE_RECEIVED,
     SET_PAGE_FOR_DECEASED
 } from "../../actions/infokarta/deceased";
+
 const deceased = (
     state = {
         data: [],

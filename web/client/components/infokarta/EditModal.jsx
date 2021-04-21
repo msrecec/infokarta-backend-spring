@@ -38,16 +38,15 @@ class BaseModalComponent extends React.Component {
       this.state = {};
   }
 
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
       if (prevProps.show !== this.props.show) {
-
           this.updateState();
           // svaki put kad se promijeni vrijednost props.show (tj. kad se prikaze komponenta)
           // zove se funkcija za ucitat podatke u lokalni state
           // oni se kasnije salju u api poziv za edit
       }
   }
+
   render() {
       return (
           <Modal show={this.props.show} onHide={this.props.hideModal} backdrop={'static'}>

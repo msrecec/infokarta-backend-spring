@@ -114,14 +114,11 @@ class BaseGroboviDetails extends React.Component {
         const myElem = document.getElementsByClassName("myElem");
         if (myElem) {
             this.props.zoomToItem(this.props.items.geom);
-            console.log(":D:D:D", this.props);
         }
     }
 }
-const GroboviDetails = connect((state) => {
-    return {
-
-    };
+const GroboviDetails = connect(() => {
+    return {};
 }, {
     zoomToItem: zoomToGraveFromGraves
 })(BaseGroboviDetails);

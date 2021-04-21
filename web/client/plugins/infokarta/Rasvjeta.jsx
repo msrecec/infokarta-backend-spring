@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { get } from "lodash";
 
 import Message from "../../components/I18N/Message";
-import { Glyphicon, Button } from "react-bootstrap";
+import { Glyphicon } from "react-bootstrap";
 
 // actions
 import {
@@ -25,6 +25,7 @@ import {
 } from "../../actions/infokarta/detailsAndDocuments";
 
 // utils
+import { createPlugin } from '../../utils/PluginsUtils';
 
 // reducers
 import lighting from '../../reducers/infokarta/lighting';
@@ -33,20 +34,26 @@ import detailsAndDocuments from "../../reducers/infokarta/detailsAndDocuments";
 import fileManagement from "../../reducers/infokarta/fileManagement";
 
 // epics
-/* import * as epics from '../../epics/infokarta/lighting'; */
 import { completeLightingEpics } from '../../epics/infokarta/combinedEpics';
 
 // components
 import TableComponent from "../../components/infokarta/Table";
 import PaginationComponent from "../../components/infokarta/Pagination";
-import { createPlugin } from '../../utils/PluginsUtils';
 import EditModal from '../../components/infokarta/EditModal';
 import SearchComponent from '../../components/infokarta/SearchForm';
 import PluginNameEmitter from '../../components/infokarta/PluginNameEmitter';
 import RasvjetaDetails from "../../components/infokarta/detailsViews/RasvjetaDetails";
 
-const fieldsToInclude = ["fid", "materijal", "stanje"];
-const fieldsToExclude = ["fid", "geom", "source", "mjernoMjesto",
+const fieldsToInclude = [
+    "fid",
+    "materijal",
+    "stanje"
+];
+const fieldsToExclude = [
+    "fid",
+    "geom",
+    "source",
+    "mjernoMjesto",
     "vod",
     "kategorija",
     "vrstaRasvjetnogMjesta",
@@ -62,8 +69,10 @@ const fieldsToExclude = ["fid", "geom", "source", "mjernoMjesto",
     "oznakaUgovora",
     "timeStart",
     "timeEnd",
-    "userRole"];
+    "userRole"
+];
 const readOnlyFields = [];
+
 const Rasvjeta = ({
     data,
     page,

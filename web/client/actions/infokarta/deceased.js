@@ -4,7 +4,6 @@ export const SET_SEARCH_PARAMETERS_FOR_DECEASED = "SET_SEARCH_PARAMETERS_FOR_DEC
 export const RESET_SEARCH_PARAMETERS_FOR_DECEASED = "RESET_SEARCH_PARAMETERS_FOR_DECEASED";
 export const SET_PAGE_FOR_DECEASED = "SET_PAGE_FOR_DECEASED";
 export const RESET_PAGE_FOR_DECEASED = "RESET_PAGE_FOR_DECEASED";
-// export const EDIT_DECEASED = "EDIT_DECEASED";
 export const INSERT_DECEASED = "INSERT_DECEASED";
 export const ZOOM_TO_GRAVE_FROM_DECEASED = "ZOOM_TO_GRAVE_FROM_DECEASED";
 
@@ -31,11 +30,6 @@ export const setPageForDeceased = (pageNumber) => ({
     type: SET_PAGE_FOR_DECEASED,
     pageNumber
 });
-
-// export const editDeceased = (itemToEdit) => ({
-//     type: EDIT_DECEASED,
-//     itemToEdit
-// });
 
 export const insertDeceased = (itemToInsert) => ({
     type: INSERT_DECEASED,

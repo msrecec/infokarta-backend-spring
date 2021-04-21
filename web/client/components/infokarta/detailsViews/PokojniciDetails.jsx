@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-
 import { displayFeatureInfo, buildCarouselFromURLs } from "../../../utils/infokarta/ComponentConstructorUtil";
 import { zoomToGraveFromDeceased } from "../../../actions/infokarta/deceased";
 
@@ -99,7 +98,6 @@ class BasePokojniciDetails extends React.Component {
                                 <Button
                                     bsStyle="link"
                                     onClick={() => this.props.toggleDetailViews(this.props.items.pokojnik.fk)}
-                                    // style={{display: "flex"}}
                                 >
                                     <h3><u>Grobnica</u></h3>
                                 </Button>
@@ -122,16 +120,12 @@ class BasePokojniciDetails extends React.Component {
         const myElem = document.getElementsByClassName("myElem");
         if (myElem) {
             this.props.zoomToItem(this.props.items.geom);
-            console.log(":D:D:D", this.props);
         }
-        // Nece zumirat
     }
 }
 
-const PokojniciDetails = connect((state) => {
-    return {
-
-    };
+const PokojniciDetails = connect(() => {
+    return {};
 }, {
     zoomToItem: zoomToGraveFromDeceased
 })(BasePokojniciDetails);

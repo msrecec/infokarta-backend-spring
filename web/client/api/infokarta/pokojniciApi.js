@@ -1,7 +1,9 @@
 import axios from "../../libs/ajax";
 
+let header = { "Content-Type": "application/json;charset=UTF-8" };
+
 const Api = {
-    searchPokojnici: function(searchParameters, pageNumber) {
+    searchPokojnici: function(searchParameters, pageNumber = 1) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
 
         //
@@ -18,19 +20,13 @@ const Api = {
         if (searchParameters.groblje) {
             url += 'groblje=' + searchParameters.groblje + '&';
         }
-        //
 
         // for (const [key, value] of Object.entries(searchParameters)) {
         //     url += key + '=' + value + '&';
         // }
 
-        if (pageNumber) {
-            url += 'page=' + pageNumber;
-        } else {
-            url += 'page=1';
-        }
+        url += 'page=' + pageNumber;
 
-        let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.get(
             url,
             {
@@ -45,7 +41,6 @@ const Api = {
     },
     editPokojnik: function(pokojnik) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici';
-        let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.put(
             url,
             pokojnik,
@@ -86,7 +81,6 @@ const Api = {
             itemToInsert.fk = graveId;
         }
 
-        let header = { "Content-Type": "application/json;charset=UTF-8" };
         return axios.post(
             url,
             itemToInsert,
@@ -104,7 +98,6 @@ const Api = {
         let url = 'http://localhost:8080/mapstore/rest/config/grobovi?';
         url += 'fid=' + graveId;
 
-        let header = { "Content-Type": "application/json;charset=UTF-8" };
         if (graveId > 0) {
             return axios.get(
                 url,
@@ -129,9 +122,9 @@ const Api = {
         console.error('ERROR: fid is not valid');
         return null;
     },
-    getPokojnikAndLinkedGrob: function(pokojnikFid, grobFid) {
+    getPokojnikAndLinkedGrob: function(pokojnikFid, grobFid) { // TODO fix once api call is done !!!!!!!!!!!!
         let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici/' + pokojnikFid;
-        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid;
+        // let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid;
 
         // let containerObject = {};
         // return axios.get(pokojniciUrl)

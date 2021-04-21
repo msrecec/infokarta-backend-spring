@@ -42,12 +42,9 @@ const lighting = (
             pageNumber: 1
         };
     }
-    default: {
+    default:
         return state;
     }
-    }
 };
-
-// SEARCH REDUCERI
 
 export default lighting;

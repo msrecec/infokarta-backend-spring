@@ -2,6 +2,7 @@ import {
     STORE_DETAILS_VIEW_RESPONSE,
     CLEAR_DETAILS_AND_DOCS_VIEW
 } from "../../actions/infokarta/detailsAndDocuments";
+
 const detailsAndDocuments = (
     state = {},
     action

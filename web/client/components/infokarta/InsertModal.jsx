@@ -5,7 +5,6 @@ import {Button, Modal, Form, FormControl, FormGroup, ControlLabel} from 'react-b
 import { get, isEmpty, isArray } from "lodash";
 
 import {
-    /* showInsertModal, */
     clearDynamicComponentStore,
     alternateModalVisibility
 } from "../../actions/infokarta/dynamicComponents";
@@ -119,7 +118,6 @@ const ModalComponent = connect((state) => {
         insertConfirmationModalName: get(state, 'dynamicComponents.activePlugin') + 'Confirmation'
     };
 }, {
-    /* showModal: showInsertModal, */
     hideModal: clearDynamicComponentStore,
     sendToConfirmationForm: alternateModalVisibility
 })(BaseModalComponent);

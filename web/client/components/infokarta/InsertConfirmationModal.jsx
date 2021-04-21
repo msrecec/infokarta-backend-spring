@@ -5,8 +5,6 @@ import {Button, Modal, Form, ControlLabel} from 'react-bootstrap';
 import { get } from "lodash";
 
 import {
-    // showInsertConfirmationModal,
-    // hideInsertConfirmationModal,
     alternateModalVisibility
 } from "../../actions/infokarta/dynamicComponents";
 
@@ -43,7 +41,7 @@ class BaseModalComponent extends React.Component {
               <Modal.Body style={formStyle}>
                   <Form>
                       {this.props.extraForm ? this.props.extraForm : null}
-                      {this.props.itemToCheck ? displayFeatureInfo(this.props.itemToCheck /* , this.props.fieldsToExclude*/) : <ControlLabel>Nema podataka za prikaz.</ControlLabel>}
+                      {this.props.itemToCheck ? displayFeatureInfo(this.props.itemToCheck) : <ControlLabel>Nema podataka za prikaz.</ControlLabel>}
                   </Form>
               </Modal.Body>
               <Modal.Footer>

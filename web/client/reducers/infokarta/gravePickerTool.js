@@ -6,6 +6,7 @@ import {
     CONFIRM_GRAVE_PICK,
     CLEAR_GRAVE_PICKER_TOOL_STORE
 } from "../../actions/infokarta/gravePickerTool";
+
 const gravePickerTool = (
     state = {
         graveChooseEnabled: false,

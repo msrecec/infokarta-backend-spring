@@ -3,6 +3,7 @@ import {
     UPLOAD_NEW_IMAGE_RESPONSE,
     UPDATE_METADATA_IN_STORE_INFO
 } from "../../actions/infokarta/fileManagement";
+
 const fileManagement = (
     state = {
         files: [],

@@ -1,4 +1,3 @@
-import { mapValues } from 'lodash';
 import {
     CLEAR_DYNAMIC_COMPONENT_STORE,
     SHOW_DYNAMIC_MODAL,
@@ -7,20 +6,18 @@ import {
     ACQUIRE_CURRENT_PLUGIN_NAME,
     CLEAR_ACTIVE_PLUGIN
 } from '../../actions/infokarta/dynamicComponents';
+import { mapValues } from 'lodash';
 
-const dynamicComponents = (state = {
-    itemToEdit: {},
-    itemToCheck: {},
-    itemToInsert: [],
-    modals: {},
-    activePlugin: null
-    // editModalVisible: false,
-    // insertModalVisible: false,
-    // insertConfirmationModalVisible: false,
-    // editModalName: "",
-    // insertModalName: "",
-    // insertConfirmationModalName: ""
-}, action) => {
+const dynamicComponents = (
+    state = {
+        itemToEdit: {},
+        itemToCheck: {},
+        itemToInsert: [],
+        modals: {},
+        activePlugin: null
+    },
+    action
+) => {
     switch (action.type) {
     case SHOW_DYNAMIC_MODAL: {
         let temp = {...state.modals};
@@ -62,9 +59,6 @@ const dynamicComponents = (state = {
         return {
             ...state,
             activePlugin: action.name
-            // editModalName: action.name + "Edit",
-            // insertModalName: action.name + "Insert",
-            // insertConfirmationModalName: action.name + "Confirmation"
         };
     }
     case CLEAR_ACTIVE_PLUGIN: {

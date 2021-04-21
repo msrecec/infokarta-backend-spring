@@ -1,5 +1,7 @@
 import axios from "../../libs/ajax";
 
+const header = { "Content-Type": "application/json;charset=UTF-8" };
+
 const Api = {
     getItem: function(layerName, fid) {
         let url = `http://localhost:8080/mapstore/rest/config/${layerName}/${fid}?geom=false`;
@@ -25,7 +27,6 @@ const Api = {
     },
     saveEdit: function(layerName, item) {
         let url = `http://localhost:8080/mapstore/rest/config/${layerName}`;
-        let header = { "Content-Type": "application/json;charset=UTF-8" };
 
         return axios.put(
             url,

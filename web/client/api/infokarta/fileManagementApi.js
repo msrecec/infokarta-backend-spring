@@ -1,13 +1,10 @@
 import axios from "../../libs/ajax";
 
+const header = { "Content-Type": "multipart/form-data;" };
+
 const fileManagementApi = {
     uploadFile: function(pluginName, documentType, file, entityFid) {
         const url = `http://localhost:8080/mapstore/rest/config/${pluginName}/upload/media/${documentType}?entityFid=${entityFid}`;
-
-
-        const header = {
-            "Content-Type": "multipart/form-data;"
-        };
 
         let formData = new FormData();
         formData.append("file", file);
@@ -66,7 +63,6 @@ const fileManagementApi = {
                 });
         }
         return null;
-
     }
 };
 

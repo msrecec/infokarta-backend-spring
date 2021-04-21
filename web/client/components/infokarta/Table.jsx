@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'react-bootstrap';
-import { cloneDeep } from "lodash";
 
 import {beautifyHeader} from "../../utils/infokarta/BeautifyUtil";
 
@@ -40,7 +39,6 @@ class TableComponent extends React.Component {
   }
 
   render() {
-      console.log(this.props.items, '!!!');
       const thStyle = {
           position: "sticky",
           top: "0",

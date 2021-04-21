@@ -29,4 +29,5 @@ const PluginNameEmitter = connect(() => {
 }, {
     sendPluginName: acquireCurrentPluginName
 })(BasePluginEmitter);
+
 export default PluginNameEmitter;

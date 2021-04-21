@@ -21,9 +21,8 @@ export const imagesLoadedByEntityId = (response) => ({
     response
 });
 
-export const uploadNewImageByEntityId = (/* entityName, */ documentType, file, entityFid) => ({
+export const uploadNewImageByEntityId = (documentType, file, entityFid) => ({
     type: UPLOAD_NEW_IMAGE_BY_ENTITY_ID,
-    /* entityName, */
     documentType,
     file,
     entityFid
@@ -39,7 +38,7 @@ export const updateMetadataInStoreInfo = (entityFid) => ({
     entityFid
 });
 
-export const getDocumentsByEntityId  = ( documentType, entityFid) => ({
+export const getDocumentsByEntityId  = (documentType, entityFid) => ({
     type: GET_DOCUMENTS_BY_ENTITY_ID,
     documentType,
     entityFid
@@ -50,9 +49,8 @@ export const documentsLoadedByEntityId = (response) => ({
     response
 });
 
-export const uploadNewDocumentByEntityId = (/* entityName, */ documentType, file, entityFid) => ({
+export const uploadNewDocumentByEntityId = (documentType, file, entityFid) => ({
     type: UPLOAD_NEW_DOCUMENT_BY_ENTITY_ID,
-    /* entityName, */
     documentType,
     file,
     entityFid
@@ -62,5 +60,3 @@ export const uploadNewDocumentResponse = (response) => ({
     type: UPLOAD_NEW_DOCUMENT_RESPONSE,
     response
 });
-
-

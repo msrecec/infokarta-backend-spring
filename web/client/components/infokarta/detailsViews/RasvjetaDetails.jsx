@@ -8,7 +8,6 @@ import { zoomToLampFromLighting } from '../../../actions/infokarta/lighting';
 import FileComponentParent from '../fileUpload/ParentComponent';
 
 import { Tabs, Tab, Button, Glyphicon } from 'react-bootstrap';
-import { windowCount } from "rxjs/operator/windowCount";
 
 class BaseRasvjetaDetails extends React.Component {
     static propTypes = {
@@ -31,7 +30,6 @@ class BaseRasvjetaDetails extends React.Component {
         super(props);
         this.state = {};
     }
-
 
     render() {
         const styles = {
@@ -58,6 +56,7 @@ class BaseRasvjetaDetails extends React.Component {
                 marginBottom: "4px"
             } // https://css-tricks.com/position-sticky-and-table-headers/
         };
+
         const fileComponentParentLighting = (<FileComponentParent
             itemId={this.props.items && this.props.items.fid ? this.props.items.fid : null}
         />);
@@ -117,10 +116,8 @@ class BaseRasvjetaDetails extends React.Component {
     }
 }
 
-const RasvjetaDetails = connect((state) => {
-    return {
-
-    };
+const RasvjetaDetails = connect(() => {
+    return {};
 }, {
     zoomToItem: zoomToLampFromLighting
 })(BaseRasvjetaDetails);
