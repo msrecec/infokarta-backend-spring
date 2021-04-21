@@ -3,35 +3,35 @@ package it.geosolutions.mapstore.dto.pokojnik;
 import it.geosolutions.mapstore.dto.grobovi.GrobDTOWithoutGeom;
 
 public class PokojnikAndGrobWithoutGeomDTO {
-    PokojnikDTO pokojnikDTO;
-    GrobDTOWithoutGeom grobDTOWithoutGeom;
+    PokojnikDTO pokojnik;
+    GrobDTOWithoutGeom grob;
 
     public PokojnikAndGrobWithoutGeomDTO(PokojnikDTO pokojnikDTO, GrobDTOWithoutGeom grobDTOWithoutGeom) {
-        this.pokojnikDTO = pokojnikDTO;
-        this.grobDTOWithoutGeom = grobDTOWithoutGeom;
+        this.pokojnik = pokojnikDTO;
+        this.grob = grobDTOWithoutGeom;
     }
 
     @Override
     public String toString() {
         return "PokojnikAndGrobWithoutGeomDTO{" +
-            "pokojnikDTO=" + pokojnikDTO +
-            ", grobDTOWithoutGeom=" + grobDTOWithoutGeom +
+            "pokojnik=" + pokojnik +
+            ", grob=" + grob +
             '}';
     }
 
-    public PokojnikDTO getPokojnikDTO() {
-        return pokojnikDTO;
+    public PokojnikDTO getPokojnik() {
+        return pokojnik;
     }
 
-    public void setPokojnikDTO(PokojnikDTO pokojnikDTO) {
-        this.pokojnikDTO = pokojnikDTO;
+    public void setPokojnik(PokojnikDTO pokojnik) {
+        this.pokojnik = pokojnik;
     }
 
-    public GrobDTOWithoutGeom getGrobDTOWithoutGeom() {
-        return grobDTOWithoutGeom;
+    public GrobDTOWithoutGeom getGrob() {
+        return grob;
     }
 
-    public void setGrobDTOWithoutGeom(GrobDTOWithoutGeom grobDTOWithoutGeom) {
-        this.grobDTOWithoutGeom = grobDTOWithoutGeom;
+    public void setGrob(GrobDTOWithoutGeom grob) {
+        this.grob = grob;
     }
 }
