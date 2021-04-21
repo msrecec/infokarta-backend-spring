@@ -71,7 +71,6 @@ class BaseGroboviDetails extends React.Component {
                 }
             }
         }
-
         return (
             <div style={this.props.showDetails ? {display: "block"} : {display: "none"} }>
                 <Button
@@ -114,7 +113,7 @@ class BaseGroboviDetails extends React.Component {
     runAfterRender = () => {
         const myElem = document.getElementsByClassName("myElem");
         if (myElem) {
-            this.props.zoomToItem(this.props.items.grob.geom);
+            this.props.zoomToItem(this.props.items.geom);
             console.log(":D:D:D", this.props);
         }
     }

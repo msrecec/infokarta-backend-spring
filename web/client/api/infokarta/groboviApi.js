@@ -23,7 +23,7 @@ const Api = {
             });
     },
     getGrobAndLinkedPokojnici: function(fid) {
-        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + fid;
+        let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + fid + '?geom=true';
         let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici?grobFid=' + fid;
 
         let containerObject = {};
