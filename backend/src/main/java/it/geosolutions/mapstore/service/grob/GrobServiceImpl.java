@@ -23,7 +23,7 @@ public class GrobServiceImpl implements GrobService {
         Optional<Grob> grob = grobDAO.findById(id);
 
         if(grob.isPresent()) {
-            return Optional.of(mapToGrobDTO(grob.get()));
+            return Optional.of(mapGrobToGrobDTO(grob.get()));
         } else {
             return Optional.empty();
         }
@@ -43,7 +43,7 @@ public class GrobServiceImpl implements GrobService {
         Optional<Grob> grob = grobDAO.findById(id);
 
         if(grob.isPresent()) {
-            return Optional.of(mapToGrobDTOWithoutGeom(grob.get()));
+            return Optional.of(mapGrobToGrobDTOWithoutGeom(grob.get()));
         } else {
             return Optional.empty();
         }
@@ -71,15 +71,4 @@ public class GrobServiceImpl implements GrobService {
     private EntityListDTO mapGrobToEntityListDTO(List<Grob> grob, Integer count) {
         return new EntityListDTO(grob, count);
     }
-
-    private GrobDTOWithoutGeom mapToGrobDTOWithoutGeom(Grob grob) {
-        return new GrobDTOWithoutGeom(grob.getFid(), grob.getSource(), grob.getSource1(), grob.getSource2(), grob.getSource3(), grob.getSource4(), grob.getSource5(),
-            grob.getSource6(),grob.getSource7(), grob.getRedniBroj(), grob.getGrobnica(), grob.getBrojLezaja(), grob.getGroblje(), grob.getFk());
-    }
-
-    private GrobDTO mapToGrobDTO(Grob grob) {
-        return new GrobDTO(grob.getGeom(), grob.getFid(), grob.getSource(), grob.getSource1(), grob.getSource2(), grob.getSource3(), grob.getSource4(), grob.getSource5(),
-            grob.getSource6(),grob.getSource7(), grob.getRedniBroj(), grob.getGrobnica(), grob.getBrojLezaja(), grob.getGroblje(), grob.getFk());
-    }
-
 }

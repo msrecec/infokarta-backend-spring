@@ -2,10 +2,14 @@ package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobWithoutGeomDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
+import it.geosolutions.mapstore.service.pokojnik.PokojnikService;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,10 @@ import java.util.Optional;
 
 @Controller
 public class PokojniciController {
+    @Autowired
+    PokojnikService pokojnikService;
+    @Autowired
+    PokojniciDAO pokojniciDAO;
 
     /**
      * Pokojnici dynamic search controller
@@ -47,7 +55,6 @@ public class PokojniciController {
         @RequestParam(value = "page", required = false) Integer page,
         @RequestParam(value = "grobFid", required = false) Integer grobFid)
         throws IOException {
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         String jsonArray;
         Optional<String> oIme = Optional.ofNullable(ime);
         Optional<String> oPrezime = Optional.ofNullable(prezime);
@@ -86,14 +93,27 @@ public class PokojniciController {
     public void getPokojnik(
         HttpServletRequest request,
         HttpServletResponse response,
+        @RequestParam(value = "geom", required = false) Boolean geom,
+        @RequestParam(value = "grob", required = false) Boolean grob,
         @PathVariable Integer id)
         throws IOException {
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         Optional<Integer> oId = Optional.ofNullable(id);
+        String json;
 
-        Pokojnik pokojnik = pokojniciDAO.getPokojnikById(oId);
+        if(grob == null) {
+            Pokojnik pokojnik = pokojniciDAO.getPokojnikById(oId);
 
-        String json = JSONUtils.fromPOJOToJSON(pokojnik);
+            json = JSONUtils.fromPOJOToJSON(pokojnik);
+        } else {
+            if(geom == null) {
+                PokojnikAndGrobWithoutGeomDTO pokojnikAndGrobWithoutGeomDTO = pokojnikService.getPokojnikAndGrobWithoutGeomByPokojnikFid(id);
+                json = JSONUtils.fromPOJOToJSON(pokojnikAndGrobWithoutGeomDTO);
+            } else {
+                PokojnikAndGrobDTO pokojnikAndGrobDTO = pokojnikService.getPokojnikAndGrobByPokojnikFid(id);
+                json = JSONUtils.fromPOJOToJSON(pokojnikAndGrobDTO);
+            }
+        }
+
 
         HeaderUtils.responseWithJSON(response, json);
     }
@@ -131,8 +151,6 @@ public class PokojniciController {
     @ResponseBody
     public void getCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-
         Integer count = pokojniciDAO.getPokojnikCount();
 
         String json = "{" + "\"count\":"+ "\"" + count + "\"" +"}";
@@ -148,8 +166,6 @@ public class PokojniciController {
         HttpServletResponse response,
         @RequestBody String json
     ) throws IOException {
-
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 
@@ -174,8 +190,6 @@ public class PokojniciController {
 
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<String> oRbr = Optional.ofNullable(rbr);
-
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 

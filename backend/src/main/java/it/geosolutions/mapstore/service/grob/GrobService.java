@@ -18,4 +18,14 @@ public interface GrobService {
     public EntityListDTO findGroboviByGroblje(String groblje);
     EntityListDTO findPaginated(Integer page);
     Optional<GrobDTO> update(GrobPutCommand grobCommand);
+
+    default GrobDTOWithoutGeom mapGrobToGrobDTOWithoutGeom(Grob grob) {
+        return new GrobDTOWithoutGeom(grob.getFid(), grob.getSource(), grob.getSource1(), grob.getSource2(), grob.getSource3(), grob.getSource4(), grob.getSource5(),
+            grob.getSource6(),grob.getSource7(), grob.getRedniBroj(), grob.getGrobnica(), grob.getBrojLezaja(), grob.getGroblje(), grob.getFk());
+    }
+
+    default GrobDTO mapGrobToGrobDTO(Grob grob) {
+        return new GrobDTO(grob.getGeom(), grob.getFid(), grob.getSource(), grob.getSource1(), grob.getSource2(), grob.getSource3(), grob.getSource4(), grob.getSource5(),
+            grob.getSource6(),grob.getSource7(), grob.getRedniBroj(), grob.getGrobnica(), grob.getBrojLezaja(), grob.getGroblje(), grob.getFk());
+    }
 }

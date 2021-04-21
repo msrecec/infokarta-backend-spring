@@ -16,4 +16,6 @@ public interface GrobDAO extends DAO<Grob> {
     public List<Grob> getRbrByGroblje(String groblje);
 
     public PGgeometry getGrobByFid(Integer fid);
+
+    public Grob getGrobByPokojnikFid(Integer fid);
 }

@@ -187,4 +187,14 @@ public class GrobDAOImpl implements GrobDAO, JDBCConfig {
 
         return grob.getGeom();
     }
+
+    @Override
+    public Grob getGrobByPokojnikFid(Integer fid) {
+        String sql = "SELECT * FROM \"grobovi\" INNER JOIN \"pokojnici\" ON \"grobovi\".fid = pokojnici.fk WHERE \"pokojnici\".fid = ?";
+        GrobMapper grobMapper = new GrobMapper();
+
+        Grob grob = (Grob)jdbcTemplateObject.queryForObject(sql, new Object[]{fid}, grobMapper);
+
+        return grob;
+    }
 }

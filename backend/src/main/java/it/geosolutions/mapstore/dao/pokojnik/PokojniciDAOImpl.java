@@ -10,6 +10,7 @@ import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     private JdbcTemplate jdbcTemplateObject;
