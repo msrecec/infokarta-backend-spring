@@ -121,8 +121,8 @@ class BasePokojniciDetails extends React.Component {
     runAfterRender = () => {
         const myElem = document.getElementsByClassName("myElem");
         if (myElem) {
-            this.props.zoomToItem(this.props.items.geom);
-            console.log(":D:D:D", this.props);
+            /* this.props.zoomToItem(this.props.items.geom); */
+            console.log("Addat zoom funkcionalnost kada Mislav implementira ");
         }
         // Nece zumirat
     }
