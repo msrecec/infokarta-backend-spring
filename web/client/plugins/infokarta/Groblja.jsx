@@ -283,7 +283,7 @@ const Groblja = ({
     return (
         <div style={{"padding": "10px"}}>
             {pluginNameEmitter}
-            <Button bsStyle="primary" onClick={() => switchMode()}>{deceasedMode ? "Pregledaj po grobnicama" : "Pregledaj po pokojnicima"}</Button>
+            <Button bsStyle="primary" onClick={() => switchMode()}>{deceasedMode ? "Grobnica" : "Pokojnik"}</Button>
             {deceasedMode ? (
                 <div>
                     {search}

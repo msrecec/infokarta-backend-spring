@@ -40,6 +40,7 @@ class TableComponent extends React.Component {
   }
 
   render() {
+      console.log(this.props.items, '!!!');
       const thStyle = {
           position: "sticky",
           top: "0",
@@ -84,12 +85,12 @@ class TableComponent extends React.Component {
   }
 
   sendRowDataToDetailsView(item) {
-      this.props.zoomToItem(item.geom || item.fk);
-      const temp = cloneDeep(item);
-      if (temp.geom) {
-          delete temp.geom;
-      }
-      this.props.sendDataToDetailsView(item.fid, item.fk ? item.fk : null);
+      this.props.sendDataToDetailsView(item.fid);
+      //   this.props.zoomToItem(item.geom || item.fk);
+      //   const temp = cloneDeep(item);
+      //   if (temp.geom) {
+      //       delete temp.geom;
+      //   }
   }
 
   setActiveRow(key) {

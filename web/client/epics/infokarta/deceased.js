@@ -62,7 +62,6 @@ export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () =
             .mergeMap((response) => {
                 return Rx.Observable.of(
                     deceasedResponseReceived(response.pokojnici, response.totalSearchMatchCount)
-                    // clearDetailsAndDocsView()
                 );
             })
             .catch((error) => {

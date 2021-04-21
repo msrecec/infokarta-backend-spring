@@ -28,7 +28,7 @@ class PokojniciDetails extends React.Component {
             tabContentStyle: {
                 padding: "10px",
                 overflow: "auto",
-                maxHeight: "480px",
+                maxHeight: "440px",
                 height: "auto"
             },
             closeButtonStyle: {

@@ -29,7 +29,7 @@ class GroboviDetails extends React.Component {
             tabContentStyle: {
                 padding: "10px",
                 overflow: "auto",
-                maxHeight: "780px",
+                maxHeight: "750px",
                 height: "auto"
             },
             closeButtonStyle: {
