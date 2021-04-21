@@ -27,11 +27,11 @@ export const clearDetailsAndDocsViewOnPluginToggle = (action$) =>
 
 export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}) =>
     action$.ofType(GET_DATA_FOR_DETAILS_VIEW)
-        .switchMap(({ fid, /* fk,*/ additionalPluginTitle }) => {
+        .switchMap(({ fid, additionalPluginTitle }) => {
             const activePlugin = get(getState(), "dynamicComponents.activePlugin");
             switch (additionalPluginTitle ? additionalPluginTitle : activePlugin) {
             case "pokojnici":
-                return Rx.Observable.fromPromise(pokojniciApi.getPokojnikAndLinkedGrob(fid /* , fk*/)
+                return Rx.Observable.fromPromise(pokojniciApi.getPokojnikAndLinkedGrob(fid)
                     .then(data => data))
                     .mergeMap((response) => {
                         return Rx.Observable.of(
@@ -40,7 +40,7 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                     })
                     .catch((error) => {
                         return Rx.Observable.of(
-                        /* eslint-disable no-console */
+                            /* eslint-disable no-console */
                             console.error('error while fetching deceased', error)
                         );
                     });
@@ -54,7 +54,7 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                     })
                     .catch((error) => {
                         return Rx.Observable.of(
-                        /* eslint-disable no-console */
+                            /* eslint-disable no-console */
                             console.error('error while fetching deceased', error)
                         );
                     });
@@ -68,7 +68,7 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                     })
                     .catch((error) => {
                         return Rx.Observable.of(
-                        /* eslint-disable no-console */
+                            /* eslint-disable no-console */
                             console.error('error while fetching lighting', error)
                         );
                     });
@@ -77,5 +77,4 @@ export const getEntryDataAndLinkedEntries = (action$, {getState = () => {}} = {}
                     insertUnsuccessful("Greška", "Došlo je do greške prilikom dohvaćanja podataka za detaljni pregled.")
                 );
             }
-
         });

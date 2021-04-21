@@ -54,16 +54,17 @@ const Api = {
                 console.error(error);
             });
     },
-    getPokojniciColumns: function() {
-        let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns?variables=true';
-        return axios.get(url)
-            .then(function(response) {
-                return Object.keys(response.data);
-            }).catch(function(error) {
-            /* eslint-disable no-console */
-                console.error(error);
-            });
-    },
+    // getPokojniciColumns: function() {
+    //     let url = 'http://localhost:8080/mapstore/rest/config/pokojnici/columns?variables=true';
+    //     return axios.get(url)
+    //         .then(function(response) {
+    //             console.log('get pokojnici columns !!!', response.data);
+    //             return Object.keys(response.data);
+    //         }).catch(function(error) {
+    //         /* eslint-disable no-console */
+    //             console.error(error);
+    //         });
+    // },
     insertPokojnik: function(itemToInsert, graveId) {
         let url = 'http://localhost:8080/mapstore/rest/config/pokojnici?';
 
@@ -80,6 +81,9 @@ const Api = {
         if (graveId) {
             itemToInsert.fk = graveId;
         }
+
+        console.log(itemToInsert, '!!! item u apiju');
+        itemToInsert.ime_i_prezime = itemToInsert.ime + " " + itemToInsert.prezime;
 
         return axios.post(
             url,
@@ -122,30 +126,11 @@ const Api = {
         console.error('ERROR: fid is not valid');
         return null;
     },
-    getPokojnikAndLinkedGrob: function(pokojnikFid, grobFid) { // TODO fix once api call is done !!!!!!!!!!!!
-        let pokojniciUrl = 'http://localhost:8080/mapstore/rest/config/pokojnici/' + pokojnikFid;
-        // let grobUrl = 'http://localhost:8080/mapstore/rest/config/grobovi/' + grobFid;
-
-        // let containerObject = {};
-        // return axios.get(pokojniciUrl)
-        //     .then(function(response) {
-        //         containerObject.pokojnik = response.data;
-        //         return axios.get(grobUrl);
-        //     }).then(function(response) {
-        //         containerObject.grob = response.data;
-        //         return containerObject;
-        //     }).catch(function(error) {
-        //         /* eslint-disable no-console */
-        //         console.error(error);
-        //     });
-        let containerObject = {};
+    getPokojnikAndLinkedGrob: function(pokojnikFid) { // TODO fix once api call is done !!!!!!!!!!!!
+        let pokojniciUrl = `http://localhost:8080/mapstore/rest/config/pokojnici/${pokojnikFid}?grob=true&geom=true`;
         return axios.get(pokojniciUrl)
             .then(function(response) {
-                containerObject.pokojnik = response.data;
-                //     return axios.get(grobUrl);
-                // }).then(function(response) {
-                //     containerObject.grob = response.data;
-                return containerObject;
+                return response.data;
             }).catch(function(error) {
                 /* eslint-disable no-console */
                 console.error(error);

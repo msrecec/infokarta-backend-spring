@@ -25,7 +25,6 @@ class BasePokojniciDetails extends React.Component {
         showDetails: false,
         fieldsToExclude: [],
         zoomToItem: () => {}
-
     };
 
     constructor(props) {
@@ -38,7 +37,7 @@ class BasePokojniciDetails extends React.Component {
             tabContentStyle: {
                 padding: "10px",
                 overflow: "auto",
-                maxHeight: "440px",
+                maxHeight: "750px",
                 height: "auto"
             },
             closeButtonStyle: {
@@ -118,8 +117,8 @@ class BasePokojniciDetails extends React.Component {
     }
     runAfterRender = () => {
         const myElem = document.getElementsByClassName("myElem");
-        if (myElem) {
-            this.props.zoomToItem(this.props.items.geom);
+        if (myElem && this.props.items && this.props.items.grob) {
+            this.props.zoomToItem(this.props.items.grob.geom);
         }
     }
 }

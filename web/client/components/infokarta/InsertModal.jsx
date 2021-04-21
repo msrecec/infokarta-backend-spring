@@ -44,6 +44,7 @@ class BaseModalComponent extends React.Component {
 
   componentDidUpdate(prevProps) {
       if (prevProps.show !== this.props.show) {
+          console.log('!!!', this.props.itemToInsert);
           this.updateState();
           // svaki put kad se promijeni vrijednost props.show (tj. kad se prikaze komponenta)
           // zove se funkcija za ucitat podatke u lokalni state

@@ -10,15 +10,12 @@ import {
     gravesResponseReceived
 } from "../../actions/infokarta/graves";
 
-import { clearDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
 import { zoomToPoint, CLICK_ON_MAP } from '../../actions/map';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
 import { SET_CONTROL_PROPERTY, TOGGLE_CONTROL } from '../../actions/controls';
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import groboviApi from "../../api/infokarta/groboviApi";
-
-// const editModalName = "groboviEdit";
 
 export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
@@ -32,10 +29,8 @@ export const sendSearchRequestUponChangeForGraves = (action$, {getState = () => 
         return Rx.Observable.fromPromise(groboviApi.searchGraves(searchParameters, pageNumber)
             .then(data => data))
             .mergeMap((response) => {
-                console.log('epic graves: ', response.data, response.count);
                 return Rx.Observable.of(
                     gravesResponseReceived(response.data, response.count)
-                    // clearDetailsAndDocsView()
                 );
             })
             .catch((error) => {

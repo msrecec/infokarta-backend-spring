@@ -16,7 +16,6 @@ import {
 import {
     setSearchParametersForDeceased,
     resetSearchParametersForDeceased,
-    // editDeceased,
     insertDeceased,
     zoomToGraveFromDeceased,
     setPageForDeceased
@@ -135,7 +134,6 @@ const Groblja = ({
     setupEditModal = () => {},
     sendEditedData = () => {},
     sendNewData = () => {},
-    setupInsertModal = () => {},
     sendGraveZoomData = () => {},
     sendDeceasedZoomData = () => {},
     startChooseMode = () => {},
@@ -144,15 +142,14 @@ const Groblja = ({
 }) => {
     const switchMode = () => {
         deceasedMode = !deceasedMode;
-        if (deceasedMode) {
-            setDeceasedSearchParameters({});
-        } else {
-            setGravesSearchParameters({});
-        }
+        setDeceasedSearchParameters({});
+        setGravesSearchParameters({});
     };
 
     const switchDetailsViews = (fid) => {
         deceasedMode = !deceasedMode;
+        if (deceasedData) {setDeceasedSearchParameters({});}
+        if (gravesData) {setGravesSearchParameters({});}
         sendDataToDetailsView(fid, deceasedMode ? "pokojnici" : "grobovi");
     };
 
@@ -182,7 +179,6 @@ const Groblja = ({
     const search = (<SearchComponent
         buildData={deceasedMode ? searchFormDataPokojnici : searchFormDataGrobovi}
         search={deceasedMode ? setDeceasedSearchParameters : setGravesSearchParameters}
-        openInsertForm={setupInsertModal}
         resetSearchParameters={deceasedMode ? resetDeceasedSearchParameters : resetGravesSearchParameters}
         disableInsert={!deceasedMode}
     />);
@@ -262,40 +258,42 @@ const Groblja = ({
     />);
 
     const styles = {
-        showGraveDetailsStyle: {
+        showDetailsStyle: {
             height: "0px",
             display: "none"
         },
-        hideGraveDetailsStyle: {
+        hideDetailsStyle: {
             height: "600px",
             transition: "all .2s linear"
         },
-        showDeceasedDetailsStyle: {
-            height: "150px",
-            transition: "all .2s linear"
-        },
-        hideDeceasedDetailsStyle: {
-            height: "600px",
-            transition: "all .2s linear"
+        selectionStyle: {
+            margin: "0 auto",
+            width: "10%",
+            display: "flex",
+            justifyContent: "center",
+            padding: "4px"
         }
     };
 
     return (
-        <div style={{"padding": "10px"}}>
+        <div style={{padding: "10px"}}>
             {pluginNameEmitter}
-            <Button bsStyle="primary" onClick={() => switchMode()}>{deceasedMode ? "Grobnica" : "Pokojnik"}</Button>
+            <div style={styles.selectionStyle}>
+                <Button bsStyle={deceasedMode ? "primary" : "default"} onClick={() => switchMode()}>{"Pokojnici"}</Button>
+                <Button bsStyle={!deceasedMode ? "primary" : "default"} onClick={() => switchMode()}>{"Grobnica"}</Button>
+            </div>
             {deceasedMode ? (
                 <div>
-                    {search}
-                    <div style={showDeceasedDetails ? styles.showDeceasedDetailsStyle : styles.hideDeceasedDetailsStyle}>
+                    <div style={showDeceasedDetails ? styles.showDetailsStyle : styles.hideDetailsStyle}>
+                        {search}
                         {deceasedTable}
+                        {pagination}
                     </div>
-                    {pagination}
                     {deceasedDetailsAndDocs}
                 </div>
             ) : (
                 <div>
-                    <div style={showGravesDetails ? styles.showGraveDetailsStyle : styles.hideGraveDetailsStyle}>
+                    <div style={showGravesDetails ? styles.showDetailsStyle : styles.hideDetailsStyle}>
                         {search}
                         {gravesTable}
                         {pagination}

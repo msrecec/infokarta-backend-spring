@@ -7,16 +7,11 @@ import {
     SAVE_EDITED_ITEM,
     clearDynamicComponentStore,
     insertSuccessful,
-    insertUnsuccessful,
     showDynamicModal,
-    hideDynamicModal,
-    alternateModalVisibility,
-    acquireCurrentPluginName,
     clearActivePlugin
 } from "../../actions/infokarta/dynamicComponents";
 
 import {
-    SET_CONTROL_PROPERTY,
     TOGGLE_CONTROL
 } from "../../actions/controls";
 
@@ -26,7 +21,6 @@ export const fetchEditDataAndSendToModal = (action$, {getState = () => {}} = {})
     action$.ofType(GET_ITEM_FOR_EDIT_FROM_DATABASE)
         .switchMap(({ fid = {} }) => {
             const activePlugin = get(getState(), "dynamicComponents.activePlugin");
-            console.log('edit', activePlugin, fid);
             return Rx.Observable.fromPromise(dynamicComponentsApi.getItem(activePlugin, fid)
                 .then(data => data))
                 .switchMap((response) => {
@@ -67,7 +61,7 @@ export const saveEditedItemToDatabase = (action$, {getState = () => {}} = {}) =>
             const activePlugin = get(getState(), "dynamicComponents.activePlugin");
             return Rx.Observable.fromPromise(dynamicComponentsApi.saveEdit(activePlugin, item)
                 .then(data => data))
-                .mergeMap((response) => {
+                .mergeMap(() => {
                     return Rx.Observable.of(
                         clearDynamicComponentStore(),
                         insertSuccessful("Unos potvrđen", "Vaša izmjena je uspješno pohranjena u bazu podataka.")
@@ -76,7 +70,7 @@ export const saveEditedItemToDatabase = (action$, {getState = () => {}} = {}) =>
                 .catch((error) => {
                     return Rx.Observable.of(
                     /* eslint-disable no-console */
-                        console.error('Error while getting columns for insert:', error)
+                        console.error('Error while saving edited item:', error)
                     );
                 });
         });
@@ -88,11 +82,3 @@ export const clearActivePluginOnDrawerMenuClose = (action$) =>
                 clearActivePlugin()
             );
         });
-
-// export const clearActivePluginOnDrawerMenuClose = (action$) =>
-//     action$.ofType(TOGGLE_CONTROL)
-//         .switchMap(({}) => {
-//             return Rx.Observable.of(
-//                 clearActivePlugin()
-//             );
-//         });

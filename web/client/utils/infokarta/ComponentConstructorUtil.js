@@ -127,7 +127,7 @@ export const buildDynamicForm = (blueprint, exclude = [], readOnly = [], handleC
 // Svrha funkcije: izgradi carousel komponentu od djelomicnih url-ova sadrzanih u feature info nekog objekta (treba mu proslijedit array tih url-ova)
 export const buildCarouselFromURLs = (sourceArray, width = 400, height = 220) => {
     return (
-        <Carousel>
+        <Carousel style={{width: "400px", margin: "0 auto"}}>
             {
                 sourceArray.map((source) => {
                     return (

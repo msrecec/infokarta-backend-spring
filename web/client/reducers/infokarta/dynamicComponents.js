@@ -20,6 +20,7 @@ const dynamicComponents = (
 ) => {
     switch (action.type) {
     case SHOW_DYNAMIC_MODAL: {
+        console.log("!!! show dynamic modal", action, state);
         let temp = {...state.modals};
         temp[state.activePlugin + action.modalType] = true;
         return {
@@ -37,9 +38,10 @@ const dynamicComponents = (
         };
     }
     case ALTERNATE_MODAL_VISIBILITY: {
+        console.log("!!! alternate modal visibility", action, state);
         let temp = {...state.modals};
-        temp[state.activePlugin + action.typeToHide] = false;
-        temp[state.activePlugin + action.typeToShow] = true;
+        temp[action.typeToHide] = false;
+        temp[action.typeToShow] = true;
         return {
             ...state,
             modals: temp,

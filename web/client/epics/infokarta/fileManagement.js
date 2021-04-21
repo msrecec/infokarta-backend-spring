@@ -9,19 +9,16 @@ import {
     UPDATE_METADATA_IN_STORE_INFO,
     updateMetadataInStoreInfo
 } from "../../actions/infokarta/fileManagement";
-// ../../actions/infokarta/dynamicComponents
+
 import {
     insertSuccessful,
-    insertUnsuccessful,
-    ACQUIRE_CURRENT_PLUGIN_NAME
+    insertUnsuccessful
 } from "../../actions/infokarta/dynamicComponents";
 
 import fileManagementApi from "../../api/infokarta/fileManagementApi";
 
 export const loadFileMetadataByEntityId = (action$, {getState = () => {}} = {}) =>
-    action$.ofType(
-        GET_IMAGES_BY_ENTITY_ID,
-    )
+    action$.ofType(GET_IMAGES_BY_ENTITY_ID)
         .switchMap(({ documentType, entityFid }) => {
             const pluginName = get(getState(), "dynamicComponents.activePlugin");
             return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(pluginName, documentType, entityFid)
@@ -67,17 +64,14 @@ export const handleImageUploadByEntityId = (action$, {getState = () => {}} = {})
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
-                    /* eslint-disable no-console */
+                        /* eslint-disable no-console */
                         console.error('error while fetching entity data', error)
                     );
                 });
         });
 
 export const sendRequestUponFileInfoUpdateAndSuccessfulUpload = (action$, {getState = () => {}} = {}) =>
-    action$.ofType(
-        UPDATE_METADATA_IN_STORE_INFO
-        // ACQUIRE_CURRENT_PLUGIN_NAME
-    ).switchMap(({}) => {
+    action$.ofType(UPDATE_METADATA_IN_STORE_INFO).switchMap(({}) => {
         const pluginName = get(getState(), "dynamicComponents.activePlugin");
         const entityFid = get(getState(), "fileManagement.entityFid");
         return Rx.Observable.fromPromise(fileManagementApi.getMetaByEntityFid(pluginName, "slika", entityFid)

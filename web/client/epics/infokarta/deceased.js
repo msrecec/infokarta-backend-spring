@@ -6,7 +6,6 @@ import {
     SET_SEARCH_PARAMETERS_FOR_DECEASED,
     RESET_SEARCH_PARAMETERS_FOR_DECEASED,
     SET_PAGE_FOR_DECEASED,
-    // EDIT_DECEASED,
     INSERT_DECEASED,
     ZOOM_TO_GRAVE_FROM_DECEASED,
     deceasedResponseReceived,
@@ -22,17 +21,13 @@ import {
 } from "../../actions/infokarta/gravePickerTool";
 
 import {
-    GET_COLUMNS_FOR_INSERT_FROM_DATABASE,
     clearDynamicComponentStore,
     insertSuccessful,
     insertUnsuccessful,
     showDynamicModal,
     hideDynamicModal,
-    alternateModalVisibility,
-    acquireCurrentPluginName
+    alternateModalVisibility
 } from "../../actions/infokarta/dynamicComponents";
-
-import { clearDetailsAndDocsView } from "../../actions/infokarta/detailsAndDocuments";
 
 import { LOAD_FEATURE_INFO } from "../../actions/mapInfo";
 import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
@@ -42,11 +37,8 @@ import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/addi
 import { defaultIconStyle } from '../../utils/SearchUtils';
 
 import pokojniciApi from "../../api/infokarta/pokojniciApi";
-// import deceased from "../../reducers/infokarta/deceased";
 
 const insertModalName = "pokojniciInsert";
-// const insertConfirmationModalName = "pokojniciConfirmation";
-// const editModalName = "pokojniciEdit";
 
 export const sendSearchRequestUponChangeForDeceased = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
@@ -177,7 +169,7 @@ export const insertNewDeceased = (action$, {getState = () => {}} = {}) =>
                 })
                 .catch((error) => {
                     return Rx.Observable.of(
-                    /* eslint-disable no-console */
+                        /* eslint-disable no-console */
                         console.error('error while inserting new deceased', error)
                     );
                 });

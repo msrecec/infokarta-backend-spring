@@ -15,17 +15,13 @@ import {
 import lightingApi from '../../api/infokarta/rasvjetaApi';
 import { updateAdditionalLayer, removeAdditionalLayer } from '../../actions/additionallayers';
 import { zoomToPoint, CLICK_ON_MAP } from '../../actions/map';
-import { SET_CONTROL_PROPERTY, toggleControl, TOGGLE_CONTROL } from '../../actions/controls';
+import { SET_CONTROL_PROPERTY, TOGGLE_CONTROL } from '../../actions/controls';
 
 import { defaultIconStyle } from '../../utils/SearchUtils';
-
-
-import { aquireCurrentClassName } from "../../actions/infokarta/fileManagement";
 
 import {
     hideDynamicModal
 } from "../../actions/infokarta/dynamicComponents";
-
 
 export const getLightingAppropriateData = (action$, {getState = () => {}} = {}) =>
     action$.ofType(
@@ -83,7 +79,7 @@ export const sendEditDataForLighting = (action$, {getState = () => {}} = {}) =>
             let getLighting = get(getState(), "lighting");
             return Rx.Observable.fromPromise(lightingApi.editLightingData(itemToEdit)
                 .then(data => data))
-                .mergeMap((response) => {
+                .mergeMap(() => {
                     return Rx.Observable.of(
                         hideDynamicModal(),
                         setPageForLighting(getLighting.pageNumber) // added for page refresh, remove after adding search!!!
