@@ -1,16 +1,13 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAO;
-import it.geosolutions.mapstore.DAO.SlikaMeta.SlikaMetaDAOImpl;
+import it.geosolutions.mapstore.dao.slika.SlikaMetaDAO;
+import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.config.FileSystemConfig;
-import it.geosolutions.mapstore.dto.SlikaMetaDTO;
-import it.geosolutions.mapstore.model.SlikaMeta;
-import it.geosolutions.mapstore.service.SlikaMetaService;
-import it.geosolutions.mapstore.service.SlikaMetaServiceImpl;
-import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.MIMETypeUtil;
-import it.geosolutions.mapstore.utils.MediaMetaUtil;
-import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
+import it.geosolutions.mapstore.dto.slika.SlikaMetaDTO;
+import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
+import it.geosolutions.mapstore.service.slike.SlikaMetaService;
+import it.geosolutions.mapstore.service.slike.SlikaMetaServiceImpl;
+import it.geosolutions.mapstore.utils.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
@@ -26,50 +23,136 @@ import java.util.Optional;
 @Controller
 public class SlikeController {
 
+    /**
+     * TODO - Implement Buffered write instead of Write
+     *
+     * @param request
+     * @param response
+     * @param file upload file
+     * @param inEntity entity name that the file is being uploaded for
+     * @param entityFid id of entity that the file is being uploaded for
+     * @throws IOException
+     */
+
     //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/{entity}/upload/slika", method = RequestMethod.POST)
+    @RequestMapping(value = "/{entity}/upload/media/slika", method = RequestMethod.POST)
     @ResponseBody
-    public void addMediaByEntity(
+    public void addSlikaByEntity(
         HttpServletRequest request,
         HttpServletResponse response,
-        @RequestParam("name") String name,
         @RequestParam("file") MultipartFile file,
-        @PathVariable String entity,
-        @RequestParam("fk") Integer fk
+        @PathVariable("entity") String inEntity,
+        @RequestParam("entityFid") Integer entityFid
     ) throws IOException {
-        String punaLokacija;
-        String relativnaLokacija;
 
-        if(MediaMetaUtil.isMeta(entity)) {
-            String e = entity.toLowerCase();
+        String root = FileSystemConfig.ROOT_LOCATION;
+
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
+
+        if(EntityUtil.isEntity(entity)) {
+
             if (!file.isEmpty()) {
 
                 SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
                 String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
+                String name = FilenameUtils.getName(file.getOriginalFilename());
+
+                byte[] bytes = file.getBytes();
+
                 if(MIMETypeUtil.isImage(extension)) {
+
+                    InputStream stream = file.getInputStream();
+
+                    String contentType = MIMETypeUtil.mimeTypes.get(extension);
+
                     SlikaMetaDTO slikaMetaDTO;
-
-                    byte[] bytes = file.getBytes();
-
-                    String entityDocument = e + "_slike";
-
-                    relativnaLokacija = entityDocument + "\\" + fk;
-
-                    punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + relativnaLokacija;
-
 
                     SlikaMeta slikaMeta = new SlikaMeta();
 
+                    /**
+                     * Full file system addresses
+                     *
+                     */
+
+                    String entityFolder = root + "\\" + entity;
+                    String mediaFolder = root + "\\" + entity + "\\media";
+                    String slikeFolder = root + "\\" + entity + "\\media\\slike";
+
+                    /**
+                     * Relative file system addresses
+                     *
+                     */
+
+                    String relativeSlikaFolder = entity + "\\" + "media" + "\\" + "slike" + "\\" + entityFid;
+                    String relativeOriginalFolder = relativeSlikaFolder + "\\" + "original";
+                    String relativeThumbnailFolder = relativeSlikaFolder + "\\" + "thumbnail";
+
+                    /**
+                     * Store metadata about images
+                     *
+                     */
+
                     slikaMeta.setNaziv(name);
                     slikaMeta.setTip(extension);
-                    slikaMeta.setLokacija(relativnaLokacija);
-                    slikaMeta.setFk(fk);
+                    slikaMeta.setOriginal(relativeOriginalFolder);
+                    slikaMeta.setThumbnail(relativeThumbnailFolder);
+                    slikaMeta.setFk(entityFid);
 
-                    slikaMetaDTO = slikaMetaService.addSlikaToEntity(slikaMeta, e);
+                    slikaMetaDTO = slikaMetaService.addSlikaMetaByEntity(slikaMeta, entity);
 
-                    File f = new File(punaLokacija);
+
+                    /**
+                     * Full file system addresses
+                     *
+                     */
+
+                    String slikaFolder = root + "\\" + relativeSlikaFolder;
+                    String originalFolder = root + "\\" + relativeOriginalFolder;
+                    String thumbnailFolder = root + "\\" + relativeThumbnailFolder;
+
+                    /**
+                     *  entity folder check (if !exist create)
+                     */
+
+                    File f = new File(entityFolder);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    /**
+                     * media folder check (if !exist create)
+                     */
+
+                    f = new File(mediaFolder);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    /**
+                     * images folder check (if !exist create)
+                     */
+
+                    f = new File(slikeFolder);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    /**
+                     * specific image folder check (if !exist create)
+                     */
+
+                    f = new File(slikaFolder);
 
                     if(!f.exists()) {
                        if(!f.mkdir()){
@@ -77,7 +160,25 @@ public class SlikeController {
                        }
                     }
 
-                    FileOutputStream fos = new FileOutputStream(punaLokacija+"\\"+ slikaMetaDTO.getFid()+"."+extension);
+                    /**
+                     * originals check (if !exist create)
+                     */
+
+                    f = new File(originalFolder);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    /**
+                     * TODO - Implement Buffered write instead of Write
+                     *
+                     * write original file to folder 'original'
+                     */
+
+                    FileOutputStream fos = new FileOutputStream(originalFolder + "\\" + slikaMetaDTO.getFid() + "." + extension);
 
                     try {
                         fos.write(bytes);
@@ -85,108 +186,190 @@ public class SlikeController {
                         fos.close();
                     }
 
-                    ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+                    /**
+                     * TODO - Implement Buffered write instead of Write
+                     *
+                     * thumbnails check (if !exist create)
+                     */
 
-                } else if(MIMETypeUtil.isDocument(extension)) {
-                    return;
+                    f = new File(thumbnailFolder);
+
+                    if(!f.exists()) {
+                        if(!f.mkdir()){
+                            return;
+                        }
+                    }
+
+                    /**
+                     * write thumbnail file to folder 'thumbnail'
+                     */
+
+                    ByteArrayOutputStream thumbnailArr = slikaMetaService.createThumbnail(stream, contentType,100);
+
+                    fos = new FileOutputStream(thumbnailFolder + "\\" + slikaMetaDTO.getFid() + "." + extension);
+
+                    try {
+                        fos.write(thumbnailArr.toByteArray());
+                    } finally {
+                        fos.close();
+                    }
+
+                    /**
+                     * Respond with metadata
+                     */
+
+                    HeaderUtils.responseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+
                 } else {
+                    response.setStatus(415);
                     return;
                 }
 
             } else {
+                response.setStatus(400);
                 return;
             }
         }
+        response.setStatus(400);
         return;
     }
 
-    @RequestMapping(value = "/{entity}/download/slika/meta/{fid}", method = RequestMethod.GET)
-    public void getImgMetaByImgMetaFid(
+    /**
+     *
+     * @param request
+     * @param response
+     * @param inEntity entity name that the file is being uploaded for
+     * @param fid id of media file metadata
+     * @throws IOException
+     */
+
+    @RequestMapping(value = "/{entity}/download/media/slika/meta/{fid}", method = RequestMethod.GET)
+    public void getSlikaMetaByFid(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable String entity,
-        @PathVariable Integer fid
+        @PathVariable("entity") String inEntity,
+        @PathVariable("fid") Integer fid
     ) throws IOException {
 
-        if(MediaMetaUtil.isMeta(entity)) {
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
+
+        if(EntityUtil.isEntity(entity)) {
 
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity.toLowerCase());
+            SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity);
 
-            ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromPOJOToJSON(slikaMetaDTO));
+            String json = JSONUtils.fromPOJOToJSON(slikaMetaDTO);
+
+            HeaderUtils.responseWithJSON(response, json);
         }
     }
 
-    @RequestMapping(value = "/{entity}/download/slika/meta", method = RequestMethod.GET)
+    /**
+     *
+     * @param request
+     * @param response
+     * @param inEntity entity name that the file is being uploaded for
+     * @param fid id of media file metadata
+     * @throws IOException
+     */
+
+    @RequestMapping(value = "/{entity}/download/media/slika/meta", method = RequestMethod.GET)
     public void getImgMetaByEntityFid(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("entity") String entity,
-        @RequestParam("fid") Integer fid
+        @PathVariable("entity") String inEntity,
+        @RequestParam("entityFid") Integer fid
     ) throws IOException {
 
-        if(MediaMetaUtil.isMeta(entity)) {
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
+
+        if(EntityUtil.isEntity(entity)) {
 
             SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
-            List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity.toLowerCase());
+            List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity);
 
-            ResponseHeaderUtils.headerResponseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
+            HeaderUtils.responseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
 
         }
     }
 
-    @RequestMapping(value = "/{entity}/download/slika/{fid}", method = RequestMethod.GET)
+    /**
+     *
+     * @param request
+     * @param response
+     * @param inEntity entity name that the file is being uploaded for
+     * @param fid id of media file metadata
+     * @param hasThumbnail if you want thumbnail then true if original then false
+     * @throws IOException
+     */
+
+    @RequestMapping(value = "/{entity}/download/media/slika/{fid}", method = RequestMethod.GET)
     public void downloadImgResource(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("entity") String entity,
+        @PathVariable("entity") String inEntity,
         @PathVariable("fid") Integer fid,
-        @RequestParam(value = "thumbnail", required = false) Boolean thumbnail
+        @RequestParam(value = "thumbnail", required = false) Boolean hasThumbnail
     ) throws IOException {
         SlikaMetaDAO slikaMetaDAO = new SlikaMetaDAOImpl();
-        Optional<Boolean> oThumbnail = Optional.ofNullable(thumbnail);
+        Optional<Boolean> oThumbnail = Optional.ofNullable(hasThumbnail);
+        String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
 
-        if(oThumbnail.isPresent()) {
+        if(EntityUtil.isEntity(entity)) {
 
-        } else {
+            Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entity);
 
-            if(MediaMetaUtil.isMeta(entity)) {
-
-                String entityTable = entity + "_slike_meta";
-
-                Optional<SlikaMeta> oPokojnikSlikaMeta = slikaMetaDAO.getSlikaMetaByFid(fid, entityTable.toLowerCase());
-
-                if(!oPokojnikSlikaMeta.isPresent()) {
-                    return;
-                }
-
-                SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
-
-                String punaLokacija = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getLokacija();
-
-                File f = new File(
-                    punaLokacija+"\\"
-                        + slikaMeta.getFid()+"."
-                        + slikaMeta.getTip());
-
-                if(f.exists()) {
-                    byte[] bytes = FileUtils.readFileToByteArray(f);
-
-                    response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
-        //            response.addHeader("Content-Disposition", "attachment; filename="+slikaMeta.getNaziv()+"."+slikaMeta.getTip());
-                    response.addHeader("Content-Disposition", "inline; filename="+ slikaMeta.getNaziv()+"."+ slikaMeta.getTip());
-                    response.getOutputStream().write(bytes);
-                    response.getOutputStream().flush();
-                } else {
-                    return;
-                }
+            if (!oPokojnikSlikaMeta.isPresent()) {
+                response.setStatus(404);
+                HeaderUtils.responseWithJSON(response, "[]");
+                return;
             }
+
+            SlikaMeta slikaMeta = oPokojnikSlikaMeta.get();
+            File f;
+
+            if (oThumbnail.isPresent()) {
+
+                String thumbnail = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getThumbnail();
+
+                f = new File(
+                    thumbnail
+                        + "\\" + slikaMeta.getFid()
+                        + "." + slikaMeta.getTip());
+
+            } else {
+
+                String original = FileSystemConfig.ROOT_LOCATION + "\\" + slikaMeta.getOriginal();
+
+                f = new File(
+                    original
+                        + "\\" + slikaMeta.getFid()
+                        + "." + slikaMeta.getTip());
+            }
+
+
+            if (!f.exists()) {
+                response.setStatus(404);
+                HeaderUtils.responseWithJSON(response, "[]");
+                return;
+            }
+
+            byte[] bytes = FileUtils.readFileToByteArray(f);
+
+            response.setContentType(MIMETypeUtil.mimeTypes.get(slikaMeta.getTip()));
+
+            /**
+             * "Content-Disposition": "attachment;" for direct download rather than inline display
+             */
+
+            response.addHeader("Content-Disposition", "inline; filename=" + slikaMeta.getNaziv() + "." + slikaMeta.getTip());
+            response.getOutputStream().write(bytes);
+            response.getOutputStream().flush();
+
         }
     }
-
-
 
 /*
     @RequestMapping(value="/grobovi/test/transfer", method = RequestMethod.POST)

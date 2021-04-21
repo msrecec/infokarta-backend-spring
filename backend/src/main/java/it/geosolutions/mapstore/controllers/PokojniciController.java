@@ -1,11 +1,15 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAO;
-import it.geosolutions.mapstore.DAO.Pokojnik.PokojniciDAOImpl;
-import it.geosolutions.mapstore.model.Pokojnik;
+import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobWithoutGeomDTO;
+import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
+import it.geosolutions.mapstore.service.pokojnik.PokojnikService;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import it.geosolutions.mapstore.utils.ResponseHeaderUtils;
+import it.geosolutions.mapstore.utils.HeaderUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +22,24 @@ import java.util.Optional;
 
 @Controller
 public class PokojniciController {
+    @Autowired
+    PokojnikService pokojnikService;
+    @Autowired
+    PokojniciDAO pokojniciDAO;
+
+    /**
+     * Pokojnici dynamic search controller
+     *
+     * @param request
+     * @param response
+     * @param ime
+     * @param prezime
+     * @param pocGodinaUkopa
+     * @param konGodinaUkopa
+     * @param groblje
+     * @param page
+     * @throws IOException
+     */
 
 //    @Secured({"ROLE_ADMIN"})
     @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
@@ -30,9 +52,9 @@ public class PokojniciController {
         @RequestParam(value = "pocgodinaukopa", required = false) String pocGodinaUkopa,
         @RequestParam(value = "kongodinaukopa", required = false) String konGodinaUkopa,
         @RequestParam(value = "groblje", required = false) String groblje,
-        @RequestParam(value = "page", required = false) Integer page)
+        @RequestParam(value = "page", required = false) Integer page,
+        @RequestParam(value = "grobFid", required = false) Integer grobFid)
         throws IOException {
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         String jsonArray;
         Optional<String> oIme = Optional.ofNullable(ime);
         Optional<String> oPrezime = Optional.ofNullable(prezime);
@@ -40,11 +62,28 @@ public class PokojniciController {
         Optional<String> oKonGodinaUkopa = Optional.ofNullable(konGodinaUkopa);
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<Integer> oPage = Optional.ofNullable(page);
+        Optional<Integer> oGrobFid = Optional.ofNullable(grobFid);
 
-        jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
-            oKonGodinaUkopa, oGroblje, oPage);
+        List<Pokojnik> pokojnici;
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, jsonArray);
+        if(oGrobFid.isPresent()) {
+            pokojnici = pokojniciDAO.getPokojnikByGrobljeFid(oGrobFid.get());
+
+            if(pokojnici.isEmpty()) {
+                jsonArray = "[]";
+                response.setStatus(404);
+            } else {
+                jsonArray = JSONUtils.fromListToJSON(pokojnici);
+                response.setStatus(200);
+            }
+
+        } else {
+            jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
+                oKonGodinaUkopa, oGroblje, oPage);
+
+        }
+        HeaderUtils.responseWithJSON(response, jsonArray);
+
 
     }
 
@@ -54,16 +93,29 @@ public class PokojniciController {
     public void getPokojnik(
         HttpServletRequest request,
         HttpServletResponse response,
+        @RequestParam(value = "geom", required = false) Boolean geom,
+        @RequestParam(value = "grob", required = false) Boolean grob,
         @PathVariable Integer id)
         throws IOException {
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
         Optional<Integer> oId = Optional.ofNullable(id);
+        String json;
 
-        Pokojnik pokojnik = pokojniciDAO.getPokojnikById(oId);
+        if(grob == null) {
+            Pokojnik pokojnik = pokojniciDAO.getPokojnikById(oId);
 
-        String json = JSONUtils.fromPOJOToJSON(pokojnik);
+            json = JSONUtils.fromPOJOToJSON(pokojnik);
+        } else {
+            if(geom == null) {
+                PokojnikAndGrobWithoutGeomDTO pokojnikAndGrobWithoutGeomDTO = pokojnikService.getPokojnikAndGrobWithoutGeomByPokojnikFid(id);
+                json = JSONUtils.fromPOJOToJSON(pokojnikAndGrobWithoutGeomDTO);
+            } else {
+                PokojnikAndGrobDTO pokojnikAndGrobDTO = pokojnikService.getPokojnikAndGrobByPokojnikFid(id);
+                json = JSONUtils.fromPOJOToJSON(pokojnikAndGrobDTO);
+            }
+        }
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+
+        HeaderUtils.responseWithJSON(response, json);
     }
 
 //    @Secured({"ROLE_ADMIN"})
@@ -91,7 +143,7 @@ public class PokojniciController {
             json = JSONUtils.fromListToJSON(columns);
         }
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -99,13 +151,11 @@ public class PokojniciController {
     @ResponseBody
     public void getCount(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-
         Integer count = pokojniciDAO.getPokojnikCount();
 
         String json = "{" + "\"count\":"+ "\"" + count + "\"" +"}";
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, json);
+        HeaderUtils.responseWithJSON(response, json);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -117,13 +167,11 @@ public class PokojniciController {
         @RequestBody String json
     ) throws IOException {
 
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
-
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 
         String outJson = pokojniciDAO.updatePokojnik(pokojnik);
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, outJson);
+        HeaderUtils.responseWithJSON(response, outJson);
     }
 
     //    @Secured({"ROLE_ADMIN"})
@@ -138,17 +186,16 @@ public class PokojniciController {
     ) throws IOException {
 
         String outJson;
+        Integer numberOfAffectedRows;
 
         Optional<String> oGroblje = Optional.ofNullable(groblje);
         Optional<String> oRbr = Optional.ofNullable(rbr);
-
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         Pokojnik pokojnik = JSONUtils.fromJSONtoPOJO(json, Pokojnik.class);
 
         if(oGroblje.isPresent() && oRbr.isPresent()) {
 
-            outJson = pokojniciDAO.addPokojnikByGrobljeAndRbr(
+            numberOfAffectedRows = pokojniciDAO.addPokojnikByGrobljeAndRbr(
                 pokojnik,
                 EncodingUtils.decodeISO88591(oGroblje.get()),
                 EncodingUtils.decodeISO88591(oRbr.get())
@@ -156,10 +203,18 @@ public class PokojniciController {
 
         } else {
 
-            outJson = pokojniciDAO.addPokojnik(pokojnik);
+            numberOfAffectedRows = pokojniciDAO.addPokojnik(pokojnik);
 
         }
 
-        ResponseHeaderUtils.headerResponseWithJSON(response, outJson);
+        if(numberOfAffectedRows <= 0) {
+            response.setStatus(500);
+        } else {
+            response.setStatus(200);
+        }
+
+        outJson = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
+
+        HeaderUtils.responseWithJSON(response, outJson);
     }
 }

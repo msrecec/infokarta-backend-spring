@@ -4,6 +4,13 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
+/**
+ * TODO - Add @Configuration i @Bean for configuration of JDBC data source in our project
+ *
+ * TODO - Add external xml configuration for Tomcat server
+ *
+ */
+
 public interface JDBCConfig {
     static DataSource postgresqlDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

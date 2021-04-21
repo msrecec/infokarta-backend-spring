@@ -2,6 +2,9 @@ package it.geosolutions.mapstore.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import it.geosolutions.mapstore.serializers.PGgeometrySerializer;
+import org.postgis.PGgeometry;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,5 +48,17 @@ public interface JSONUtils {
         P p = objectMapper.readValue(json, typeClass);
 
         return p;
+    }
+
+    static String fromPGgeometryToJSON(PGgeometry geom) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        SimpleModule s = new SimpleModule();
+        s.addSerializer(PGgeometry.class, new PGgeometrySerializer());
+
+        objectMapper.registerModule(s);
+
+        String json = objectMapper.writeValueAsString(geom);
+
+        return json;
     }
 }
