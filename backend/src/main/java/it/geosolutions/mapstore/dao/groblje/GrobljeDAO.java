@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 import java.util.List;
 
 public interface GrobljeDAO extends DAO<Groblje> {
-    public void setDataSource(DataSource ds);
 
     public List<Groblje> listGroblja();
 }

@@ -10,8 +10,6 @@ import java.util.Optional;
 
 public interface PokojniciDAO extends DAO<Pokojnik> {
 
-    public void setDataSource(DataSource ds);
-
     public String listPokojnici();
 
     public Pokojnik getPokojnikById(Optional<Integer> id);

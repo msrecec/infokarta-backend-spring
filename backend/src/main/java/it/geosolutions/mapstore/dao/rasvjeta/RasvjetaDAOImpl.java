@@ -1,10 +1,12 @@
 package it.geosolutions.mapstore.dao.rasvjeta;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfigImpl;
 import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.utils.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,18 +18,14 @@ import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
-    private JdbcTemplate jdbcTemplateObject;
+public class RasvjetaDAOImpl implements RasvjetaDAO {
     @Autowired
     private SearchUtils<Rasvjeta> searchUtils;
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
+    private JdbcTemplate jdbcTemplateObject;
 
     public RasvjetaDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
-
-    @Override
-    public void setDataSource(DataSource ds) {
-        this.jdbcTemplateObject = new JdbcTemplate(ds);
     }
 
     @Override

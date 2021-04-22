@@ -5,6 +5,8 @@ import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
 import it.geosolutions.mapstore.dto.slika.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SlikaMetaServiceImpl implements SlikaMetaService {
 
+    @Autowired
     private SlikaMetaDAO slikaMetaDAO;
-
-    public SlikaMetaServiceImpl() {
-        this.slikaMetaDAO = new SlikaMetaDAOImpl();
-    }
 
     @Override
     public SlikaMetaDTO getSlikaMetaByFid(Integer fid, String entity) {

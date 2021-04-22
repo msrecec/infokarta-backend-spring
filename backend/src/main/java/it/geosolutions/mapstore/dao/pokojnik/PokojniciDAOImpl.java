@@ -1,12 +1,13 @@
 package it.geosolutions.mapstore.dao.pokojnik;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfigImpl;
 import it.geosolutions.mapstore.dao.DAO;
-import it.geosolutions.mapstore.dao.groblje.GrobljeMapper;
-import it.geosolutions.mapstore.model.groblje.Groblje;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,17 +21,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
+public class PokojniciDAOImpl implements PokojniciDAO {
 
+    @Autowired
+    JdbcConfigImpl jdbcConfig;
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
 
     public PokojniciDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
 
-    @Override
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public List<String> listColumns() {
-        DataSource dataSource = JDBCConfig.postgresqlDataSource();
+        DataSource dataSource = jdbcConfig.getDataSource();
         Connection conn = null;
         Statement stmt;
         ArrayList<String> columnNames = new ArrayList<>();

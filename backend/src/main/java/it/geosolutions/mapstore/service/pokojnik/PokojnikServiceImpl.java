@@ -24,6 +24,7 @@ public class PokojnikServiceImpl implements PokojnikService{
     @Autowired
     GrobService grobService;
 
+
     @Override
     public PokojnikAndGrobWithoutGeomDTO getPokojnikAndGrobWithoutGeomByPokojnikFid(Integer fid) {
         PokojnikAndGrobWithoutGeomDTO pokojnikAndGrobWithoutGeomDTO;

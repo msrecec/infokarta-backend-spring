@@ -1,8 +1,8 @@
 package it.geosolutions.mapstore.utils;
 
-import it.geosolutions.mapstore.config.JDBCConfigImpl;
-import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfigImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,7 +15,8 @@ import java.util.Map;
 @Component
 public class SearchUtils <T> {
     @Autowired
-    private JDBCConfigImpl j;
+    @Qualifier("jdbcTemplateObjectFactory")
+    private JdbcTemplate jdbcTemplateObject;
 
 
     /**
@@ -68,8 +69,6 @@ public class SearchUtils <T> {
 
         List<T> lista;
 
-        JdbcTemplate jdbcTemplateObject = j.getJdbcTemplateObject();
-
         lista = jdbcTemplateObject.query(sql, paramList.toArray(), r);
 
         return lista;
@@ -117,7 +116,6 @@ public class SearchUtils <T> {
         Integer count;
 
         try {
-            JdbcTemplate jdbcTemplateObject = j.getJdbcTemplateObject();
             count = jdbcTemplateObject.queryForInt(sql, paramList.toArray());
         } catch (EmptyResultDataAccessException e) {
             count = 0;

@@ -1,30 +1,26 @@
 package it.geosolutions.mapstore.dao.slika;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 import it.geosolutions.mapstore.utils.EntityUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
-
-
+@Repository
+public class SlikaMetaDAOImpl implements SlikaMetaDAO {
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
 
     public SlikaMetaDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
-
-    @Override
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -63,8 +59,6 @@ public class SlikaMetaDAOImpl implements SlikaMetaDAO, JDBCConfig{
 
     @Override
     public SlikaMeta addSlikaMetaByEntity(SlikaMeta slikaMeta, String entity) {
-
-        SlikaMetaMapper slikaMetaMapper = new SlikaMetaMapper();
 
         if(EntityUtil.isEntity(entity)) {
 

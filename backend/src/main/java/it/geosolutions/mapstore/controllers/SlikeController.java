@@ -1,15 +1,14 @@
 package it.geosolutions.mapstore.controllers;
 
+import it.geosolutions.mapstore.config.fileSystem.FileSystemConfig;
 import it.geosolutions.mapstore.dao.slika.SlikaMetaDAO;
-import it.geosolutions.mapstore.dao.slika.SlikaMetaDAOImpl;
-import it.geosolutions.mapstore.config.FileSystemConfig;
 import it.geosolutions.mapstore.dto.slika.SlikaMetaDTO;
 import it.geosolutions.mapstore.model.slikaMeta.SlikaMeta;
 import it.geosolutions.mapstore.service.slike.SlikaMetaService;
-import it.geosolutions.mapstore.service.slike.SlikaMetaServiceImpl;
 import it.geosolutions.mapstore.utils.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +21,10 @@ import java.util.Optional;
 
 @Controller
 public class SlikeController {
+    @Autowired
+    SlikaMetaDAO slikaMetaDAO;
+    @Autowired
+    SlikaMetaService slikaMetaService;
 
     /**
      * TODO - Implement Buffered write instead of Write
@@ -52,8 +55,6 @@ public class SlikeController {
         if(EntityUtil.isEntity(entity)) {
 
             if (!file.isEmpty()) {
-
-                SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
 
                 String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
@@ -255,8 +256,6 @@ public class SlikeController {
 
         if(EntityUtil.isEntity(entity)) {
 
-            SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
-
             SlikaMetaDTO slikaMetaDTO = slikaMetaService.getSlikaMetaByFid(fid, entity);
 
             String json = JSONUtils.fromPOJOToJSON(slikaMetaDTO);
@@ -286,8 +285,6 @@ public class SlikeController {
 
         if(EntityUtil.isEntity(entity)) {
 
-            SlikaMetaService slikaMetaService = new SlikaMetaServiceImpl();
-
             List<SlikaMetaDTO> slikaMetaDTOList = slikaMetaService.getSlikaMetaByEntityFid(fid, entity);
 
             HeaderUtils.responseWithJSON(response, JSONUtils.fromListToJSON(slikaMetaDTOList));
@@ -313,7 +310,6 @@ public class SlikeController {
         @PathVariable("fid") Integer fid,
         @RequestParam(value = "thumbnail", required = false) Boolean hasThumbnail
     ) throws IOException {
-        SlikaMetaDAO slikaMetaDAO = new SlikaMetaDAOImpl();
         Optional<Boolean> oThumbnail = Optional.ofNullable(hasThumbnail);
         String entity = EncodingUtils.decodeISO88591(inEntity).toLowerCase();
 

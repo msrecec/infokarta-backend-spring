@@ -1,33 +1,26 @@
 package it.geosolutions.mapstore.dao.groblje;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
 import it.geosolutions.mapstore.dao.DAO;
-import it.geosolutions.mapstore.dao.grob.GrobMapper;
-import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.model.groblje.Groblje;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class GrobljeDAOImpl implements GrobljeDAO, JDBCConfig {
+public class GrobljeDAOImpl implements GrobljeDAO {
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
 
-
-
     public GrobljeDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
-
-    @Override
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
     @Override

@@ -1,21 +1,20 @@
 package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
-import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAOImpl;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobWithoutGeomDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.service.pokojnik.PokojnikService;
 import it.geosolutions.mapstore.utils.EncodingUtils;
-import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
+import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,8 +129,6 @@ public class PokojniciController {
         String json;
 
         Optional<Boolean> oVariables = Optional.ofNullable(variables);
-
-        PokojniciDAO pokojniciDAO = new PokojniciDAOImpl();
 
         if(oVariables.isPresent()) {
             Pokojnik pokojnik = pokojniciDAO.getFirstPokojnik();
