@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,13 @@ public class RasvjetaServiceImpl implements RasvjetaService {
     @Override
     public Optional<Rasvjeta> update(RasvjetaPutCommand rasvjetaCommand) {
         return rasvjetaDAO.update(mapPutCommandToRasvjeta(rasvjetaCommand));
+    }
+
+    @Override
+    public RasvjetaListDTO findSearch(Map<String, Object> params, String entity, Integer page) {
+        List<Rasvjeta> rasvjeta = rasvjetaDAO.search(params, entity, page);
+        Integer count = rasvjetaDAO.searchCount(params, entity);
+        return mapRasvjetaToRasvjetaListDTO(rasvjeta, count);
     }
 
     private Rasvjeta mapPutCommandToRasvjeta(RasvjetaPutCommand command) {

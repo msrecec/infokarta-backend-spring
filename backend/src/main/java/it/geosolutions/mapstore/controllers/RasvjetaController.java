@@ -1,11 +1,14 @@
 package it.geosolutions.mapstore.controllers;
 
+import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAO;
+import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAOImpl;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -21,24 +27,49 @@ public class RasvjetaController {
     @Autowired
     private RasvjetaService rasvjetaService;
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @param page
+     * @throws IOException
+     */
+
     @RequestMapping(value = "/rasvjeta", method = RequestMethod.GET)
     public void getRasvjeta(
         HttpServletRequest request,
         HttpServletResponse response,
+        @RequestParam(value = "materijal", required = false) String materijal,
+        @RequestParam(value = "stanje", required = false) String stanje,
         @RequestParam(value = "page", required = false) Integer page
     ) throws IOException {
-
         RasvjetaListDTO rasvjetaListDTO;
 
-        Optional<Integer> oPage = Optional.ofNullable(page);
+        if(materijal != null || stanje != null) {
 
-        if(oPage.isPresent()) {
+            Map<String, Object> params = new HashMap<String, Object>();
 
-            rasvjetaListDTO = rasvjetaService.findPaginated(oPage.get());
+            if(materijal != null) {
+                params.put("Materijal", materijal.trim());
+            }
+
+            if(stanje != null) {
+                params.put("Stanje", stanje.trim());
+            }
+
+            rasvjetaListDTO = rasvjetaService.findSearch(params, "rasvjeta", page != null ? page : -1);
 
         } else {
 
-            rasvjetaListDTO = rasvjetaService.findAll();
+            if (page != null) {
+
+                rasvjetaListDTO = rasvjetaService.findPaginated(page);
+
+            } else {
+
+                rasvjetaListDTO = rasvjetaService.findAll();
+
+            }
 
         }
 

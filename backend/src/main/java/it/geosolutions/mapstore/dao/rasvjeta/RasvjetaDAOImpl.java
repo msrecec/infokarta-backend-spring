@@ -3,6 +3,8 @@ package it.geosolutions.mapstore.dao.rasvjeta;
 import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.utils.SearchUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -10,11 +12,14 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
 public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
     private JdbcTemplate jdbcTemplateObject;
+    @Autowired
+    private SearchUtils<Rasvjeta> searchUtils;
 
     public RasvjetaDAOImpl() {
         this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
@@ -140,4 +145,21 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
         return count;
     }
 
+    @Override
+    public List<Rasvjeta> search(Map<String, Object> params, String entity, Integer page) {
+
+        RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
+
+        List<Rasvjeta> rasvjeta = searchUtils.searchList(params, entity, page, DAO.pageSize, rasvjetaMapper);
+
+        return rasvjeta;
+    }
+
+    @Override
+    public Integer searchCount(Map<String, Object> params, String entity) {
+
+        Integer count = searchUtils.searchCount(params, entity);
+
+        return count;
+    }
 }

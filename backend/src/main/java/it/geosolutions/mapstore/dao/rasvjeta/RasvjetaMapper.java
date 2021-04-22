@@ -8,9 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-public class RasvjetaMapper implements RowMapper {
+public class RasvjetaMapper implements RowMapper<Rasvjeta> {
     @Override
-    public Object mapRow(ResultSet rs, int i) throws SQLException {
+    public Rasvjeta mapRow(ResultSet rs, int i) throws SQLException {
 
         Rasvjeta rasvjeta = new Rasvjeta();
 
