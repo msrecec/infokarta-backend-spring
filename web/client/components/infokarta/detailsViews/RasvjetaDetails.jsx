@@ -111,7 +111,7 @@ class BaseRasvjetaDetails extends React.Component {
     }
     runAfterRender = () => {
         const myElem = document.getElementsByClassName("myElem");
-        if (myElem) {
+        if (myElem && this.props.items && this.props.items.geom) {
             this.props.zoomToItem(this.props.items.geom);
         }
     }
