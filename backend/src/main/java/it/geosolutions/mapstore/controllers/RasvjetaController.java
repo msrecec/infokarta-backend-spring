@@ -1,14 +1,11 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAO;
-import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAOImpl;
-import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
-import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.dto.EntityListDTO;
+import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,6 +24,7 @@ public class RasvjetaController {
     private RasvjetaService rasvjetaService;
 
     /**
+     * Gets all Rasvjeta data
      *
      * @param request
      * @param response
@@ -43,7 +40,7 @@ public class RasvjetaController {
         @RequestParam(value = "stanje", required = false) String stanje,
         @RequestParam(value = "page", required = false) Integer page
     ) throws IOException {
-        RasvjetaListDTO rasvjetaListDTO;
+        EntityListDTO rasvjetaListDTO;
 
         if(materijal != null || stanje != null) {
 
@@ -84,7 +81,7 @@ public class RasvjetaController {
         @PathVariable("idHist") Integer idHist
     ) throws IOException {
 
-        Optional<Rasvjeta> oRasvjeta = rasvjetaService.findById(idHist);
+        Optional<RasvjetaDTO> oRasvjeta = rasvjetaService.findById(idHist);
 
         String json = "{}";
 
@@ -118,7 +115,7 @@ public class RasvjetaController {
 
         RasvjetaPutCommand command = JSONUtils.fromJSONtoPOJO(json, RasvjetaPutCommand.class);
 
-        Optional<Rasvjeta> rasvjeta = rasvjetaService.update(command);
+        Optional<RasvjetaDTO> rasvjeta = rasvjetaService.update(command);
 
         if(rasvjeta.isPresent()) {
 

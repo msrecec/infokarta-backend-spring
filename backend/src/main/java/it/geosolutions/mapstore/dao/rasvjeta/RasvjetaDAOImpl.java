@@ -97,7 +97,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO {
 
         try {
 
-            oRasvjeta = Optional.ofNullable((Rasvjeta)jdbcTemplateObject.queryForObject(sql, params, mapper));
+            oRasvjeta = Optional.ofNullable(jdbcTemplateObject.queryForObject(sql, params, mapper));
 
         } catch (EmptyResultDataAccessException e) {
 
@@ -118,7 +118,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO {
         Optional<Rasvjeta> rasvjeta;
 
         try {
-             rasvjeta = Optional.ofNullable((Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, rasvjetaMapper));
+             rasvjeta = Optional.ofNullable(jdbcTemplateObject.queryForObject(sql, new Object[]{id}, rasvjetaMapper));
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
             rasvjeta = Optional.empty();
