@@ -3,9 +3,7 @@ package it.geosolutions.mapstore.service.pokojnik;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
 import it.geosolutions.mapstore.dto.grobovi.GrobDTO;
-import it.geosolutions.mapstore.dto.grobovi.GrobDTOWithoutGeom;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
-import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobWithoutGeomDTO;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikDTO;
 import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
@@ -26,8 +24,8 @@ public class PokojnikServiceImpl implements PokojnikService{
 
 
     @Override
-    public PokojnikAndGrobWithoutGeomDTO getPokojnikAndGrobWithoutGeomByPokojnikFid(Integer fid) {
-        PokojnikAndGrobWithoutGeomDTO pokojnikAndGrobWithoutGeomDTO;
+    public PokojnikAndGrobDTO getPokojnikAndGrobWithoutGeomByPokojnikFid(Integer fid) {
+        PokojnikAndGrobDTO pokojnikAndGrobWithoutGeomDTO;
 
         Optional<Integer> oFid = Optional.ofNullable(fid);
 
@@ -37,9 +35,9 @@ public class PokojnikServiceImpl implements PokojnikService{
 
         Grob grob = grobDAO.getGrobByPokojnikFid(fid);
 
-        GrobDTOWithoutGeom grobDTOWithoutGeom = grobService.mapGrobToGrobDTOWithoutGeom(grob);
+        GrobDTO grobDTO = grobService.mapGrobToGrobDTOWithoutGeom(grob);
 
-        pokojnikAndGrobWithoutGeomDTO = new PokojnikAndGrobWithoutGeomDTO(pokojnikDTO, grobDTOWithoutGeom);
+        pokojnikAndGrobWithoutGeomDTO = new PokojnikAndGrobDTO(pokojnikDTO, grobDTO);
 
         return pokojnikAndGrobWithoutGeomDTO;
     }

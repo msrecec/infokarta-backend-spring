@@ -1,13 +1,12 @@
 package it.geosolutions.mapstore.service.pokojnik;
 
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
-import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobWithoutGeomDTO;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 
 public interface PokojnikService {
-    public PokojnikAndGrobWithoutGeomDTO getPokojnikAndGrobWithoutGeomByPokojnikFid(Integer fid);
-    public PokojnikAndGrobDTO getPokojnikAndGrobByPokojnikFid(Integer fid);
+    PokojnikAndGrobDTO getPokojnikAndGrobWithoutGeomByPokojnikFid(Integer fid);
+    PokojnikAndGrobDTO getPokojnikAndGrobByPokojnikFid(Integer fid);
 
     default PokojnikDTO mapPokojnikToPokojnikDTO(Pokojnik pokojnik) {
         return new PokojnikDTO(pokojnik.getFid(), pokojnik.getFk(), pokojnik.getIme(), pokojnik.getPrezime(), pokojnik.getIme_i_prezime(), pokojnik.getPrezime_djevojacko(),

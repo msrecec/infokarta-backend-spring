@@ -38,7 +38,8 @@ public class RasvjetaController {
         HttpServletResponse response,
         @RequestParam(value = "materijal", required = false) String materijal,
         @RequestParam(value = "stanje", required = false) String stanje,
-        @RequestParam(value = "page", required = false) Integer page
+        @RequestParam(value = "page", required = false) Integer page,
+        @RequestParam(value = "geom", required = false) Boolean geom
     ) throws IOException {
         EntityListDTO rasvjetaListDTO;
 
@@ -54,17 +55,17 @@ public class RasvjetaController {
                 params.put("Stanje", stanje.trim());
             }
 
-            rasvjetaListDTO = rasvjetaService.findSearch(params, "rasvjeta", page != null ? page : -1);
+            rasvjetaListDTO = rasvjetaService.findSearch(params, "rasvjeta", page != null ? page : -1, geom != null);
 
         } else {
 
             if (page != null) {
 
-                rasvjetaListDTO = rasvjetaService.findPaginated(page);
+                rasvjetaListDTO = rasvjetaService.findPaginated(page, geom != null);
 
             } else {
 
-                rasvjetaListDTO = rasvjetaService.findAll();
+                rasvjetaListDTO = rasvjetaService.findAll(geom != null);
 
             }
 
@@ -78,10 +79,11 @@ public class RasvjetaController {
     public void getRasvjetaByIdHist(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("idHist") Integer idHist
+        @PathVariable("idHist") Integer idHist,
+        @RequestParam(value = "geom", required = false) Boolean geom
     ) throws IOException {
 
-        Optional<RasvjetaDTO> oRasvjeta = rasvjetaService.findById(idHist);
+        Optional<RasvjetaDTO> oRasvjeta = rasvjetaService.findById(idHist, geom != null);
 
         String json = "{}";
 
@@ -108,6 +110,7 @@ public class RasvjetaController {
     public void updateRasvjeta(
         HttpServletRequest request,
         HttpServletResponse response,
+        @RequestParam(value = "geom", required = false) Boolean geom,
         @RequestBody String json
     ) throws IOException {
 
@@ -115,7 +118,7 @@ public class RasvjetaController {
 
         RasvjetaPutCommand command = JSONUtils.fromJSONtoPOJO(json, RasvjetaPutCommand.class);
 
-        Optional<RasvjetaDTO> rasvjeta = rasvjetaService.update(command);
+        Optional<RasvjetaDTO> rasvjeta = rasvjetaService.update(command, geom != null);
 
         if(rasvjeta.isPresent()) {
 

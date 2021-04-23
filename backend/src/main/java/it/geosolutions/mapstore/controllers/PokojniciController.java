@@ -2,7 +2,6 @@ package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
-import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobWithoutGeomDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.service.pokojnik.PokojnikService;
 import it.geosolutions.mapstore.utils.EncodingUtils;
@@ -105,7 +104,7 @@ public class PokojniciController {
             json = JSONUtils.fromPOJOToJSON(pokojnik);
         } else {
             if(geom == null) {
-                PokojnikAndGrobWithoutGeomDTO pokojnikAndGrobWithoutGeomDTO = pokojnikService.getPokojnikAndGrobWithoutGeomByPokojnikFid(id);
+                PokojnikAndGrobDTO pokojnikAndGrobWithoutGeomDTO = pokojnikService.getPokojnikAndGrobWithoutGeomByPokojnikFid(id);
                 json = JSONUtils.fromPOJOToJSON(pokojnikAndGrobWithoutGeomDTO);
             } else {
                 PokojnikAndGrobDTO pokojnikAndGrobDTO = pokojnikService.getPokojnikAndGrobByPokojnikFid(id);

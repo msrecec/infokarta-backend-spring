@@ -6,6 +6,115 @@ import org.postgis.PGgeometry;
 
 public class GrobDTO {
 
+    public static class Builder {
+        private PGgeometry geom;
+        private Integer fid;
+        private String source;
+        private String source1;
+        private String source2;
+        private String source3;
+        private String source4;
+        private String source5;
+        private String source6;
+        private String source7;
+        private String RedniBroj;
+        private String Grobnica;
+        private String brojLezaja;
+        private String Groblje;
+        private Integer fk;
+
+        public Builder() {}
+
+        public Builder geom(PGgeometry geom) {
+            this.geom = geom;
+            return this;
+        }
+
+        public Builder fid(Integer fid) {
+            this.fid = fid;
+            return this;
+        }
+
+        public Builder source(String source) {
+            this.source = source;
+            return this;
+        }
+
+        public Builder source1(String source1) {
+            this.source1 = source1;
+            return this;
+        }
+
+        public Builder source2(String source2) {
+            this.source2 = source2;
+            return this;
+        }
+        public Builder source3(String source3) {
+            this.source3 = source3;
+            return this;
+        }
+        public Builder source4(String source4) {
+            this.source4 = source4;
+            return this;
+        }
+        public Builder source5(String source5) {
+            this.source5 = source5;
+            return this;
+        }
+        public Builder source6(String source6) {
+            this.source6 = source6;
+            return this;
+        }
+        public Builder source7(String source7) {
+            this.source7 = source7;
+            return this;
+        }
+        public Builder RedniBroj(String RedniBroj) {
+            this.RedniBroj = RedniBroj;
+            return this;
+        }
+        public Builder Grobnica(String Grobnica) {
+            this.Grobnica = Grobnica;
+            return this;
+        }
+        public Builder brojLezaja(String brojLezaja) {
+            this.brojLezaja = brojLezaja;
+            return this;
+        }
+        public Builder Groblje(String Groblje) {
+            this.Groblje = Groblje;
+            return this;
+        }
+
+        public Builder fk(Integer fk) {
+            this.fk = fk;
+            return this;
+        }
+
+        public GrobDTO build() {
+            GrobDTO grobDTO = new GrobDTO();
+
+            grobDTO.geom = this.geom;
+            grobDTO.fid = this.fid;
+            grobDTO.source = this.source;
+            grobDTO.source1 = this.source1;
+            grobDTO.source2 = this.source2;
+            grobDTO.source3 = this.source3;
+            grobDTO.source4 = this.source4;
+            grobDTO.source5 = this.source5;
+            grobDTO.source6 = this.source6;
+            grobDTO.source7 = this.source7;
+            grobDTO.RedniBroj = this.RedniBroj;
+            grobDTO.Grobnica = this.Grobnica;
+            grobDTO.brojLezaja = this.brojLezaja;
+            grobDTO.Groblje = this.Groblje;
+            grobDTO.fk = this.fk;
+
+            return grobDTO;
+        }
+
+    }
+
     @JsonSerialize(using = PGgeometrySerializer.class)
     private PGgeometry geom;
     private Integer fid;
@@ -22,6 +131,8 @@ public class GrobDTO {
     private String brojLezaja;
     private String Groblje;
     private Integer fk;
+
+    public GrobDTO() {}
 
     public GrobDTO(PGgeometry geom, Integer fid, String source, String source1, String source2, String source3,
                    String source4, String source5, String source6, String source7, String redniBroj, String grobnica,

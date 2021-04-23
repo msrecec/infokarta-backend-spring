@@ -26,13 +26,13 @@ public class RasvjetaServiceImpl implements RasvjetaService {
      */
 
     @Override
-    public Optional<RasvjetaDTO> findById(Integer id) {
+    public Optional<RasvjetaDTO> findById(Integer id, Boolean geom) {
 
         Optional<Rasvjeta> rasvjeta = rasvjetaDAO.findById(id);
         Optional<RasvjetaDTO> rasvjetaDTO;
 
         if(rasvjeta.isPresent()) {
-            rasvjetaDTO = Optional.of(mapRasvjetaToRasvjetaDTO(rasvjeta.get()));
+            rasvjetaDTO = Optional.of(mapRasvjetaToRasvjetaDTO(rasvjeta.get(), geom));
         } else {
             rasvjetaDTO = Optional.empty();
         }
@@ -41,23 +41,23 @@ public class RasvjetaServiceImpl implements RasvjetaService {
     }
 
     @Override
-    public EntityListDTO findAll() {
+    public EntityListDTO findAll(Boolean geom) {
         List<Rasvjeta> rasvjeta = rasvjetaDAO.findAll();
         Integer count = rasvjetaDAO.findCount();
-        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta);
+        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
         return new EntityListDTO(rasvjetaDTOList, count);
     }
 
     @Override
-    public EntityListDTO findPaginated(Integer page) {
+    public EntityListDTO findPaginated(Integer page, Boolean geom) {
         List<Rasvjeta> rasvjeta = rasvjetaDAO.findPaginated(page);
         Integer count = rasvjetaDAO.findCount();
-        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta);
+        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
         return new EntityListDTO(rasvjetaDTOList, count);
     }
 
     @Override
-    public Optional<RasvjetaDTO> update(RasvjetaPutCommand rasvjetaCommand) {
+    public Optional<RasvjetaDTO> update(RasvjetaPutCommand rasvjetaCommand, Boolean geom) {
 
         Rasvjeta rasvjeta = rasvjetaDAO.update(mapPutCommandToRasvjeta(rasvjetaCommand)).get();
 
@@ -65,80 +65,15 @@ public class RasvjetaServiceImpl implements RasvjetaService {
             return Optional.empty();
         }
 
-        return Optional.of(mapRasvjetaToRasvjetaDTO(rasvjeta));
+        return Optional.of(mapRasvjetaToRasvjetaDTO(rasvjeta, geom));
     }
 
     @Override
-    public EntityListDTO findSearch(Map<String, Object> params, String entity, Integer page) {
+    public EntityListDTO findSearch(Map<String, Object> params, String entity, Integer page, Boolean geom) {
         List<Rasvjeta> rasvjeta = rasvjetaDAO.search(params, entity, page);
         Integer count = rasvjetaDAO.searchCount(params, entity);
-        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta);
+        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
         return new EntityListDTO(rasvjetaDTOList, count);
-    }
-
-    /**
-     * Maps command object to entity model
-     *
-     * @param command input object
-     * @return entity model
-     */
-
-    private Rasvjeta mapPutCommandToRasvjeta(RasvjetaPutCommand command) {
-
-        return new Rasvjeta
-            .Builder(command.getIdHist())
-            .materijal(command.getMaterijal())
-            .stanje(command.getStanje())
-            .source(command.getSource())
-            .mjernoMjesto(command.getMjernoMjesto())
-            .vod(command.getVod())
-            .kategorija(command.getKategorija())
-            .vrstaRasvjetnogMjesta(command.getVrstaRasvjetnogMjesta())
-            .razdjelnik(command.getRazdjelnik())
-            .trosilo(command.getTrosilo())
-            .vrstaSvjetiljke(command.getVrstaSvjetiljke())
-            .brojSvjetiljki(command.getBrojSvjetiljki())
-            .grlo(command.getGrlo())
-            .vrstaStakla(command.getVrstaStakla())
-            .polozajKabela(command.getPolozajKabela())
-            .godinaIzgradnje(command.getGodinaIzgradnje())
-            .oznakaUgovora(command.getOznakaUgovora())
-            .fid(command.getFid())
-            .timeStart(command.getTimeStart())
-            .timeEnd(command.getTimeEnd())
-            .userRole(command.getUserRole())
-            .build();
-    }
-
-    /**
-     * Maps Rasvjeta entity model to DTO
-     *
-     * @param rasvjeta entity model
-     * @return DTO
-     */
-
-    private RasvjetaDTO mapRasvjetaToRasvjetaDTO(Rasvjeta rasvjeta) {
-        return new RasvjetaDTO.Builder().fid(rasvjeta.getFid()).materijal(rasvjeta.getMaterijal()).stanje(rasvjeta.getStanje()).source(rasvjeta.getSource())
-            .mjernoMjesto(rasvjeta.getMjernoMjesto()).vod(rasvjeta.getVod()).kategorija(rasvjeta.getKategorija()).vrstaRasvjetnogMjesta(rasvjeta.getVrstaRasvjetnogMjesta())
-            .razdjelnik(rasvjeta.getRazdjelnik()).trosilo(rasvjeta.getTrosilo()).vrstaSvjetiljke(rasvjeta.getVrstaSvjetiljke()).brojSvjetiljki(rasvjeta.getBrojSvjetiljki())
-            .grlo(rasvjeta.getGrlo()).vrstaStakla(rasvjeta.getVrstaStakla()).polozajKabela(rasvjeta.getPolozajKabela()).godinaIzgradnje(rasvjeta.getGodinaIzgradnje())
-            .oznakaUgovora(rasvjeta.getOznakaUgovora()).idHist(rasvjeta.getIdHist()).timeStart(rasvjeta.getTimeStart()).timeEnd(rasvjeta.getTimeEnd())
-            .userRole(rasvjeta.getUserRole()).build();
-    }
-
-    /**
-     * Maps entity model list to dto list
-     *
-     * @param rasvjetaList entity list
-     * @return dto list
-     */
-
-    private List<RasvjetaDTO> mapRasvjetaListToRasvjetaDTOList(List<Rasvjeta> rasvjetaList) {
-        List<RasvjetaDTO> rasvjetaDTOList = new ArrayList<>();
-        for(Rasvjeta rasvjeta : rasvjetaList) {
-            rasvjetaDTOList.add(mapRasvjetaToRasvjetaDTO(rasvjeta));
-        }
-        return rasvjetaDTOList;
     }
 
 }

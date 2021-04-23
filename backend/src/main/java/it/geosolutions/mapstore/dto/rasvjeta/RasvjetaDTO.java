@@ -35,7 +35,7 @@ public class RasvjetaDTO {
 
         public Builder() {}
 
-        public Builder PGgeometry(PGgeometry geom) {
+        public Builder geom(PGgeometry geom) {
             this.geom = geom;
             return this;
         }

@@ -3,7 +3,6 @@ package it.geosolutions.mapstore.service.grob;
 import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.grobovi.GrobDTO;
-import it.geosolutions.mapstore.dto.grobovi.GrobDTOWithoutGeom;
 import it.geosolutions.mapstore.model.grob.Grob;
 import it.geosolutions.mapstore.model.grob.GrobPutCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +34,11 @@ public class GrobServiceImpl implements GrobService {
         List<Grob> grob = grobDAO.findAll();
         Integer count = grobDAO.findCount();
 
-        return mapGrobToEntityListDTO(grob, count);
+        return new EntityListDTO(grob, count);
     }
 
     @Override
-    public Optional<GrobDTOWithoutGeom> findByIdWithoutGeom(Integer id) {
+    public Optional<GrobDTO> findByIdWithoutGeom(Integer id) {
 
         Optional<Grob> grob = grobDAO.findById(id);
 
@@ -54,14 +53,14 @@ public class GrobServiceImpl implements GrobService {
     public EntityListDTO findPaginated(Integer page) {
         List<Grob> grob = grobDAO.findPaginated(page);
         Integer count = grobDAO.findCount();
-        return mapGrobToEntityListDTO(grob, count);
+        return new EntityListDTO(grob, count);
     }
 
     @Override
     public EntityListDTO findGroboviByGroblje(String groblje) {
         List<Grob> grob = grobDAO.getGroboviByGroblje(groblje);
         Integer count = grobDAO.findCount();
-        return mapGrobToEntityListDTO(grob, count);
+        return new EntityListDTO(grob, count);
     }
 
     @Override
@@ -69,7 +68,4 @@ public class GrobServiceImpl implements GrobService {
         return Optional.empty();
     }
 
-    private EntityListDTO mapGrobToEntityListDTO(List<Grob> grob, Integer count) {
-        return new EntityListDTO(grob, count);
-    }
 }
