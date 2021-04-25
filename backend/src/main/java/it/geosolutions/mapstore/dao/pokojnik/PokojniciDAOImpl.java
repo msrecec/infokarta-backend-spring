@@ -245,19 +245,19 @@ public class PokojniciDAOImpl implements PokojniciDAO {
     }
 
     @Override
-    public List<Pokojnik> searchPokojnici(Map<String, Object> params, SearchEntity entity,
+    public List<Pokojnik> fullSearch(Map<String, Object> params, SearchEntity entity,
                                              Integer page, List<SearchEntity> orderedEntities) {
 
         PokojnikMapper pokojnikMapper = new PokojnikMapper();
 
-        List<Pokojnik> pokojnici = search.searchJoinedList(params, entity, page, DAO.pageSize, pokojnikMapper, orderedEntities);
+        List<Pokojnik> pokojnici = search.fullSearchList(params, entity, page, DAO.pageSize, pokojnikMapper, orderedEntities);
 
         return pokojnici;
     }
 
     @Override
-    public Integer findJoinedSearchCount(Map<String, Object> params, SearchEntity entity, List<SearchEntity> orderedEntities) {
-        return search.searchJoinedListCount(params, entity, orderedEntities);
+    public Integer fullSearchCount(Map<String, Object> params, SearchEntity entity, List<SearchEntity> orderedEntities) {
+        return search.fullSearchListCount(params, entity, orderedEntities);
     }
 
     /**
@@ -380,8 +380,6 @@ public class PokojniciDAOImpl implements PokojniciDAO {
             objArrList.add(offset);
 
             pokojnici = jdbcTemplateObject.query(select+sql, objArrList.toArray(), pokojnikMapper);
-
-            System.out.println(select+sql);
 
             json = JSONUtils.fromListToJSON(pokojnici);
 

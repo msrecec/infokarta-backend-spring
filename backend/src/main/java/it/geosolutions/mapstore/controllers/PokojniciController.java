@@ -134,19 +134,19 @@ public class PokojniciController {
             SearchEntity entity = new SearchEntity("\"pokojnici\"", "\"fid\"", "\"fk\"");
 
             if(ime != null) {
-                params.put("varchar:\"pokojnici\".\"IME\" ", EncodingUtils.decodeISO88591(ime).trim());
+                params.put("varchar:\"pokojnici\".\"IME\":ilike", EncodingUtils.decodeISO88591(ime).trim());
             }
 
             if(prezime != null) {
-                params.put("varchar:\"pokojnici\".\"PREZIME\" ", EncodingUtils.decodeISO88591(prezime).trim());
+                params.put("varchar:\"pokojnici\".\"PREZIME\":ilike", EncodingUtils.decodeISO88591(prezime).trim());
             }
 
             if(godinaUkopa != null) {
-                params.put("varchar:\"pokojnici\".\"Godina ukopa\"", EncodingUtils.decodeISO88591(godinaUkopa).trim());
+                params.put("varchar:\"pokojnici\".\"Godina ukopa\":ilike", EncodingUtils.decodeISO88591(godinaUkopa).trim());
             }
 
             if(groblje != null) {
-                params.put("varchar:\"groblja\".\"naziv\"", EncodingUtils.decodeISO88591(groblje).trim());
+                params.put("varchar:\"groblja\".\"naziv\":ilike", EncodingUtils.decodeISO88591(groblje).trim());
             }
 
             List<SearchEntity> orderedEntities = new ArrayList<>();
@@ -154,7 +154,7 @@ public class PokojniciController {
             orderedEntities.add(new SearchEntity("\"grobovi\"", "\"fid\"", "\"fk\""));
             orderedEntities.add(new SearchEntity("\"groblja\"", "\"fid\"", "\"fk\""));
 
-            EntityListDTO entities = pokojnikService.findJoinedSearch(params, entity, page != null ? page : -1, orderedEntities);
+            EntityListDTO entities = pokojnikService.fullSearch(params, entity, page != null ? page : -1, orderedEntities);
 
             if(entities.getEntityList().isEmpty()) {
                 response.setStatus(404);

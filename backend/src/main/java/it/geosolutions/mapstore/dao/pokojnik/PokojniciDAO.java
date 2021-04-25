@@ -16,10 +16,10 @@ public interface PokojniciDAO extends DAO<Pokojnik> {
 
     public String listPokojnici();
 
-    List<Pokojnik> searchPokojnici(Map<String, Object> params, SearchEntity entity,
+    List<Pokojnik> fullSearch(Map<String, Object> params, SearchEntity entity,
                                       Integer page, List<SearchEntity> orderedEntities);
 
-    Integer findJoinedSearchCount(Map<String, Object> params, SearchEntity entity,
+    Integer fullSearchCount(Map<String, Object> params, SearchEntity entity,
                                   List<SearchEntity> orderedEntities);
 
     public Pokojnik getPokojnikById(Optional<Integer> id);

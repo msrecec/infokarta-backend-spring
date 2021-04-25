@@ -5,6 +5,7 @@ import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,9 +70,9 @@ public class RasvjetaServiceImpl implements RasvjetaService {
     }
 
     @Override
-    public EntityListDTO findSearch(Map<String, Object> params, String entity, Integer page, Boolean geom) {
-        List<Rasvjeta> rasvjeta = rasvjetaDAO.search(params, entity, page);
-        Integer count = rasvjetaDAO.searchCount(params, entity);
+    public EntityListDTO fullSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities, Boolean geom) {
+        List<Rasvjeta> rasvjeta = rasvjetaDAO.fullSearch(params, entity, page, orderedEntities);
+        Integer count = rasvjetaDAO.fullSearchCount(params, entity, orderedEntities);
         List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
         return new EntityListDTO(rasvjetaDTOList, count);
     }

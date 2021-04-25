@@ -4,6 +4,7 @@ import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface RasvjetaService {
     EntityListDTO findAll(Boolean geom);
     EntityListDTO findPaginated(Integer page, Boolean geom);
     Optional<RasvjetaDTO> update(RasvjetaPutCommand rasvjetaCommand, Boolean geom);
-    EntityListDTO findSearch(Map<String, Object> params, String entity, Integer page, Boolean geom);
+    EntityListDTO fullSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities, Boolean geom);
 
 
     /**

@@ -29,9 +29,9 @@ public class PokojnikServiceImpl implements PokojnikService{
     GrobService grobService;
 
     @Override
-    public EntityListDTO findJoinedSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities) {
-        List<Pokojnik> pokojnici = pokojniciDAO.searchPokojnici(params, entity, page, orderedEntities);
-        Integer count = pokojniciDAO.findJoinedSearchCount(params, entity, orderedEntities);
+    public EntityListDTO fullSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities) {
+        List<Pokojnik> pokojnici = pokojniciDAO.fullSearch(params, entity, page, orderedEntities);
+        Integer count = pokojniciDAO.fullSearchCount(params, entity, orderedEntities);
 
         if(pokojnici.isEmpty()) {
             return new EntityListDTO(new ArrayList<PokojnikDTO>(), count);

@@ -7,6 +7,7 @@ import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -49,14 +51,14 @@ public class RasvjetaController {
             Map<String, Object> params = new HashMap<String, Object>();
 
             if(materijal != null) {
-                params.put("varchar:\"rasvjeta\".\"Materijal\" ", EncodingUtils.decodeISO88591(materijal).trim());
+                params.put("varchar:\"rasvjeta\".\"Materijal\":ilike", EncodingUtils.decodeISO88591(materijal).trim());
             }
 
             if(stanje != null) {
-                params.put("varchar:\"rasvjeta\".\"Stanje\" ", EncodingUtils.decodeISO88591(stanje).trim());
+                params.put("varchar:\"rasvjeta\".\"Stanje\":ilike", EncodingUtils.decodeISO88591(stanje).trim());
             }
 
-            rasvjetaListDTO = rasvjetaService.findSearch(params, "\"rasvjeta\"", page != null ? page : -1, geom != null);
+            rasvjetaListDTO = rasvjetaService.fullSearch(params, new SearchEntity("\"rasvjeta\"", "\"fid\"", "\"fk\""), page != null ? page : -1, new ArrayList<>(),geom != null);
 
         } else {
 

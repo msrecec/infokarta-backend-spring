@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface PokojnikService {
-    EntityListDTO findJoinedSearch(Map<String, Object> params, SearchEntity entity,
+    EntityListDTO fullSearch(Map<String, Object> params, SearchEntity entity,
                                    Integer page, List<SearchEntity> orderedEntities);
 
     PokojnikAndGrobDTO getPokojnikAndGrobWithoutGeomByPokojnikFid(Integer fid);

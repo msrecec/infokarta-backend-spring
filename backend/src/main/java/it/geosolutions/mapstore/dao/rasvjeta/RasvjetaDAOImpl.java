@@ -2,6 +2,7 @@ package it.geosolutions.mapstore.dao.rasvjeta;
 
 import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 import it.geosolutions.mapstore.utils.search.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -141,19 +142,19 @@ public class RasvjetaDAOImpl implements RasvjetaDAO {
     }
 
     @Override
-    public List<Rasvjeta> search(Map<String, Object> params, String entity, Integer page) {
+    public List<Rasvjeta> fullSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities) {
 
         RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
 
-        List<Rasvjeta> rasvjeta = searchUtils.searchList(params, entity, page, DAO.pageSize, rasvjetaMapper);
+        List<Rasvjeta> rasvjeta = searchUtils.fullSearchList(params, entity, page, DAO.pageSize, rasvjetaMapper, orderedEntities);
 
         return rasvjeta;
     }
 
     @Override
-    public Integer searchCount(Map<String, Object> params, String entity) {
+    public Integer fullSearchCount(Map<String, Object> params, SearchEntity entity, List<SearchEntity> orderedEntities) {
 
-        Integer count = searchUtils.searchCount(params, entity);
+        Integer count = searchUtils.fullSearchListCount(params, entity, orderedEntities);
 
         return count;
     }
