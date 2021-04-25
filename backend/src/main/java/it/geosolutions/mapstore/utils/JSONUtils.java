@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Contains methods for conversion of java objects to json strings.
+ *
+ */
+
 public interface JSONUtils {
     static <T> String fromListToJSON(List<T> list) {
 

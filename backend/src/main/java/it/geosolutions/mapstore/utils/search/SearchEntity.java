@@ -2,6 +2,12 @@ package it.geosolutions.mapstore.utils.search;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is used for representation of entities in sql queries
+ * it is used with SearchUtils class
+ *
+ */
+
 @Component
 public class SearchEntity {
     private String entity;

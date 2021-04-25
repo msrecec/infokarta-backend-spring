@@ -94,8 +94,6 @@ public class SearchUtils <T> {
             paramList.add((page-1)*limit);
         }
 
-        System.out.println(sql);
-
         List<T> lista;
 
         try {
@@ -109,17 +107,23 @@ public class SearchUtils <T> {
 
 
     /**
+     * Returns the total number of found rows in the sql query.
      *
-     * Looks for number of elements with respectable key value pairs for where parameters for entities
+     * Required for pagination.
      *
-     * If count = true then return only the total number of elements that are matching parameters
+     * Logic is almost identical to fullSearchList method except the fact that this method doesn't include paginated
+     * results. Consists of rows determined by where clause comparison by params
+     *
+     * For more detailed explanation:
+     * @see {fullSearchList()}
      *
      * WARNING: orderedEntities must be in specific order for sql join query
      *
-     * @param params
-     * @param entity
+     * @param params parameters for where clause in sql query
+     * @param entity object of interest in sql query *
      * @param orderedEntities entities in joins that need to be ordered
-     * @return
+     * @return total number of rows for query
+     *
      */
 
     public Integer fullSearchListCount (Map<String, Object> params, SearchEntity entity,

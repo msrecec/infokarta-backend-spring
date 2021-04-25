@@ -29,6 +29,11 @@ public class SlikeController {
     /**
      * TODO - Implement Buffered write instead of Write
      *
+     * Adds metadata for images in upload, writes the image in original format into the file system and compresses
+     * the original into required format as a thumbnail and writes the thumbnail into file system.
+     *
+     * TODO - Break apart into a different module
+     *
      * @param request
      * @param response
      * @param file upload file
