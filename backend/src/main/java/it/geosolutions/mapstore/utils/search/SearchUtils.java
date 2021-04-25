@@ -23,17 +23,42 @@ public class SearchUtils <T> {
      * Looks for elements with respectable key value pairs for where parameters for entities and returns paginated
      * result
      *
-     * If count = true then return only the total number of elements that are matching parameters
+     * Method takes parameters for comparison in sql 'where' clause and respectable operators e.g. like, ilike, =, >, <
+     * it also requires entity that is the main entry point of search regardless of join entities
      *
-     * WARNING: orderedEntities must be in specific order for sql join query
+     * page and limit are required for pagination, e.g. page = 2 and limit = 30 for the 31st-60th element in the table
      *
-     * @param params
-     * @param entity
-     * @param page
-     * @param limit
-     * @param r
-     * @param orderedEntities entities in joins that need to be ordered
-     * @return
+     * orderedEntities represent tables included in join - they are not required, but an instance of empty array
+     * is recommended if joins are not being made
+     *
+     * E.G.
+     *
+     * For get request in uri
+     *
+     * <code>
+     *     http://localhost:8080/mapstore/rest/config/pokojnici2?ime=ante&prezime=gracin&groblje=Primošten&page=1
+     * </code>
+     *
+     * Following sql query is generated
+     *
+     * <code>
+     *     select * from "pokojnici"
+     *     inner join "grobovi" on "pokojnici"."fk"="grobovi"."fid"
+     *     inner join "groblja" on "grobovi"."fk"="groblja"."fid"
+     *     where TRIM("groblja"."naziv") ilike TRIM(?) and TRIM("pokojnici"."PREZIME") ilike TRIM(?)
+     *     and TRIM("pokojnici"."IME") ilike TRIM(?)  order by "pokojnici"."fid"  LIMIT ? OFFSET ?
+     * </code>
+     *
+     * IMPORTANT: orderedEntities must be in specific order for sql join query
+     *
+     * @param params [sql-type]:[sql-table-column]:[sql-operator] - comparison parameters for where clause as keys
+     *               and Objects with required search values as values
+     * @param entity Object that represents database entity name, primary and foreign key
+     * @param page Page of listed objects
+     * @param limit maximum number of objects per page
+     * @param r RowMapper for result set iteration
+     * @param orderedEntities entities in joins that need to be ordered - e.g. pokojnici, grobovi, groblja -
+     * @return list of searched objects
      */
 
     public List<T> fullSearchList (Map<String, Object> params, SearchEntity entity,
@@ -47,7 +72,7 @@ public class SearchUtils <T> {
         sql = new StringBuilder().append("select * from ").append(entity.getEntity()).append(" ").toString();
 
 
-        sql = joinHandler(entity, orderedEntities, sql, orderedEntities != null && !orderedEntities.isEmpty());
+        sql = joinHandler(entity, orderedEntities, sql);
 
         sql = whereHandler(params, sql, paramList);
 
@@ -68,6 +93,8 @@ public class SearchUtils <T> {
             paramList.add(limit);
             paramList.add((page-1)*limit);
         }
+
+        System.out.println(sql);
 
         List<T> lista;
 
@@ -104,7 +131,7 @@ public class SearchUtils <T> {
 
         sql = new StringBuilder().append("select count(*) from ").append(entity.getEntity()).append(" ").toString();
 
-        sql = joinHandler(entity, orderedEntities, sql, !orderedEntities.isEmpty());
+        sql = joinHandler(entity, orderedEntities, sql);
 
         sql = whereHandler(params, sql, paramList);
 
@@ -119,8 +146,18 @@ public class SearchUtils <T> {
         return count;
     }
 
+    /**
+     * Handles join query for entity -> orderedEntities.get(0) -> orderedEntities.get(1) -> etc...
+     *
+     * if orderedEntities is empty or null then just return sql
+     *
+     * @param entity
+     * @param orderedEntities
+     * @param sql
+     * @return
+     */
 
-    private String joinHandler(SearchEntity entity, List<SearchEntity> orderedEntities, String sql, boolean b) {
+    private String joinHandler(SearchEntity entity, List<SearchEntity> orderedEntities, String sql) {
         /**
          * JOIN entities by custom classes
          *
@@ -128,7 +165,7 @@ public class SearchUtils <T> {
          *
          */
 
-        if (b) {
+        if (orderedEntities != null && !orderedEntities.isEmpty()) {
 
             sql += "inner join " + orderedEntities.get(0).getEntity()
                 + " on " + entity.getEntity() + "." + entity.getFk()
@@ -147,6 +184,14 @@ public class SearchUtils <T> {
         return sql;
     }
 
+    /**
+     * Handles conditions provided by Map params and adds required values to paramList for jdbc query
+     *
+     * @param params
+     * @param sql
+     * @param paramList
+     * @return
+     */
 
     private String whereHandler(Map<String, Object> params, String sql, ArrayList<Object> paramList) {
         /**
