@@ -71,8 +71,6 @@ public class SearchUtils <T> {
 
         List<T> lista;
 
-        System.out.println(sql);
-
         try {
             lista = jdbcTemplateObject.query(sql, paramList.toArray(), r);
         } catch (EmptyResultDataAccessException e) {
@@ -111,8 +109,6 @@ public class SearchUtils <T> {
         sql = whereHandler(params, sql, paramList);
 
         Integer count;
-
-        System.out.println(sql);
 
         try {
             count = jdbcTemplateObject.queryForInt(sql, paramList.toArray());
