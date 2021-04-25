@@ -53,9 +53,18 @@ public class SearchUtils <T> {
          * JOIN entities by custom classes
          *
          */
-        for(SearchEntity temp : orderedEntities) {
-            sql+="inner join "+temp.getEntity()+" on ";
-            sql+=temp.getEntity()+"."+temp.getFk()+"="+entity.getEntity()+"."+entity.getFk()+" ";
+
+        sql += "inner join " + orderedEntities.get(0).getEntity()
+            + " on "+entity.getEntity()+"." + entity.getFk()
+            + "=" + orderedEntities.get(0).getEntity() + "."
+            + orderedEntities.get(0).getFid()+" ";
+
+        if(orderedEntities.size() > 1) {
+            for (int i = 0; i < orderedEntities.size()-1; ++i) {
+                sql += "inner join " + orderedEntities.get(i+1).getEntity() + " on " +
+                    orderedEntities.get(i).getEntity() + "." + orderedEntities.get(i).getFk()
+                    + "=" + orderedEntities.get(i+1).getEntity() + "." + orderedEntities.get(i+1).getFid() + " ";
+            }
         }
 
 
@@ -78,8 +87,19 @@ public class SearchUtils <T> {
 
         sql = sql.trim();
 
-        // 3 is size of 'and' at the end of the string
+        /**
+         *  3 is size of 'and' at the end of the string
+         *
+         */
+
         sql = sql.substring(0, sql.length() - 3);
+
+        /**
+         * Order by fid
+         *
+         */
+
+        sql += " order by " + entity.getEntity() + "." + entity.getFid() + " ";
 
         /**
          * If Count Exists then return total number of found elements
@@ -94,9 +114,95 @@ public class SearchUtils <T> {
 
         List<T> lista;
 
-        lista = jdbcTemplateObject.query(sql, paramList.toArray(), r);
+        try {
+            lista = jdbcTemplateObject.query(sql, paramList.toArray(), r);
+        } catch (EmptyResultDataAccessException e) {
+            lista = new ArrayList<>();
+        }
 
         return lista;
+    }
+
+    /**
+     * TODO - finish this method and implement 'ilike' for strings
+     *
+     *
+     * Looks for number of elements with respectable key value pairs for where parameters for entities
+     *
+     * If count = true then return only the total number of elements that are matching parameters
+     *
+     * WARNING: orderedEntities must be in specific order for sql join query
+     *
+     * @param params
+     * @param entity
+     * @param orderedEntities entities in joins that need to be ordered
+     * @return
+     */
+
+    public Integer searchJoinedListCount (Map<String, Object> params, SearchEntity entity,
+                                          List<SearchEntity> orderedEntities) {
+
+        String sql;
+
+        ArrayList<Object> paramList = new ArrayList();
+
+        sql = new StringBuilder().append("select count(*) from ").append(entity.getEntity()).append(" ").toString();
+
+
+        /**
+         * JOIN entities by custom classes
+         *
+         */
+
+        sql += "inner join " + orderedEntities.get(0).getEntity()
+            + " on "+entity.getEntity()+"." + entity.getFk()
+            + "=" + orderedEntities.get(0).getEntity() + "."
+            + orderedEntities.get(0).getFid()+" ";
+
+        if(orderedEntities.size() > 1) {
+            for (int i = 0; i < orderedEntities.size()-1; ++i) {
+                sql += "inner join " + orderedEntities.get(i+1).getEntity() + " on " +
+                    orderedEntities.get(i).getEntity() + "." + orderedEntities.get(i).getFk()
+                    + "=" + orderedEntities.get(i+1).getEntity() + "." + orderedEntities.get(i+1).getFid() + " ";
+            }
+        }
+
+
+        /**
+         * Search by parameters and remove last 'and' in the string query
+         *
+         */
+
+        sql +="where ";
+
+        for(String p : params.keySet()) {
+            if(p.trim().split(":")[0].equalsIgnoreCase("varchar")) {
+                sql += "TRIM("+p.trim().split(":")[1] + ") " + "ilike TRIM(?) and ";
+            }
+            if(p.trim().split(":")[0].equalsIgnoreCase("int")) {
+                sql += p.trim().split(":")[1] + " " + "= ? and ";
+            }
+            paramList.add(params.get(p));
+        }
+
+        sql = sql.trim();
+
+        /**
+         *  3 is size of 'and' at the end of the string
+         *
+         */
+
+        sql = sql.substring(0, sql.length() - 3);
+
+        Integer count;
+
+        try {
+            count = jdbcTemplateObject.queryForInt(sql, paramList.toArray());
+        } catch (EmptyResultDataAccessException e) {
+            count = 0;
+        }
+
+        return count;
     }
 
 

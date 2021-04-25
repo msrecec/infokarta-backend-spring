@@ -4,6 +4,7 @@ import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
+import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,11 @@ public class RasvjetaController {
             Map<String, Object> params = new HashMap<String, Object>();
 
             if(materijal != null) {
-                params.put("varchar:\"rasvjeta\".\"Materijal\" ", materijal.trim());
+                params.put("varchar:\"rasvjeta\".\"Materijal\" ", EncodingUtils.decodeISO88591(materijal).trim());
             }
 
             if(stanje != null) {
-                params.put("varchar:\"rasvjeta\".\"Stanje\" ", stanje.trim());
+                params.put("varchar:\"rasvjeta\".\"Stanje\" ", EncodingUtils.decodeISO88591(stanje).trim());
             }
 
             rasvjetaListDTO = rasvjetaService.findSearch(params, "\"rasvjeta\"", page != null ? page : -1, geom != null);

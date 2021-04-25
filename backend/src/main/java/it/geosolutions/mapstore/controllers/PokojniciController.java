@@ -1,12 +1,14 @@
 package it.geosolutions.mapstore.controllers;
 
 import it.geosolutions.mapstore.dao.pokojnik.PokojniciDAO;
+import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.pokojnik.PokojnikAndGrobDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.service.pokojnik.PokojnikService;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -78,6 +79,90 @@ public class PokojniciController {
         } else {
             jsonArray = pokojniciDAO.searchPokojnici(oIme, oPrezime, oPocGodinaUkopa,
                 oKonGodinaUkopa, oGroblje, oPage);
+
+        }
+        HeaderUtils.responseWithJSON(response, jsonArray);
+
+
+    }
+
+    /**
+     * TODO - Finish this implementation and remove ugly previous impl
+     *
+     * @param request
+     * @param response
+     * @param ime
+     * @param prezime
+     * @param godinaUkopa
+     * @param groblje
+     * @param page
+     * @param grobFid
+     * @throws IOException
+     */
+
+//    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/pokojnici2", method = RequestMethod.GET)
+    @ResponseBody
+    public void getPokojnici2(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        @RequestParam(value = "ime", required = false) String ime,
+        @RequestParam(value = "prezime", required = false) String prezime,
+        @RequestParam(value = "godina-ukopa", required = false) String godinaUkopa,
+        @RequestParam(value = "groblje", required = false) String groblje,
+        @RequestParam(value = "page", required = false) Integer page,
+        @RequestParam(value = "grobFid", required = false) Integer grobFid)
+        throws IOException {
+        String jsonArray;
+        EntityListDTO pokojniciDTOList;
+        List<Pokojnik> pokojnici;
+
+        if(grobFid != null) {
+            pokojnici = pokojniciDAO.getPokojnikByGrobljeFid(grobFid);
+
+            if(pokojnici.isEmpty()) {
+                jsonArray = "[]";
+                response.setStatus(404);
+            } else {
+                jsonArray = JSONUtils.fromListToJSON(pokojnici);
+                response.setStatus(200);
+            }
+
+        } else {
+            Map<String, Object> params = new HashMap<String, Object>();
+
+            SearchEntity entity = new SearchEntity("\"pokojnici\"", "\"fid\"", "\"fk\"");
+
+            if(ime != null) {
+                params.put("varchar:\"pokojnici\".\"IME\" ", EncodingUtils.decodeISO88591(ime).trim());
+            }
+
+            if(prezime != null) {
+                params.put("varchar:\"pokojnici\".\"PREZIME\" ", EncodingUtils.decodeISO88591(prezime).trim());
+            }
+
+            if(godinaUkopa != null) {
+                params.put("varchar:\"pokojnici\".\"Godina ukopa\"", EncodingUtils.decodeISO88591(godinaUkopa).trim());
+            }
+
+            if(groblje != null) {
+                params.put("varchar:\"groblja\".\"naziv\"", EncodingUtils.decodeISO88591(groblje).trim());
+            }
+
+            List<SearchEntity> orderedEntities = new ArrayList<>();
+
+            orderedEntities.add(new SearchEntity("\"grobovi\"", "\"fid\"", "\"fk\""));
+            orderedEntities.add(new SearchEntity("\"groblja\"", "\"fid\"", "\"fk\""));
+
+            EntityListDTO entities = pokojnikService.findJoinedSearch(params, entity, page != null ? page : -1, orderedEntities);
+
+            if(entities.getEntityList().isEmpty()) {
+                response.setStatus(404);
+            } else {
+                response.setStatus(200);
+            }
+
+            jsonArray = JSONUtils.fromPOJOToJSON(entities);
 
         }
         HeaderUtils.responseWithJSON(response, jsonArray);

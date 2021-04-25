@@ -5,13 +5,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class SearchEntity {
     private String entity;
+    private String fid;
     private String fk;
 
     public SearchEntity() {
     }
 
-    public SearchEntity(String entity, String fk) {
+    public SearchEntity(String entity, String fid, String fk) {
         this.entity = entity;
+        this.fid = fid;
         this.fk = fk;
     }
 
@@ -19,6 +21,7 @@ public class SearchEntity {
     public String toString() {
         return "SearchEntity{" +
             "entity='" + entity + '\'' +
+            ", fid='" + fid + '\'' +
             ", fk='" + fk + '\'' +
             '}';
     }
@@ -29,6 +32,14 @@ public class SearchEntity {
 
     public void setEntity(String entity) {
         this.entity = entity;
+    }
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid;
     }
 
     public String getFk() {

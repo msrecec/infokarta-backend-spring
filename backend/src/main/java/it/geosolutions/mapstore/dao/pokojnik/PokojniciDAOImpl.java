@@ -3,14 +3,18 @@ package it.geosolutions.mapstore.dao.pokojnik;
 import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
 import it.geosolutions.mapstore.config.jdbc.JdbcConfigImpl;
 import it.geosolutions.mapstore.dao.DAO;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
+import it.geosolutions.mapstore.utils.search.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -18,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -28,6 +33,8 @@ public class PokojniciDAOImpl implements PokojniciDAO {
     @Autowired
     @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
+    @Autowired
+    SearchUtils<Pokojnik> search;
 
     public PokojniciDAOImpl() {
 
@@ -237,7 +244,21 @@ public class PokojniciDAOImpl implements PokojniciDAO {
         return pokojnici;
     }
 
+    @Override
+    public List<Pokojnik> searchPokojnici(Map<String, Object> params, SearchEntity entity,
+                                             Integer page, List<SearchEntity> orderedEntities) {
 
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
+
+        List<Pokojnik> pokojnici = search.searchJoinedList(params, entity, page, DAO.pageSize, pokojnikMapper, orderedEntities);
+
+        return pokojnici;
+    }
+
+    @Override
+    public Integer findJoinedSearchCount(Map<String, Object> params, SearchEntity entity, List<SearchEntity> orderedEntities) {
+        return search.searchJoinedListCount(params, entity, orderedEntities);
+    }
 
     /**
      * Pokojnici dynamic search
@@ -359,6 +380,8 @@ public class PokojniciDAOImpl implements PokojniciDAO {
             objArrList.add(offset);
 
             pokojnici = jdbcTemplateObject.query(select+sql, objArrList.toArray(), pokojnikMapper);
+
+            System.out.println(select+sql);
 
             json = JSONUtils.fromListToJSON(pokojnici);
 
