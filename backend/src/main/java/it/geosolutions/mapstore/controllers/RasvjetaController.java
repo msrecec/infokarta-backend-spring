@@ -48,14 +48,14 @@ public class RasvjetaController {
             Map<String, Object> params = new HashMap<String, Object>();
 
             if(materijal != null) {
-                params.put("Materijal", materijal.trim());
+                params.put("varchar:\"rasvjeta\".\"Materijal\" ", materijal.trim());
             }
 
             if(stanje != null) {
-                params.put("Stanje", stanje.trim());
+                params.put("varchar:\"rasvjeta\".\"Stanje\" ", stanje.trim());
             }
 
-            rasvjetaListDTO = rasvjetaService.findSearch(params, "rasvjeta", page != null ? page : -1, geom != null);
+            rasvjetaListDTO = rasvjetaService.findSearch(params, "\"rasvjeta\"", page != null ? page : -1, geom != null);
 
         } else {
 

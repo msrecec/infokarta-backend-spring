@@ -1,17 +1,14 @@
 package it.geosolutions.mapstore.dao.rasvjeta;
 
-import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
-import it.geosolutions.mapstore.config.jdbc.JdbcConfigImpl;
 import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
-import it.geosolutions.mapstore.utils.SearchUtils;
+import it.geosolutions.mapstore.utils.search.SearchUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
