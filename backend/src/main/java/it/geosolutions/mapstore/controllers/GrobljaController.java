@@ -25,8 +25,6 @@ public class GrobljaController {
     @ResponseBody
     public void getGroblja(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        System.out.println(request.toString());
-
         List<Groblje> groblja = grobljeDAO.listGroblja();
 
         String json = JSONUtils.fromListToJSON(groblja);

@@ -10,6 +10,7 @@ import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.search.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -299,5 +300,25 @@ public class PokojniciController {
         outJson = "{\"numberOfAffectedRows\":" + "\"" +numberOfAffectedRows + "\"}";
 
         HeaderUtils.responseWithJSON(response, outJson);
+    }
+
+    /**
+     * FOR TESTING PURPOSES
+     *
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+
+    @Secured({"ROLE_ADMIN"})
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public void getTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException {
+
+        String json = "{" + "\"success\":"+ "\"" + "true" + "\"" +"}";
+
+        HeaderUtils.responseWithJSON(response, json);
     }
 }
