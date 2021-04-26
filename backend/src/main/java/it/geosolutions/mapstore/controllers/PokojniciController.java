@@ -27,6 +27,8 @@ public class PokojniciController {
     PokojniciDAO pokojniciDAO;
 
     /**
+     * Legacy
+     *
      * Pokojnici dynamic search controller
      *
      * @param request
@@ -39,9 +41,9 @@ public class PokojniciController {
      * @param page
      * @throws IOException
      */
-
+/*
 //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
+    @RequestMapping(value = "/pokojnici2", method = RequestMethod.GET)
     @ResponseBody
     public void getPokojnici(
         HttpServletRequest request,
@@ -85,7 +87,7 @@ public class PokojniciController {
 
 
     }
-
+*/
     /**
      * TODO - Finish this implementation and remove ugly previous impl
      *
@@ -101,7 +103,7 @@ public class PokojniciController {
      */
 
 //    @Secured({"ROLE_ADMIN"})
-    @RequestMapping(value = "/pokojnici2", method = RequestMethod.GET)
+    @RequestMapping(value = "/pokojnici", method = RequestMethod.GET)
     @ResponseBody
     public void getPokojnici2(
         HttpServletRequest request,
