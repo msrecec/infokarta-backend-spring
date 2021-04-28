@@ -19,6 +19,7 @@ public class SearchUtils <T> {
     private JdbcTemplate jdbcTemplateObject;
 
     /**
+     * TODO - add a white list for entity names in the database to prevent SQL injection
      *
      * Looks for elements with respectable key value pairs for where parameters for entities and returns paginated
      * result
@@ -107,6 +108,8 @@ public class SearchUtils <T> {
 
 
     /**
+     * TODO - add a white list for entity names in the database to prevent SQL injection
+     *
      * Returns the total number of found rows in the sql query.
      *
      * Required for pagination.
