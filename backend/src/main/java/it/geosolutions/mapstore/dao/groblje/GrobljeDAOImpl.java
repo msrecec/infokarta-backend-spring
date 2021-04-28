@@ -57,7 +57,7 @@ public class GrobljeDAOImpl implements GrobljeDAO {
     @Override
     public Integer findCount() {
         Integer count;
-        String sql = "SELECT * FROM public.\"groblja\" ORDER BY fid";
+        String sql = "SELECT COUNT(*) FROM public.\"groblja\"";
         try {
             count = jdbcTemplateObject.queryForInt(sql);
         } catch (EmptyResultDataAccessException e) {
