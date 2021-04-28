@@ -1,15 +1,20 @@
 package it.geosolutions.mapstore.dao.pokojnik;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfigImpl;
 import it.geosolutions.mapstore.dao.DAO;
-import it.geosolutions.mapstore.dao.groblje.GrobljeMapper;
-import it.geosolutions.mapstore.model.groblje.Groblje;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
+import it.geosolutions.mapstore.utils.search.SearchUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -17,20 +22,22 @@ import java.io.UnsupportedEncodingException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
+public class PokojniciDAOImpl implements PokojniciDAO {
 
+    @Autowired
+    JdbcConfigImpl jdbcConfig;
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
+    @Autowired
+    SearchUtils<Pokojnik> search;
 
     public PokojniciDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
 
-    @Override
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -161,7 +168,7 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
 
     @Override
     public List<String> listColumns() {
-        DataSource dataSource = JDBCConfig.postgresqlDataSource();
+        DataSource dataSource = jdbcConfig.getDataSource();
         Connection conn = null;
         Statement stmt;
         ArrayList<String> columnNames = new ArrayList<>();
@@ -237,7 +244,21 @@ public class PokojniciDAOImpl implements PokojniciDAO, JDBCConfig {
         return pokojnici;
     }
 
+    @Override
+    public List<Pokojnik> fullSearch(Map<String, Object> params, SearchEntity entity,
+                                             Integer page, List<SearchEntity> orderedEntities) {
 
+        PokojnikMapper pokojnikMapper = new PokojnikMapper();
+
+        List<Pokojnik> pokojnici = search.fullSearchList(params, entity, page, DAO.pageSize, pokojnikMapper, orderedEntities);
+
+        return pokojnici;
+    }
+
+    @Override
+    public Integer fullSearchCount(Map<String, Object> params, SearchEntity entity, List<SearchEntity> orderedEntities) {
+        return search.fullSearchListCount(params, entity, orderedEntities);
+    }
 
     /**
      * Pokojnici dynamic search

@@ -1,28 +1,29 @@
 package it.geosolutions.mapstore.dao.rasvjeta;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
 import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
+import it.geosolutions.mapstore.utils.search.SearchUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
-public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
+public class RasvjetaDAOImpl implements RasvjetaDAO {
+    @Autowired
+    private SearchUtils<Rasvjeta> searchUtils;
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
 
     public RasvjetaDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
-
-    @Override
-    public void setDataSource(DataSource ds) {
-        this.jdbcTemplateObject = new JdbcTemplate(ds);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
 
         try {
 
-            oRasvjeta = Optional.ofNullable((Rasvjeta)jdbcTemplateObject.queryForObject(sql, params, mapper));
+            oRasvjeta = Optional.ofNullable(jdbcTemplateObject.queryForObject(sql, params, mapper));
 
         } catch (EmptyResultDataAccessException e) {
 
@@ -115,7 +116,7 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
         Optional<Rasvjeta> rasvjeta;
 
         try {
-             rasvjeta = Optional.ofNullable((Rasvjeta) jdbcTemplateObject.queryForObject(sql, new Object[]{id}, rasvjetaMapper));
+             rasvjeta = Optional.ofNullable(jdbcTemplateObject.queryForObject(sql, new Object[]{id}, rasvjetaMapper));
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
             rasvjeta = Optional.empty();
@@ -140,4 +141,21 @@ public class RasvjetaDAOImpl implements RasvjetaDAO, JDBCConfig {
         return count;
     }
 
+    @Override
+    public List<Rasvjeta> fullSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities) {
+
+        RasvjetaMapper rasvjetaMapper = new RasvjetaMapper();
+
+        List<Rasvjeta> rasvjeta = searchUtils.fullSearchList(params, entity, page, DAO.pageSize, rasvjetaMapper, orderedEntities);
+
+        return rasvjeta;
+    }
+
+    @Override
+    public Integer fullSearchCount(Map<String, Object> params, SearchEntity entity, List<SearchEntity> orderedEntities) {
+
+        Integer count = searchUtils.fullSearchListCount(params, entity, orderedEntities);
+
+        return count;
+    }
 }

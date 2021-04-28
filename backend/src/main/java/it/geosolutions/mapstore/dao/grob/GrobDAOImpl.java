@@ -1,9 +1,11 @@
 package it.geosolutions.mapstore.dao.grob;
 
-import it.geosolutions.mapstore.config.JDBCConfig;
+import it.geosolutions.mapstore.config.jdbc.JdbcConfig;
 import it.geosolutions.mapstore.dao.DAO;
 import it.geosolutions.mapstore.model.grob.Grob;
 import org.postgis.PGgeometry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,16 +19,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class GrobDAOImpl implements GrobDAO, JDBCConfig {
+public class GrobDAOImpl implements GrobDAO {
+    @Autowired
+    @Qualifier("jdbcTemplateObjectFactory")
     private JdbcTemplate jdbcTemplateObject;
 
     public GrobDAOImpl() {
-        this.jdbcTemplateObject = new JdbcTemplate(JDBCConfig.postgresqlDataSource());
-    }
-
-    @Override
-    public void setDataSource(DataSource ds) {
-        this.jdbcTemplateObject = new JdbcTemplate(ds);
     }
 
     @Override

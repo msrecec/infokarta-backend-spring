@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Validates different MIME types
+ *
+ */
+
 public interface MIMETypeUtil {
       List<String> imgTypes = Arrays.asList(
           "jpg",

@@ -1,11 +1,13 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
-import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
+import it.geosolutions.mapstore.dto.EntityListDTO;
+import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
 import it.geosolutions.mapstore.service.rasvjeta.RasvjetaService;
+import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -21,24 +26,51 @@ public class RasvjetaController {
     @Autowired
     private RasvjetaService rasvjetaService;
 
+    /**
+     * Gets all Rasvjeta data
+     *
+     * @param request
+     * @param response
+     * @param page
+     * @throws IOException
+     */
+
     @RequestMapping(value = "/rasvjeta", method = RequestMethod.GET)
     public void getRasvjeta(
         HttpServletRequest request,
         HttpServletResponse response,
-        @RequestParam(value = "page", required = false) Integer page
+        @RequestParam(value = "materijal", required = false) String materijal,
+        @RequestParam(value = "stanje", required = false) String stanje,
+        @RequestParam(value = "page", required = false) Integer page,
+        @RequestParam(value = "geom", required = false) Boolean geom
     ) throws IOException {
+        EntityListDTO rasvjetaListDTO;
 
-        RasvjetaListDTO rasvjetaListDTO;
+        if(materijal != null || stanje != null) {
 
-        Optional<Integer> oPage = Optional.ofNullable(page);
+            Map<String, Object> params = new HashMap<String, Object>();
 
-        if(oPage.isPresent()) {
+            if(materijal != null) {
+                params.put("varchar:\"rasvjeta\".\"Materijal\":ilike", EncodingUtils.decodeISO88591(materijal).trim());
+            }
 
-            rasvjetaListDTO = rasvjetaService.findPaginated(oPage.get());
+            if(stanje != null) {
+                params.put("varchar:\"rasvjeta\".\"Stanje\":ilike", EncodingUtils.decodeISO88591(stanje).trim());
+            }
+
+            rasvjetaListDTO = rasvjetaService.fullSearch(params, new SearchEntity("\"rasvjeta\"", "\"fid\"", "\"fk\""), page != null ? page : -1, new ArrayList<>(),geom != null);
 
         } else {
 
-            rasvjetaListDTO = rasvjetaService.findAll();
+            if (page != null) {
+
+                rasvjetaListDTO = rasvjetaService.findPaginated(page, geom != null);
+
+            } else {
+
+                rasvjetaListDTO = rasvjetaService.findAll(geom != null);
+
+            }
 
         }
 
@@ -50,10 +82,11 @@ public class RasvjetaController {
     public void getRasvjetaByIdHist(
         HttpServletRequest request,
         HttpServletResponse response,
-        @PathVariable("idHist") Integer idHist
+        @PathVariable("idHist") Integer idHist,
+        @RequestParam(value = "geom", required = false) Boolean geom
     ) throws IOException {
 
-        Optional<Rasvjeta> oRasvjeta = rasvjetaService.findById(idHist);
+        Optional<RasvjetaDTO> oRasvjeta = rasvjetaService.findById(idHist, geom != null);
 
         String json = "{}";
 
@@ -80,6 +113,7 @@ public class RasvjetaController {
     public void updateRasvjeta(
         HttpServletRequest request,
         HttpServletResponse response,
+        @RequestParam(value = "geom", required = false) Boolean geom,
         @RequestBody String json
     ) throws IOException {
 
@@ -87,7 +121,7 @@ public class RasvjetaController {
 
         RasvjetaPutCommand command = JSONUtils.fromJSONtoPOJO(json, RasvjetaPutCommand.class);
 
-        Optional<Rasvjeta> rasvjeta = rasvjetaService.update(command);
+        Optional<RasvjetaDTO> rasvjeta = rasvjetaService.update(command, geom != null);
 
         if(rasvjeta.isPresent()) {
 

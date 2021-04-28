@@ -1,14 +1,17 @@
 package it.geosolutions.mapstore.service.rasvjeta;
 
 import it.geosolutions.mapstore.dao.rasvjeta.RasvjetaDAO;
+import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaDTO;
-import it.geosolutions.mapstore.dto.rasvjeta.RasvjetaListDTO;
 import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.model.rasvjeta.RasvjetaPutCommand;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -16,61 +19,62 @@ public class RasvjetaServiceImpl implements RasvjetaService {
     @Autowired
     private RasvjetaDAO rasvjetaDAO;
 
+    /**
+     * Finds entity model and maps it to DTO and returns it to application layer (Controller)
+     *
+     * @param id
+     * @return RasvjetaDTO
+     */
+
     @Override
-    public Optional<Rasvjeta> findById(Integer id) {
-        return rasvjetaDAO.findById(id);
+    public Optional<RasvjetaDTO> findById(Integer id, Boolean geom) {
+
+        Optional<Rasvjeta> rasvjeta = rasvjetaDAO.findById(id);
+        Optional<RasvjetaDTO> rasvjetaDTO;
+
+        if(rasvjeta.isPresent()) {
+            rasvjetaDTO = Optional.of(mapRasvjetaToRasvjetaDTO(rasvjeta.get(), geom));
+        } else {
+            rasvjetaDTO = Optional.empty();
+        }
+
+        return rasvjetaDTO;
     }
 
     @Override
-    public RasvjetaListDTO findAll() {
+    public EntityListDTO findAll(Boolean geom) {
         List<Rasvjeta> rasvjeta = rasvjetaDAO.findAll();
         Integer count = rasvjetaDAO.findCount();
-        return mapRasvjetaToRasvjetaListDTO(rasvjeta, count);
+        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
+        return new EntityListDTO(rasvjetaDTOList, count);
     }
 
     @Override
-    public RasvjetaListDTO findPaginated(Integer page) {
+    public EntityListDTO findPaginated(Integer page, Boolean geom) {
         List<Rasvjeta> rasvjeta = rasvjetaDAO.findPaginated(page);
         Integer count = rasvjetaDAO.findCount();
-        return mapRasvjetaToRasvjetaListDTO(rasvjeta, count);
+        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
+        return new EntityListDTO(rasvjetaDTOList, count);
     }
 
     @Override
-    public Optional<Rasvjeta> update(RasvjetaPutCommand rasvjetaCommand) {
-        return rasvjetaDAO.update(mapPutCommandToRasvjeta(rasvjetaCommand));
+    public Optional<RasvjetaDTO> update(RasvjetaPutCommand rasvjetaCommand, Boolean geom) {
+
+        Rasvjeta rasvjeta = rasvjetaDAO.update(mapPutCommandToRasvjeta(rasvjetaCommand)).get();
+
+        if(rasvjeta == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(mapRasvjetaToRasvjetaDTO(rasvjeta, geom));
     }
 
-    private Rasvjeta mapPutCommandToRasvjeta(RasvjetaPutCommand command) {
-
-        return new Rasvjeta
-            .Builder(command.getIdHist())
-            .materijal(command.getMaterijal())
-            .stanje(command.getStanje())
-            .source(command.getSource())
-            .mjernoMjesto(command.getMjernoMjesto())
-            .vod(command.getVod())
-            .kategorija(command.getKategorija())
-            .vrstaRasvjetnogMjesta(command.getVrstaRasvjetnogMjesta())
-            .razdjelnik(command.getRazdjelnik())
-            .trosilo(command.getTrosilo())
-            .vrstaSvjetiljke(command.getVrstaSvjetiljke())
-            .brojSvjetiljki(command.getBrojSvjetiljki())
-            .grlo(command.getGrlo())
-            .vrstaStakla(command.getVrstaStakla())
-            .polozajKabela(command.getPolozajKabela())
-            .godinaIzgradnje(command.getGodinaIzgradnje())
-            .oznakaUgovora(command.getOznakaUgovora())
-            .fid(command.getFid())
-            .timeStart(command.getTimeStart())
-            .timeEnd(command.getTimeEnd())
-            .userRole(command.getUserRole())
-            .build();
-    }
-
-    private RasvjetaListDTO mapRasvjetaToRasvjetaListDTO(List<Rasvjeta> rasvjeta, Integer count) {
-
-        return new RasvjetaListDTO(rasvjeta, count);
-
+    @Override
+    public EntityListDTO fullSearch(Map<String, Object> params, SearchEntity entity, Integer page, List<SearchEntity> orderedEntities, Boolean geom) {
+        List<Rasvjeta> rasvjeta = rasvjetaDAO.fullSearch(params, entity, page, orderedEntities);
+        Integer count = rasvjetaDAO.fullSearchCount(params, entity, orderedEntities);
+        List<RasvjetaDTO> rasvjetaDTOList = mapRasvjetaListToRasvjetaDTOList(rasvjeta, geom);
+        return new EntityListDTO(rasvjetaDTOList, count);
     }
 
 }

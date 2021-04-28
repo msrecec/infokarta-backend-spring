@@ -1,18 +1,26 @@
 package it.geosolutions.mapstore.dao.pokojnik;
 
 import it.geosolutions.mapstore.dao.DAO;
+import it.geosolutions.mapstore.dto.pokojnik.PokojnikDTO;
 import it.geosolutions.mapstore.model.pokojnik.Pokojnik;
+import it.geosolutions.mapstore.utils.search.SearchEntity;
+import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PokojniciDAO extends DAO<Pokojnik> {
 
-    public void setDataSource(DataSource ds);
-
     public String listPokojnici();
+
+    List<Pokojnik> fullSearch(Map<String, Object> params, SearchEntity entity,
+                                      Integer page, List<SearchEntity> orderedEntities);
+
+    Integer fullSearchCount(Map<String, Object> params, SearchEntity entity,
+                                  List<SearchEntity> orderedEntities);
 
     public Pokojnik getPokojnikById(Optional<Integer> id);
 

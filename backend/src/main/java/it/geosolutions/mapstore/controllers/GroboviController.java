@@ -1,17 +1,11 @@
 package it.geosolutions.mapstore.controllers;
 
-import it.geosolutions.mapstore.dao.grob.GrobDAOImpl;
-import it.geosolutions.mapstore.dao.grob.GrobDAO;
 import it.geosolutions.mapstore.dto.EntityListDTO;
 import it.geosolutions.mapstore.dto.grobovi.GrobDTO;
-import it.geosolutions.mapstore.dto.grobovi.GrobDTOWithoutGeom;
-import it.geosolutions.mapstore.model.grob.Grob;
-import it.geosolutions.mapstore.model.rasvjeta.Rasvjeta;
 import it.geosolutions.mapstore.service.grob.GrobServiceImpl;
 import it.geosolutions.mapstore.utils.EncodingUtils;
 import it.geosolutions.mapstore.utils.JSONUtils;
 import it.geosolutions.mapstore.utils.HeaderUtils;
-import org.postgis.PGgeometry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -80,7 +73,7 @@ public class GroboviController {
 
         } else {
 
-            Optional<GrobDTOWithoutGeom> grob = grobService.findByIdWithoutGeom(fid);
+            Optional<GrobDTO> grob = grobService.findByIdWithoutGeom(fid);
 
             if(grob.isPresent()) {
 
